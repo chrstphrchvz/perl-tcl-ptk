@@ -1,0 +1,35 @@
+# slide.pl
+
+
+use Tcl::Tk (qw/ :perlTk/);
+use Tcl::Tk::Widget::LabEntry;
+use Test;
+use strict;
+
+plan tests => 1;
+
+
+
+my $top = MainWindow->new();
+
+my $entry = "data here";
+
+my $LabEntry = $top->LabEntry(
+    -textvariable => \$entry,
+    -label => 'Bogus',
+    -labelPack => [-side => 'left']);
+
+$LabEntry->pack(-side => 'top', -pady => 2, -anchor => 'w', -fill => 'x', -expand => 1);
+
+
+# Update text by updating variable
+$top->after(1000, sub{ $entry = "More Data Here"});
+
+$top->after(2000,sub{$top->destroy});
+
+MainLoop;
+
+
+ok(1, 1, "LabEntry Widget Creation");
+
+
