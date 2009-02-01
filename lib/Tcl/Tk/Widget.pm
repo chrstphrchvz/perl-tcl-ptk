@@ -2534,7 +2534,7 @@ sub AUTOLOAD {
                     no strict 'refs';
                     no warnings; # Turn off warnings, to avoid redefined warning messages
                     my $containerSub = sub{ return $baseWidget };
-                    my $containerSubName = $package."::containerName";
+                    my $containerSubName = $package."containerName";
                     *{"$containerSubName"} = $containerSub;
                     #print "Creating sub $containerSubName\n";
                     # Name the anonymous sub, if in debug mode

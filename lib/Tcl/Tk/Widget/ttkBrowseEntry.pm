@@ -1,27 +1,24 @@
 =head1 NAME 
 
-Tcl::Tk::Widget::ttkBrowseEntry - Widget to Display Pulse Timing Diagrams based on Instrument Settings
+Tcl::Tk::Widget::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobox
 
 =head1 SYNOPSIS
 
- use Tk;
- use Tk::InstTimingDisplay;
+ use Tcl::Tk qw/ :perlTk/;
+ use Tcl::Tk::Widget::ttkBrowseEntry;
 
- my $top = MainWindow->new(-title => 'Timing Diagram');
-   
- # Create a diagram
- my $diagram = $top->InstTimingDisplay(
-                  -mappingText => $mappingText,  # Text of the instrument setting mapping tables
-                  -pulseOrder  => $pulseOrder,   # Order to display the pulses
-               )->pack(-fill => 'both', -expand => 'y');
- 
+ $b = $frame->ttkBrowseEntry(-label => "Label", -variable => \$var, 
+          -labelPack => [-side => 'left']);
+ $b->insert("end", "opt1");
+ $b->insert("end", "opt2");
+ $b->insert("end", "opt3");
+  ...
+ $b->pack;
 
 =head1 DESCRIPTION
 
-This is a Tk widget (Subclass of L<Tk::TimingDisplay>) for displaying simple Pulse Timing Diagrams from instrument settings. 
-It is very similar to L<Tk::TimingDisplay>, but instead of directly specifying pulse parameters, a mapping
-table is supplied that tells the widget which instrument settings names should be translated to pulse parameters. This
-results in a live timing diagram that updates when any instrument pulse setting parameters are updated.
+L<Tcl::Tk::Widget::ttkBrowseEntry> is a wrapper around the Tile widget I<ttkCombobox> that is compatible with L<Tcl::Tk::Widget::BrowseEntry>.
+It is provided for a quick upgrade of existing code to use the newer Combobox widget.
 
 =head1 OPTIONS
 
@@ -29,82 +26,113 @@ In addition to the options of the parent widget, this widget recognizes the foll
 
 =over 1
 
-=item mappingText
+=item B<-label>
 
-Text for the mapping tables. See the docs for the I<readTxtMappingTable> for an example of the format.
-        
+Optional name of a label to include for the browseEntry.
 
-=back 
+=item B<-labelPack>
 
-=head1 ATTRIBUTES
+Optional Array-ref of information used to pack the optional label.
 
-=over 1
+=item B<-autolimitheight>
 
-=item inputMapping
+This option is provided for compatibility with BrowseEntry, but is ignored.
 
-Hash ref of input mapping structure. This is of the form
- 
- { InstrumentName => { Setting =>  VariableName} }
+=item B<-arrowimage>
 
-This specifies which instrument and setting this object listens to, and what variable that this setting gets
-translated to in the mapping process.
-        
-Here is an example of the structure, where the widget is setup to listen to the C<TxMod> and C<TX> instrument
-settings. C<ActiveLevel> settings from C<TxMod> result in the variable name C<$TxMod_ActiveLevel> (in a private
-namespace) being set.
+This option is provided for compatibility with BrowseEntry, but is ignored.
 
- {
-    'TxMod' => 
-        {'ActiveLevel' => 'TxMod_ActiveLevel',
-         'Delay'       => 'TxMod_Delay' ,
-         'Width'       => 'TxMod_Width',
-        },
-    'TX'    => 
-         {'ActiveLevel' => 'TX_ActiveLevel',
-         'Delay'       => 'TX_Delay' ,
-         'Width'       => 'TX_Width',
-        },
- }
+=item B<-autolimitheight>
 
-=item outputMapping
+This option is provided for compatibility with BrowseEntry, but is ignored.
 
-Hash ref of output mapping structure. This is of the form
- 
- { PulseName => { PulseSetting =>  EqnCode } }
+=item B<-autolistwidth>
 
-This specifies some equation code to execute for each pulse and pulseSetting in the timing display.
-The equation code is executed in a private namespace where the variable-names from the inputMapping are defined.
-        
-Here is an example of the structure, where the pulses I<TxModpulse> and I<TXpulse> are defined (I<_None> is reserved
-for overall pulse parameters, like I<TotalPeriod>.) 
+This option is provided for compatibility with BrowseEntry, but is ignored. (The Combobox
+widget always sets its listwidth the same as the width of the entry)
 
- {
-    'TxModpulse' => 
-        {'ActiveLevel' => '$TxMod_ActiveLevel',
-         'Delay'       => '$TxMod_Delay' ,
-         'Width'       => '$TxMod_Width',
-        },
-    'TXpulse'    =>
-        {'ActiveLevel' => '$Tx_ActiveLevel',
-         'Delay'       => '$Tx_Delay' ,
-         'Width'       => '$Tx_Width',
-        },
-    '_None'          =>
-        { 'TotalPeriod'  => '1/$PRF*1000 unless(!$PRF)' }
- }
- 
-=item outputMappingSubs
+=item B<-browsecmd>
 
-Hash ref of output mapping, with the code-snippets of C<outputMapping> turned into sub-refs. This is done
-when the object is created so that these sub-refs can just be executed in the I<statusChanged> method, rather
-than I<eval>-ing the code snippets for each call of I<statusChanged>, which would be slow. 
+Specifies a function to call when a selection is made in the
+popped up listbox. It is passed the widget and the text of the
+entry selected. This function is called after the entry variable
+has been assigned the value.
 
-=item sandBoxPackage
+=item B<-browse2cmd>
 
-Name of the private namepace (i.e. "sandbox" package name) that the mapping variables and code are created
-in.
+Like C<-browsecmd>, but the callback is called with the listbox index
+instead of the selected value.
+
+=item B<-buttontakefocus>
+
+Set the C<-takefocus> option of the button subwidget. This option is mapped to the C<-takefocus>
+option of the comboBox widget.
+
+=item B<-choices>
+
+Specifies the list of choices to pop up.  This is a reference to an
+array of strings specifying the choices.
+
+=item B<-colorstate>
+
+This option is provided for compatibility with BrowseEntry, but is ignored.
+
+=item B<-listcmd>
+
+Specifies the function to call when the button next to the entry
+is pressed to popup the choices in the listbox. This is called before
+popping up the listbox, so can be used to populate the entries in
+the listbox.
+
+=item B<-listheight>
+
+Set the height of the listbox. This option is mapped to the C<-height> option
+of the Combobox.
+
+=item B<-listwidth>
+
+This option is provided for compatibility with BrowseEntry, but is ignored. (The Combobox
+widget always sets its listwidth the same as the width of the entry)
+
+=item B<-state>
+
+Specifies one of three states for the widget: normal, readonly, or
+disabled.
+
+=item B<-style>
+
+This option is provided for compatibility with BrowseEntry, but is ignored.
+
+=item B<-variable>
+
+Specifies the variable in which the entered value is to be stored.
 
 =back
+
+=head1 METHODS
+
+=over 4
+
+=item B<insert(>I<index>, I<string>B<)>
+
+Inserts the text of I<string> at the specified I<index>. This string
+then becomes available as one of the choices.
+
+=item B<delete(>I<index1>, I<index2>B<)>
+
+Deletes items from I<index1> to I<index2>.
+
+=item B<get(>I<index1>, I<index2>B<)>
+
+gets items from I<index1> to I<index2>. This is there for compatibility with BrowseEntry.
+ 
+=item B<choiceget>
+
+Get the current selected choice. This directly maps to the I<get> method of the combobox
+
+        
+=back
+
 
 =cut
 
@@ -114,69 +142,70 @@ use Tcl::Tk qw(Ev);
 use Carp;
 use strict;
 
-# Set ISA of superclass widget, to avoid warnings
-@Tcl::Tk::Widget::ttkCombobox::ISA = ( qw/ Tcl::Tk::Widget/);
 
-# Set Inheritance
-@Tcl::Tk::Widget::ttkBrowseEntry::ISA = ( qw/ Tcl::Tk::Derived Tcl::Tk::Widget::ttkCombobox/);
+use base qw(Tcl::Tk::Widget::Frame);
 Construct Tcl::Tk::Widget 'ttkBrowseEntry';
 
 sub Populate {
     my ($cw, $args) = @_;
      
-    $cw->SUPER::Populate($args);
-    
+    # combobox widget
+    my $lpack = delete $args->{-labelPack};
+    if (not defined $lpack) {
+	$lpack = [-side => 'left', -anchor => 'e'];
+    }
 
+    $cw->SUPER::Populate($args);
+
+
+    my $label;
+    if (exists $args->{-label}) {
+	$label = $cw->ttkLabel(
+			   -text => delete $args->{-label},
+			  );
+        $cw->Advertise('label' => $label );
+        $label->pack(@$lpack);
+    }
+    
+    
+    my $cb = $cw->ttkCombobox();
+    $cb->pack( -side => 'right', -fill => 'x', -expand => 1); 
+    $cw->Advertise('combobox' => $cb);
+
+    $cw->Delegates(DEFAULT => $cb); # methods are handled by the combobox
     $cw->ConfigSpecs( 
-		      DEFAULT => [ 'SELF' ],  # Default options go to ttkCombobox
+		      DEFAULT => [ 'combobox' ],  # Default options go to ttkCombobox
                       -arrowimage      => ['PASSIVE', 'arrowimage', 'arrowimage', undef], # ignored for compatibility with BrowseEntry
                       -autolimitheight => ['PASSIVE', 'autolimitheight', 'autolimitheight', undef], # ignored for compatibility with BrowseEntry
                       -autolistwidth  => ['PASSIVE', 'autolimitwidth', 'autolimitwidth', undef],    # ignored for compatibility with BrowseEntry
                       -browsecmd       => ['CALLBACK', 'browsecmd',  'browsecmd',  undef], 
                       -browse2cmd      => ['CALLBACK', 'browse2cmd', 'browse2cmd', undef], 
-                      -buttontakefocus => -takefocus, 
-                      -choices         => '-values',
-		      -choices      =>    [ qw/METHOD choices     choices/, undef ],
+                      -buttontakefocus => [ {-takefocus => $cb}, qw/takefocus takefocus/, undef],
+                      -choices         => [ {-values => $cb}, qw/choices choices/, undef],
                       -colorstate      => ['PASSIVE', 'colorstate', 'colorstate', undef], # ignored for compatibility with BrowseEntry
-                      -listcmd         => -postcommand, 
-                      -listheight      => -height, 
+                      -listcmd         => ['CALLBACK', 'listcmd',  'listcmd',  undef], 
+                      -listheight      => [ {-height => $cb}, qw/listheight listheight/, undef],
                       -listwidth       => ['PASSIVE', 'listwidth', 'listwidth', undef], # ignored for compatibility with BrowseEntry 
                                                                                         # (combobox listbox is always the same as -width, 
                                                                                         #   so not needed)
-                      -variable        => -textvariable
+                      -variable        => [ {-textvariable => $cb}, qw/textvariable textvariable/, undef],
+                      
+                      -command     => '-browsecmd',
+                      -options     => '-choices',
+                      -label       => [qw/PASSIVE  label       Label/,       undef],
+                      -labelPack   => [qw/PASSIVE  labelPack   LabelPack/,   undef],
                       
     );
     
     # Create callback to emulate -browsecmd and -browsecmd2 options
     $cw->bind('<<ComboboxSelected>>', [$cw, '_ComboboxSelected']);
 
+    # Create callback to emulate -listcmd options
+    $cw->configure(-postcommand => [$cw, '_postcommandCallback']);
     
       
 }
 
-###########################################################################
-
-#----------------------------------------------
-# Sub called when -choices option changed
-#
-#  This just translates the -choices call to -values on the host ttk widget, but if
-#   -autosetwidth is set, then we also change the width, if needed
-#
-sub choices{
-	my ($cw, $choices) = @_;
-
-
-	if(! defined($choices)){ # Handle case where $widget->cget(-choices) is called
-
-		return $cw->call($cw, 'cget', '-values'); # Call tile object directly
-		
-	}
-	
-        return if ( !defined($choices) || (ref($choices) ne 'ARRAY')) ; # don't do anything if not defined
-
-                
-        $cw->call($cw, 'configure', '-values', $choices);
-}
 
 
 #########################################################################
@@ -184,7 +213,6 @@ sub choices{
 #   stored
 #
 #
-
 sub _ComboboxSelected{
         my $self = shift;
         my $path = shift;
@@ -193,12 +221,28 @@ sub _ComboboxSelected{
         my $browsecmd = $self->cget(-browsecmd);
         my $browsecmd2 = $self->cget(-browse2cmd);
         if( defined($browsecmd) && $browsecmd->isa('Tcl::Tk::Callback')){
-                my $sel = $self->get(); # Get current selection
+                my $sel = $self->choiceget(); # Get current selection
                 $browsecmd->BindCall($self, $sel);
         }
         elsif( defined($browsecmd2) && $browsecmd2->isa('Tcl::Tk::Callback')){
                 my $index = $self->current(); # Get current index
                 $browsecmd2->BindCall($self, $index);
+        }
+       
+}
+
+#########################################################################
+# Sub called when selection box pops up. This fires off any listcmd callbacks that have been
+#   stored
+#
+#
+sub _postcommandCallback{
+        my $self = shift;
+        
+        # Check for listcmd callbacks being set
+        my $listcmd = $self->cget(-listcmd);
+        if( defined($listcmd) && $listcmd->isa('Tcl::Tk::Callback')){
+                $listcmd->BindCall($self);
         }
        
 }
@@ -210,13 +254,15 @@ sub insert {
     my $w = shift;
     my $index = shift;
     my @insertValues = @_;
-    my @choices = $w->cget('-values');
-    $index = $#choices if( $index eq 'end' ); # get the last index if insert is 'end';
+    my @choices = $w->cget('-choices');
     
+    $index = 0 unless(@choices); # If choices is empty, insert starting at the beginning
+    
+    $index = $#choices if( $index eq 'end' ); # get the last index if insert is 'end';
     # Add insertvalues to choices and update widget
     splice @choices, $index, 0, @insertValues;
     
-    $w->configure('-values' => \@choices);
+    $w->configure('-choices' => \@choices);
     
 }
 
@@ -225,7 +271,7 @@ sub insert {
 sub delete {
     my $w = shift;
     my ($start, $stop) = @_;
-    my @choices = $w->cget('-values'); 
+    my @choices = $w->cget('-choices'); 
     
     $stop = $start if( !defined($start)); # Take care of case where $stop not supplied
     
@@ -239,9 +285,36 @@ sub delete {
     # Update Choices
     splice @choices, $start, $count;
     
-    $w->configure('-values' => \@choices);
+    $w->configure('-choices' => \@choices);
 
 }
 
+# Wrapper for the get method. For compatibility with BrowseEntry, get works on the choices, and not just
+#  what is in the entry widget
+sub get {
+    my $w = shift;
+    my ($start, $stop) = @_;
+    my @choices = $w->cget('-choices'); 
+    
+    $stop = $start if( !defined($start)); # Take care of case where $stop not supplied
+    
+    # Change any 'end' in the indexes to actual number
+    foreach my $entry($start, $stop){
+            $entry = $#choices if($entry eq 'end');
+    }
+    
+    my $count = $stop - $start + 1;
+    
+    return @choices[$start..$stop];
+
+}
+
+# Wrapper for choiceget. This calls 'get' on the combobox subwidget, which just gets the
+# currently selected value
+sub choiceget{
+        my $w = shift;
+        my $sb = $w->Subwidget('combobox');
+        $sb->get(@_);
+}
 
 1;

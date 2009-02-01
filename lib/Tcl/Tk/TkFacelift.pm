@@ -1,4 +1,6 @@
 use Tcl::Tk;
+use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::Tk::Widget::ttkBrowseEntry;
 
 package Tcl::Tk::TkFacelift;
 
@@ -91,6 +93,7 @@ package Tcl::Tk::Widget::RadiobuttonttkSubs;
 
 
 Construct Tcl::Tk::Widget 'Radiobutton';
+
 
 
 sub Populate {
@@ -534,4 +537,54 @@ sub Tcl::Tk::Label{
 
 ############################################################
 
+############# Substitution Package for oldwidget "BrowseEntry" to tile widget "ttkBrowseEntry" ####################
+
+package Tcl::Tk::Widget::BrowseEntryttkSubs;
+
+
+@Tcl::Tk::Widget::BrowseEntryttkSubs::ISA = (qw / Tcl::Tk::Derived Tcl::Tk::Widget::ttkBrowseEntry/);
+
+
+Construct Tcl::Tk::Widget 'BrowseEntry';
+
+# If we are being used in conjunction with TkHijack, we don't need a mapping for Tk::BrowseEntry
+if( defined $Tcl::Tk::TkHijack::translateList){
+        print STDERR "undoing translatelist\n";
+        $Tcl::Tk::TkHijack::translateList->{'Tk/BrowseEntry.pm'}    =  '';
+}
+
+
+sub Populate {
+    my( $cw, $args ) = @_;
+
+    $cw->SUPER::Populate( $args );
+
+    # Create LabEntry subwidget (won't be visible/packed)
+    my $be = $cw->LabEntry();
+    $cw->Advertise('entry' => $be);
+    
+    my %ignoreConfigSpecs = ();
+    $cw->ConfigSpecs(
+        %ignoreConfigSpecs,
+        'DEFAULT' => ['combobox']
+    );
+
+
+
+}
+
+
+
+
+# Wrapper sub so mega-widgets still work with the facelift
+sub Tcl::Tk::BrowseEntry{
+        my $self = shift;
+        my $obj = $self->Tcl::Tk::ttkBrowseEntry(@_);
+        bless $obj, "Tcl::Tk::Widget::BrowseEntryttkSubs";
+        return $obj;
+}
+
+
+
+1;
 
