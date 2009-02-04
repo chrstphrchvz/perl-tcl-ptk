@@ -1172,6 +1172,8 @@ sub create_ptk_widget_sub {
 
         my $w    = w_uniq($self, $wpref); # create uniq pref's widget id
 	my $wid  = $int->declare_widget($int->invoke($ttktype,$w,@_), "Tcl::Tk::Widget::$wtype");
+        $wid->SetBindtags; # set perl/tk compatible bindtags on the widget
+
 	return $wid;
     } : sub {
 	my $self = shift; # this will be a parent widget for newer widget

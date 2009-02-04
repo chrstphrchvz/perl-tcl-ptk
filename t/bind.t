@@ -4,7 +4,7 @@
 use Tcl::Tk qw/:perlTk/;
 use Test;
 
-plan tests => 14;
+plan tests => 15;
 
 $| = 1;
 
@@ -24,6 +24,11 @@ my $b2 = $TOP->Button( -text    => 'Button2',
                       -command => sub { $button2Pressed = 1; },
 );
 $b2->pack(qw/-side top -expand yes -pady 2/);
+
+# Check a button created with the fast option (i.e. the underscore)
+my $b3 = $TOP->_Button( -text    => 'Button3',
+                      -width   => 10,
+                      );
 
 my ($mouseX, $mouseY); # x/y coords for the following binding
 $TOP->bind(
@@ -113,6 +118,10 @@ ok( join(", ", @bindings), '<Shift-Button-3>', "button1 bind return with ".ref($
 
 ok( join(", ", $b2->bindtags), 'Tcl::Tk::Widget::Button, Button, .btn03, ., all', "button2 bindtags");
 
+# widget created with the _Button call should have correct perl/tk-compatible bindtags
+ok( join(", ", $b3->bindtags), 'Tcl::Tk::Widget::Button, Button, .btn04, ., all', "button2 bindtags");
+
+#print "b3 bindings = ".join(", ", $b3->bindtags())."\n";
 my $classBinding = $b2->bind(ref($b2), '<Shift-3>');
 ok( ref($classBinding), 'Tcl::Tk::Callback', ref($b2)." Class Binding Returns Callback Object");
 #print ref($b2)." Class Binding = $classBinding\n";

@@ -802,32 +802,6 @@ sub declare_widget {
     $Wint->{$id}  = $int; # Tcl interpreter
     $W{RPATH}->{$path} = $w;
     
-    # Create a bindtag for the widget class name on this widget. 
-    #  Also change the order of bind tags to make the tcl/tk class come before the widget tag.
-    #    e.g. For an Entry widget, the tag order would be Tcl::Tk::Widget::Entry, Entry, .ent02, ., all
-    #
-    #  This is consistent with the perl/tk docs (see Tk::bind man page, Multiple Matches section), 
-    #  but is different from the tcl/tk docs (see bind man page).
-    # 
-    #  These changes will
-    #  make the bind method work propertly (i.e. compatible with perltk) for class bindings.
-    #    (e.g. $widget->bind('Tcl::Tk::Widget::Button', <2>, sub{ print "button 2 binding\n"})  )
-    #  Also will keep help with compatibility with existing perl/tk megawidgets.
-    #
-    #   This is not needed for Tcl::Tk::Widget objects (e.g. from $widget->after( sub{ ... } ) calls)
-    if( $widget_class ne 'Tcl::Tk::Widget'){ 
-            my @tags;
-            eval{ # This will fail if the path doesn't exist. If it does fail, then skip the bindtags
-                    @tags = $int->invoke('bindtags', $path);
-            };
-            unless( $@){
-                    my $tclClass = $int->invoke('winfo', 'class', $path); # Get the tcl class
-                    my @notClass = grep $_ ne $tclClass, @tags;           # Everything but the tcl class
-                    
-                    # New order is widget_class, tclClass, and everything else
-                    $int->invoke('bindtags', $path, [$widget_class, $tclClass, @notClass]);
-            }
-    }
     
     return $w;
 }
