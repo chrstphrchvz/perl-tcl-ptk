@@ -207,11 +207,23 @@ sub SetBindtags
  #  for the tcl class name of our container widget
  #   This is necessary because we can't support the -class option when
  #    the container widget was created, like perltk does.
- my $int = $obj->interp;
- my $path = $obj->path;
+ 
+ # Note that normal widget calls are inlined here for speed
+ # my $path = $obj->path;   # Normal widget call
+ my $path = $obj->{winID};  # Inlined ->path call
+ 
+ # my $int = $obj->interp;            # Normal widget call
+ my $int = $Tcl::Tk::Wint->{ $path }; # Inlined ->interp call
+ 
  my $tclClass = $int->invoke('winfo', 'class', $path); # Get the tcl class
+ 
+ # Inlined toplevel call
+ my $toplevel = $int->invoke('winfo', 'toplevel', $path);
 
- $obj->bindtags([ref($obj),$tclClass, $obj,$obj->toplevel,'all']);
+ # $obj->bindtags([ref($obj),$tclClass, $obj,$obj->toplevel,'all']);  # Normal bindtags call
+ ## Inlined bindtags call
+ $int->invoke('bindtags', $path, [ref($obj),$tclClass, $path, $toplevel, 'all']);
+ 
 }
 
 #################### Methods Originally in Tk ##########################

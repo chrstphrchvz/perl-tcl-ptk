@@ -657,6 +657,10 @@ sub MainWindow {
             Tcl::Tk::Tile::_declareTileWidgets($interp);
     }
     
+    # Load palette commands, so $interp->invoke can be used with them later, for speed.
+    $interp->call('auto_load', 'tk_setPalette');
+
+    
     # Declare auto-widgets, so subclasses of auto-created widgets will work correctly.
     Tcl::Tk::Widget::declareAutoWidget($interp);
     

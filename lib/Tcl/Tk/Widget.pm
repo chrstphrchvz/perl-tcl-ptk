@@ -83,7 +83,7 @@ my %ptk2tcltk =
      TixTree        => ['tixTree', 'tree', 'Tix'],
      TList       => ['tixTList', 'tlist', 'Tix'],
      NoteBook    => ['tixNoteBook', 'nb', 'Tix'],
-     ScrollableFrame    => ['ScrollableFrame', 'sframe', 'BWidget'],
+     ScrollableFrame    => ['ScrollableFrame', 'sframe', 'BWidget', 'auto_load ScrollableFrame'],
      );
 
 # Default ISAs for autoloaded widgets. If not defined in files anywhere else,
@@ -242,6 +242,7 @@ sub call{
     
     # Go thru each arg and look for callback (i.e -command ) args
     my $lastArg;
+    my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
     foreach my $arg(@args){
             
             if( defined($lastArg) && !ref($lastArg) && ( $lastArg =~ /^-\w+/ ) ){
@@ -267,8 +268,9 @@ sub call{
                             };
                             
                             $arg = $cbSub; # cbSub will actually be sent to Tcl::call
+                            $callMethod = 'call'; # need to use call, rather than invoke
                     }
-                     if(  $lastArg =~ /variable$/ ){  # Check for last arg something like -textvariable
+                    elsif(  $lastArg =~ /variable$/ ){  # Check for last arg something like -textvariable
  
                             # Store -variable options in the Configuration store of the widget
                             #   This is to be compatible with perltk's way of being able to retieve the actual
@@ -277,9 +279,14 @@ sub call{
                             #                   $entry->cget(-textvariable) <= should return \$text
                             #     
                             $self->Tcl::Tk::Derived::_configure($lastArg, $arg); # Store in config store for retrieval later
+                            $callMethod = 'call'; # need to use call, rather than invoke
                             
                     }
            }
+           if( ref($arg) eq 'SCALAR'){ # scalar refs need to be turned to tcl variables, so we use call, not invoke
+                   $callMethod = 'call';
+           }
+                
             
             $lastArg = $arg;
     }
@@ -288,11 +295,11 @@ sub call{
     
     # Translate any emtpy strings to undefs, for compatibility with perltk
     if( wantarray ){ 
-            my @retvals =  $interp->call(@args);
+            my @retvals =  $interp->$callMethod(@args);
             return map defined($_) && !ref($_) && ($_ eq '') ? undef : $_, @retvals;
     }
     else{
-            my $retval =  $interp->call(@args);
+            my $retval =  $interp->$callMethod(@args);
             return defined($retval) && !ref($retval) && ($retval eq '') ? undef : $retval;
     }
 
@@ -1029,7 +1036,7 @@ sub afterIdle {
             $callback = Tcl::Tk::Callback->new($callback);
     }
     my $int = $self->interp;
-    my $ret = $self->call('after', 'idle', sub{ $callback->Call()} );
+    my $ret = $self->interp->call('after', 'idle', sub{ $callback->Call()} );
     return $int->declare_widget($ret);
 }
 #
@@ -1367,10 +1374,10 @@ sub _prepare_ptk_Canvas {
                 # Make a subref that will execute the callback, supplying $self as the event source
                 my $cbRef = $sub->createTclBindRef($self);
 
-		$self->call($self->bind_path,'bind',$tag,$seq,$cbRef);
+		$self->interp->call($self->bind_path,'bind',$tag,$seq,$cbRef);
 	    }
 	    else {
-		$self->call($self->bind_path,'bind',@_);
+		$self->interp->call($self->bind_path,'bind',@_);
 	    }
 	},
 	CanvasBind => sub {
