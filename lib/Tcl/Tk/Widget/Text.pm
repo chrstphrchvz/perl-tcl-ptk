@@ -40,6 +40,7 @@ sub ClassInit
 
 }
 
+
 sub selectAll
 {
  my ($w) = @_;
@@ -782,7 +783,7 @@ sub tagBind{
             # Getting Bindings:
             if( $#_ == 0){ # Usage: my @bindings = $text->tagBind($tag) 
                 my $tag = $_[0];
-                return $self->call($self->bind_path,'tag', 'bind', $tag);
+                return $self->interp->call($self->bind_path,'tag', 'bind', $tag);
             }
             elsif( $#_ == 1){ # Usage: my $binding = $text->tagBind($tag, $sequence)
                 my ($tag, $sequence) = @_;
@@ -801,10 +802,10 @@ sub tagBind{
                 # Make a subref that will execute the callback, supplying $self as the event source
                 my $cbRef = $sub->createTclBindRef($self);
 
-		$self->call($self->bind_path,'tag', 'bind', $tag,$seq,$cbRef);
+		$self->interp->call($self->bind_path,'tag', 'bind', $tag,$seq,$cbRef);
 	    }
 	    else {
-		$self->call($self->bind_path, 'tag', 'bind',@_);
+		$self->interp->call($self->bind_path, 'tag', 'bind',@_);
 	    }
 }
 

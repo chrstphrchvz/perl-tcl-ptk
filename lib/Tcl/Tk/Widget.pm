@@ -97,6 +97,15 @@ my %ptk2tcltk_ISAs =
      Radiobutton => [qw/ Tcl::Tk::Widget::Button /],
      );
 
+# Set the container names for the autoloaded widgets above that have set ISAs other than
+#   the default Tcl::Tk::Widget
+sub Tcl::Tk::Widget::Radiobutton::containerName{
+    return 'Radiobutton';
+}
+sub Tcl::Tk::Widget::Checkbutton::containerName{
+    return 'Checkbutton';
+}
+
 # Mapping of perltk widget methods to Tcl method names
 #  This is needed because perltk sometimes has slightly different
 #   names for the same tcl/tk methods
@@ -283,7 +292,7 @@ sub call{
                             
                     }
            }
-           if( ref($arg) eq 'SCALAR'){ # scalar refs need to be turned to tcl variables, so we use call, not invoke
+           if( ref($arg) eq 'SCALAR'){ # scalar refs or code need to be turned to tcl variables, so we use call, not invoke
                    $callMethod = 'call';
            }
                 

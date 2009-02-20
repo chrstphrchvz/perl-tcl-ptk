@@ -100,7 +100,7 @@ $t->tag("bind", "hideable","<2>", sub {
     $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink')}
 );
 
-$top->after(1000,sub{$top->destroy});
+$top->after(1000,sub{$top->destroy}) unless(@ARGV); # For debugging don't close window if options supplied on the command line
 MainLoop;
 
 sub insertwtag {
