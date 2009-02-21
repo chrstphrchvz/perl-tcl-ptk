@@ -18,5 +18,5 @@ foreach my $row (1..500) {
 my $t1=time;
 print STDERR "time=".($t1-$t0)."\n";
 
-MainLoop;
+#MainLoop;
 

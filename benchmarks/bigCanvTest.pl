@@ -18,7 +18,7 @@ my $i;
 for ( $i=0; $i<100000; $i++){
 
 	
-	$c->_createLine(@coords,  -fill => 'black');
+	$c->createLine(@coords,  -fill => 'black');
 	#$rect = $c->create('rect', @coords, -fill => 'white');
 	#$c->raise($rect);
 	#$c->raise($text);

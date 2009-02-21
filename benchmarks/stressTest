@@ -6,7 +6,7 @@ my $tw = $mw->Text()->pack;
 my $t0=time;
 
 for my $stresser ('a'..'zzz') {
-  $tw->windowCreate('end',-window=>$tw->_Button(-text=>$stresser));
+  $tw->windowCreate('end',-window=>$tw->Button(-text=>$stresser));
   if ($stresser =~ /z$/) {
     $tw->insert('end',"\n") ;
     $tw->see('end');
@@ -17,6 +17,6 @@ for my $stresser ('a'..'zzz') {
 my $t1=time;
 print STDERR "time=".($t1-$t0)."\n";
 
-DB::finish_profile()
+#DB::finish_profile(); # Only used for NYTProf
 #MainLoop;
 
