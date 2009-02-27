@@ -1847,10 +1847,12 @@ sub create_widget_package {
             setAutoWidgetISAs($widgetname); # Set widget inheritance/ISAs
 
             my $destroySub;
-	    *{"Tcl::Tk::Widget::${widgetname}::DESTROY"} = $destroySub = sub {}; # (AUTOLOAD protection)
-            # Name the sub we just created, if debug mode
-            Sub::Name::subname("Tcl::Tk::Widget::${widgetname}::DESTROY", $destroySub) if( $Tcl::Tk::DEBUG);
-
+            unless( defined( &{"Tcl::Tk::Widget::${widgetname}::DESTROY"} ) ){ # (AUTOLOAD protection)    
+                    *{"Tcl::Tk::Widget::${widgetname}::DESTROY"} = $destroySub = sub {}; 
+                    # Name the sub we just created, if debug mode
+                    Sub::Name::subname("Tcl::Tk::Widget::${widgetname}::DESTROY", $destroySub) if( $Tcl::Tk::DEBUG);
+            }
+            
 	    eval "
 	    sub Tcl::Tk::Widget::${widgetname}::AUTOLOAD {
 	        \$Tcl::Tk::Widget::AUTOLOAD = \${Tcl::Tk::Widget::${widgetname}::AUTOLOAD};

@@ -798,7 +798,7 @@ sub declare_widget {
     #     destruction to clean up package variables.
     #my $id = $path=~/^\./ ? $int->invoke('winfo','id',$path) : $path;
     $int->invoke('trace', 'add', 'command', $path, 'delete', "::perl::w_del $path")
-        if WIDGET_CLEANUP;
+        if ( WIDGET_CLEANUP && $path !~ /\#/); # don't trace for widgets like 'after#0'
     my $id = $path;
     my $w = bless({ winID => $id}, $widget_class);
     Carp::confess("id is not found\n") if( !defined($id));
@@ -813,6 +813,7 @@ sub widget_deletion_watcher {
     my (undef,$int,undef,$path) = @_;
     #print STDERR "[D:$path]";
     $int->delete_widget_refs($path);
+    delete $W{RPATH}->{$path};
 }
 
 # widget_data return anonymous hash that could be used to hold any 
