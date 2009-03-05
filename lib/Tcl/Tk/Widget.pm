@@ -26,6 +26,8 @@ use Tcl::Tk::Submethods(
                     'pack'  => [qw(configure forget info propagate slaves)],
                   );
 
+use strict;
+
 # Generate tk methods (like $widget->appname, which mapps to 'tk appname' in tcl/tk
 Direct2 Tcl::Tk::Submethods (
    'tk'   => [qw(appname caret scaling useinputmethods windowingsystem)]);
@@ -111,7 +113,7 @@ sub Tcl::Tk::Widget::Checkbutton::containerName{
 #   names for the same tcl/tk methods
 # This is a 2D lookup table of Widget class => ptkMethodName => TclMethodName
 my %ptk2tcltk_methodMap = (
-        Tcl::Tk::Widget::Menu  => {
+        'Tcl::Tk::Widget::Menu'  => {
                 'Post' => 'post'
         }
 );
@@ -179,7 +181,7 @@ my %replace_options =
       entry      => 
                 {
                    -validatecommand => sub{ my $w = shift; $w->_procValidateCommand(@_)} },
-      ttk::entry      => 
+      'ttk::entry'      => 
                 {
                    -validatecommand => sub{ my $w = shift; $w->_procValidateCommand(@_)} },
      ComboBox   => {-choices=>'-values'},
@@ -792,10 +794,6 @@ sub GeometryRequest {
     my ($width,$height) = @_;
     $self->call('wm','geometry',$wp,"=${width}x$height");
 }
-sub OnDestroy {
-    my $self = shift;
-    $self->Tcl::Tk::Widget::bind('<Destroy>', @_);
-}
 sub grab {
     my $self = shift;
     my $wp = $self->path;
@@ -1071,7 +1069,7 @@ sub Getimage {
     my $name = shift;
     my $int  = $self->interp;
 
-    return $images->{$int}{$name} if $images->{$int}{$name};
+    return $images{$int}{$name} if $images{$int}{$name};
 
     foreach my $ext (@image_types) {
 	my $path;
@@ -1088,8 +1086,8 @@ sub Getimage {
 	if ($image_formats{$ext} ne "bitmap") {
 	    push @args, -format => $ext;
 	}
-	$images->{$int}{$name} = $self->call(@args);
-	return $images->{$int}{$name};
+	$images{$int}{$name} = $self->call(@args);
+	return $images{$int}{$name};
     }
 
     # Try built-in bitmaps from Tix
@@ -1551,9 +1549,9 @@ sub Scrolled
  # Now re-set %args to be ones Frame can handle
  %args = @args;
  $cw->ConfigSpecs('-scrollbars' => ['METHOD','scrollbars','Scrollbars','se'],
-                  '-background' => [$w,'background','Background'],
-                  '-foreground' => [$w,'foreground','Foreground'],
-                 );
+                   '-background' => [$w,'background','Background'],
+                   '-foreground' => [$w,'foreground','Foreground'],
+                  );
  $cw->AddScrollbars($w);
  $cw->Default("\L$kind" => $w);
  $cw->Delegates('bind' => $w, 'bindtags' => $w, 'menu' => $w);
@@ -1799,7 +1797,7 @@ sub declareAutoWidget{
                          # and not of the Frame which contains the Text and the scrollbars.
                          my $class = "Tcl::Tk::Widget::$widgetname";
                          *{'Tcl::Tk::Widget::'.$widgetname}  = $sub =  sub { $class->new(shift->DelegateFor('Construct'),@_) };
-                         subname('Tcl::Tk::Widget::'.$widgetname, $sub) if($DEBUG); # Name the anonymous sub, if in debug mode
+                         subname('Tcl::Tk::Widget::'.$widgetname, $sub) if($Tcl::Tk::DEBUG); # Name the anonymous sub, if in debug mode
                                           
                 }
 
@@ -1812,6 +1810,8 @@ sub declareAutoWidget{
 #    Input: Widget Name
 sub setAutoWidgetISAs{
     my $widgetname = shift;
+
+    no strict 'refs'; # Allow us to refer to package ISAs variables by string
     
     unless( @{"Tcl::Tk::Widget::${widgetname}::ISA"} ){ # only create ISA if it is empty (i.e. hasn't been set)
             if( defined($ptk2tcltk_ISAs{$widgetname})){ # Use lookup table, if it is there 
@@ -2005,7 +2005,7 @@ sub _busy
 {
  my ($w,$f) = @_;
  $w->bell if $f;
- Tcl::Tk::break;
+ Tcl::Tk::break();
 }
 
 sub Unbusy
@@ -2080,6 +2080,7 @@ sub _FE_helper{
    return unless( defined( $hash->{$handle}) );
 
    my $size;
+   my $handleEOF;
    # Windows version of checking if io handle is readable
    if( $^O =~ /mswin32/i){
    

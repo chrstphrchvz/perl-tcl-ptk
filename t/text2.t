@@ -3,7 +3,7 @@
 use Tcl::Tk qw/:perlTk/;
 
 use Test;
-plan tests => 4;
+plan tests => 5;
 
 $| = 1; # Pipes Hot
 my $top = MainWindow->new;
@@ -100,7 +100,17 @@ ok(join(", ",@bindRet), '<Button-3>', "text 1-arg tagBind returns list of sequen
 
 $t->bind("<Any-Enter>", sub { $t->focus });
 
-$t->Subwidget('text')->OnDestroy(sub { print "Destroyed!\n"; print $t->get('1.0','end') });
+# Setup so we can tell that OnDestroy callbacks happen before <Destroy> bindings
+my $destroyText = '';
+$t->Subwidget('text')->OnDestroy(sub { 
+        print "Destroyed!\n"; 
+        $destroyText  .= "OnDestroy";
+        # print $t->get('1.0','end') # Doesn't work for Tcl/Tk 8.5
+});
+
+$t->Subwidget('text')->bind('<Destroy>', sub{
+                $destroyText .= "Binding";
+});
 
 $t->tag("bind", "hideable","<2>", sub {
     $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink')}
@@ -108,6 +118,8 @@ $t->tag("bind", "hideable","<2>", sub {
 
 $top->after(1000,sub{$top->destroy}) unless(@ARGV); # Quit after a second, unless something on the command line (i.e. debugging)
 MainLoop;
+
+ok($destroyText, 'OnDestroyBinding', "OnDestroy and <Destroy> event order");
 
 sub insertwtag {
   local($w,$text,$tag) = @_;

@@ -7,7 +7,7 @@ package Tcl::Tk::Widget::Frame;
 
 use base ('Tcl::Tk::Derived', 'Tcl::Tk::Widget');
 
-
+use strict;
 
 # Copyright (c) 1995-2003 Nick Ing-Simmons. All rights reserved.
 # This program is free software; you can redistribute it and/or

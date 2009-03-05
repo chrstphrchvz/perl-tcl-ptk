@@ -7,6 +7,9 @@ use Carp;
 
 use Tcl::Tk::Configure;
 
+use strict;
+
+my $ENHANCED_CONFIGSPECS = 0; # disable for now
 
 #################### Methods Originally in Tk::Derived #################
 sub Subwidget
@@ -346,7 +349,7 @@ sub ConfigDefault
    Tcl::Tk::catch { $cw->Tcl::Tk::Widget::cget('-foreground') };
    my (@fg) = $@ ? ('PASSIVE') : ('SELF');
    push(@fg,'CHILDREN') if $child;
-   $specs->{'-foreground'} = [\@fg,'foreground','Foreground',BLACK];
+   $specs->{'-foreground'} = [\@fg,'foreground','Foreground','BLACK'];
   }
  $cw->ConfigAlias(-fg => '-foreground', -bg => '-background');
 

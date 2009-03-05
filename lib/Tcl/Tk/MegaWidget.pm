@@ -78,6 +78,7 @@ sub new
  local $SIG{'__DIE__'} = \&Carp::croak;
  my $package = shift;
  my $parent  = shift;
+  
  $package->InitClass($parent);
  $parent->BackTrace("Odd number of args to $package->new(...)") unless ((@_ % 2) == 0);
  my @args  = @_;
@@ -105,7 +106,7 @@ sub new
   {
    die "No value from parent->$containerWidget" unless defined $obj;
   }
- bless $obj,$package;
+ bless $obj, $package;
  $obj->SetBindtags;
  my $notice = $parent->can('NoticeChild');
  $parent->$notice($obj,\%args) if $notice;
@@ -116,6 +117,33 @@ sub new
  return $obj;
 }
 
+# This is the cleanup sub that gets called when a widget is destroyed
+#  (before the <Destroy> event is fired)
+#   This sub gets called from the widget_deletion_watcher in Widget.pm
+#
+sub _Destroyed
+{
+ my $w = shift;
+ my $a = delete $w->{'_Destroy_'};
+ if (ref($a))
+  {
+   while (@$a)
+    {
+     my $ent = pop(@$a);
+     if (ref $ent)
+      {
+       eval {local $SIG{'__DIE__'}; $ent->Call };
+      }
+     else
+      {
+       delete $w->{$ent};
+      }
+    }
+  }
+}
+
+# Sub to add and entry to the list of items that will get deleted when a widget
+#   is destroyed. This will happen before the <Destroy> event is fired.
 sub _OnDestroy
 {
  my $w = shift;
@@ -123,6 +151,13 @@ sub _OnDestroy
  push(@{$w->{'_Destroy_'}},@_);
 }
 
+# Public method to add something to be performed during widget destruction (before
+#  the <Destroy> event gets fired).
+sub OnDestroy
+{
+ my $w = shift;
+ $w->_OnDestroy(Tcl::Tk::Callback->new(@_));
+}
 
 sub TkHash
 {

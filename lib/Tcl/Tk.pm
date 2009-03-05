@@ -53,7 +53,7 @@ if($DEBUG){
 @Tcl::Tk::ISA = qw(Tcl);
 $Tcl::Tk::VERSION = '0.97';
 
-sub WIDGET_CLEANUP() {0}
+sub WIDGET_CLEANUP() {1}
 
 $Tcl::Tk::DEBUG ||= 0;
 sub DEBUG() {0}
@@ -811,7 +811,13 @@ sub declare_widget {
 }
 sub widget_deletion_watcher {
     my (undef,$int,undef,$path) = @_;
-    #print STDERR "[D:$path]";
+    #print  STDERR "[D:$path]\n";
+    
+    # Call the _OnDestroy method on the widget to perform cleanup on it
+    my $w = $W{RPATH}->{$path};
+    #print "Calling _Destroyed on $w\n";
+    $w->_Destroyed();
+    
     $int->delete_widget_refs($path);
     delete $W{RPATH}->{$path};
 }

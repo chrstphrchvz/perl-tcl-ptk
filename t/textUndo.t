@@ -94,7 +94,10 @@ ok(join(", ",@bindRet), '<Button-3>', "text 1-arg tagBind returns list of sequen
 
 $t->bind("<Any-Enter>", sub { $t->focus });
 
-$t->Subwidget('textundo')->OnDestroy(sub { print "Destroyed!\n"; print $t->get('1.0','end') });
+$t->Subwidget('textundo')->OnDestroy(sub {
+        print "Destroyed!\n"; 
+        # print $t->get('1.0','end') # Doesn't work for Tcl/Tk 8.5
+});
 
 $t->tag("bind", "hideable","<2>", sub {
     $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink')}
