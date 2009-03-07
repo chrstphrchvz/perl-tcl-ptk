@@ -86,6 +86,7 @@ my %ptk2tcltk =
      TList       => ['tixTList', 'tlist', 'Tix'],
      NoteBook    => ['tixNoteBook', 'nb', 'Tix'],
      ScrollableFrame    => ['ScrollableFrame', 'sframe', 'BWidget', 'auto_load ScrollableFrame'],
+     Tktable    => ['table', 'table', 'Tktable', 'auto_load Tktable'],
      );
 
 # Default ISAs for autoloaded widgets. If not defined in files anywhere else,
@@ -775,8 +776,12 @@ sub destroy {
     my $self = shift;
     my $int = $self->interp;
     my $wp = $self->path;
+    #print STDERR "calling destroy\n";
     $self->call('destroy',$wp,@_);
+    #print STDERR "deleting widget refs in destroy\n";
+
     $int->delete_widget_refs($wp);
+    #print STDERR "deleting widget refs complete\n";
     
     # delete any bindsubs
     if( defined($self->{_bindsubs_})){
