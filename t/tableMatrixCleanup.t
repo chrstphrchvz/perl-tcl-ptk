@@ -9,7 +9,7 @@ use Tcl::Tk qw/:perlTk/;
 use Tcl::Tk::Widget::TableMatrix;
 use Test;
 
-plan test => 3;
+plan test => 2;
 
 use Data::Dumper;
 
@@ -122,9 +122,6 @@ my $label = $top->Label(-text => "TableMatrix v2 Example");
                                 skip("Widget cleanup not enabled", 1);
                         }
                         
-                        $top->after(1000, sub{
-                                        $top->destroy;
-                        });
                         
                 });               
 
@@ -132,7 +129,10 @@ my $label = $top->Label(-text => "TableMatrix v2 Example");
 }
 
 
-
+$top->after(3000, sub{
+                $top->destroy;
+});
+ 
 
 MainLoop;
 

@@ -17,7 +17,6 @@ unless( Tcl::Tk::WIDGET_CLEANUP ){
 $| = 1; # Pipes Hot
 my $top = MainWindow->new;
 
-$top->after(2000, sub{ $top->destroy});
 
 my $label = $top->Label(-text => "Mainwindow")->pack();
 {
@@ -33,6 +32,7 @@ my $label = $top->Label(-text => "Mainwindow")->pack();
                 }); # delete after 1 second
 
 }
+$top->after(2000, sub{ $top->destroy});
 
 
 MainLoop;

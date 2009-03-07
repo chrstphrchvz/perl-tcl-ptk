@@ -1027,6 +1027,11 @@ sub Subwidget {
 # as a widget.
 sub after {
     my $self = shift;
+    
+    # Set the Tcl.pm package variable $current_widget so that any
+    #   sub-ref gets assigned to the proper widget in Tcl.pm
+    Tcl::_current_refs_widget($self->path);
+    
     my $int = $self->interp;
 
     return $int->after(@_);
