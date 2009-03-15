@@ -255,6 +255,7 @@ sub call{
     # Go thru each arg and look for callback (i.e -command ) args
     my $lastArg;
     my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
+    #my $callMethod = 'call'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
     foreach my $arg(@args){
             
             if( defined($lastArg) && !ref($lastArg) && ( $lastArg =~ /^-\w+/ ) ){
@@ -2366,6 +2367,16 @@ sub MouseWheelBind
   }
 }
 
+# Clipboard functions definded in perl/tk
+sub clipboardClear{
+        my $self = shift;
+        $self->call('clipboard', 'clear', @_);
+}
+sub clipboardAppend{
+        my $self = shift;
+        $self->call('clipboard', 'append', @_);
+}
+
 # Method to get the patchlevel of the tcl we are using
 sub tclPatchlevel{
         my $self = shift;
@@ -2405,6 +2416,7 @@ my %lists = map {$_=>1} qw(
     xview
     yview
     coords
+    border
 );
 
 # Autoload fo Tcl::Tk::Widget

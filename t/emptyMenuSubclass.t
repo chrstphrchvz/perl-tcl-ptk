@@ -17,7 +17,10 @@ my $label = $mw->Button2(-text => 'Button')->pack();
 
 #my $menu = $mw->Menu();
 my $popup = $mw->Menu2('-tearoff' => 0);
-$popup->command('-label' => 'Plot Options...' );
+
+# -bg option is here to check the translation of -bg to -background in the menu code
+$popup->command('-label' => 'Plot Options...', -bg => 'white' );
+
 $popup->command('-label' => 'Label Point' );
 $popup->separator;
 $popup->command('-label' => 'Dump Data...');

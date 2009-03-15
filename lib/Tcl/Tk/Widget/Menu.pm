@@ -143,6 +143,13 @@ sub Tcl::Tk::Menu {
 	command => sub {
 	    my $wid = shift;
 	    my %args = @_;
+            
+            # Convert -bg and -fg abbreviations to -background and -foreground
+            #   These abbreviations are valid in perl/tk, but not in Tcl/tk, so we have to
+            #  translate
+            $args{-foreground} = delete($args{-fg}) if( defined($args{-fg}));
+            $args{-background} = delete($args{-bg}) if( defined($args{-bg}));
+            
 	    $wid->_process_underline(\%args);
 	    $wid->call("$wid",'add','command',%args);
 	},
