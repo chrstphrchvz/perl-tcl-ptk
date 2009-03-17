@@ -2395,8 +2395,11 @@ sub DESTROY {}			# do not let AUTOLOAD catch this method
 # Let Tcl/Tk process required method via AUTOLOAD mechanism
 #
 
-# %lists hash holds names of methods returning *list* of values
-# (all methods not listed here are expected to return single value)
+# %lists hash holds names of auto-wrapped tcl/tk methods that should return *lists* of values
+# (other auto-wrapped methods not listed here are expected to return single value)
+#  This is a global list applicable for Tcl::Tk::Widget and subclasses. The
+#   _retListContext method can be overridden in subclasses to provide a per-subclass
+#   way to specify list-context for auto-wrapped methods
 my %lists = map {$_=>1} qw(
     bbox configure dlineinfo dump
     markNames tagBind
@@ -2418,6 +2421,14 @@ my %lists = map {$_=>1} qw(
     coords
     border
 );
+
+###################################################################################3
+#### Method to return the hash of auto-wrapped methods that should return
+## a list. This method can be overridden in subclasses to provide a per-subclass
+# way to specify list-context for auto-wrapped widgets
+sub _retListContext{
+        return \%lists;
+}
 
 # Autoload fo Tcl::Tk::Widget
 sub AUTOLOAD {
@@ -2623,7 +2634,9 @@ sub AUTOLOAD {
 		};
 	    } else {
 		# ... otherwise ordinary camel case invocation
-		if (exists $lists{$method}) {
+                my $lists = $w->_retListContext();
+                
+		if (exists $lists->{$method}) {
 		    $sub = $fast ? sub {
 			my $w = shift;
 			$w->interp->invoke($w->path, $meth, $submeth, @_);
@@ -2657,7 +2670,8 @@ sub AUTOLOAD {
 	    };
 	} else {
 	    # ... otherwise ordinary camel case invocation
-	    if (exists $lists{$method}) {
+            my $lists = $w->_retListContext();
+	    if (exists $lists->{$method}) {
 	        $sub = $fast ? sub {
 	    	my $w = shift;
 	    	$w->interp->invoke($w->path, $meth, @submethods, @_);
@@ -2678,7 +2692,8 @@ sub AUTOLOAD {
     }
     else {
 	# Default case, call as submethod of $wp
-	if (exists $lists{$method}) {
+        my $lists = $w->_retListContext();
+	if (exists $lists->{$method}) {
 	    $sub = $fast ? sub {
 		my $w = shift;
 		$w->interp->invoke($w, $method, @_);

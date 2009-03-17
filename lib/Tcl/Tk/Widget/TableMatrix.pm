@@ -78,6 +78,21 @@ sub containerName{
         return 'Tktable';
 }
 
+###################################################################################3
+#### Method to return the hash of auto-wrapped methods that should return
+## a list. This method is overridden in from Tcl::Tk::Widget to provide a per-subclass
+# way to specify list-context for auto-wrapped widgets
+sub _retListContext{
+        my $self = shift;
+        my $parentList = $self->SUPER::_retListContext();
+        my $list =  { 'border' => 1,
+                 'curselection' => 1,
+                 'get'  => 1,
+                 'spans' => 1,
+                 %$parentList,  # Add superclass list
+        };
+        return $list;        
+}
 
 #----------------------------------------------
 # Sub called when -arrayVar option changed
