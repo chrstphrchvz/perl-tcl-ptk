@@ -240,7 +240,7 @@ sub ClassInit{
                             $w->MoveCell(0,-1); 
                     }
                    }
- );
+           );
 
           $mw->bind($class,'<Right>',
                    sub
@@ -258,7 +258,7 @@ sub ClassInit{
                             $w->MoveCell(0,1); 
                     }
                    }
- );
+           );
           
 
 };
