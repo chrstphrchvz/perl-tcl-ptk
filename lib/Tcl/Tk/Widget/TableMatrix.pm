@@ -235,6 +235,9 @@ sub ClassInit
  $interp->pkg_require('Tktable');
  
  
+ $mw->MouseWheelBind($class);
+ 
+ 
  # Get rid of the default TkTable bindings. We will provide our own in this file, for maximum compatibility
  #   with Tk::TableMatrix
  my @tableTags = $interp->invoke('bind', 'Table');
