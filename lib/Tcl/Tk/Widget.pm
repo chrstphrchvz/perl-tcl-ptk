@@ -18,6 +18,7 @@ use Tcl::Tk::Widget::HList;
 use Tcl::Tk::Widget::Text;
 use Tcl::Tk::Widget::Photo;
 use Tcl::Tk::Widget::Bitmap;
+use Tcl::Tk::XEvent;  # Limited XEvent support
 
 use Scalar::Util (qw /blessed/); # Used only for it's blessed function
 
