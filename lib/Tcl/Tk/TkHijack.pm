@@ -99,6 +99,9 @@ $translateList = {
         'Tk/NoteBook.pm'     => '',
         'Tk/NBFrame.pm'     => '',
         'Tk/Pane.pm'     => 'Tcl/Tk/Widget/Pane.pm',
+        'Tk/TableMatrix.pm'     => 'Tcl/Tk/Widget/TableMatrix.pm',
+        'Tk/TableMatrix/Spreadsheet.pm'     => 'Tcl/Tk/Widget/TableMatrix/Spreadsheet.pm',
+        'Tk/TableMatrix/SpreadsheetHideRows.pm'     => 'Tcl/Tk/Widget/TableMatrix/SpreadsheetHideRows.pm',
 };
 
 
@@ -123,6 +126,9 @@ $packageAliases = {
         'Tk::Clipboard'=> 'Tcl::Tk::Widget::Clipboard',
         'Tk::BrowseEntry'=> 'Tcl::Tk::Widget::BrowseEntry',
         'Tk::Callback'=> 'Tcl::Tk::Callback',
+        'Tk::TableMatrix'=> 'Tcl::Tk::Widget::TableMatrix',
+        'Tk::TableMatrix::Spreadsheet'=> 'Tcl::Tk::Widget::TableMatrix::Spreadsheet',
+        'Tk::TableMatrix::SpreadsheetHideRows'=> 'Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows',
 };
   
 ######### End of Package Globals ###########
