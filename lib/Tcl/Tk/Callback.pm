@@ -65,6 +65,13 @@ The EvMapping will be:
     y => 3
  }
  
+=item noWidgetArg
+
+Flag = 1 to NOT include the widget/event-source as the first arg passed to a binding
+
+This is most always equal to 0, because bindings always include the source widget as the first arg.
+However, some widgets that provide their own '%' subsitution (like tktable a.k.a. TableMatrix) do not
+pass the widget as the first arg.
  
 =back
 
@@ -92,6 +99,9 @@ B<Usage:>
         
         # Create Callback - Object->Method form, with args
 	$cb = Tcl::Tk::Callback->new([ $obj, 'method', $arg1, $arg2]);
+        
+        Note: The noWidgetArg attribute may be supplied as the second arg in any of the 
+          above forms.
 
 =cut
 
@@ -103,6 +113,11 @@ sub new{
         my $self = {};
         
         my $callback = shift;
+        
+        # Get the optional noWidgetArg
+        my $noWidgetArg = shift;
+        $self->{noWidgetArg} = $noWidgetArg;
+        
         
         if( ref($callback) eq 'CODE'){ # No Arg Sub Ref
                 $self->{callback} = [$callback];
@@ -223,6 +238,8 @@ B<Usage:>
 
         # Execute/call a callback, with optional extra args
         $cb->BindCall($eventSource, $extraArg1, $extraArg2);
+        
+
 
 =cut
 
@@ -230,6 +247,8 @@ sub BindCall{
         my $self = shift;
         
         my $eventSource = shift;
+        
+        my $noWidgetArg = $self->{noWidgetArg};  # Flag = 1 if we aren't to add event source widget to the call
         
         my @args = @_;
         
@@ -246,7 +265,9 @@ sub BindCall{
                 $first->$method(@callback,@args);
         }
         else{ # Subref call 
-                $first->($eventSource,@callback,@args);
+                my @totalArgs = (@callback, @args);
+                unshift @totalArgs, $eventSource unless($noWidgetArg);
+                $first->(@totalArgs);
         }
 }
         
@@ -296,6 +317,7 @@ B<Usage:>
         #  binding is created from.
         my $bindRef = $callback->createTclBindRef($creatingWidget);
         
+        
         # Bind ref created now feed to Tcl::Call (thru the interp)
         $interp->all("bind",$tag, $sequence, $bindRef);
         
@@ -305,6 +327,7 @@ sub createTclBindRef{
         my $self = shift;
         
         my $creatingWidget = shift;
+        my $noWidgetArg    = $self->{noWidgetArg};
         
         my $EvMapping = $self->{EvMapping};
         
@@ -316,22 +339,26 @@ sub createTclBindRef{
                 # Create Substitution args for Tcl::Ev
                 my @TclEv = map "%".$_, @EvInverse{@indexes};
                 
-                # Add the event source substitution (allways there)
-                unshift @TclEv, '%W';
+                # Add the event source substitution (most allways there)
+                unshift @TclEv, '%W' unless( $noWidgetArg);
                 
                 $TclEvArg = Tcl::Ev(@TclEv);
                 
                 my $bindRef = [
                         sub{
-                                my $eventPath = shift;
+                                my $eventPath = shift unless($noWidgetArg);
                                 
-                                # Map eventsource Path to an actual widget
-                                my $widgets = $creatingWidget->interp->widgets();
-                                $widgets = $widgets->{RPATH};
-                                my $eventSource = $widgets->{$eventPath};
+                                my $eventSource;
                                 
-                                # If eventSource not found in the lookup, use the creating Widget
-                                $eventSource = defined($eventSource)? $eventSource : $creatingWidget;
+                                unless( $noWidgetArg){
+                                        # Map eventsource Path to an actual widget
+                                        my $widgets = $creatingWidget->interp->widgets();
+                                       $widgets = $widgets->{RPATH};
+                                       $eventSource = $widgets->{$eventPath};
+                                
+                                       # If eventSource not found in the lookup, use the creating Widget
+                                       $eventSource = defined($eventSource)? $eventSource : $creatingWidget;
+                                }
                                 
                                 my @evArgs = @_;
                         
@@ -354,7 +381,7 @@ sub createTclBindRef{
                                 # If eventSource not found in the lookup, use the creating Widget
                                 $eventSource = defined($eventSource)? $eventSource : $creatingWidget;
 
-                                $self->BindCall($eventSource);
+                                $self->BindCall($eventSource, $noWidgetArg);
                            },
                            Tcl::Ev('%W')
                            ];

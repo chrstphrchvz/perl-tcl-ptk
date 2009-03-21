@@ -12,7 +12,7 @@ use Tcl::Tk (qw/ :perlTk /);
 
 use Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows;
 use Test;
-plan tests => 5;
+plan tests => 1;
 
 my $top = MainWindow->new;
 

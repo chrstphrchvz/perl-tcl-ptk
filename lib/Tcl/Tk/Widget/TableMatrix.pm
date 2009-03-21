@@ -58,6 +58,8 @@ sub Populate {
 
     $cw->ConfigSpecs(
         -variable => ['METHOD', 'variable', 'variable', undef], # Special processing for the -variable option
+        -browsecmd => ['METHOD', 'browsecmd', 'browsecmd', undef], # Special processing for the -browsecmd option (treated like a bind callback)
+        -browsecommand => -browsecmd, # Alias for browsecmd
         
         # Default col/row separators for compatibility with Tk::TableMatrix
         -colseparator => ['SELF',  'colseparator', 'colseparator', "\t"],
@@ -193,6 +195,47 @@ sub _deleteVarTrace{
                 $interp->DeleteCommand($varTraceCmd."_w"); # Get rid of command from tcl land
                 #print "trace removed\n";
         }
+}
+
+#----------------------------------------------
+# Sub called when -browsecmd option changed
+#
+sub browsecmd{
+	my ($cw, $browsecmd) = @_;
+
+	if(! defined($browsecmd)){ # Handle case where $widget->cget(-$option) is called
+
+		return $cw->{Configure}{-browsecmd};
+		
+	}
+        
+        # Turn the supplied browsecmd into a callback
+        # Create Callback 
+        
+        if( ref($browsecmd) eq 'CODE'){ # Raw subref supplied, add Ev Args to match built-in args described in the tablematrix docs)
+                $browsecmd = [$browsecmd, Ev('s'), Ev('S')];
+        }
+        elsif( ref($browsecmd) eq 'ARRAY' ){ # Array form of callback supplied, add Ev Args
+                $browsecmd = [@$browsecmd, Ev('s'), Ev('S')];
+        }
+        
+        # Don't do anything if already a callback
+        my $cb;
+        if( ref($browsecmd) && ref($browsecmd) =~ /Callback/){
+                $cb = $browsecmd;
+        }
+        else{
+                # Turn into a callback
+                $cb = Tcl::Tk::Callback->new($browsecmd, 1); # Flag = 1 to not pass the widget as the first arg
+        }
+        
+        # Create subref for passing to the interpreter  
+        my $subref = $cb->createTclBindRef($cw);  
+
+        # Store callback in case is it queried later
+        $cw->{Configure}{-browsecmd} = $cb;
+        
+        $cw->interp->call($cw, 'configure' , '-browsecmd', $subref);
 }
 
 
