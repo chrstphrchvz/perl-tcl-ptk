@@ -58,9 +58,18 @@ sub Populate {
 
     $cw->ConfigSpecs(
         -variable => ['METHOD', 'variable', 'variable', undef], # Special processing for the -variable option
+
         -browsecmd => ['METHOD', 'browsecmd', 'browsecmd', undef], # Special processing for the -browsecmd option (treated like a bind callback)
         -browsecommand => -browsecmd, # Alias for browsecmd
         
+        -command => ['METHOD', 'command', 'command', undef], # Special processing for the -command option (treated like a bind callback)
+
+        -selectioncommand => ['METHOD', 'selectioncommand', 'selectioncommand', undef], # Special processing for the -selectioncommand option (treated like a bind callback)
+        -selcmd => -selectioncommand, # Alias for selectioncommand
+
+        -validatecommand => ['METHOD', 'validatecommand', 'validatecommand', undef], # Special processing for the -validatecommand option (treated like a bind callback)
+        -vcmd => -validatecommand, # Alias for validatecommand
+
         # Default col/row separators for compatibility with Tk::TableMatrix
         -colseparator => ['SELF',  'colseparator', 'colseparator', "\t"],
         -rowseparator => ['SELF',  'rowseparator', 'rowseparator', "\n"],
@@ -97,7 +106,7 @@ sub _retListContext{
 }
 
 #----------------------------------------------
-# Sub called when -arrayVar option changed
+# Sub called when -variable option changed
 #
 sub variable{
 	my ($cw, $variable) = @_;
@@ -236,6 +245,129 @@ sub browsecmd{
         $cw->{Configure}{-browsecmd} = $cb;
         
         $cw->interp->call($cw, 'configure' , '-browsecmd', $subref);
+}
+
+#----------------------------------------------
+# Sub called when -command option changed
+#
+sub command{
+	my ($cw, $command) = @_;
+
+	if(! defined($command)){ # Handle case where $widget->cget(-$option) is called
+
+		return $cw->{Configure}{-command};
+		
+	}
+        
+        # Turn the supplied command into a callback
+        # Create Callback 
+        
+        if( ref($command) eq 'CODE'){ # Raw subref supplied, add Ev Args to match built-in args described in the tablematrix docs)
+                $command = [$command, Ev('s'), Ev('r'), Ev('c')];
+        }
+        elsif( ref($command) eq 'ARRAY' ){ # Array form of callback supplied, add Ev Args
+                $command = [@$command, Ev('s'), Ev('r'), Ev('c')];
+        }
+        
+        # Don't do anything if already a callback
+        my $cb;
+        if( ref($command) && ref($command) =~ /Callback/){
+                $cb = $command;
+        }
+        else{
+                # Turn into a callback
+                $cb = Tcl::Tk::Callback->new($command, 1); # Flag = 1 to not pass the widget as the first arg
+        }
+        
+        # Create subref for passing to the interpreter  
+        my $subref = $cb->createTclBindRef($cw);  
+
+        # Store callback in case is it queried later
+        $cw->{Configure}{-command} = $cb;
+        
+        $cw->interp->call($cw, 'configure' , '-command', $subref);
+}
+
+#----------------------------------------------
+# Sub called when -selectioncommand option changed
+#
+sub selectioncommand{
+	my ($cw, $selectioncommand) = @_;
+
+	if(! defined($selectioncommand)){ # Handle case where $widget->cget(-$option) is called
+
+		return $cw->{Configure}{-selectioncommand};
+		
+	}
+        
+        # Turn the supplied command into a callback
+        # Create Callback 
+        
+        if( ref($selectioncommand) eq 'CODE'){ # Raw subref supplied, add Ev Args to match built-in args described in the tablematrix docs)
+                $selectioncommand = [$selectioncommand, Ev('r'), Ev('c'), Ev('s'), Ev('i') ];
+        }
+        elsif( ref($selectioncommand) eq 'ARRAY' ){ # Array form of callback supplied, add Ev Args
+                $selectioncommand = [@$selectioncommand, Ev('r'), Ev('c'), Ev('s'), Ev('i') ];
+        }
+        
+        # Don't do anything if already a callback
+        my $cb;
+        if( ref($selectioncommand) && ref($selectioncommand) =~ /Callback/){
+                $cb = $selectioncommand;
+        }
+        else{
+                # Turn into a callback
+                $cb = Tcl::Tk::Callback->new($selectioncommand, 1); # Flag = 1 to not pass the widget as the first arg
+        }
+        
+        # Create subref for passing to the interpreter  
+        my $subref = $cb->createTclBindRef($cw);  
+
+        # Store callback in case is it queried later
+        $cw->{Configure}{-selectioncommand} = $cb;
+        
+        $cw->interp->call($cw, 'configure' , '-selectioncommand', $subref);
+}
+
+#----------------------------------------------
+# Sub called when -validatecommand option changed
+#
+sub validatecommand{
+	my ($cw, $validatecommand) = @_;
+
+	if(! defined($validatecommand)){ # Handle case where $widget->cget(-$option) is called
+
+		return $cw->{Configure}{-validatecommand};
+		
+	}
+        
+        # Turn the supplied command into a callback
+        # Create Callback 
+        
+        if( ref($validatecommand) eq 'CODE'){ # Raw subref supplied, add Ev Args to match built-in args described in the tablematrix docs)
+                $validatecommand = [$validatecommand, Ev('r'), Ev('c'), Ev('s'), Ev('S') ];
+        }
+        elsif( ref($validatecommand) eq 'ARRAY' ){ # Array form of callback supplied, add Ev Args
+                $validatecommand = [@$validatecommand, Ev('r'), Ev('c'), Ev('s'), Ev('S') ];
+        }
+        
+        # Don't do anything if already a callback
+        my $cb;
+        if( ref($validatecommand) && ref($validatecommand) =~ /Callback/){
+                $cb = $validatecommand;
+        }
+        else{
+                # Turn into a callback
+                $cb = Tcl::Tk::Callback->new($validatecommand, 1); # Flag = 1 to not pass the widget as the first arg
+        }
+        
+        # Create subref for passing to the interpreter  
+        my $subref = $cb->createTclBindRef($cw);  
+
+        # Store callback in case is it queried later
+        $cw->{Configure}{-validatecommand} = $cb;
+        
+        $cw->interp->call($cw, 'configure' , '-validatecommand', $subref);
 }
 
 

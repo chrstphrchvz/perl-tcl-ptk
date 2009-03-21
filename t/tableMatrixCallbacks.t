@@ -9,7 +9,7 @@ use Tcl::Tk qw/:perlTk/;
 use Tcl::Tk::Widget::TableMatrix;
 use Test;
 
-plan test => 4;
+plan test => 10;
 
 use Data::Dumper;
 
@@ -35,12 +35,39 @@ foreach my $row  (0..($rows-1)){
 	}
 }
 
+my ($CmdRow, $CmdCol);
+####### Callback for the -command option #####
+sub tblCmd{ 
+	my ($array, $set, $row,$col,$val) = @_;
+	#my @args = @_;
+	#print "In Table Command, Args = '".join("', '",@args)."'\n";
+        
+        # Save the row/col values so we can check later
+        $CmdRow = $row;
+        $CmdCol = $col;
+        
+	my $index = "$row,$col";
+	if( $set ){
+		$array->{$index} = $val;
+	}
+	else{
+		if( defined( $array->{$index})){
+			return $array->{$index};
+		}
+		else{
+			return '';
+		}
+	}
+}
+
+
 my $label = $top->Label(-text => "TableMatrix v2 Example");
 my $t = $top->Scrolled('TableMatrix', -rows => $rows, -cols => $cols, 
 #        my $t = $toplevel->TableMatrix( -rows => $rows, -cols => $cols, 
                                       -width => 6, -height => 6,
                                        -titlerows => 1, -titlecols => 1,
                                       -variable => $arrayVar,
+                                      -command => [\&tblCmd, $arrayVar],
                                       -coltagcommand => \&colSub,
                                       -colstretchmode => 'last',
                                       -rowstretchmode => 'last',
@@ -58,6 +85,20 @@ $t->configure(-browsecmd => sub{
          #print "prevIndex = $prevIndex currentIndex = $currentIndex\n";
 });
 
+# Setup selectioncommand callback
+my ($NumRows,$NumCols,$selection,$noCells);
+$t->configure(  
+		-selectioncommand => sub{
+					($NumRows,$NumCols,$selection,$noCells) = @_;
+					my @args = @_;
+					#print "In Selection Command, Args = '".join("', '",@args)."'\n";
+					return $selection;
+					}
+		);
+
+
+
+
 # Setup test for browsecmd callback
 $top->after(1000, sub{
                 $t->activate('2,2');
@@ -65,12 +106,28 @@ $top->after(1000, sub{
                 ok($currentIndex, '2,2', "browsecmd currentIndex 1");
 });
 
-# Setup test for browsecmd callback
+# Setup test for other callbacks
 $top->after(2000, sub{
                 $t->activate('2,3');
                 ok($prevIndex, '2,2',    "browsecmd previndex 2");
                 ok($currentIndex, '2,3', "browsecmd currentIndex 2");
+
+                # Check to see if CmdRow and CmdCol are defined
+                ok(defined($CmdRow), 1, '-command row arg defined');
+                ok(defined($CmdCol), 1, '-command col arg defined');
+                
+                # check selectioncommand callback
+                $t->selection('set',  '2,2',   '3,5');
+                my $seltext = $t->GetSelection(); # clear out current selection
+                ok($seltext, $selection, "selectioncommand selected text");
+                ok($NumRows, 2, "selectioncommand NumRows");
+                ok($NumCols, 4, "selectioncommand NumCols");
+                ok($noCells, 8, "selectioncommand NoCells");
+
+
 });
+
+
 
 $t->pack();
 
