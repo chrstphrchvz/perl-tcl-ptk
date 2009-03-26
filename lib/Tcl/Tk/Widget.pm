@@ -1982,8 +1982,8 @@ sub Busy
     }
    if (@config)
     {
-     push(@old, sub { $w->Tcl::Tk::configure(@config) });
-     $w->Tk::configure(%args);
+     push(@old, sub { $w->Tcl::Tk::Widget::configure(@config) });
+     $w->Tcl::Tk::Widget::configure(%args);
     }
    unless ($w->bind('Busy'))
     {
