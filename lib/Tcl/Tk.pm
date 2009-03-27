@@ -4,7 +4,10 @@ use strict;
 use Tcl;
 use Exporter ('import');
 use Scalar::Util (qw /blessed/); # Used only for it's blessed function
-use vars qw(@EXPORT_OK %EXPORT_TAGS $platform);
+use vars qw(@EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
+
+# Wait till we have 100 things to delete before we do cleanup
+$cleanup_queue_maxsize = 50;
 
 # Set the platform global variable, based on the OS we are running under
 BEGIN{ 
@@ -591,6 +594,8 @@ $Wint = $W{INT};
 $Wpath = $W{PATH};
 $Wdata = $W{DATA};
 
+
+
 # hash to keep track on preloaded Tcl/Tk modules, such as Tix, BWidget
 my %preloaded_tk; # (interpreter independent thing. is this right?)
 
@@ -628,6 +633,10 @@ sub new {
     unless (defined $tkinterp) {
 	# first call, create command-helper in TCL to trace widget destruction
 	$i->CreateCommand("::perl::w_del", \&widget_deletion_watcher);
+        
+	# Create command-helper in TCL to perform the actual widget cleanup
+        #   (deferred in a afterIdle call )
+	$i->CreateCommand("::perl::w_cleanup", \&widget_cleanup);
     }
     $tkinterp = $i;
     return $i;
@@ -809,17 +818,62 @@ sub declare_widget {
     
     return $w;
 }
+
 sub widget_deletion_watcher {
     my (undef,$int,undef,$path) = @_;
     #print  STDERR "[D:$path]\n";
     
     # Call the _OnDestroy method on the widget to perform cleanup on it
     my $w = $W{RPATH}->{$path};
-    #print "Calling _Destroyed on $w\n";
+    #print STDERR "Calling _Destroyed on $w, Ind = ".$Idelete++."\n";
     $w->_Destroyed();
     
     $int->delete_widget_refs($path);
+
     delete $W{RPATH}->{$path};
+}
+
+###############################################
+#  Overriden delet_ref
+#  Instead of immediately deleting a scalar or code ref in Tcl-land,
+#   queue the ref to be deleted in an after-idle call.
+#   This is done, rather than deleting immediately, because an immediate delete
+#   before a widget is completely destroyed can causes Tcl-crashes.
+sub delete_ref {
+    my $interp = shift;
+    my $rname = shift;
+    my $ref = $interp->return_ref($rname);
+    push @cleanup_refs, $rname; 
+    
+    # Create an after-idle call to delete refs, if the cleanup queue is bigger
+    #   than the threshold
+    if( !$cleanupPending and scalar(@cleanup_refs) > $cleanup_queue_maxsize ){
+            #print STDERR "Calling after idle cleanup on ".join(", ", @cleanup_refs)."\n";
+            $cleanupPending = 1; # Setup flag so we don't call the after idle multiple times
+            $interp->call('after', 'idle', "::perl::w_cleanup");
+    }
+    return $ref;
+}
+
+
+# Sub to cleanup any que-ed commands and variables in
+#  @cleanup_refs. This usually called from an after-idle procedure
+sub widget_cleanup {
+    my (undef,$int,undef,$path) = @_;
+
+    my @deleteList = @cleanup_refs;
+    
+    # Go thru each list and delete
+    foreach my $rname(@deleteList){
+            #print  STDERR "Widget_Cleanup deleting $rname\n";
+
+            $int->SUPER::delete_ref($rname);
+    }
+    
+    # Zero-out cleanup_refs
+    @cleanup_refs = ();
+    $cleanupPending = 0; # Reset cleanup flag for next time
+
 }
 
 # widget_data return anonymous hash that could be used to hold any 
