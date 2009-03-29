@@ -381,7 +381,7 @@ sub createTclBindRef{
                                 # If eventSource not found in the lookup, use the creating Widget
                                 $eventSource = defined($eventSource)? $eventSource : $creatingWidget;
 
-                                $self->BindCall($eventSource, $noWidgetArg);
+                                $self->BindCall($eventSource);
                            },
                            Tcl::Ev('%W')
                            ];

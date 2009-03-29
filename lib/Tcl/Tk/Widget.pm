@@ -19,12 +19,14 @@ use Tcl::Tk::Widget::Text;
 use Tcl::Tk::Widget::Photo;
 use Tcl::Tk::Widget::Bitmap;
 use Tcl::Tk::XEvent;  # Limited XEvent support
+use Tcl::Tk::Font;
 
 use Scalar::Util (qw /blessed/); # Used only for it's blessed function
 
-# Setup camel-case commands for pack
+# Setup camel-case commands for pack, and the font commands
 use Tcl::Tk::Submethods(
                     'pack'  => [qw(configure forget info propagate slaves)],
+                    'font'  => [qw(actual configure create delete families measure metrics names )]
                   );
 
 use strict;
@@ -255,8 +257,8 @@ sub call{
     
     # Go thru each arg and look for callback (i.e -command ) args
     my $lastArg;
-    my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
-    #my $callMethod = 'call'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
+    #my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
+    my $callMethod = 'call'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
     foreach my $arg(@args){
             
             if( defined($lastArg) && !ref($lastArg) && ( $lastArg =~ /^-\w+/ ) ){
@@ -366,6 +368,19 @@ sub cget {
                     $type = ucfirst($type);
                     my $package = "Tcl::Tk::Widget::$type";
                     my $obj = $self->interp->declare_widget($name, $package);
+                    return $obj;
+            }
+            return $name;
+    }
+
+    # Return an font object, if one requested
+    #   for compatibility with perlTk
+    if( defined($option) and $option eq '-font' ){
+            my $name = $self->call($self->path, 'cget', '-font');
+            if( $name){
+                    # Turn font name into an object
+                    #  (We don't create a font object here, because the font already exists)
+                    my $obj = bless {name => $name, interp => $self->interp}, 'Tcl::Tk::Font';
                     return $obj;
             }
             return $name;
