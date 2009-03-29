@@ -148,6 +148,7 @@ sub TkHijack {
     #print "TkHijack $module\n";
 
     my ($package, $callerfile, $callerline) = caller;
+    #print "TkHijack package/callerFile/callerline = $package $callerfile $callerline\n";
     
     my $mapped = $translateList->{$module};
     
@@ -160,9 +161,11 @@ sub TkHijack {
         
             # Make Version if importing Tk (needed for some scripts to work right)
             my $versionText = "\n";
+            my $requireText = "\n"; #  if Tk module, set export of Ev subs
             if( $module eq 'Tk' ){
                     
-                    
+                    $requireText = "use Exporter 'import';\n";
+                    $requireText .= '@EXPORT_OK = (qw/ Ev /);'."\n";
                     
                     $versionText = '$Tk::VERSION = 805.001;'."\n";
                     
@@ -182,6 +185,7 @@ sub TkHijack {
         
             $fakefile = <<EOS;
         package $module;
+        $requireText
         $versionText
         warn "### $callerfile:$callerline not really loading $module ###" if($Tcl::Tk::TkHijack::debug);
         sub foo { 1; }
