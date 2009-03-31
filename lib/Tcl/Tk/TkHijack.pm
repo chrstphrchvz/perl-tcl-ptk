@@ -74,6 +74,7 @@ $translateList = {
         'Tk/DragDrop.pm'    =>  'Tcl/Tk/Widget/DragDrop.pm',
         'Tk/DropSite.pm'    =>  'Tcl/Tk/Widget/DropSite.pm',
         'Tk/Frame.pm'       =>  '',
+        'Tk/Font.pm'       =>  '',
         'Tk/HList.pm'    =>  'Tcl/Tk/Widget/HList.pm',
         'Tk/Image.pm'    =>  'Tcl/Tk/Widget/Image.pm',
         'Tk/ItemStyle.pm'    =>  'Tcl/Tk/Widget/ItemStyle.pm',
@@ -178,6 +179,7 @@ sub TkHijack {
                     *Tk::Ev = \&Tcl::Tk::Ev;
                     *Tk::Exists = \&Tcl::Tk::Exists;
                     *Tk::break = \&Tcl::Tk::break;
+                    *Tk::platform = \$Tcl::Tk::platform;
                     
                     
             }
