@@ -549,8 +549,17 @@ sub BeginSelect{
 	
 	return if( $self->{rowColResize}); # Don't Select if currently doing a row/col resize
 	
-        # Call MoveCell to commit cell edits when another cell is selected (like excel does)
-        $self->MoveCell(0,0);
+        # Cancel an edit, if one is being edited (i.e. active cell defined)
+	my $active;    # Current active cell
+	# Get the current active cell, if one exists
+	eval { $active = $self->index('active'); }; 
+        
+        if( $active ){ # If an active cell (i.e. cell being edited, commit it by activating upper left
+                # No Active cell if it is set to the upper left column (i.e. esc key pressed)
+                my $upperLeft = $self->cget(-roworigin).",".$self->cget(-colorigin);
+                $self->activate($upperLeft) if( $active ne $upperLeft);
+        }
+
         
 	# print "Calling inherited BeginSelect\n";
 	$self->SUPER::BeginSelect($rc);
@@ -837,7 +846,6 @@ sub Button1Release{
 #   Returns nothing
 #
 sub Button1 {
-
 	my $w = shift;
 	my ( $x, $y ) = @_;
         

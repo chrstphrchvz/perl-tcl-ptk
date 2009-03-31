@@ -808,7 +808,7 @@ sub Button1 {
 
 	my $w = shift;
 	my ( $x, $y ) = @_;
-
+        
 	# borderInfo is null if the user did not click on a border
 	if ( $tkPriv{borderB1} == 1 ) {
 		$tkPriv{borderInfo} = $w->borderMark( $x, $y );
