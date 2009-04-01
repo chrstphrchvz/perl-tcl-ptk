@@ -9,6 +9,15 @@ plan tests => 5;
 
 my $top = MainWindow->new;
 
+# This will skip if Tktable not present
+my $retVal = $top->interp->pkg_require('Tktable');
+
+unless( $retVal){
+        skip("Tktable Tcl package not available", 1);
+        exit;
+}
+
+
 my $arrayVar = {};
 
 foreach my $row  (0..20){

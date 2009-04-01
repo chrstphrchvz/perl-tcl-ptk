@@ -196,10 +196,21 @@ EOS
         return $fh;
     }
     elsif( defined($mapped) ){ # Module exists in translateList with a mapped file
-            my $file = Tcl::Tk::findINC($mapped) or die("Can't find module $mapped");
-            warn "### $callerfile:$callerline loading Tcl Tk $file to substitute for $module ###" if($Tcl::Tk::TkHijack::debug);
-            open(my $fh, $file) or die("Can't open module $file");
-            return $fh;
+
+            # Turn mapped file into name suitable for a 'use' statement
+            my $usefile = $mapped;
+            $usefile =~ s!/!::!g;
+            $usefile =~ s/\.pm$//;
+
+            warn "### $callerfile:$callerline loading Tcl Tk $usefile to substitute for $module ###" if($Tcl::Tk::TkHijack::debug);
+            # Turn mapped file into use statement
+            my $fakefile;
+            open(my $fh, '<', \$fakefile) || die "oops"; # open a file "in-memory"
+             $fakefile = <<EOS;
+        use $usefile;
+        1;
+EOS
+             return $fh;       
     }
     else{
             warn("Warning No Tcl::Tk Equivalent to $module from $callerfile line $callerline, loading anyway...\n") if $debug;
