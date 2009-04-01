@@ -32,6 +32,7 @@ use Tcl::Tk::Widget::Balloon;
 use Tcl::Tk::Widget::Menu;
 use Tcl::Tk::Widget::Menubutton;
 use Tcl::Tk::Widget::Canvas;
+use Tcl::Tk::Font;
 
 
 # Tcl::Tk::libary variable: Translation from perl/tk Tk.pm

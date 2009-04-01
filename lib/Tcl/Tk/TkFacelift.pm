@@ -336,7 +336,6 @@ sub Populate {
     my @ignoreOptions = (
      -background,
      -bd,
-     -bg,
      -colormap,
      -container,
      -highlightbackground,
