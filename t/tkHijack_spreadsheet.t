@@ -11,7 +11,7 @@ use Tk;
 use Tk::TableMatrix;
 use Tk::TableMatrix::Spreadsheet;
 
-my $top = MainWindow->new;
+my $top = new MainWindow;
 
 # This will skip if Tktable not present
 my $retVal = $top->interp->pkg_require('Tktable');

@@ -1,5 +1,5 @@
 
-use Tcl::Tk (qw/:perlTk/);
+use Tcl::Tk ( qw/ MainLoop DoOneEvent tkinit update Ev Exists /); # Don't import MainLoop, we create our own later
 
 package Tcl::Tk::TkHijack;
 
@@ -121,6 +121,8 @@ $packageAliases = {
         'Tk::MainWindow' => 'Tcl::Tk::Widget::MainWindow',
         'Tk::Widget'=> 'Tcl::Tk::Widget',
         'Tk::Derived'=> 'Tcl::Tk::Derived',
+        'Tk::DropSite'    =>  'Tcl::Tk::Widget::DropSite',
+        'Tk::Canvas'    =>  'Tcl::Tk::Widget::Canvas',
         'Tk::Menu'=> 'Tcl::Tk::Widget::Menu',
         'Tk::TextUndo'=> 'Tcl::Tk::Widget::TextUndo',
         'Tk::Text'=> 'Tcl::Tk::Widget::Text',
@@ -228,5 +230,13 @@ sub aliasPackages{
         }
 }
 
+################### MainWindow package #################3
+## Created so the lines like the following work
+##   my $mw = new MainWindow;
+package MainWindow;
+
+sub new{
+        Tcl::Tk::MainWindow();
+}
 
 1;

@@ -26,14 +26,21 @@ use Scalar::Util (qw /blessed/); # Used only for it's blessed function
 # Setup camel-case commands for pack, and the font commands
 use Tcl::Tk::Submethods(
                     'pack'  => [qw(configure forget info propagate slaves)],
-                    'font'  => [qw(actual configure create delete families measure metrics names )]
+                    'font'  => [qw(actual configure create delete families measure metrics names )],
                   );
+
 
 use strict;
 
 # Generate tk methods (like $widget->appname, which mapps to 'tk appname' in tcl/tk
 Direct2 Tcl::Tk::Submethods (
-   'tk'   => [qw(appname caret scaling useinputmethods windowingsystem)]);
+   'tk'   => [qw(appname caret scaling useinputmethods windowingsystem)],
+   );
+
+# command for optionAdd, optionClear, etc.
+Direct3 Tcl::Tk::Submethods (
+   'option'    =>  [qw(add clear readfile)]
+   ); 
 
 our ($bindActive);  # flag = 1 if we are in a binding (used in servicing Tcl::Tk::break's in bindings)
 ############################## Widget Mapping Structures ############################
@@ -991,6 +998,13 @@ sub Exists {
     my $wp = $wid->path;
     return $wid->interp->icall('winfo','exists',$wp);
 }
+
+# Alias for Exists. Some tk programs use this, although it doesn't appear to be documented
+sub exists {
+    my $wid = shift;
+    $wid->Exists(@_);
+}
+
 sub toplevel {
     my $wid = shift;
     my $int = $wid->interp;
@@ -2403,6 +2417,14 @@ sub tclPatchlevel{
 sub tclVersion{
         my $self = shift;
         return $self->interp->icall('info', 'tclversion');
+}
+
+# Pixmap: Alias for the Photo method
+# There is no direct Pixmap widget in Tcl/Tk (like perl/tk), however the Photo widget
+#   works the same way.
+sub Pixmap{
+        my $self = shift;
+        $self->Photo(@_);
 }
 
 sub DESTROY {}			# do not let AUTOLOAD catch this method

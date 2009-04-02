@@ -10,7 +10,7 @@ if (!$mw->interp->pkg_require('Img')) {
     exit;
 }
 
-plan tests => 13;
+plan tests => 14;
 
 my $xpm;
 my $photo;
@@ -33,6 +33,14 @@ my $photo;
        ok(scalar(@opts), 5, "configure $opt returned not 5 elements");
      }
 }
+
+# check to see that the Pixmap (alias for Photo) method works
+{
+   $xpm = './t/folder.xpm';
+   eval { $photo = $mw->Pixmap(-file=>$xpm); };
+   ok($@, '', 'Problem creating Pixmap widget');
+}
+
 
 1;
 __END__

@@ -60,5 +60,27 @@ sub Direct2
   }
 }
 
+# Method calls that are camel case and don't include the window path (like $widget->optionReadfile
+sub Direct3
+{
+ my $class = shift;
+ no strict 'refs';
+ my $package = caller(0);
+ while (@_)
+  {
+   my $fn = shift;
+   my $sm = shift;
+   foreach my $sub (@{$sm})
+    {
+     my ($suffix) = $sub =~ /(\w+)$/;
+     my $pfn = $package.'::'.$fn;
+     *{$pfn."\u$suffix"} = sub {
+        my $self = shift;
+        $self->interp->call($fn, $sub, @_)
+     };
+    }
+  }
+}
+
 1;
 
