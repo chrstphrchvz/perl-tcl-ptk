@@ -145,7 +145,8 @@ sub delete{
         }
         
         
-        $self->SUPER::delete(@_);
+        #$self->SUPER::delete($option, @_);
+        $self->SUPER::delete($option, @_);
 }
  
 # Overriden version of info that handles getting -data storage

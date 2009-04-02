@@ -44,9 +44,13 @@ foreach my $item (@list)
     $hl->addchild($item, -itemtype => 'text', -text => $subitem, -data => []);
    }
  }
+ 
+ # Add an item that will be deleted
+ $hl->add("deleteItem", -itemtype => 'text', -text => 'deleteItem');
+ $hl->delete("entry", "deleteItem");
 
 ok(1, 1, "HList Widget Creation");
  
-$mw->after(1000,sub{$mw->destroy});
+$mw->after(1000,sub{$mw->destroy}) unless(@ARGV);
 
 MainLoop;
