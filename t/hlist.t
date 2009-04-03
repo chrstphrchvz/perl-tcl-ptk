@@ -4,7 +4,7 @@ use Tcl::Tk qw/:perlTk/;
 use Data::Dumper;
 use Test;
 
-plan tests => 1;
+plan tests => 2;
 
 $mw = MainWindow->new;
 $|=1;
@@ -48,6 +48,11 @@ foreach my $item (@list)
  # Add an item that will be deleted
  $hl->add("deleteItem", -itemtype => 'text', -text => 'deleteItem');
  $hl->delete("entry", "deleteItem");
+ 
+ # Check that we can store and retreive data
+ $hl->add("dataItem", -itemtype => 'text', -text => 'dataItem', -data => [ 1..20 ]); 
+ my $data = $hl->entrycget("dataItem",'-data');  #get the data ref for this entry
+ ok(scalar(@$data), 20, "Hlist data storage");
 
 ok(1, 1, "HList Widget Creation");
  

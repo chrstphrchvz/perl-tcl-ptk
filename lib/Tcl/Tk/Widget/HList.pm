@@ -163,6 +163,20 @@ sub info{
         return $self->SUPER::info($option, @_);
 }
  
+# Overriden version of info that handles getting -data storage
+sub entrycget{
+        my $self   = shift;
+        my $item   = shift;
+        my $option = shift;
+        
+        if( $option eq '-data'){
+                my $HListdata = $self->{_HListdata} || {};
+                return $HListdata->{$item};
+        }
+        
+        return $self->SUPER::entrycget($item, $option, @_);
+}
+ 
         
 
 1;
