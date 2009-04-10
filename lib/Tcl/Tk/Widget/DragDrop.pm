@@ -129,7 +129,7 @@ sub FindSite
  my ($token,$X,$Y) = @_;
  my $site;
  my $types = $token->sitetypes;
- my $siteType = Tcl::Tk::Widget::DropSite->type();
+ my $siteType = "Tcl::Tk::Widget::DropSite"->type;
  
  if (defined $types && @$types)
   {
@@ -169,7 +169,6 @@ sub FindSite
 sub Mapped
 {
  my ($token) = @_;
- 
  return unless( $token->Exists);
 
  $token = $token->toplevel;
