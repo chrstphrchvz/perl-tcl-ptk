@@ -485,6 +485,15 @@ sub tooltip {
     $self;
 }
 
+### font can't be autoloaded, because it creates a problem with widget delegation if it is autoloaded. ###
+#    e.g. calling $t->fontCreate, where $t is a megawidget (or scrolled widget) can cause deep recursion errors
+#      without this sub
+sub font
+{
+  my $w = shift;
+  $w->call('font', @_);
+}
+
 #
 # few geometry methods here
 sub pack

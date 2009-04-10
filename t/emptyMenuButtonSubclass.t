@@ -22,7 +22,7 @@ ok(Tcl::Tk::Exists($mw), 1, "MainWindow creation failed");
 my $menubar = $mw->Frame(-relief => 'raised', -borderwidth => 2, -class => 'menubar')
   ->pack(-fill=>'x');
 
-$menubar->Menubutton2(qw/-text File -underline 0 -tearoff 0 -menuitems/ =>
+  $menubar->Menubutton2(qw/-text File -underline 0 -tearoff 0 -menuitems/ =>
   [
     [Button => '~Open ...',     -accelerator => 'Control+o'],
     [Button => '~New',          -accelerator => 'Control+n'],

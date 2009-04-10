@@ -183,7 +183,7 @@ sub Populate
 
 sub CreateOptions
 {
- return ('Name'); # Name option, if present always needs to be supplied at creation time
+ return ('Name', '-class'); # Name and -class options, if present always needs to be supplied at creation time
 }
 
 sub CreateArgs

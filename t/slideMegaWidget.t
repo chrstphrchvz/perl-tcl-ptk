@@ -38,7 +38,8 @@ sub Populate {
     
     # This is not part of the megawidget, just a test to see if Component works
     my $dummy = $self->Component('TextUndo', 'undo');
-
+    my $dummy2 = $self->Component('Frame', 'Menubar', -class => 'Menubar');
+    
     $self->ConfigSpecs(
         -command      => [$sl,        qw/command      Command            /],  
         -from         => [$sl,        qw/from         From              0/],
@@ -113,6 +114,7 @@ my $TOP = MainWindow->new();
         -rlabel      => [-text => 'ON',  -foreground => 'blue'],
         -troughcolor => 'tan',
     )->pack(qw/-side left -expand 1/);
+
 
     
 ok(1,1, "Slide Megawidget");

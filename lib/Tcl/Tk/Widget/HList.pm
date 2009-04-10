@@ -160,8 +160,9 @@ sub info{
                 return $HListdata->{$item};
         }
         
-        return $self->SUPER::info($option, @_);
+        return $self->call($self, 'info', $option, @_);
 }
+
  
 # Overriden version of info that handles getting -data storage
 sub entrycget{

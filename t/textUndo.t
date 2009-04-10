@@ -16,6 +16,10 @@ my $t = $top->Scrolled('TextUndo',"-relief" => "raised",
                      "-bd" => "2",
                      "-setgrid" => "true");
 
+# Check to make sure fontCreate doesn't fail (i.e. get deep recursion errors) on a megawidget
+my $f = $t->fontCreate( -size => 8);    
+
+
 my $m = $t->Menu();
 $m->add("command", "-label" => "Open", "-underline" => 0,
         "-command" => \&sayopen);
