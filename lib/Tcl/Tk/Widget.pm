@@ -1125,13 +1125,17 @@ sub Getimage {
 	my $path;
 	foreach my $dir (@INC) {
 	    $path = "$dir/Tcl/Tk/$name.$ext";
-	    last if -f $path;
+            
+            if( -f $path){ # File found, check that we can load Img package before accepting a xpm file
+                my $load = 1;
+                if ($ext eq "xpm") {  
+                    $load = $int->pkg_require('Img');
+                }
+                last if $load;
+            }
 	}
 	next unless -f $path;
 	# Found image $path
-	if ($ext eq "xpm") {
-	    $int->pkg_require('img::xpm');
-	}
 	my @args = ('image', 'create', $image_formats{$ext}, -file => $path);
 	if ($image_formats{$ext} ne "bitmap") {
 	    push @args, -format => $ext;

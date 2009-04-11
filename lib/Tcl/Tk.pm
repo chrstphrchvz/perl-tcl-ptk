@@ -25,6 +25,7 @@ BEGIN{
 use Tcl::Tk::Widget;
 use Tcl::Tk::Widget::MainWindow;
 use Tcl::Tk::Widget::DialogBox;
+use Tcl::Tk::Widget::Dialog;
 use Tcl::Tk::Widget::LabEntry;
 use Tcl::Tk::Widget::ROText;
 use Tcl::Tk::Widget::Listbox;
