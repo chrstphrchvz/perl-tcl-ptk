@@ -212,9 +212,10 @@ sub Drag
 sub Done
 {
  my $token = shift;
+ my ($X, $Y) = @_;
  $token    = $token->toplevel;
  my $over  = delete $token->{'Over'};
- $over->Leave($token) if (defined $over);
+ $over->Leave($token, $X, $Y) if (defined $over);
  my $w     = $token->parent;
  eval {local $SIG{__DIE__}; $token->grabRelease };
  $token->withdraw;

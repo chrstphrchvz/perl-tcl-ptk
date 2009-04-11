@@ -76,7 +76,7 @@ sub Drop
  my @targ = $token->SelectionGet(-selection => $seln,'TARGETS');
  $site->Apply(-dropcommand => $X, $Y, $seln,'LocalDrop',\@targ);
  $site->Apply(-entercommand => $X, $Y, 0);
- $token->Done;
+ $token->Done($X,$Y);
 }
 
 sub Enter
@@ -88,7 +88,7 @@ sub Enter
 
 sub Leave
 {
- my ($site,$token,$event, $X, $Y) = @_;
+ my ($site,$token, $X, $Y) = @_;
  $token->RejectDrop;
  $site->Apply(-entercommand =>  $X, $Y, 0);
 }
