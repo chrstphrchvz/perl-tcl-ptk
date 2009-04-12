@@ -939,7 +939,9 @@ sub Exists($) {
     return 0 unless defined($wid);
     if (ref($wid)=~/^Tcl::Tk::Widget\b/) {
         my $wp = $wid->path;
-        return $wid->interp->icall('winfo','exists',$wp);
+        my $interp = $wid->interp;
+        return 0 unless( defined $interp); # Takes care of some issues during global destruction
+        return $interp->icall('winfo','exists',$wp);
     }
     return eval{$tkinterp->icall('winfo','exists',$wid)};
 }

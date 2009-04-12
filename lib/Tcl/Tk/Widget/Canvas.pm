@@ -78,6 +78,27 @@ sub createWindow{
         $self->interp->invoke($self, 'create', 'window', @_);
 }
 
+
+# Item cget used here (rather than autoloaded) so we can return Font objects
+#   if -font requested
+sub itemcget {
+    my $self = shift;
+    my $id   = shift;
+    my $option = shift;
+    
+    if( $option eq '-font'){
+            my $name = $self->call($self->path, 'itemcget', $id, $option);
+            if( $name){
+                    # Turn font name into an object
+                    #  (We don't create a font object here, because the font already exists)
+                    my $obj = bless {name => $name, interp => $self->interp}, 'Tcl::Tk::Font';
+                    return $obj;
+            }
+            return $name;
+    }
+    
+    $self->call($self->path, 'itemcget', $id, $option);
+}
 # Returns the bounding box in Canvas coordinates of the visible portion of the Canvas.
 #  (Written by Slaven Rezic.) Copied from perl/tk
 sub get_corners

@@ -191,7 +191,7 @@ sub TkHijack {
         package $module;
         $requireText
         $versionText
-        warn "### $callerfile:$callerline not really loading $module ###" if($Tcl::Tk::TkHijack::debug);
+        #warn "### $callerfile:$callerline not really loading $module ###" if($Tcl::Tk::TkHijack::debug);
         sub foo { 1; }
         1;
 EOS
@@ -204,7 +204,7 @@ EOS
             $usefile =~ s!/!::!g;
             $usefile =~ s/\.pm$//;
 
-            warn "### $callerfile:$callerline loading Tcl Tk $usefile to substitute for $module ###" if($Tcl::Tk::TkHijack::debug);
+            #warn "### $callerfile:$callerline loading Tcl Tk $usefile to substitute for $module ###" if($Tcl::Tk::TkHijack::debug);
             # Turn mapped file into use statement
             my $fakefile;
             open(my $fh, '<', \$fakefile) || die "oops"; # open a file "in-memory"
@@ -215,7 +215,7 @@ EOS
              return $fh;       
     }
     else{
-            warn("Warning No Tcl::Tk Equivalent to $module from $callerfile line $callerline, loading anyway...\n") if $debug;
+            #warn("Warning No Tcl::Tk Equivalent to $module from $callerfile line $callerline, loading anyway...\n") if $debug;
     }
             
 }

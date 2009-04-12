@@ -3,7 +3,7 @@
 use Tcl::Tk (qw/ :perlTk /);
 use Test;
 
-plan tests => 5;
+plan tests => 6;
 
 my $TOP = MainWindow->new();
 
@@ -21,6 +21,16 @@ $scale->set(75);
 
 $scale->pack(qw/-side left -anchor ne/);
 $canvas->pack(qw/-side left -anchor nw -fill y/);
+
+####### Create a text item, for testing ####
+# Create dummy item, so we can see what font is used
+my $dummyID = $canvas->createText( 100,25, -text => "You should never see this" );
+my $defaultfont = $canvas->itemcget($dummyID,-font);
+
+ok( ref($defaultfont), 'Tcl::Tk::Font', "itemcget -font return value check");
+
+# Delete the dummy item
+$canvas->delete($dummyID);
 
 
 # Check return of 2-arg bind for items
