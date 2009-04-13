@@ -140,6 +140,8 @@ aliasPackages($packageAliases);
 
 
 
+
+
 sub TkHijack {
     # When placed first on the INC path, this will allow us to hijack
     # any requests for 'use Tk' and any Tk::* modules and replace them
@@ -182,6 +184,7 @@ sub TkHijack {
                     *Tk::Exists = \&Tcl::Tk::Exists;
                     *Tk::break = \&Tcl::Tk::break;
                     *Tk::platform = \$Tcl::Tk::platform;
+                    *Tk::bind = \&Tcl::Tk::Widget::bind;
                     
                     
             }
