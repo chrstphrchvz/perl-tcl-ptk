@@ -505,7 +505,18 @@ sub pack
   {
    # maybe array/scalar context issue with slaves
    my $command = shift;
-   $w->call('pack', $command, $w, @_);
+   
+   if( $command eq 'slaves'){
+    # pack slaves returns widget paths, so map them to objects
+    my @wids = $w->call('pack', $command, $w, @_);
+    my $widgets = $w->interp->widgets();
+    $widgets = $widgets->{RPATH};
+    my @childs = @$widgets{@wids};
+    return grep defined($_), @childs; # only return widgets we found in our lookup;   
+   }
+   else{ # Not packSlaves
+    $w->call('pack', $command, $w, @_);
+   }
   }
  else
   {
@@ -526,7 +537,17 @@ sub place
   {
    # maybe array/scalar context issue with slaves
    my $command = shift;
-   $w->call('place', $command, $w, @_);
+   if( $command eq 'slaves'){
+    # place slaves returns widget paths, so map them to objects
+    my @wids = $w->call('pack', $command, $w, @_);
+    my $widgets = $w->interp->widgets();
+    $widgets = $widgets->{RPATH};
+    my @childs = @$widgets{@wids};
+    return grep defined($_), @childs; # only return widgets we found in our lookup;   
+   }
+   else{ # Not packSlaves
+    $w->call('place', $command, $w, @_);
+   }
   }
  else
   {

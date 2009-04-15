@@ -9,7 +9,7 @@ use Tcl::Tk::Widget::BrowseEntry;
 use strict;
 use Test;
 
-plan tests => 3;
+plan tests => 4;
 
 $| = 1;
 
@@ -54,6 +54,9 @@ my @slaves = $labEntry->packSlaves();
 print "LabEntry pack slaves = ".join(", ", @slaves)."\n" if($debug);
 ok(scalar(@slaves), 2, "Unexpected number of pack slaves");
 
+# Packslaves should all be widget refs (not just pathnames)
+my @widgetRefs = grep ref($_), @slaves;
+ok( scalar(@widgetRefs), 2 , "Check for widget refs return from packSlaves");
 
 MainLoop if($debug);
 
