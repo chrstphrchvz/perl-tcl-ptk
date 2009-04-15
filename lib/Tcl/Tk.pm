@@ -32,6 +32,7 @@ use Tcl::Tk::Widget::Listbox;
 use Tcl::Tk::Widget::Balloon;
 use Tcl::Tk::Widget::Menu;
 use Tcl::Tk::Widget::Menubutton;
+use Tcl::Tk::Widget::Optionmenu;
 use Tcl::Tk::Widget::Canvas;
 use Tcl::Tk::Font;
 
@@ -934,7 +935,7 @@ sub widget($@) {
     return $w;
 }
 
-sub Exists($) {
+sub Exists {
     my $wid = shift;
     return 0 unless defined($wid);
     if (ref($wid)=~/^Tcl::Tk::Widget\b/) {
@@ -1151,5 +1152,43 @@ sub FILE_EVENTS{ Tcl::FILE_EVENTS()};
 sub TIMER_EVENTS{ Tcl::TIMER_EVENTS()};        
 sub IDLE_EVENTS{ Tcl::IDLE_EVENTS()};        
 sub ALL_EVENTS{ Tcl::ALL_EVENTS()};        
+
+# Wrappers for the Tk color functions (for compatibility with perl/tk
+sub NORMAL_BG{
+        if($^O eq 'cygwin' || $^O =~ /win32/ ){
+                return 'systembuttonface';
+        }
+        elsif( $^O =~ /darwin/i ){ # MacOS
+                return 'systemWindowBody';
+        }
+        else{ # Must be unix
+                return '#d9d9d9';
+        }
+}
+
+sub ACTIVE_BG{
+        if($^O eq 'cygwin' || $^O =~ /win32/ ){
+                return 'systembuttonface';
+        }
+        elsif( $^O =~ /darwin/i ){ # MacOS
+                return 'systemButtonFacePressed';
+        }
+        else{ # Must be unix
+                return '#ececec';
+        }
+}
+
+sub SELECT_BG{
+        if($^O eq 'cygwin' || $^O =~ /win32/ ){
+                return 'SystemHighlight';
+        }
+        elsif( $^O =~ /darwin/i ){ # MacOS
+                return 'systemHighlightSecondary';
+        }
+        else{ # Must be unix
+                return '#c3c3c3';
+        }
+}
+
 
 1;

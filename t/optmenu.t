@@ -21,6 +21,7 @@ my @opt = (0..20);
 # Granfather documented use of just -variable
 my $opt = $mw->Optionmenu(-variable => \$foo,
 	                  -options => \@opt)->pack;
+
 ok($@, "", "can't create Optionmenu");
 ok(Tcl::Tk::Exists($opt), 1, "Optionmenu creation failed");
 
@@ -32,6 +33,7 @@ ok($optmenu ne "", 1, "can't get menu from Optionmenu");
 ok(ref $optmenu, 'Tcl::Tk::Widget::Menu', "reference returned is not a Tk::Menu");# or Tcl::Tk::Widget::Menu?
 ok($optmenu->index("last"), 20, "wrong number of elements in menu");
 ok($optmenu->entrycget("last", -label), "20", "wrong label");
+
 
 # Test use of both variables on the list of lists case
 my $foo3 = 5;
@@ -65,5 +67,7 @@ ok($opt2menu->entrycget("last", -label), "Label 20", "wrong label");
 #TODO ok($ {$opt2->cget(-textvariable)}, "Label $foo2", "wrong label");
 
 $mw->after(1000,sub{$mw->destroy});
+
+
 MainLoop;
 __END__

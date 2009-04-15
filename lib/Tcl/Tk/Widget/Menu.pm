@@ -14,6 +14,51 @@ use Tcl::Tk::Widget::Menubutton;
 
 Tcl::Tk::Widget->Construct('Menu');
 
+# Create widget packages and methods for Menu
+Tcl::Tk::Widget::create_widget_package('Menu');
+Tcl::Tk::Widget::create_method_in_widget_package('Menu',
+        command => sub {
+            my $wid = shift;
+            my %args = @_;
+            
+            # Convert -bg and -fg abbreviations to -background and -foreground
+            #   These abbreviations are valid in perl/tk, but not in Tcl/tk, so we have to
+            #  translate
+            $args{-foreground} = delete($args{-fg}) if( defined($args{-fg}));
+            $args{-background} = delete($args{-bg}) if( defined($args{-bg}));
+            
+            $wid->_process_underline(\%args);
+            $wid->call("$wid",'add','command',%args);
+        },
+        checkbutton => sub {
+            my $wid = shift;
+            $wid->call("$wid",'add','checkbutton',@_);
+        },
+        radiobutton => sub {
+            my $wid = shift;
+            $wid->call("$wid",'add','radiobutton',@_);
+        },
+        cascade => sub {
+            my $wid = shift;
+            $wid->_addcascade(@_);
+        },
+        separator => sub {
+            my $wid = shift;
+            $wid->call("$wid",'add','separator',@_);
+        },
+        menu => sub {
+            my $wid = shift;
+            return $wid->interp->widget("$wid");
+        },
+        
+        entryconfigure => sub {
+            my $wid = shift;
+            my $label = shift;
+            $label =~ s/~//;
+            $wid->call("$wid", 'entryconfigure', $label, @_);
+        },
+);
+
 
 sub Populate
 {
@@ -138,49 +183,6 @@ sub Tcl::Tk::Menu {
     my $mis         = delete $args{'-menuitems'};
     $args{'-state'} = delete $args{state} if exists $args{state};
 
-    Tcl::Tk::Widget::create_widget_package('Menu');
-    Tcl::Tk::Widget::create_method_in_widget_package('Menu',
-	command => sub {
-	    my $wid = shift;
-	    my %args = @_;
-            
-            # Convert -bg and -fg abbreviations to -background and -foreground
-            #   These abbreviations are valid in perl/tk, but not in Tcl/tk, so we have to
-            #  translate
-            $args{-foreground} = delete($args{-fg}) if( defined($args{-fg}));
-            $args{-background} = delete($args{-bg}) if( defined($args{-bg}));
-            
-	    $wid->_process_underline(\%args);
-	    $wid->call("$wid",'add','command',%args);
-	},
-	checkbutton => sub {
-	    my $wid = shift;
-	    $wid->call("$wid",'add','checkbutton',@_);
-	},
-	radiobutton => sub {
-	    my $wid = shift;
-	    $wid->call("$wid",'add','radiobutton',@_);
-	},
-	cascade => sub {
-	    my $wid = shift;
-	    $wid->_addcascade(@_);
-	},
-	separator => sub {
-	    my $wid = shift;
-	    $wid->call("$wid",'add','separator',@_);
-	},
-	menu => sub {
-	    my $wid = shift;
-	    return $wid->interp->widget("$wid");
-	},
-        
-	entryconfigure => sub {
-	    my $wid = shift;
-	    my $label = shift;
-	    $label =~ s/~//;
-	    $wid->call("$wid", 'entryconfigure', $label, @_);
-	},
-    );
     my $mnu = $int->widget($self->call('menu', $w, %args), "Tcl::Tk::Widget::Menu");
     $mnu->_process_menuitems($int,$mnu,$mis);
     

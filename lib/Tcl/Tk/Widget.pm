@@ -26,6 +26,7 @@ use Scalar::Util (qw /blessed/); # Used only for it's blessed function
 # Setup camel-case commands for pack, and the font commands
 use Tcl::Tk::Submethods(
                     'pack'  => [qw(configure forget info propagate slaves)],
+                    'place'  => [qw(configure forget info  slaves)],
                     'font'  => [qw(actual configure create delete families measure metrics names )],
                   );
 
@@ -516,6 +517,27 @@ sub pack
   }
 }
 
+# Wrapper for place, similar to pack above
+sub place
+{
+ local $SIG{'__DIE__'} = \&Carp::croak;
+ my $w = shift;
+ if (@_ && $_[0] =~ /^(?:configure|forget|info|slaves)$/x)
+  {
+   # maybe array/scalar context issue with slaves
+   my $command = shift;
+   $w->call('place', $command, $w, @_);
+  }
+ else
+  {
+   # Two things going on here:
+   # 1. Add configure on the front so that we can drop leading '-'
+   $w->call('place', 'configure',$w, @_);
+   # 2. Return the widget rather than nothing
+   return $w;
+  }
+}
+
 
 sub grid {
     my $self = shift;
@@ -542,11 +564,6 @@ sub gridSlaves {
     my $int  = $self->interp;
     my @wids = $self->call("grid","slaves",$self,@_);
     map($int->widget($_), @wids);
-}
-sub place {
-    my $self = shift;
-    $self->call("place",$self,@_);
-    $self;
 }
 sub lower {
     my $self = shift;
@@ -1624,132 +1641,7 @@ sub MainWindow{
 }
 
 
-# substitute Tk's "tk_optionMenu" for this
-sub Optionmenu_obsolete {
-    my $self = shift; # this will be a parent widget for newer Optionmenu
-    my $int = $self->interp;
 
-    # translate parameters
-    my %args = @_;
-
-    my $w  = w_uniq($self, "om"); # return unique widget id
-    my $vref = \do{my $r};
-    $vref = delete $args{'-variable'} if exists $args{'-variable'};
-    my $options = delete $args{'-options'} if exists $args{'-options'};
-    my $replopt = {};
-    for (@$options) {
-	if (ref) {
-	    # anon array [lab=>val]
-	    $replopt->{$_->[0]} = $_->[1];
-	    $_ = $_->[0];
-	}
-    }
-    my $mnu = $self->call('tk_optionMenu', $w, $vref, @$options);
-    $mnu = $int->declare_widget($mnu);
-    $w = $int->declare_widget($w);
-    my $mmw;
-    $mmw = new Tcl::Tk::Widget::MultipleWidget (
-        $int,
-        $w, ['&','-','*','-variable'=>\$vref,
-	    '-textvariable'=>sub {
-		my ($w,$optnam,$optval) = @_;
-		if (exists $mmw->{_replopt}->{$$vref}) {
-		    return \$mmw->{_replopt}->{$$vref};
-		}
-		return $vref;
-	    },
-	    '-menu'=> \$mnu,
-	    '-options'=>sub {
-		print STDERR "***options: {@_}\n";
-		my ($w,$optnam,$optval) = @_;
-		for (@$optval) {
-		    $w->add('command',$_);
-		}
-	    },
-         ],
-	 $mnu, ['&entrycget',],
-    );
-    $mmw->{_replopt} = $replopt if defined $replopt;
-    #for (keys %args) {$mmw->configure($_=>$args{$_})}
-    return $mmw;
-}
-
-sub Optionmenu {
-    my $self = shift; # this will be a parent widget for newer Optionmenu
-    my $int = $self->interp;
-    my %args = @_;
-
-    if ($int->_infoProc('optionmenu') eq '') {
-	$int->Eval(<<'EOS'); # create proper Optionmenu megawidget with snit
-package require snit
-::snit::widgetadaptor optionmenu {
-    option -variable
-    option -textvariable
-    option -options -configuremethod configureoptions
-    option -menu -cgetmethod cgetmenu
-    option -variable -cgetmethod cgetvariable -configuremethod configurevariable
-    variable perlvar
-    variable menu
-    delegate option * to hull
-    delegate method * to hull
-    constructor {args} {
-	array set pargs $args
-	menubutton $win -textvariable $pargs(-variable) -indicatoron 1 -menu $win.menu \
-		-relief raised -bd 2 -highlightthickness 2 -anchor c \
-		-direction flush
-	menu $win.menu -tearoff 0
-	set menu $win.menu
-        installhull $win
-        # Apply an options passed at creation time.
-	$self configurelist $args
-    }
-    method configurevariable {opt val} {
-	#puts "configurevariable... $opt=$val;"
-	# TODO following line write better
-	set perlvar $val
-	set "var$win" [eval "return $$val"]
-    }
-    method cgetvariable {opt} {
-	return $perlvar
-    }
-    method cgetmenu {args} {return $menu}
-    method configureoptions {opt vals} {
-	# this configure method is rather bogus TODO
-	foreach item $vals {
-	    $menu add radiobutton -label [lindex $item 0] -value [lindex $item 1] -variable $perlvar
-	}
-    }
-}
-EOS
-	create_widget_package("Optionmenu");
-	create_method_in_widget_package ('Optionmenu',
-	    cget => sub {
-	        my ($self,$opt) = @_;
-	        my $oo = $self->interp->invoke($self->path,"cget",$opt);
-	        if ($opt eq "-variable") {
-	            return $self->interp->return_ref($oo);
-	        } elsif ($opt eq "-menu") {
-	            return $self->interp->widget($oo,"Menu");
-	        }
-	        return $oo;
-	    }
-	);
-    }
-    my $w  = w_uniq($self, "om"); # return unique widget id
-    ## linearize -options (move this to Tcl area!)
-    my @ao = @{ $args{'-options'} || [] };
-    for (@ao) {
-        $_ = [$_, $_] unless ref;
-    }
-    $args{'-options'} = \@ao;
-    my $optionvar;
-    if( !defined($args{-variable})){ # Create -variable option, if not supplied
-            $optionvar = $ao[0][0];
-            $args{'-variable'} =  \$optionvar;
-    }
-    my $ow = $int->declare_widget($self->call("optionmenu", $w, %args), "Tcl::Tk::Widget::Optionmenu");
-    return $ow;
-}
 
 #
 #  These walk and descendants routines are copied from perltk Widget.pm

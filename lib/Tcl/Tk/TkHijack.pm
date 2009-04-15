@@ -185,6 +185,9 @@ sub TkHijack {
                     *Tk::break = \&Tcl::Tk::break;
                     *Tk::platform = \$Tcl::Tk::platform;
                     *Tk::bind = \&Tcl::Tk::Widget::bind;
+                    *Tk::ACTIVE_BG = \&Tcl::Tk::ACTIVE_BG;
+                    *Tk::NORMAL_BG = \&Tcl::Tk::NORMAL_BG;
+                    *Tk::SELECT_BG = \&Tcl::Tk::SELECT_BG;
                     
                     
             }
@@ -232,6 +235,7 @@ sub aliasPackages{
             *{$aliasFrom.'::'} = *{$aliasTo.'::'};
         }
 }
+
 
 ################### MainWindow package #################3
 ## Created so the lines like the following work
