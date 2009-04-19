@@ -163,7 +163,7 @@ sub see{
 #   wrapped ScrollableFrame widget at creation time.
 sub CreateArgs{
         my $class = shift;
-        my ($parent, $args);
+        my ($parent, $args) = @_;
         
         # Split up args to create and non-create categories
         #  (non-create are the -sticky and -gridded options)
