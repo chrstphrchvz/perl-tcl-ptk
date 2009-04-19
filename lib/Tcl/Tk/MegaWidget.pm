@@ -92,8 +92,8 @@ sub new
  
  # Check for basic widget (i.e. non-derived) There is no need to call configure twice
  #   on these types of widgets. So all args are fed to it at creation time
- my $basicWidget;
- $basicWidget = 1 if( "Tcl::Tk::Widget::$containerWidget" eq $package);
+ my $basicWidget = $package->basicWidget($containerWidget, %args);
+
  if( $basicWidget && ! @createArgs ){
          @createArgs = (@createArgs, %args);
          %args = ();
@@ -116,6 +116,20 @@ sub new
 # ASkludge(\%args,0);
  return $obj;
 }
+
+# Class method that returns 1 if the current widget is a "basic" widget, i.e. a 
+#   width that is directly mapped to a widget in Tcl/Tk. The Button, Frame, 
+#     checkbutton, etc widget are examples of "basic" widgets
+sub basicWidget{
+        my $package = shift;
+        my $containerWidget = shift;
+  
+        # Widget is a "basic" widget if it's container widget is the same as its
+        #   package name like so
+        return 1 if( "Tcl::Tk::Widget::$containerWidget" eq $package);
+        return 0;
+}
+
 
 # This is the cleanup sub that gets called when a widget is destroyed
 #  (before the <Destroy> event is fired)

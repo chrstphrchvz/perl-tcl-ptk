@@ -385,4 +385,26 @@ sub containerName{
         return 'Frame';
 }
 
+
+
+##### Overridded basicWidget  #######
+#  This ensures that the Frame widget isn't treated like a directly mapped widget (i.e. directly mapped to 
+#   Tcl when the -foreground option is supplied). 
+#   -foreground isn't a valid option for tcl/tk Frame, but is valid for perl/tk. So this is our
+#    way of handling -foreground options for Frames
+sub basicWidget{
+        my $package = shift;
+        my $containerWidget = shift;
+        my %args = @_;
+        
+        
+        if( defined($args{'-foreground'}) || defined( $args{'-fg'} ) ){
+                return 0;
+        }
+        else{  # Non-frames use the inherited method
+                $package->SUPER::basicWidget($containerWidget, %args);
+        }
+}
+
+
 1;
