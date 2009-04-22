@@ -17,10 +17,10 @@ use Carp;
 
 #Construct Tcl::Tk::Widget 'Frame';
 
-#sub CreateOptions
-#{
-# return (shift->SUPER::CreateOptions,'-colormap','-visual','-container')
-#}
+sub CreateOptions
+{
+ return (shift->SUPER::CreateOptions,'-colormap','-visual','-container')
+}
 
 sub Default
 {

@@ -274,8 +274,14 @@ sub call{
             
                             #print "Found command arg $lastArg => $arg\n";
                             
-                            # Create Callback object from arg
-                            my $cb = Tcl::Tk::Callback->new($arg);
+                            # Create Callback object from arg, unless it already is a callback
+                            my $cb;
+                            if( blessed($arg) && $arg->isa('Tcl::Tk::Callback')){
+                                    $cb = $arg;
+                            }
+                            else{
+                                    $cb = Tcl::Tk::Callback->new($arg);
+                            }
                             
                             # Store callback in the Configuration store of the widget
                             #   This is to be compatible with perltk's method of storing subrefs as callback objects
@@ -465,6 +471,19 @@ sub configure {
             }
             
     }
+    
+    # Check for -command args. If set, these should be callbacks
+    if( @return ){
+            foreach my $configElem (@return){
+                    next unless ref($configElem);
+                    next unless $configElem->[0] =~ /command|cmd$/; # Check the option for something like -command
+                    
+                    # Replace the returned tcl command name with the stored callback
+                    my $callback = $self->Tcl::Tk::Derived::_cget( $configElem->[0] );
+                    $configElem->[4] = $callback;
+            }
+    }
+                    
     
     return @return;
                     
