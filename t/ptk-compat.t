@@ -5,7 +5,7 @@ use Test;
 
 BEGIN
   {
-   plan test => 8;
+   plan test => 9;
   };
 
 use Tcl::Tk qw/:perlTk/;
@@ -84,6 +84,12 @@ ok($lab->cget("-text"), "Ring the bell!");
 $mw->deiconify;
 $mw->update;
 $mw->raise;
+
+# Check to see if geometry works on widgets
+my $geom = $lab->geometry();
+#print "geom = $geom\n";
+ok(defined($geom), 1, "geometry method on widget");
+
 my @kids = $mw->children;
 ok(@kids, 2);
 my $txt = $kids[1]->cget("-text");

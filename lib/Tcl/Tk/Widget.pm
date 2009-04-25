@@ -156,6 +156,7 @@ my %ptk2tcltk_wm =
 	     cells children class colormapfull 
 	     depth
 	     fpixels
+             geometry
 	     height
 	     id interps ismapped
 	     manager
@@ -265,8 +266,8 @@ sub call{
     
     # Go thru each arg and look for callback (i.e -command ) args
     my $lastArg;
-    my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
-    #my $callMethod = 'call'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
+    #my $callMethod = 'invoke'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
+    my $callMethod = 'call'; # For speed, use invoke for calling the interp, unless we need to use call (i.e. callback supplied, -variable, etc)
     foreach my $arg(@args){
             
             if( defined($lastArg) && !ref($lastArg) && ( $lastArg =~ /^-\w+/ ) ){
