@@ -73,7 +73,7 @@ sub Tcl::Tk::Menubutton {
 	    if ($_[0] eq "-menu") {
 		return $int->widget($int->invoke("$wid",'cget','-menu'));
 	    } else {
-		die "Finish cget implementation for Menubutton";
+                $wid->SUPER::cget(@_);
 	    }
 	},
         # Entryconfigure just calls entryconfigure on the menu component
