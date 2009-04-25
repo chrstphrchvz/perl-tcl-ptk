@@ -511,6 +511,13 @@ sub tooltip {
 sub font
 {
   my $w = shift;
+  
+  # For font create, we need to create a font object
+  if( $_[0] eq 'create' ){
+          my $option = shift;
+          return $w->Font(@_);
+  }
+  
   $w->call('font', @_);
 }
 

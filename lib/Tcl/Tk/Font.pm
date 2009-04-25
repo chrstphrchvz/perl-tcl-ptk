@@ -82,7 +82,11 @@ sub new
   }
  else
   {
-   croak 'Odd number of args' if @_ & 1;
+   my $fontName;
+   if (@_ & 1){  # odd number of args supplied, first name must be fontname
+           $fontName = shift;
+   }
+   
    my %attr;
    while (@_)
     {
@@ -112,7 +116,9 @@ sub new
    $attr{-slant}  = 'roman'   if( defined($attr{-slant})  and $attr{-slant} =~ /^r/i );
    $attr{-slant}  = 'italic'  if( defined($attr{-slant})  and $attr{-slant} =~ /^i/i );
    
-   $me = $w->interp->call('font', 'create',%attr);
+   my @args = (%attr);
+   unshift @args, $fontName if defined($fontName); # Include font name, if defined
+   $me = $w->interp->call('font', 'create',@args);
   }
   return bless {name => $me, interp => $w->interp},$pkg;
 }
