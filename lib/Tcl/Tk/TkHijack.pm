@@ -84,6 +84,7 @@ $translateList = {
         'Tk/Photo.pm'    =>  'Tcl/Tk/Widget/Photo.pm',
         'Tk/ProgressBar.pm'    =>  'Tcl/Tk/Widget/ProgressBar.pm',
         'Tk/ROText.pm'    =>  'Tcl/Tk/Widget/ROText.pm',
+        'Tk/Table.pm'    =>  'Tcl/Tk/Widget/Table.pm',
         'Tk/Text.pm'    =>  'Tcl/Tk/Widget/Text.pm',
         'Tk/TextEdit.pm'    =>  'Tcl/Tk/Widget/TextEdit.pm',
         'Tk/TextUndo.pm'    =>  'Tcl/Tk/Widget/TextUndo.pm',
@@ -130,6 +131,7 @@ $packageAliases = {
         'Tk::BrowseEntry'=> 'Tcl::Tk::Widget::BrowseEntry',
         'Tk::Callback'=> 'Tcl::Tk::Callback',
         'Tk::TableMatrix'=> 'Tcl::Tk::Widget::TableMatrix',
+        'Tk::Table'=> 'Tcl::Tk::Widget::Table',
         'Tk::TableMatrix::Spreadsheet'=> 'Tcl::Tk::Widget::TableMatrix::Spreadsheet',
         'Tk::TableMatrix::SpreadsheetHideRows'=> 'Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows',
 };

@@ -24,10 +24,11 @@ sub Populate
  
  # create tableMatrix with scrollbars, if -scrollbars option present
  if( $scrollbars ){
-         $tableMatrix = $t->Scrolled('TableMatrix', -scrollbars => $scrollbars, -rows => 1, -cols => 1, -titlerows => 0, -titlecols => 0);
+         $tableMatrix = $t->Scrolled('TableMatrix', -scrollbars => $scrollbars, -rows => 1, -cols => 1, 
+                 -titlerows => 0, -titlecols => 0, -roworigin => 1, -colorigin => 1);
  }
  else{
-         $tableMatrix = $t->TableMatrix(-rows => 1, -cols => 1, -titlerows => 0, -titlecols => 0);
+         $tableMatrix = $t->TableMatrix(-rows => 1, -cols => 1, -titlerows => 0, -titlecols => 0, -roworigin => 1, -colorigin => 1);
  }
 
  # Initialize widget storage
@@ -84,21 +85,33 @@ sub put
  my ($t,$row,$col,$w) = @_;
  
  my $tm = $t->Subwidget('TableMatrix'); # Work with the tablematrix
- my $maxrow = $tm->cget(-rows)-1;
+ my $minrow = $tm->cget(-roworigin);
+ my $maxrow = $minrow + $tm->cget(-rows)-1;
+ my $mincol = $tm->cget(-colorigin);
  my $maxcol = $tm->cget(-cols)-1;
  
  # Text entries get turned into Label widgets
  $w = $t->Label(-text => $w) unless (ref $w);
  
- unless ($row <= $maxrow )
+ if ( $row > $maxrow )
   {
    $t->{Height}[$row] = 0;
    $maxrow = $row;
   }
- unless ($col < $maxcol )
+ elsif( $row < $minrow )
+  {
+   $t->{Height}[$row] = 0;
+   $minrow = $row;
+  }
+ if ($col > $maxcol )
   {
    $t->{Width}[$col] = 0;
    $maxcol = $col;
+  }
+ elsif( $col < $mincol)
+  {
+   $t->{Width}[$col] = 0;
+   $mincol = $col;
   }
   
  # Put the widget in our widget store
@@ -107,10 +120,11 @@ sub put
  $t->{widgets}{$index} = $w;
  
  # Update the tables row/col size
- $tm->configure(-rows => $maxrow+1, -cols => $maxcol+1);
+ $tm->configure(-rows => ($maxrow-$minrow)+1, -cols => $maxcol-$mincol+1, -roworigin => $minrow, -colorigin => $mincol);
  
  # Store it in the tablematrix as an embedded window
  $tm->windowConfigure($index, -window => $w);
+ $w->idletasks if( ref($w) =~ /frame/i); # tablematrix won't show embedded widgets in a frame, unless an update has been called 
  
  # Update col widths and heights for the supplied row/col 
  $t->_updateColWidth($col);
@@ -126,14 +140,15 @@ sub _updateColWidth {
     my $col  = shift;
       
     my $tm = $self->Subwidget('TableMatrix'); # Work with the tablematrix
-    my $maxrow = $tm->cget(-rows)-1;
+    my $minrow = $tm->cget(-roworigin);
+    my $maxrow = $minrow + $tm->cget(-rows)-1;
     
     # Get our widget store
     my $widgets =  $self->{widgets};
 
     # Go thru all rows in the col
     my $newWidth = 0;
-    my @indexes = map "$_,$col", (0..$maxrow);
+    my @indexes = map "$_,$col", ($minrow..$maxrow);
     foreach my $index(@indexes){
             my $w = $widgets->{$index};
             if( defined $w){
@@ -153,14 +168,15 @@ sub _updateRowHeight {
     my $row  = shift;
       
     my $tm = $self->Subwidget('TableMatrix'); # Work with the tablematrix
-    my $maxcol = $tm->cget(-cols)-1;
+    my $mincol = $tm->cget(-colorigin);
+    my $maxcol = $mincol + $tm->cget(-cols)-1;
     
     # Get our widget store
     my $widgets =  $self->{widgets};
 
     # Go thru all cols in the row
     my $newHeight = 0;
-    my @indexes = map "$row,$_", (0..$maxcol);
+    my @indexes = map "$row,$_", ($mincol..$maxcol);
     foreach my $index(@indexes){
             my $w = $widgets->{$index};
             if( defined $w){

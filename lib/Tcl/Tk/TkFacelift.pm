@@ -572,7 +572,12 @@ sub Populate {
 
 }
 
+# Alias the entire BrowseEntry namespace to ttkBrowseEntry, so Browse-Entry subclasses widgets
+#   work correctly
+*Tcl::Tk::Widget::BrowseEntry:: = *Tcl::Tk::Widget::ttkBrowseEntry::;
 
+# Redefine the BrowseEntry Mapping if TkHijack loaded, so BrowseEntry subclasses will still work
+*Tk::BrowseEntry:: = *Tcl::Tk::Widget::BrowseEntry:: if( defined $Tcl::Tk::TkHijack::packageAliases );
 
 
 # Wrapper sub so mega-widgets still work with the facelift
