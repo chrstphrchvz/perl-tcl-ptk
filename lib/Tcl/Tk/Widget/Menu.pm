@@ -14,6 +14,20 @@ use Tcl::Tk::Widget::Menubutton;
 
 Tcl::Tk::Widget->Construct('Menu');
 
+sub CreateArgs{
+        my $package = shift;
+        my $parent  = shift;
+        my $args    = shift;
+        
+        # Turn -tearoff => '' to -tearoff => 0. (Tcl needs a boolean value for this,
+        #   not a empty string
+        
+        if( exists($args->{-tearoff}) && !($args->{-tearoff}) ){
+                $args->{-tearoff} = 0;
+        }
+        return $package->SUPER::CreateArgs($parent, $args);
+}
+
 # Create widget packages and methods for Menu
 Tcl::Tk::Widget::create_widget_package('Menu');
 Tcl::Tk::Widget::create_method_in_widget_package('Menu',

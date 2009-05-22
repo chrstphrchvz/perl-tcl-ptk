@@ -103,5 +103,9 @@ ok($mw->cget('-cursor'), 'star');
 my $mainwindow = $mw->MainWindow();
 ok($mw eq $mainwindow);
 
+# Make a menu with a empty string for a -tearoff option: 
+#   This should not crash
+my $menu = $mw->Menu(-tearoff => '');
+
 $mw->after(3000,sub{$mw->destroy});
 MainLoop;

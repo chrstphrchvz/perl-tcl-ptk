@@ -127,6 +127,7 @@ $packageAliases = {
         'Tk::Menu'=> 'Tcl::Tk::Widget::Menu',
         'Tk::TextUndo'=> 'Tcl::Tk::Widget::TextUndo',
         'Tk::Text'=> 'Tcl::Tk::Widget::Text',
+        'Tk::Tree'=> 'Tcl::Tk::Widget::Tree',
         'Tk::Clipboard'=> 'Tcl::Tk::Widget::Clipboard',
         'Tk::BrowseEntry'=> 'Tcl::Tk::Widget::BrowseEntry',
         'Tk::Callback'=> 'Tcl::Tk::Callback',
@@ -172,7 +173,7 @@ sub TkHijack {
             if( $module eq 'Tk' ){
                     
                     $requireText = "use Exporter 'import';\n";
-                    $requireText .= '@EXPORT_OK = (qw/ Ev /);'."\n";
+                    $requireText .= '@EXPORT_OK = (qw/ Ev catch/);'."\n";
                     
                     $versionText = '$Tk::VERSION = 805.001;'."\n";
                     
