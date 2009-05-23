@@ -33,4 +33,8 @@ ok(ref($scalarRef), 'SCALAR', "textvariable is scalar ref");
 # Make sure DoOneEvent call works
 DoOneEvent(DONT_WAIT);
 
+# Make sure timeofday works
+my $t = Tcl::Tk::timeofday;
+
+
 MainLoop;

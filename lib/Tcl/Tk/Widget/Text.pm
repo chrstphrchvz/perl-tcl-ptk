@@ -1043,63 +1043,6 @@ sub ViewMenuItems
   ];
 }
 
-################### Menu Functions ############################
-## Originally Copied from Tk::Widget ####
-sub PostPopupMenu
-{
- my ($w, $X, $Y) = @_;
- if (@_ < 3)
-  {
-   my $e = $w->XEvent;
-   $X = $e->X;
-   $Y = $e->Y;
-  }
- my $menu = $w->menu;
- $menu->Post($X,$Y) if defined $menu;
-}
-
-sub FillMenu
-{
- my ($w,$menu,@labels) = @_;
- foreach my $lab (@labels)
-  {
-   my $method = $lab.'MenuItems';
-   $method =~ s/~//g;
-   $method =~ s/[\s-]+/_/g;
-   if ($w->can($method))
-    {
-     $menu->Menubutton(-label => $lab, -tearoff => 0, -menuitems => $w->$method());
-    }
-  }
- return $menu;
-}
-
-sub menu
-{
- my ($w,$menu) = @_;
- if (@_ > 1)
-  {
-   $w->_OnDestroy('_MENU_') unless exists $w->{'_MENU_'};
-   $w->{'_MENU_'} = $menu;
-  }
- return unless defined wantarray;
- unless (exists $w->{'_MENU_'})
-  {
-   $w->_OnDestroy('_MENU_');
-   $w->{'_MENU_'} = $menu = $w->Menu(-tearoff => 0);
-   $w->FillMenu($menu,$w->MenuLabels);
-  }
- return $w->{'_MENU_'};
-}
-
-
-
-sub FileMenuItems
-{
- my ($w) = @_;
- return [ ["command"=>'E~xit', -command => [ $w->toplevel, 'WmDeleteWindow']]];
-}
-
 
 
 1;

@@ -187,6 +187,7 @@ sub TkHijack {
                     *Tk::Exists = \&Tcl::Tk::Exists;
                     *Tk::break = \&Tcl::Tk::break;
                     *Tk::platform = \$Tcl::Tk::platform;
+                    *Tk::timeofday = \&Tcl::Tk::timeofday;
                     *Tk::bind = \&Tcl::Tk::Widget::bind;
                     *Tk::ACTIVE_BG = \&Tcl::Tk::ACTIVE_BG;
                     *Tk::NORMAL_BG = \&Tcl::Tk::NORMAL_BG;
