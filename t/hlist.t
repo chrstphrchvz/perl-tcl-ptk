@@ -4,7 +4,7 @@ use Tcl::Tk qw/:perlTk/;
 use Data::Dumper;
 use Test;
 
-plan tests => 3;
+plan tests => 4;
 
 $mw = MainWindow->new;
 $|=1;
@@ -45,6 +45,7 @@ foreach my $item (@list)
    }
  }
  
+ 
  # Add an item that will be deleted
  $hl->add("deleteItem", -itemtype => 'text', -text => 'deleteItem');
  $hl->delete("entry", "deleteItem");
@@ -65,6 +66,12 @@ $hl->selectionSet($ent, 'three');
 my @selections = $hl->info('selection');
 #print "selection = '".join("', '", @selections)."'\n";
 ok(join(", ", @selections), "two, two.0, two.1, two.2, three");
+
+$mw->update;
+ # check that infoBbox method returns an array
+ my @coords = $hl->infoBbox('one');
+ ok(scalar(@coords), 4, "infoBbox method returns array");
+
 
 $mw->after(1000,sub{$mw->destroy}) unless(@ARGV);
 

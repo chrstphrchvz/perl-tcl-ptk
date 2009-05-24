@@ -178,6 +178,35 @@ sub entrycget{
         return $self->SUPER::entrycget($item, $option, @_);
 }
  
+
+########### Sub Copied from Tk::Hlist for compatibility with perl/tk ######
+sub GetNearest
+{
+ my ($w,$y,$undefafterend) = @_;
+ my $ent = $w->nearest($y);
+ if (defined $ent)
+  {
+   if ($undefafterend)
+    {
+     my $borderwidth = $w->cget('-borderwidth');
+     my $highlightthickness = $w->cget('-highlightthickness');
+     my $bottomy = ($w->infoBbox($ent))[3];
+     $bottomy += $borderwidth + $highlightthickness;
+     if ($w->header('exist', 0))
+      {
+       $bottomy += $w->header('height');
+      }
+     if ($y > $bottomy)
+      {
+       #print "$y > $bottomy\n";
+       return undef;
+      }
+    }
+   my $state = $w->entrycget($ent, '-state');
+   return $ent if (!defined($state) || $state ne 'disabled');
+  }
+ return undef;
+}
         
 
 1;
