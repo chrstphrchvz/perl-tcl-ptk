@@ -29,7 +29,7 @@ sub Default
  croak 'No widget' unless (defined $widget);
  $cw->Delegates(DEFAULT => $widget);
  $cw->ConfigSpecs(DEFAULT => [$widget]);
- $widget->pack('-expand' => 1, -fill => 'both') unless ($widget->manager);  # Suspect
+ $widget->pack('-expand' => 1, -fill => 'both');
  $cw->Advertise($name,$widget);
 }
 
