@@ -48,7 +48,6 @@ sub Populate
                  '-columns'            => [PASSIVE => 'columns','Columns',10],
                  '-fixedcolumns'       => [{-titlecols => $tableMatrix}  => 'fixedcolumns', 'fixedcolumns', 0], # fixedcolumns mapped to tablematrix -titlecols
                  '-fixedrows'          => [{-titlerows => $tableMatrix}  => 'fixedrows',    'fixedrows',    0], # fixedrows mapped to tablematrix -titlerows
-                 '-highlightthickness' => [SELF => 'highlightThickness','HighlightThickness',2],
                  DEFAULT               => [$tableMatrix]
                  );
 

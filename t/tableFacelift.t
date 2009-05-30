@@ -1,8 +1,11 @@
 #!/usr/local/bin/perl -w
 
+# Check that Table widget works with facelift
+
 use Test;
 use Tcl::Tk (qw/ :perlTk /);
 use Tcl::Tk::Widget::Table();
+use Tcl::Tk::TkFacelift;
 
 plan test => 2;
 

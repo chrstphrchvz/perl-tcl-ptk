@@ -895,7 +895,14 @@ sub GeometryRequest {
     my $self = shift;
     my $wp = $self->path;
     my ($width,$height) = @_;
-    $self->call('wm','geometry',$wp,"=${width}x$height");
+    unless( $self->path eq $self->toplevel){
+            warn("Warning: Tcl::Tk Implementation of GeometryRequest only works with toplevel windows");
+            # Try setting width/height
+            $self->configure(-width => $width, -height => $height);
+    }
+    else{
+            $self->call('wm','geometry',$wp,"=${width}x$height");
+    }
 }
 sub grab {
     my $self = shift;

@@ -101,6 +101,7 @@ $translateList = {
         'Tk/NoteBook.pm'     => '',
         'Tk/NBFrame.pm'     => '',
         'Tk/Pane.pm'     => 'Tcl/Tk/Widget/Pane.pm',
+        'Tk/Adjuster.pm'     => 'Tcl/Tk/Widget/Adjuster.pm',
         'Tk/TableMatrix.pm'     => 'Tcl/Tk/Widget/TableMatrix.pm',
         'Tk/TableMatrix/Spreadsheet.pm'     => 'Tcl/Tk/Widget/TableMatrix/Spreadsheet.pm',
         'Tk/TableMatrix/SpreadsheetHideRows.pm'     => 'Tcl/Tk/Widget/TableMatrix/SpreadsheetHideRows.pm',
