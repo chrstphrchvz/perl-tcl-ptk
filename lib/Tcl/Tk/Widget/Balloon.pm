@@ -112,6 +112,7 @@ sub Populate {
 		    -font => [$ml, 'font', 'Font', '-*-helvetica-medium-r-normal--*-120-*-*-*-*-*-*'],
 		    -borderwidth => ['SELF', 'borderWidth', 'BorderWidth', 1],
                     -numscreens=>['PASSIVE', 'numScreens','NumScreens',1],
+                    -arrow=>['PASSIVE', 'arrow','arrow',0],  # Flag = 1 to display an arrow in the balloon (Changed in Tcl::Tk to be off)
 		   );
 }
 
@@ -331,8 +332,13 @@ sub Popup {
     if ($w->cget(-installcolormap)) {
 	    $w->colormapwindows($w->winfo('toplevel'))
     }
+    
+    
     my $client = $w->{'client'};
     return if not defined $client or not exists $w->{'clients'}{$client};
+
+    my $arrow = $w->cget(-arrow); # Flag to display the arrow/pointer in the balloon box
+
     my $msg = $client->BalloonInfo($w, $w->pointerxy,'-balloonmsg');
     # Dereference it if it looks like a scalar reference:
     $msg = $$msg if UNIVERSAL::isa($msg, 'SCALAR');
@@ -484,7 +490,7 @@ sub Popup {
     $w->{'location'} = $vert.$horiz unless (defined $w->{'location'});
 
     if ($w->{'location'} eq 'bottomright') {
-        if ( $slideOffsetX or $slideOffsetY ) {
+        if ( $slideOffsetX or $slideOffsetY or !$arrow ) {
             $w->{'pointer'}->configure(-image => $w->{img_no});
         }
         else {
@@ -505,7 +511,7 @@ sub Popup {
 
     }
     elsif ($w->{'location'} eq 'bottomleft') {
-        if ( $slideOffsetX or $slideOffsetY ) {
+        if ( $slideOffsetX or $slideOffsetY or !$arrow ) {
             $w->{'pointer'}->configure(-image => $w->{img_no});
         }
         else {
@@ -544,7 +550,7 @@ sub Popup {
         $yy=$y-$height-$slideOffsetY-$cornerOffset unless (defined $yy);
     }
     elsif ($w->{'location'} eq 'topleft') {
-        if ( $slideOffsetX or $slideOffsetY ) {
+        if ( $slideOffsetX or $slideOffsetY or !$arrow ) {
             $w->{'pointer'}->configure(-image => $w->{img_no});
         }
         else {
