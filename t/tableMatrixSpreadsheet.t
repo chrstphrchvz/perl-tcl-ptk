@@ -5,7 +5,7 @@ use Test;
 
 use Tcl::Tk::Widget::TableMatrix::Spreadsheet;
 
-plan tests => 5;
+
 
 my $top = MainWindow->new;
 
@@ -13,9 +13,12 @@ my $top = MainWindow->new;
 my $retVal = $top->interp->pkg_require('Tktable');
 
 unless( $retVal){
+	plan tests => 1;
         skip("Tktable Tcl package not available", 1);
         exit;
 }
+
+plan tests => 5;
 
 
 my $arrayVar = {};

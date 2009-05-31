@@ -9,7 +9,6 @@ use Tcl::Tk qw/:perlTk/;
 use Tcl::Tk::Widget::TableMatrix;
 use Test;
 
-plan test => 10;
 
 use Data::Dumper;
 
@@ -20,10 +19,12 @@ my $top = MainWindow->new;
 my $retVal = $top->interp->pkg_require('Tktable');
 
 unless( $retVal){
+	plan test => 1;
         skip("Tktable Tcl package not available", 1);
         exit;
 }
 
+plan test => 10;
 
 my $arrayVar = {};
 

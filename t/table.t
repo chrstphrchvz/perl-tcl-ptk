@@ -4,7 +4,7 @@ use Test;
 use Tcl::Tk (qw/ :perlTk /);
 use Tcl::Tk::Widget::Table();
 
-plan test => 2;
+
 
 #use Tk;
 #use Tk::Table;
@@ -17,9 +17,12 @@ my $mw = MainWindow->new;
 my $retVal = $mw->interp->pkg_require('Tktable');
 
 unless( $retVal){
+	plan test => 1;
         skip("Tktable Tcl package not available", 1);
         exit;
 }
+
+plan test => 2;
 
 my $t  = $mw->Table(-columns => 6, -rows => 8, -fixedrows => 1, -scrollbars => 'se');
 $t->grid(-column => 0, -columnspan => 2, -row => 0, -sticky => 'nsew');

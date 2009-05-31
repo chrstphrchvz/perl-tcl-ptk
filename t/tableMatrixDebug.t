@@ -15,6 +15,14 @@ plan test => 1;
 my ($rows,$cols) = (25,20); # number of rows/cols
 my $top = MainWindow->new;
 
+# This will skip if Tktable not present
+my $retVal = $top->interp->pkg_require('Tktable');
+
+unless( $retVal){
+        skip("Tktable Tcl package not available", 1);
+        exit;
+}
+
 # Sub to fill the array variable
 sub fill{
 
