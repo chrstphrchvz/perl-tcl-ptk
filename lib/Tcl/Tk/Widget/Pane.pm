@@ -51,6 +51,14 @@ sub Populate {
             #   Without this, configure is called with something like "-yscrollcommand => '{}'", which
             #    causes problems
             $optData[3] = undef if( defined($optData[3]) && $optData[3] eq '{}');
+            
+            # Remove any options surrounded by brackets (e.g. change '{#d9d9d9}' to '#d9d9d9'). The brackets
+            #  cause problems when calling tcl configure (e.g. '.window configure -background {#d9d9d9} causes problems
+            if( defined($optData[3]) ){
+                    $optData[3] =~ s/^\s*\{//;
+                    $optData[3] =~ s/\}$//;
+            }
+            
             $configSpecs{$name} = [@optData];
     }
                     
