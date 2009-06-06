@@ -951,7 +951,7 @@ sub widget($@) {
 sub Exists {
     my $wid = shift;
     return 0 unless defined($wid);
-    if (ref($wid)=~/^Tcl::Tk::Widget\b/) {
+    if (blessed($wid) && $wid->isa('Tcl::Tk::Widget') ) {
         my $wp = $wid->path;
         my $interp = $wid->interp;
         return 0 unless( defined $interp); # Takes care of some issues during global destruction

@@ -24,6 +24,10 @@ Direct Tcl::Tk::Submethods ('wm' => [qw(aspect attributes capture client colorma
 sub SetBindtags
 {
  my ($obj) = @_;
+ 
+ # Setting bindtags for popup menus causes the menu items to be inactive on linux, so skip
+ return if( $obj->isa('Tcl::Tk::Widget::Menu') );
+         
  $obj->bindtags([ref($obj),$obj,'all']);
 }
 
