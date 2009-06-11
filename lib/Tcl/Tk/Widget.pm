@@ -2612,7 +2612,7 @@ sub AUTOLOAD {
 	    $self->call($ptk2tcltk_wm{$method}, $method, $self->path, @_);
 	};
 	no strict 'refs';
-	*{"$package$fast$method"} = $sub;
+	*{"$package$fast$method"} = $sub unless($super);
 	*{"$package$fast$origMethodName"} = $sub if( $mappedMethodName); # Create another entry for mapped so we don't get AUTOLOADED again
         # Name the anonymous sub, if in debug mode
         Sub::Name::subname("$package$fast$method", $sub) if( $Tcl::Tk::DEBUG);
