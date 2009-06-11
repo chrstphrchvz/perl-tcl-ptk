@@ -171,10 +171,10 @@ sub Cascade{
         $self->cascade(@_);
 }
 
-# Post for Menu (Using the native menu post)
+# Post for Menu (Using the native tk_post tcl function)
 sub Post{
         my $self = shift;
-        $self->call($self->path, 'post', @_);
+        $self->call('tk_popup', $self->path, @_);
 }
 
 # Calling Menubutton on a menu will directly call the menubutton creation sub
