@@ -680,6 +680,19 @@ sub MainWindow {
     $interp->mainwindow;
 }
 
+
+## Front-End for fileevent that can be called using Tcl::Tk->fileevent, instead of the normal
+#   $widget->filevent syntax. This is provided for compatibility with perl/tk
+#
+sub fileevent{
+    my $firstArg = shift;
+    my $int = ( ref($firstArg) ? $firstArg : $tkinterp ); # Get default interp, unless supplied
+    my $mw  = $int->mainwindow();          # Get the mainwindow for this interpreter
+    
+    # Call the normal fileevent
+    $mw->fileevent(@_);
+}
+      
 sub MainLoop {
     # This perl-based mainloop differs from Tk_MainLoop in that it
     # relies on the traced deletion of '.' instead of using the
