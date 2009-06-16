@@ -2124,7 +2124,7 @@ sub _FE_helper{
       $cb->Call();
    }
    
-   $widget->after($delay, sub{ $self->_FE_helper($handle, $cb, $widget, $delay) }) unless( $handleEOF)
+   $widget->after($delay, sub{ $self->_FE_helper($handle, $cb, $widget, $delay) });
 }
 
 #######

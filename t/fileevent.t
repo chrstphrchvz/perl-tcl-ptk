@@ -8,8 +8,14 @@ use Tcl::Tk qw/:perlTk/;
 use IO::File;
 
 use Test;
-plan tests => 1;
+plan tests => 2;
 
+my $closed = 0;  # Flag = 1 when fileevent pipe from the child process closes
+                 #  We check to see if this happens on non-windows platforms. 
+                 #   This doesn't work on win32 because of issues detecting an eof on the pipe on 
+                 #   win32 (without messing up buffering). This is ok for Tcl::Tk compatibility with perl/tk
+                 #   because fileevent on pipes didn't work on win32 for perl/tk anyway.
+ 
 my $mw = MainWindow->new(-title => "fileevent Test");
 
 my $command = "perl -w t/fileeventSubProcesses";
@@ -35,6 +41,13 @@ MainLoop();
 chomp $lineFromFile;
 ok($lineFromFile, 'Sleep 5', "fileevent");
 
+# Check for pipe closed non-win32
+skip(
+   $^O !~ m/MSWin/ ? 0 : "Fileevent Pipe Close Test Skipped if MSWin",    # whether to skip
+   $closed, 1, "Fileevent Pipe Closed Test"  # arguments just like for ok(...)
+ );
+
+
 sub handleInput{
         my $handle       = shift;
         my $textWidget   = shift;
@@ -42,6 +55,7 @@ sub handleInput{
         if( $handle->eof() ){ # Close if at the end
                 $handle->close;
                 print "Closed\n";
+                $closed = 1;
                 return
         }
         
