@@ -12,6 +12,8 @@ use Tcl::Tk::Widget::Menubutton;
 
 @Tcl::Tk::Widget::Menu::ISA = qw(Tcl::Tk::Wm Tcl::Tk::Derived Tcl::Tk::Widget);
 
+require Tcl::Tk::Widget::Menu::Item;
+
 Tcl::Tk::Widget->Construct('Menu');
 
 sub CreateArgs{
@@ -42,23 +44,20 @@ Tcl::Tk::Widget::create_method_in_widget_package('Menu',
             $args{-background} = delete($args{-bg}) if( defined($args{-bg}));
             
             $wid->_process_underline(\%args);
-            $wid->call("$wid",'add','command',%args);
+            $wid->menu->Command(%args);
         },
         checkbutton => sub {
-            my $wid = shift;
-            $wid->call("$wid",'add','checkbutton',@_);
+            shift->Checkbutton(@_);
         },
         radiobutton => sub {
-            my $wid = shift;
-            $wid->call("$wid",'add','radiobutton',@_);
+            shift->Radiobutton(@_);
         },
         cascade => sub {
             my $wid = shift;
             $wid->_addcascade(@_);
         },
         separator => sub {
-            my $wid = shift;
-            $wid->call("$wid",'add','separator',@_);
+            shift->Separator(@_);
         },
         menu => sub {
             my $wid = shift;
@@ -165,11 +164,6 @@ sub path{
         return $path;
 }
 
-# Alias for cascade (used in some of the code)
-sub Cascade{
-        my $self = shift;
-        $self->cascade(@_);
-}
 
 # Post for Menu (Using the native tk_post tcl function)
 sub Post{
@@ -191,7 +185,18 @@ sub Menubutton{
 sub Tcl::Tk::Menu {
     my $self = shift; # this will be a parent widget for newer menu
     my $int  = $self->interp;
-    my $w    = $self->w_uniq("menu"); # return unique widget id
+
+   # Take care of any Name => $wpref syntax during the creation
+   #  (For compatibility with perltk)
+   my $wpref = 'menu';
+   if( $_[0] and $_[0] eq 'Name'){
+           shift;
+           $wpref = shift;
+           $wpref = lcfirst $wpref; # window name must start with a lower case letter in tcl 
+           $wpref =~ s/\s+/_/g; # no spaces allowed in window names in tcl
+   }
+
+    my $w    = $self->w_uniq($wpref); # return unique widget id
     my %args = @_;
 
     my $mis         = delete $args{'-menuitems'};

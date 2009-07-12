@@ -40,18 +40,21 @@ sub Tcl::Tk::Menubutton {
 	    my $wid = shift;
 	    my $int = $wid->interp;
 	    my %args = @_;
+
+            # Convert -bg and -fg abbreviations to -background and -foreground
+            #   These abbreviations are valid in perl/tk, but not in Tcl/tk, so we have to
+            #  translate
+            $args{-foreground} = delete($args{-fg}) if( defined($args{-fg}));
+            $args{-background} = delete($args{-bg}) if( defined($args{-bg}));
+
 	    $wid->_process_underline(\%args);
-	    $wid->call($wid->cget(-menu),'add','command',%args);
+            $wid->menu->Command(%args);
 	},
 	checkbutton => sub {
-	    my $wid = shift;
-	    my $int = $wid->interp;
-	    $wid->call($wid->cget(-menu),'add','checkbutton',@_);
+            shift->menu->Checkbutton(@_);
 	},
 	radiobutton => sub {
-	    my $wid = shift;
-	    my $int = $wid->interp;
-	    $wid->call($wid->cget(-menu),'add','radiobutton',@_);
+            shift->menu->Radiobutton(@_);
 	},
 	cascade => sub {
 	    my $wid = shift;
@@ -59,9 +62,7 @@ sub Tcl::Tk::Menubutton {
 	    $menu->_addcascade(@_);
 	},
 	separator => sub {
-	    my $wid = shift;
-	    my $int = $wid->interp;
-	    $wid->call($wid->cget(-menu),'add','separator',@_);
+            shift->menu->Separator(@_);
 	},
 	menu => sub {
 	    my $wid = shift;
@@ -82,7 +83,7 @@ sub Tcl::Tk::Menubutton {
                 return $wid->menu->entryconfigure(@_);
         },
         # entrycget just calls entrycget on the menu component
-        entryconfigure => sub{
+        entrycget => sub{
                 my $wid = shift;
                 return $wid->menu->entrycget(@_);
         },

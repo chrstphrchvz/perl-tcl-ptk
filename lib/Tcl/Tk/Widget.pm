@@ -1273,7 +1273,8 @@ sub create_ptk_widget_sub {
             #  (For compatibility with perltk)
             if( $_[0] and $_[0] eq 'Name'){
                     shift;
-                    $wpref = shift;
+                    $wpref = lcfirst shift;
+                    $wpref =~ s/\s+/_/g; # no spaces allowed in window names in tcl
             }
             
 	    my $w    = w_uniq($self, $wpref); # create uniq pref's widget id
@@ -1307,7 +1308,8 @@ sub create_ptk_widget_sub {
         #  (For compatibility with perltk)
         if( $_[0] and $_[0] eq 'Name'){
             shift;
-            $wpref = shift;
+            $wpref = lcfirst shift;
+            $wpref =~ s/\s+/_/g; # no spaces allowed in window names in tcl
         }
 
         my $w    = w_uniq($self, $wpref); # create uniq pref's widget id
@@ -1330,7 +1332,8 @@ sub create_ptk_widget_sub {
         #  (For compatibility with perltk)
         if( $_[0] and $_[0] eq 'Name'){
             shift;
-            $wpref = shift;
+            $wpref = lcfirst shift;
+            $wpref =~ s/\s+/_/g; # no spaces allowed in window names in tcl
         }
 
         my %args = @_;
@@ -1589,8 +1592,7 @@ sub _addcascade {
     $mnu->_process_menuitems($int,$smnu,$mis);
     $mnu->_process_underline(\%args);
     #$int->call("$mnu",'add','cascade', %args);
-    $mnu->add('cascade',%args);
-    return $smnu;
+    $mnu->Cascade(%args);
 }
 # internal helper sub to process perlTk's -menuitmes option
 sub _process_menuitems {
