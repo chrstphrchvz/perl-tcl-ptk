@@ -26,6 +26,9 @@ my @fontNames = (
         "TkDefaultFont",                              # This font's size gets reported incorrectly without the fix in the Font Package
         'Courier 10', 'Times 12', 'Mallige 12', 'Dingbats 12');
 
+# Skip unix-style fonts on windows
+my $win = $^O =~ /mswin/i;
+
 foreach my $fontName(@fontNames){
         
         #print "---Font: $fontName -----\n";
@@ -56,8 +59,9 @@ foreach my $fontName(@fontNames){
         $TOP->fontDelete($testFont);
         $TOP->fontDelete($testFont2);
         
-        ok($widthTest1, $widthTest2, "Font->actual $fontName Attr Check");
-        ok($widthTest2, $widthTest3, "\$widget->fontActual $fontName Attr Check");
+        my $skip = $win && $fontName =~ /helvetica/i ? "Skip unix fontnames on windows" : 0;
+        skip($skip, $widthTest1, $widthTest2, "Font->actual $fontName Attr Check");
+        skip($skip, $widthTest2, $widthTest3, "\$widget->fontActual $fontName Attr Check");
         
         #print "Label1's Font Attributes = ".join(" ", %attributes)."\n";
 

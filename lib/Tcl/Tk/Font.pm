@@ -26,7 +26,7 @@ Construct Tcl::Tk::Widget 'Font';
 ################################################################
 ###  Wrapper for $font->actual #################################
 #    This corrects a problems seen with font size attribute reporting
-#    seen using Tcl 8.5.1 - 8.5.5. See the test case t/fontAttr.t in the source distribution
+#    seen using Tcl 8.5.1 - 8.5.5 on linux. See the test case t/fontAttr.t in the source distribution
 #    for details.
 sub actual{
         my $self = shift;
@@ -36,7 +36,7 @@ sub actual{
         # sense
         my $interp = $self->interp;
         my $sizeDefined = grep(/-size/, @args);
-        if( !scalar(@_) || $sizeDefined ){
+        if( $^O !~ /mswin/i && (!scalar(@_) || $sizeDefined) ){
                 
                 # Get attributes and create our own font with it
                 my %attributes = $interp->call('font', 'actual', $self);
