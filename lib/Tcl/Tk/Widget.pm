@@ -519,6 +519,18 @@ sub font
           return $w->Font(@_);
   }
   
+  if( $_[0] eq 'actual' && scalar(@_) > 1){ # Call the wrapper for $font->actual in Tcl::Tk::Font.pm that works around the Tcl font bug
+          my $option = shift;
+          my $font = shift;
+          if( !ref($font) ){ # font is not an object, turn it into one
+                # Turn font name into an object
+                #  (We don't create a font object here, because the font already exists)
+                $font = bless {name => $font, interp => $w->interp}, 'Tcl::Tk::Font';
+          }
+          return $font->actual(@_);
+  }
+                  
+  
   $w->call('font', @_);
 }
 

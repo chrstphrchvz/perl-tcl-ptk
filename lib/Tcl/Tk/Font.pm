@@ -11,7 +11,7 @@ sub as_string { return $_[0]->{name} }
 
 *MainWindow = \&Tcl::Tk::Widget::MainWindow;
 
-foreach my $key (qw(actual metrics measure configure))
+foreach my $key (qw( metrics measure configure))
  {
   no strict 'refs';
   *{$key} = sub { 
@@ -21,6 +21,51 @@ foreach my $key (qw(actual metrics measure configure))
  }
 
 Construct Tcl::Tk::Widget 'Font';
+
+
+################################################################
+###  Wrapper for $font->actual #################################
+#    This corrects a problems seen with font size attribute reporting
+#    seen using Tcl 8.5.1 - 8.5.5. See the test case t/fontAttr.t in the source distribution
+#    for details.
+sub actual{
+        my $self = shift;
+        my @args = @_;
+        
+        # If no args, or size option present, then check to see if the font size returned makes
+        # sense
+        my $interp = $self->interp;
+        my $sizeDefined = grep(/-size/, @args);
+        if( !scalar(@_) || $sizeDefined ){
+                
+                # Get attributes and create our own font with it
+                my %attributes = $interp->call('font', 'actual', $self);
+                my $testFontName = $interp->call('font', 'create', %attributes);
+               
+                # See if the width of the font we just made matches the current font
+                #   (if not, there is a problem with the attributes
+                my $widthTest1 = $interp->call('font', 'measure', $testFontName, 'This is a test of font size');
+                my $widthTest2 = $self->measure(    'This is a test of font size');
+                
+                $interp->call('font', 'delete', $testFontName); # Delete the font in tcl since we are done
+                
+                if( $widthTest1 != $widthTest2 ){ # Size needs to be corrected if widths aren't the same
+                       # We fix the reported size by negating the ascent (don't know why this works, found empirically)
+                       my $ascent = $self->metrics(-ascent);
+                       $attributes{-size} = -$ascent
+                }
+                
+                # Return the proper info
+                return $attributes{-size} if( $sizeDefined );
+                
+                return %attributes;
+        }
+        
+        # Attributes other than size requested, call actual normally
+        return $interp->call('font', 'actual', $self, @_);
+}
+                
+
 
 my @xfield  = qw(foundry family weight slant swidth adstyle pixel
                point xres yres space avgwidth registry encoding);
