@@ -360,7 +360,6 @@ sub Populate {
 }
 
 
-
 sub containerName{
         return 'ttkFrame';
 }
@@ -371,6 +370,8 @@ sub CreateOptions{
         my $self = shift;
         return ($self->SUPER::CreateOptions, "-class");
 }
+
+
 
 # Wrapper sub so frame-based mega-widgets still work with the facelift
 sub Tcl::Tk::Frame{
@@ -543,12 +544,15 @@ package Tcl::Tk::Widget::BrowseEntryttkSubs;
 
 @Tcl::Tk::Widget::BrowseEntryttkSubs::ISA = (qw / Tcl::Tk::Derived Tcl::Tk::Widget::ttkBrowseEntry/);
 
+{
+        local $^W = 0; # To avoid subroutine redefined warning messages
+        Construct Tcl::Tk::Widget 'BrowseEntry';
+}
 
-Construct Tcl::Tk::Widget 'BrowseEntry';
 
 # If we are being used in conjunction with TkHijack, we don't need a mapping for Tk::BrowseEntry
 if( defined $Tcl::Tk::TkHijack::translateList){
-        print STDERR "undoing translatelist\n";
+        #print STDERR "undoing translatelist\n";
         $Tcl::Tk::TkHijack::translateList->{'Tk/BrowseEntry.pm'}    =  '';
 }
 
@@ -588,7 +592,64 @@ sub Tcl::Tk::BrowseEntry{
         return $obj;
 }
 
+################ New Tcl::Tk::Widget::Contruct Method used for TkFacelift #########
+##
+##  This has the same function as Tcl::Tk::Widget::Construct defined in MegaWidget.pm
+##   but also has code to alter the inheritance of derived widgets so that they are
+##   properly face-lifted.
+##   For example, 
+# This "Constructs" a creation method for megawidgets and derived widgets
 
+{
+
+        
+        # Mapping of superclass inheritance. e.g Tk::Frame inheritance should be mapped to FramettkSubs inheritance
+        my %hijackInheritance = (
+                'Tk::Frame'                    => 'Tcl::Tk::Widget::FramettkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Frame'       => 'Tcl::Tk::Widget::FramettkSubs', # For normal Tcl::Tk widgets
+                'Tk::Radiobutton'              => 'Tcl::Tk::Widget::RadiobuttonettkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Radiobutton' => 'Tcl::Tk::Widget::RadiobuttonettkSubs', # For normal Tcl::Tk widgets
+                'Tk::Button'                   => 'Tcl::Tk::Widget::ButtonttkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Button'      => 'Tcl::Tk::Widget::ButtonttkSubs', # For normal Tcl::Tk widgets
+                'Tk::Entry'                    => 'Tcl::Tk::Widget::EntryttkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Entry'       => 'Tcl::Tk::Widget::EntryttkSubs', # For normal Tcl::Tk widgets
+                'Tk::Checkbutton'              => 'Tcl::Tk::Widget::CheckbuttonttkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Checkbutton' => 'Tcl::Tk::Widget::CheckbuttonttkSubs', # For normal Tcl::Tk widgets
+                'Tk::Label'                    => 'Tcl::Tk::Widget::LabelbuttonttkSubs', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::Label'       => 'Tcl::Tk::Widget::LabelbuttonttkSubs', # For normal Tcl::Tk widgets
+                'Tk::BrowseEntry'              => 'Tcl::Tk::Widget::BrowseEntry', # For Hijack Tk Widgets
+                'Tcl::Tk::Widget::BrowseEntry' => 'Tcl::Tk::Widget::BrowseEntryttkSubs', # For normal Tcl::Tk widgets
+                );
+        
+        # Save the existing Construct method. We will chain to that at the end of our routine 
+        BEGIN{
+        *Tcl::Tk::Widget::Construct2 = \&Tcl::Tk::Widget::Construct;
+        }
+        
+        no warnings;
+        
+        sub Tcl::Tk::Widget::Construct
+        {
+         my ($base,$name) = @_;
+         my $class = (caller(0))[0];
+         no strict 'refs';
+        
+         
+         my @parents = @{"$class\::ISA"};
+         #print "Hijacked Construct: $class = $class, ISA = ".join(", ", @parents)."\n";
+         foreach my $parent(@{"$class\::ISA"}){
+                 if( defined($hijackInheritance{$parent}) && $class ne $hijackInheritance{$parent}){
+                         #print "setting ISA element $parent to ".$hijackInheritance{$parent}."\n";
+                         $parent = $hijackInheritance{$parent};
+                 }
+         }
+         
+         # Go to the normal Construct
+         goto \&Tcl::Tk::Widget::Construct2;
+         
+        }
+        
+        }
 
 1;
 
