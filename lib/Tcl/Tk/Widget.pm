@@ -2416,6 +2416,7 @@ my %lists = map {$_=>1} qw(
     windowNames
     windowConfigure
     formInfo formSlaves
+    find
     get
     gettags
     pointerxy
