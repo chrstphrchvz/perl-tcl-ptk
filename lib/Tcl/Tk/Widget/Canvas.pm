@@ -27,57 +27,71 @@ sub index{
 ## Note: This means that -updatecommand won't work properly if supplied at creation
 #        If this is really needed, it can be set later with an itemConfigure call.
 ##
+{ 
+        no warnings 'uninitialized'; # This is to keep from getting "use of initialized variable in subroutine entry"
+                                     #  warnings when a create item method has an option that is undef.
+                                     #  For example $canvas->createOval(0,12,30,10, -fill => undef) would cause a warning
+                                     #   before this was added.
 
-sub createArc{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'arc', @_);
+        sub createArc{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'arc', @_);
+        }
+        
+        sub createBitmap{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'bitmap', @_);
+        }
+        
+        sub createGrid{
+                my $self = shift;
+                        $self->interp->invoke($self, 'create', 'grid', @_);
+        }
+        
+        sub createImage{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'image', @_);
+        }
+        
+        sub createLine{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'line', @_);
+        }
+        
+        sub createOval{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'oval', @_);
+        }
+        
+        sub createPolygon{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'polygon', @_);
+        }
+        
+        sub createRectangle{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'rectangle', @_);
+        }
+        
+        sub createText{
+                my $self = shift;
+                
+                # for compatibility, accept/translate the justify option to -justify
+                my ($x,$y) = (shift, shift);
+                my %options = @_;
+                if( defined($options{justify})){
+                        $options{-justify} = delete $options{justify};
+                        @_ = %options;
+                }
+                $self->interp->invoke($self, 'create', 'text', $x,$y, @_);
+        }
+        
+        sub createWindow{
+                my $self = shift;
+                $self->interp->invoke($self, 'create', 'window', @_);
+        }
+
 }
-
-sub createBitmap{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'bitmap', @_);
-}
-
-sub createGrid{
-        my $self = shift;
-                $self->interp->invoke($self, 'create', 'grid', @_);
-}
-
-sub createImage{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'image', @_);
-}
-
-sub createLine{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'line', @_);
-}
-
-sub createOval{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'oval', @_);
-}
-
-sub createPolygon{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'polygon', @_);
-}
-
-sub createRectangle{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'rectangle', @_);
-}
-
-sub createText{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'text', @_);
-}
-
-sub createWindow{
-        my $self = shift;
-        $self->interp->invoke($self, 'create', 'window', @_);
-}
-
 
 # Item cget used here (rather than autoloaded) so we can return Font objects
 #   if -font requested
