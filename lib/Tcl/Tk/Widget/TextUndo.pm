@@ -877,7 +877,7 @@ sub CreateFileSelect
 sub FileLoadPopup
 {
  my ($w)=@_;
- my $name = $w->CreateFileSelect('getOpenFile',-title => 'File Load');
+ my $name = $w->getOpenFile( -title => 'File Load');
  return $w->Load($name) if defined($name) and length($name);
  return 0;
 }
@@ -885,7 +885,7 @@ sub FileLoadPopup
 sub IncludeFilePopup
 {
  my ($w)=@_;
- my $name = $w->CreateFileSelect('getOpenFile',-title => 'File Include');
+ my $name = $w->getOpenFile( -title => 'File Include');
  return $w->IncludeFile($name) if defined($name) and length($name);
  return 0;
 }
@@ -893,7 +893,7 @@ sub IncludeFilePopup
 sub FileSaveAsPopup
 {
  my ($w)=@_;
- my $name = $w->CreateFileSelect('getSaveFile',-title => 'File Save As');
+ my $name = $w->getSaveFile( -title => 'File Save As');
  return $w->Save($name) if defined($name) and length($name);
  return 0;
 }
