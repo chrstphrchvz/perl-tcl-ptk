@@ -4,6 +4,9 @@
 #
 # SCCS: @(#) filebox.tcl 1.3 97/03/02 16:22:36
 
+# Note: For Tcl::Tk, removed the importing of Tk::Fileselect, since this doesn't exist in Tcl::Tk
+#   the getOpenFile and getSaveFile methods already exist natively in Tcl::tk
+
 use vars qw/$TOP/;
 
 sub filebox {
@@ -31,22 +34,13 @@ sub filebox {
 
     my $cbf = $TOP->Frame->pack(-fill => 'x', -padx => '1c', -pady => 3);
     my $fd;
-    $cbf->Radiobutton
-      (-text => 'FileSelect',
-       -variable => \$fd,
-       -value => 'FileSelect',
-       -command => sub { local($^W) = 0;
-			 require Tk::FileSelect;
-			 Tk::FileSelect->import('as_default');
-			 _removeCachedFileDialogs();
-		     })->pack(-side => 'left');
     my $fdb = $cbf->Radiobutton
       (-text => 'FBox',
        -variable => \$fd,
        -value => 'FBox',
        -command => sub { local($^W) = 0;
-			 require Tk::FBox;
-			 Tk::FBox->import('as_default');
+			 #require Tk::FBox;
+			 #Tk::FBox->import('as_default');
 			 _removeCachedFileDialogs();
 		     })->pack(-side => 'left');
     $fdb->invoke;

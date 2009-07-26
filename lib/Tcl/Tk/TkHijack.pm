@@ -96,6 +96,7 @@ $translateList = {
         'Tk/Menu.pm'       => '',
         'Tk/Wm.pm'            => 'Tcl/Tk/Wm.pm',
         'Tk/Widget.pm'      => '',
+        'Tk/FileSelect.pm'      => '',
         'Tk/After.pm'       => '',
         'Tk/Derived.pm'     => '',
         'Tk/NoteBook.pm'     => '',
