@@ -2070,6 +2070,7 @@ sub fileevent{
         # Include ioctl defaults for non-windows
         unless( $^O =~ /mswin32/i){
                 no warnings;
+                local $^W = 0; # get rid of warning messages with ioctl.ph on unix
                 require 'sys/ioctl.ph';
         }
         
