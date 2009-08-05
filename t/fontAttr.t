@@ -14,7 +14,7 @@ use Tcl::Tk (qw/ :perlTk /);
 
 use Test;
 
-plan tests => 16;
+plan tests => 8;
 
 my $TOP = MainWindow->new();
 
@@ -22,9 +22,13 @@ my $TOP = MainWindow->new();
 my @fontNames = (
         'Monospace 10', 
         "-*-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*", # This font's size gets reported incorrectly without the fix in the Font Package
-        "-*-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*", # This font's size gets reported incorrectly without the fix in the Font Package
+#        "-*-helvetica-medium-r-*-*-14-*-*-*-*-*-*-*", # This font's size gets reported incorrectly without the fix in the Font Package
         "TkDefaultFont",                              # This font's size gets reported incorrectly without the fix in the Font Package
-        'Courier 10', 'Times 12', 'Mallige 12', 'Dingbats 12');
+        'Courier 10',
+#       'Times 12',
+# 'Mallige 12',
+# 'Dingbats 12'
+);
 
 # Skip unix-style fonts on windows
 my $win = $^O =~ /mswin/i;

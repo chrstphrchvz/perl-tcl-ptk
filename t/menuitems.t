@@ -13,7 +13,7 @@ use Test;
 plan tests => 14;
 
 # Force stack trace for any errors
-local $SIG{__DIE__} = \&Carp::confess;
+#local $SIG{__DIE__} = \&Carp::confess;
 
 my $lmsg = "";
 
@@ -24,7 +24,7 @@ my $mb = $top->Menubutton(-relief => 'raised',
                 -text => 'Menu button')->pack;
 
 my $menuclass = ref($mb->menu);
-print "menu class = $menuclass\n";
+#print "menu class = $menuclass\n";
 
 ############# Menubutton Tests ########################
 # check the classnames of the items created from the menubutton
@@ -95,6 +95,8 @@ $label = $rb->cget(-label);
 #print "radiobutton label = '$label'\n";
 ok($label, 'Radiobutton2', "Radiobutton cget call2");
 
-MainLoop if(@ARGV); # For debugging, stay in the mainloop if anything on the commandline
+$top->after(500, sub{ $top->destroy}) unless(@ARGV); # For debugging, stay in the mainloop if anything on the commandline
+
+MainLoop;
 
 
