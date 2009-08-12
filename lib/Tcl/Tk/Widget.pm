@@ -1693,6 +1693,19 @@ sub Scrolled
                    '-foreground' => [$w,'foreground','Foreground'],
                   );
  $cw->AddScrollbars($w);
+
+ # Check for existing mousewheel bindings.
+ # If there aren't any, then add them
+ my $mouseWheel = $cw->bind(ref($w), '<MouseWheel>'); # Check for class binding
+ $mouseWheel = 1 if( $w->isa('Tcl::Tk::Widget::Text')); # Text is a special case, it has already has mousewheel binding
+ if( !$mouseWheel ){
+ 	$cw->MouseWheelBind($w) unless $mouseWheel;
+
+ }
+ #else{
+ #	print "wheelbinding alread exists for $w\n";
+ #}
+
  $cw->Default("\L$kind" => $w);
  $cw->Delegates('bind' => $w, 'bindtags' => $w, 'menu' => $w);
  $cw->ConfigDefault(\%args);
