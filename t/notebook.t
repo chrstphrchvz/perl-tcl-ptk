@@ -5,7 +5,7 @@ use Tcl::Tk::Widget::DialogBox;
 
 use Test;
 
-plan test => 1;
+plan test => 2;
 
 my $name = "Rajappa Iyer";
 my $email = "rsi\@netcom.com";
@@ -14,7 +14,11 @@ my $os = "Linux";
 use vars qw($top);
 
 $top = MainWindow->new;
-donotebook();
+my $notebook = donotebook();
+
+
+my @pages = $notebook->pages;
+ok(join(", ", @pages), 'address, pref', 'Notebook pages call');
 
 ok(1);
 
@@ -53,11 +57,15 @@ sub donotebook {
 		 -fill => "both",
 		 -padx => 5, -pady => 5,
 		 -side => "top");
+	
 
     }
     
     # Get the ok button and press it after two seconds
     my $okbutton = $f->Subwidget('B_OK');
+
+    # Make sure the raise method works
+    $top->after(1000, sub{ $n->raise('pref') });
 
     $f->after(2000, 
         sub{
@@ -70,5 +78,6 @@ sub donotebook {
     if ($result =~ /OK/) {
 	print "name = $name, email = $email, os = $os\n";
     }
+    return $n;
 }
 

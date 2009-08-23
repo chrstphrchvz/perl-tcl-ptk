@@ -1660,6 +1660,11 @@ sub NoteBook {
 	    my $ww = $int->declare_widget($wp);
 	    return $ww;
 	},
+	raise=>sub {
+	    my $bw = shift;
+	    my $int = $bw->interp;
+	    return $bw->call($bw,'raise',@_);
+	},
     );
     return $bw;
 }
@@ -2446,6 +2451,8 @@ my %lists = map {$_=>1} qw(
     coords
     border
     infoBbox
+    pages
+    pageconfigure
 );
 
 ###################################################################################3
