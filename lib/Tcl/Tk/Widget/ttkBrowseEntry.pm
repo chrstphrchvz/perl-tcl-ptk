@@ -222,11 +222,11 @@ sub _ComboboxSelected{
         my $browsecmd2 = $self->cget(-browse2cmd);
         if( defined($browsecmd) && $browsecmd->isa('Tcl::Tk::Callback')){
                 my $sel = $self->choiceget(); # Get current selection
-                $browsecmd->BindCall($self, $sel);
+                $self->Callback(-browsecmd, $self, $sel );
         }
         elsif( defined($browsecmd2) && $browsecmd2->isa('Tcl::Tk::Callback')){
                 my $index = $self->current(); # Get current index
-                $browsecmd2->BindCall($self, $index);
+                $self->Callback(-browse2cmd, $self, $index );
         }
        
 }

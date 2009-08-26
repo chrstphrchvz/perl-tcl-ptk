@@ -9,7 +9,7 @@ use Tcl::Tk::Widget::ttkBrowseEntry;
 #use Tk;
 #use Tk::BrowseEntry;
 
-plan tests => 8;
+plan tests => 9;
 
 $| = 1;
 
@@ -89,12 +89,15 @@ $top->after(1000,
         # Check browsecmd by sending virtual events
         my $selection;
         $cb->configure(-browsecmd => 
-                sub{ 
-                        my ($w, $value) = @_;
+               [ sub{ 
+                        my ($extraArg, $w, $value) = @_;
                         #print "browsecmd args ".join(", ", @_)."\n";
                         $selection = $value;
                         
-                });
+                        ok($extraArg, 'extraArg', "browsecmd arg order check");
+                        
+                }, 'extraArg']
+                );
         
         $cb->set(3); # Make a selection
         # generate event that would happen if we actually made the selection in the GUI
@@ -112,7 +115,7 @@ $top->after(1000,
         $cb->configure(-browse2cmd => 
                 sub{ 
                         my ($w, $value) = @_;
-                        #print "browse2cmd args ".join(", ", @_)."\n";
+                        #print STDERR "browse2cmd args ".join(", ", @_)."\n";
                         $selection = $value;
                         
                 });
