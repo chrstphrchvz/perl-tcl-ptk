@@ -252,6 +252,14 @@ Construct Tcl::Tk::Widget 'Entry';
 
 sub Populate {
     my( $cw, $args ) = @_;
+    
+    # Set foreground and background options to undef, unless defined during widget creation
+    #   This keeps Tcl::Tk::Derived from setting these options from the options database, which is
+    #    not needed for ttk widgets, and also makes -state => 'disabled' not look right
+    foreach my $option( qw/ -foreground -background /){
+            $args->{$option} = undef unless( defined($args->{$option} ));
+    }
+
 
     $cw->SUPER::Populate( $args );
 

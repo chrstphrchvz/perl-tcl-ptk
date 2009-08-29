@@ -383,7 +383,7 @@ sub choices
     }
    $old = $choices->[0]
     if defined $old && not exists $hash{$old} && defined $choices->[0];
-   $$var = $old;
+   $$var = defined($old) ? $old : '';
   }
  else
   {
