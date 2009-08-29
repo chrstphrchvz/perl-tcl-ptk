@@ -9,7 +9,7 @@ use Tcl::Tk::Widget::ttkBrowseEntry;
 #use Tk;
 #use Tk::BrowseEntry;
 
-plan tests => 9;
+plan tests => 10;
 
 $| = 1;
 
@@ -40,17 +40,22 @@ $cb2->pack(-side => 'top'); #, -fill => 'x', -expand => 1);
 
 # Create a -listcmd and simulate a call
 my $listCmdArg;
-$cb->configure(-listcmd => sub{
+my @listCmdArgs;
+$cb->configure(-listcmd => [sub{
                 my @args = @_;
                 #print "listcmd Args = ".join(", ",@args)."\n";
-                my $w = shift;
+                my $w = pop @args;
+                @listCmdArgs = @args;
                 #$w->configure(-choices => [1..5]);
                 $listCmdArg = $w;
-});
+        },
+        'ExtraArg1',
+        'ExtraArg2']);
 
 $cb->_postcommandCallback();
 
 ok(ref($listCmdArg), 'Tcl::Tk::Widget::ttkBrowseEntry', '-listcmd callback');
+ok(join(", ", @listCmdArgs), "ExtraArg1, ExtraArg2", '-listcmd callback args');
 
 #$cb->set("10");
 

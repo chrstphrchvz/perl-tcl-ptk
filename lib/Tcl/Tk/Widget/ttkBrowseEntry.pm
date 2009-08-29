@@ -249,7 +249,7 @@ sub _postcommandCallback{
         # Check for listcmd callbacks being set
         my $listcmd = $self->cget(-listcmd);
         if( defined($listcmd) && $listcmd->isa('Tcl::Tk::Callback')){
-                $listcmd->BindCall($self);
+                $self->Callback(-listcmd, $self);
         }
        
 }
