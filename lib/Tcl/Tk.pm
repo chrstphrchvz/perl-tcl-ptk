@@ -49,7 +49,7 @@ our ( %W, $Wint, $Wpath, $Wdata, $DEBUG );
 
 # For debugging, we use Sub::Name to name anonymous subs, this makes tracing the program
 #   much easier (using perl -d:DProf or other tools)
-$DEBUG =1;
+$DEBUG =0 unless defined($DEBUG);
 if($DEBUG){
         require Sub::Name;
         import Sub::Name;
