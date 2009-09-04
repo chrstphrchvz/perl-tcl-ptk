@@ -34,6 +34,7 @@ sub clipboardCopy
 {
  my $w = shift;
  my $val = $w->getSelected;
+ print "Copying '$val'\n";
  if (defined $val)
   {
    $w->clipboardSet('--',$val);
@@ -73,8 +74,8 @@ sub clipboardPaste
 #       };
 #     }
    my $value = $w->clipboardGet;
-   #print "value = $value\n";
-   $w->insert("insert", $w->clipboardGet);
+   # print "Clipboard paste = $value\n";
+   $w->insert("insert", $value);
    $w->SeeInsert if $w->can('SeeInsert');
   };
 }
