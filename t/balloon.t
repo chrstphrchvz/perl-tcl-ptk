@@ -7,7 +7,7 @@ use Tcl::Tk qw/:perlTk/;
 
 use Test;
 
-plan test => 1;
+plan test => 2;
 
 my $TOP = MainWindow->new;
 
@@ -17,6 +17,11 @@ my $bln = $TOP->Balloon();
             -text    => "Balloon Test",
             -width   => 10,
         )->pack;
+        
+# Check to make sure the classname is properly assigned
+my $class = $bln->class;
+ok($class, 'Balloon', "Balloon Classname Check");
+ 
  
 $bln->attach($b, -msg => "Popup help");
 

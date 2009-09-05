@@ -3,7 +3,7 @@
 #$Tk::SlideSwitch::VERSION = '1.1';
 
 use Test;
-plan tests => 1;
+plan tests => 2;
 
 package Tcl::Tk::Widget::SlideSwitch;
 
@@ -116,6 +116,9 @@ my $TOP = MainWindow->new();
     )->pack(qw/-side left -expand 1/);
 
 
+# Check to make sure the classname is properly assigned
+my $class = $sl->class;
+ok($class, 'SlideSwitch', "SlideSwitch Classname Check");
     
 ok(1,1, "Slide Megawidget");
 

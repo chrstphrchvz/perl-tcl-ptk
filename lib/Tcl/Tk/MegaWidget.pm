@@ -210,14 +210,30 @@ sub CreateArgs
  # Augment same hash with default values for missing mandatory options,
  # allthough this can be done later in InitObject.
 
- # Honour -class => if present, we have hacked Tk_ConfigureWidget to
+ # Note that the behaviour for the -class option has been changed
+ #   for Tcl::Tk. Perl/Tk would set the -class option for every widget, because
+ #   perl/tk had a special version of Tk_ConfigureWidget that
+ #   allowed -class to be passed to any widget.
+ #   This was a perl/tk specific hack to the perl/tk c-code.
+ #   Tcl/Tk only allows -class in calls to the Frame and Toplevel widget, and not to other widgets.
+ #  
+ 
+ # Honour -class => if present
  # allow -class to be passed to any widget.
- # This is different from Perl/Tk in that we can't add a -class option
- #  This was a perl/tk specific hack to the perl/tk c-code
  my @result = ();
- foreach my $opt ($package->CreateOptions)
+ my $class = delete $args->{'-class'};
+ ($class) = $package =~ /([A-Z][A-Z0-9_]*)$/i unless (defined $class);
+ 
+ # Using the class option is only valid for Toplevel and Frame
+ #  widgets for Tcl/Tk
+ my $classOk; 
+ $classOk = $package->isa('Tcl::Tk::Widget::Frame') || 
+            $package->isa('Tcl::Tk::Widget::Toplevel');
+ 
+ @result = (-class => "\u$class") if (defined($class) && $classOk);
+  foreach my $opt ($package->CreateOptions)
   {
-   push(@result, $opt => delete $args->{$opt}) if exists $args->{$opt};
+   unshift (@result, $opt => delete $args->{$opt}) if exists $args->{$opt};
   }
  return @result;
 }
