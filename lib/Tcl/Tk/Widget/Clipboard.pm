@@ -34,7 +34,6 @@ sub clipboardCopy
 {
  my $w = shift;
  my $val = $w->getSelected;
- print "Copying '$val'\n";
  if (defined $val)
   {
    $w->clipboardSet('--',$val);
