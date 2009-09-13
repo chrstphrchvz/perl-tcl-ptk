@@ -20,11 +20,16 @@ Construct Tcl::Tk::Widget 'Tree';
 
 sub Tcl::Tk::Widget::ScrlTree { shift->Scrolled('Tree' => @_) }
 
+
+       
 sub Populate
 {
  my( $w, $args ) = @_;
 
  $w->SUPER::Populate( $args );
+ 
+ # Make the button-1 motion not change the selection. like it does in perl/tk
+ $w->call('bind', 'TixHList', '<B1-Motion>', '');
 
  $w->ConfigSpecs(
         -ignoreinvoke => ['PASSIVE',  'ignoreInvoke', 'IgnoreInvoke', 0],
