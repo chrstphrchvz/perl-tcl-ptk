@@ -64,14 +64,10 @@ sub clipboardPaste
  local $@;
 # Tcl::Tk::catch
   {
-## Different from Tcl/Tk version:
-#    if ($w->windowingsystem eq 'x11')
-#     {
-#      catch
-#       {
-#        $w->deleteSelected;
-#       };
-#     }
+     eval
+     {
+       $w->deleteSelected;
+     };
    my $value = $w->clipboardGet;
    # print "Clipboard paste = $value\n";
    $w->insert("insert", $value);
