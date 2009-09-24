@@ -1145,41 +1145,83 @@ sub Subwidget {
     return $int->widget($subwid);
 }
 
+##############################################################
+### Modification of perl/tk's After mechanism to work with Tcl::Tk
+###  perl/tk's mechanism ensures that any pending after callbacks are canceled when
+###   a widget is destroyed.
 
+# This is supposed to replicate Tcl::Tk::after behaviour,
+# but does auto-cancel when widget is deleted.
+require Tcl::Tk::After;
 
-# although this is not the case, we'll think of object returned by 'after'
-# as a widget.
-sub after {
-    my $self = shift;
-    
+sub afterCancel
+{
+ my ($w,$what) = @_;
+ if (defined $what)
+  {
+   return $what->cancel if ref($what);
+   carp "dubious cancel of $what" if 0 && $^W;
+   $w->Tcl::Tk::after('cancel' => $what);
+  }
+}
+
+sub afterIdle
+{
+ my $w = shift;
+ # Set the Tcl.pm package variable $current_widget so that any
+ #   sub-ref gets assigned to the proper widget in Tcl.pm
+ Tcl::_current_refs_widget($w->path);
+ return Tcl::Tk::After->new($w,'idle','once',@_);
+}
+
+sub afterInfo {
+    my ($w, $id) = @_;
+    if (defined $id) {
+	return ($id->[4], $id->[2], $id->[3]);
+    } else {
+	return sort( keys %{$w->{_After_}} );
+    }
+}
+
+sub after
+{
+ my $w = shift;
+ my $t = shift;
+ if (@_)
+  {
+   if ($t ne 'cancel')
+    {
+     require Tcl::Tk::After;
+     # Set the Tcl.pm package variable $current_widget so that any
+     #   sub-ref gets assigned to the proper widget in Tcl.pm
+     Tcl::_current_refs_widget($w->path);
+     return Tcl::Tk::After->new($w,$t,'once',@_)
+    }
+   while (@_)
+    {
+     my $what = shift;
+     $w->afterCancel($what);
+    }
+  }
+ else
+  {
     # Set the Tcl.pm package variable $current_widget so that any
     #   sub-ref gets assigned to the proper widget in Tcl.pm
-    Tcl::_current_refs_widget($self->path);
-    
-    my $int = $self->interp;
-
-    return $int->after(@_);
-            
+    Tcl::_current_refs_widget($w->path);
+   $w->Tcl::Tk::after($t);
+  }
 }
 
-sub cancel {
-    my $self = shift;
-    return $self->call('after','cancel',$self);
+sub repeat
+{
+ require Tcl::Tk::After;
+ my $w = shift;
+ my $t = shift;
+ return Tcl::Tk::After->new($w,$t,'repeat',@_);
 }
 
-# Wrapper for 'after', 'idle' tcl call that uses Tcl::Tk::Callbacks
-sub afterIdle {
-    my $self = shift;
-    my $callback = shift;
-    
-    # Turn into callback, if not one already
-    unless( blessed($callback) and $callback->isa('Tcl::Tk::Callback')){
-            $callback = Tcl::Tk::Callback->new($callback);
-    }
-    my $int = $self->interp;
-    my $ret = $self->interp->call('after', 'idle', sub{ $callback->Call()} );
-    return $int->declare_widget($ret);
-}
+#################################################
+
 #
 # Getimage compatability routine
 #
@@ -2230,14 +2272,6 @@ sub BalloonInfo
   }
 }
 
-# repeat method. Like executing after multiple times
-sub repeat
-{
- require Tcl::Tk::After;
- my $w = shift;
- my $t = shift;
- return Tcl::Tk::After->new($w,$t,'repeat',@_);
-}
 
 ##### Selection Commands, for compatibility with perl/tk #####
 

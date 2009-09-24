@@ -30,7 +30,7 @@ sub submit
  my $t       = $obj->[2];
  my $method  = $obj->[3];
  delete($w->{_After_}{$id}) if (defined $id);
- $id  = $w->after($t,sub{$obj->$method});
+ $id  = $w->interp->Tcl::Tk::after($t,sub{$obj->$method});
  unless (exists $w->{_After_})
   {
    $w->{_After_} = {};

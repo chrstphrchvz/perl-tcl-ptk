@@ -281,7 +281,7 @@ blessed to C<Tcl::Tk::Widget>, or other widgets in ISA-relationships )
 behaves in such a way that its method will result in calling it's path on the
 interpreter.
 
-=head4 Perl/Tk syntax
+=head2 Perl/Tk syntax
 
 C<Tcl::Tk> fully supports perl/Tk widget syntax of the L<Tk> package, which has been used for many years. This means that any C<Tcl::Tk> widget
 has a number of methods like C<Button>, C<Frame>, C<Text>, C<Canvas> and so
@@ -317,7 +317,7 @@ C<Tcl::Tk> Widgets fall into the following basic categories, based on how they a
 =item Direct auto-wrapped widgets
 
 These types of widgets (for example the Entry, Button, Scrollbar, and Label widgets) have no special code written for them
-in C<Tcl::Tk>. Their creation and method calls on them (e.g. C<$button->configure(-text => 'ButtonText')> ) are handled
+in C<Tcl::Tk>. Their creation and method calls (e.g. C<$button->configure(-text => 'ButtonText')> ) are handled
 by the wrapping code in the base Tcl::Tk::Widget package.
 
 =item Auto-wrapped widgets, with compatibility code
@@ -327,7 +327,7 @@ compatibile with the perl/Tk syntax. Examples of this type of widget are the Tex
 
 =item Megawidgets
 
-These are widgets that are composed of one-or-more other base widget types. Pure perl-megawidgets are supported in Tcl::Tk,
+These are widgets that are composed of one-or-more other base widget types. Pure-perl megawidgets are supported in Tcl::Tk,
 just like they are in perl/Tk. Examples of these types of widgets are ProgressBar, LabEntry, BrowseEntry, and SlideSwitch (one of the test cases in the source distribution).
 
 =item Derived Widgets
@@ -337,44 +337,76 @@ Examples of these types of widgets are Tree, TextEdit, TextUndo, ROText, and Dir
 
 =back
 
-=head3 OO explanations of Widget-s of Tcl::Tk
+=head2 Behind-the-scenes look at auto-wrapped widgets
 
-C<Tcl::Tk> widgets use object-oriented approach, which means a quite concrete
-object hierarchy presents. Interesting point about this object system - 
-it is very dynamic. Initially no widgets objects and no widget classes present,
-but they immediately appear at the time when they needed.
+All Widgets in C<Tcl::Tk> are objects, and have a inheritance hierarchy that derives from the C<Tcl::Tk::Widget> 
+parent class. Megawidgets and derived widgets are handled very similar (if not exactly) the same as in perl/tk.
 
-So they virtually exist, but come into actual existance dynamically. This
-dynamic approach allows same usage of widget library without any mention from
-within C<Tcl::Tk> module at all.
+Auto-wrapped widgets (like the Entry, Button, Scrollbar, etc) widgets are handled differently. 
+The object system for these widgets is dynamic, classes and/or methods are created when they are 
+first used/needed.
 
-Let us look into following few lines of code:
+The following describes how methods are called for the two different categories of auto-wrapped widgets
 
-  my $text = $mw->Text->pack;
-  $text->insert('end', -text=>'text');
-  $text->windowCreate('end', -window=>$text->Label(-text=>'text of label'));
+=over 1
 
+=item Direct auto-wrapped widget example
+
+Here is an example of a Entry widget, a direct auto-wrapped widget:
+
+  my $entry = $mw->Entry->pack;          # Create an entry widget and pack it
+  $entry->insert('end', -text=>'text');  # Insert some text into the Entry
+  my $entryText = $entry->get();         # Get the entry's text
+  
 Internally, following mechanics comes into play.
-Text method creates Text widget (known as C<text> in Tcl/Tk environment). 
+The I<Entry> method creates an I<Entry> widget (known as C<entry> in Tcl/Tk environment). 
 When this creation method invoked first time, a package 
-C<Tcl::Tk::Widget::Text> is created, which will be OO presentation of all
-further Text-s widgets. All such widgets will be blessed to that package
-and will be in ISA-relationship with C<Tcl::Tk::Widget>.
+C<Tcl::Tk::Widget::Entry> is created, which sets up the class hierarchy for any
+further Entry widgets. The newly-create C<Tcl::Tk::Widget::Entry> class will be
+a directy subclass of C<Tcl::Tk::Widget>.
 
-Second line calls method C<insert> of C<$text> object of type
-C<Tcl::Tk::Widget::Text>. When invoked first time, a method C<insert> is 
-created in package C<Tcl::Tk::Widget::Text>, with destiny to call
-C<invoke> method of our widget in Tcl/Tk world.
+The second code line above calls the C<insert> of the C<$entry> object of type
+C<Tcl::Tk::Widget::Entry>. When invoked first time, a method C<insert> is 
+created in package C<Tcl::Tk::Widget::Entry>, which will end-up calling
+calling the C<invoke> method on the Tcl/Tk interpreter (i.e. 
+C<$entry->interp()->invoke($entry, 'insert', -text, 'text')
 
-At first time when C<insert> is called, this method does not exist, so AUTOLOAD
-comes to play and creates such a method. Second time C<insert> called already
-existing subroutine will be invoked, thus saving execution time.
+The first time when C<insert> is called, the C<insert> method does not exist, so AUTOLOAD
+comes into play and creates the method. The second time C<insert> is called, the already-created
+method is called directly (i.e. not created again), thus saving execution time.
 
-As long as widgets of different type 'live' in different packages, they do not
-intermix, so C<insert> method of C<Tcl::Tk::Widget::Listbox> will mean
-completely different behaviour.
+Since the widgets of different type 'live' in different packages, they do not
+intermix, so a C<insert> method of C<Tcl::Tk::Widget::Listbox> will result in completely
+different behavior.
 
-=head3 explanations how Widget-s of Tcl::Tk methods correspond to Tcl/Tk
+=item Auto-wrapped widgets, with compatibility code
+
+Here is an example of a Text widget, which is an auto-wrapped widget with extra
+code added for compatibility with the perl/tk Text widget.
+
+  my $text = $mw->Text->pack;            # Create an text widget and pack it
+  $text->insert('end', -text=>'text');   # Insert some text into the Text
+  @names = $text->markNames;             # Get a list of the marks set in the
+                                         #  Text widget
+  
+Internally, following mechanics comes into play.
+The I<Text> method creates an I<Text> widget (known as C<text> in Tcl/Tk environment). 
+Because a C<Tcl::Tk::Widget::Text> package already exists, a new package is not created
+at runtime like the case above. 
+
+The second code line above calls the C<insert> of the C<$text> object of type
+C<Tcl::Tk::Widget::Text>. This C<insert> method is already defined in the C<Tcl::Tk::Widget::Text> package,
+so it is called directly. 
+
+The third code line above calls the C<markNames> method on the C<$text> object. This method
+is not defined in the C<Tcl::Tk::Widget::Text> package, so the first time when C<makrNames> is called, 
+AUTOLOAD in the L<Tcl::Tk> package comes into play and creates the method. 
+The second time C<makkNames> is called, the already-created
+method is called directly (i.e. not created again), thus saving execution time.
+
+=back
+
+=head3 Description of auto-wrapped method call
 
 Suppose C<$widget> isa-C<Tcl::Tk::Widget>, its path is C<.path> and method
 C<method> invoked on it with a list of parameters, C<@parameters>:
@@ -388,15 +420,16 @@ this preprocessing following actions are performed:
 
 =item 1.
 
-for each variable reference its Tcl variable will be created and tied to it
+For each variable reference, a Tcl variable will be created and tied to it, so changes in the perl variable
+will be reflected in the Tcl variable, and changes in the Tcl variable will show up in the perl variable.
 
 =item 2.
 
-for each code reference its Tcl command will be created and tied to it
+For each perl code-reference, a Tcl command will be created that calls this perl code-ref.
 
 =item 3.
 
-each array reference considered as callback, and proper actions will be taken
+Each array reference will considered a callback, and proper actions will be taken.
 
 =back
 
@@ -405,11 +438,11 @@ perform following operation:
 
 =over
 
-=item if C<$method> is all lowercase, C<m/^[a-z]$/>
+=item if C<$method> is all lowercase (e.g. C<insert>), C<m/^[a-z]$/>
 
 C<.path method parameter1 parameter2> I<....>
 
-=item if C<$method> contains exactly one capital letter inside name, C<m/^[a-z]+[A-Z][a-z]+$/>
+=item if C<$method> contains exactly one capital letter inside name (e.g. C<tagNames>), C<m/^[a-z]+[A-Z][a-z]+$/>
 
 C<.path method submethod parameter1 parameter2> I<....>
 
@@ -417,28 +450,28 @@ C<.path method submethod parameter1 parameter2> I<....>
 
 C<.path method submeth subsubmeth parameter1 parameter2> I<....>
 
-=head4 faster way of invoking methods on widgets
+=head4 A faster way of invoking methods on widgets
 
-In case it is guaranteed that preprocessing of C<@parameters> are not required
-(in case no parameters are Perl references to scalar, subroutine or array), then
-preprocessing step described above could be skipped.
-
-To achieve that, prepend method name with underscore, C<_>. Mnemonically it means
-you are using some internal method that executes faster, but normally you use
-"public" method, which includes all preprocessing.
+If you are sure that preprocessing of C<@parameters> in a method call aren't require
+(i.e. no parameters are Perl references to scalars, subroutines or arrays), then
+the preprocessing step described above can be skipped by calling the method with
+an underscore C<_> prepended to the name. (e.g call C<$text->_markNames()>, instead of
+C<$text->markNames()>). Calling the method this way means you are using an internal
+method that executes faster, but normally you should uses a "public" method, which includes all preprocessing.
 
 Example:
 
-   # at following line faster method is incorrect, as \$var must be
+   # Can't use the faster method-call here, because \$var must be
    # preprocessed for Tcl/Tk:
    $button->configure(-textvariable=>\$var);
 
-   # faster version of insert method of "Text" widget is perfectly possible
+   # Faster version of insert method for the "Text" widget
    $text->_insert('end','text to insert','tag');
-   # following line does exactly same thing as previous line:
+   
+   # This line does exactly same thing as previous line:
    $text->_insertEnd('text to insert','tag');
 
-When doing many inserts to text widget, faster version could fasten execution.
+When doing many inserts to a text widget, the faster version can speed things up.
 
 =back
 
