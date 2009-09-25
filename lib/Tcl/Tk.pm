@@ -883,7 +883,9 @@ sub after{
                     $callback = Tcl::Tk::Callback->new($callback);
             }
             
-            my $ret = $int->call('after', $ms, sub{ $callback->Call()} );
+            my $sub = sub{ $callback->Call()};
+            #print "Tcl::Tk::after: setting after on $sub\n";
+            my $ret = $int->call('after', $ms, $sub );
             return $int->declare_widget($ret);
     }
     else{ # No Callback defined, just do a sleep
@@ -1038,7 +1040,7 @@ sub widget_cleanup {
     
     # Go thru each list and delete
     foreach my $rname(@deleteList){
-            #print  STDERR "Widget_Cleanup deleting $rname\n";
+            #print  "Widget_Cleanup deleting $rname\n";
 
             $int->SUPER::delete_ref($rname);
     }

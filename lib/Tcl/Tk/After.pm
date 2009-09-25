@@ -13,7 +13,7 @@ sub _cancelAll
  my $h = delete $w->{_After_};
  foreach my $obj (values %$h)
   {
-   # carp "Auto cancel ".$obj->[1]." for ".$obj->[0]->PathName;
+   #print "Auto cancel ".$obj->[1]." for ".$obj->[0]->PathName." Window = $w\n";
    $obj->cancel;
    bless $obj,"Tcl::Tk::After::Cancelled";
   }
@@ -36,6 +36,7 @@ sub submit
    $w->{_After_} = {};
    $w->OnDestroy([\&_cancelAll, $w]);
   }
+ #print "Tcl::Tk::After::submit setting after $id to $obj, window = $w\n";
  $w->{_After_}{$id} = $obj;
  $obj->[1] = $id;
  return $obj;
@@ -64,7 +65,9 @@ sub cancel
  my $w   = $obj->[0];
  if ($id)
   {
-   $w->interp->icall('after', 'cancel'=> $id) if Tcl::Tk::Exists($w);
+   my $interp = $w->interp;
+   $interp->icall('after', 'cancel'=> $id) if( defined($interp) );
+   #print "Tcl::Tk::After::cancel: deleting $id";
    delete $w->{_After_}{$id} if exists $w->{_After_};
    $obj->[1] = undef;
   }
