@@ -63,6 +63,7 @@ sub cancel
  my $obj = shift;
  my $id  = $obj->[1];
  my $w   = $obj->[0];
+ return unless( defined $w);
  if ($id)
   {
    my $interp = $w->interp;
