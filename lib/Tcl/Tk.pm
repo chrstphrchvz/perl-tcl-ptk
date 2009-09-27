@@ -118,15 +118,16 @@ Or B<Tcl::Tk Synax with direct access to Tcl:>
 
 =head1 DESCRIPTION
 
-The C<Tcl::Tk> interfaces perl with the Tk library within an existing Tcl/Tk
-installation on your computer. It has a fully perl/tk (See L<Tk>) compatible syntax for running existing perl/tk scripts, as well as direct-tcl syntax for using all the installed Tcl/Tk features. 
+C<Tcl::Tk> interfaces perl with the Tk library within an existing Tcl/Tk
+installation on your computer. It has fully perl/tk (See L<Tk>) compatible syntax for running existing
+perl/tk scripts, as well as direct-tcl syntax for using any other Tcl/Tk features. 
 
 Using this module an interpreter object created, which
 then provides access to all the installed Tcl libraries (Tk, Tix,
-BWidgets, BLT, etc) and existing features (for example natively looking
-widgets using C<tile>).
+BWidgets, BLT, etc) and existing features (for example native-looking
+widgets using the C<tile> package).
 
-=head2 Features
+B<Features>
 
 =over
 
@@ -136,11 +137,13 @@ Perl/Tk compatible syntax.
 
 =item *
 
-Pure perl megawidgets work just like in perl/tk. See the test case t/slideMegaWidget.t in the source distribution for a simple example.
+Pure perl megawidgets work just like in perl/tk. See the test case t/slideMegaWidget.t in the source distribution
+for a simple example.
 
 =item *
 
-All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the "Use Tk;" to "Use Tcl::Tk (qw/ :perlTk /)" at the top of the file. See the I<widgetTclTk> demo script included in the source distribution to run the demos.
+All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the "Use Tk;"
+to "Use Tcl::Tk (qw/ :perlTk /)" at the top of the file. See the I<widgetTclTk> demo script included in the source distribution to run the demos.
 
 =item *
 
@@ -152,15 +155,17 @@ L<Tcl::Tk::TkHijack> package supplied which enables Tcl::Tk to be used with exis
 
 =item *
 
-Similar interface approach to Tcl/Tk that other dynamic languages use (e.g. ruby, python). Because of this approach, upgrades to Tcl/Tk shouldn't require much coding changes (if any) in L<Tcl::Tk>.
+Similar interface approach to Tcl/Tk that other dynamic languages use (e.g. ruby, python). Because of this approach, 
+upgrades to Tcl/Tk shouldn't require much coding changes (if any) in L<Tcl::Tk>.
 
 =item *
 
-L<Tcl::Tk::TkFacelift> package supplied which provides a quick way of using the new better-looking Tile/ttk widgets in existing code.
+L<Tcl::Tk::TkFacelift> package supplied, which provides a quick way of using the new better-looking Tile/ttk widgets in existing code.
 
 =item *
 
-TableMatrix (spreadsheet/grid Tktable widget, built to emulate the perl/tk L<Tk::TableMatrix> interface ) built into the package (as long as you have the Tktable Tcl/Tk extension installed).
+TableMatrix (spreadsheet/grid Tktable widget, built to emulate the perl/tk L<Tk::TableMatrix> interface ) built into the package
+(as long as you have the Tktable Tcl/Tk extension installed).
 
 =item *
 
@@ -172,6 +177,7 @@ Compatible with Tcl/Tk 8.4+
 
 =back
 
+=head1 Basic Usage/Operation
 
 =head2 Creating a Tcl interpreter for Tk
 
@@ -180,6 +186,7 @@ created, which will manage all things in Tcl. Creating an interpreter is created
 my the call to the C<MainWindow> (or C<tkinit>) methods, but can also be created explicitly.
 
 B<Example showing perl/Tk compatible syntax:>
+For perl/tk syntax, the interpreter is created for you when you create the mainwindow.
 
    use Tcl::Tk qw/:perlTk/;
 
@@ -192,7 +199,7 @@ B<Example showing explicit creation of an interpreter using Tcl::Tk:>
 
    my $int = new Tcl::Tk;
 
-Optionally DISPLAY argument could be specified: C<my $int = new Tcl::Tk(":5");>.
+Optionally a DISPLAY argument can be specified: C<my $int = new Tcl::Tk(":5");>.
 This creates a Tcl interpreter object $int, and creates a main toplevel
 window. The window is created on display DISPLAY (defaulting to the display
 named in the DISPLAY environment variable)
@@ -206,11 +213,11 @@ B<Perl/Tk compatible syntax:>
 B<Tcl::Tk Syntax:>
 
   $inst->MainLoop;
- 
+
 =head2 Creating and using widgets
 
 Two different approaches are used to manipulate widgets (or to manipulate any Tcl objects that
-act similar to widgets).
+act similarly to widgets).
 
 =over
 
@@ -224,17 +231,17 @@ Direct access using Eval-ed Tcl code. (e.g. using the C<< Eval >> Tcl::Tk method
 
 =back
 
-First way to manipulate widgets is identical to perl/Tk calling conventions,
-the second uses Tcl syntax. Both ways are interchangeable in that a widget
-created with one way could be used by another way. This interchangability enables
+The first way to manipulate widgets is identical to the perl/Tk calling conventions,
+the second one uses Tcl syntax. Both ways are interchangeable in that a widget
+created with one way can be used the another way. This interchangability enables
 use of Tcl-code created elsewhere (e.g. by some WYSIWYG IDE).
 
 Usually Perl programs operate with Tcl::Tk via perl/Tk syntax, so users have no
-need to deal with the Tcl language directly, only some basic understanding of
-widgets is needed.
+need to deal with the Tcl language directly. Only some basic understanding of
+Tcl/Tk widgets is needed.
 
 
-=head4 Tcl/Tk syntax
+=head3 Tcl/Tk syntax
 
 In order to get better understanding on usage of Tcl/Tk widgets from within
 Perl, a bit of Tcl/Tk knowledge is needed, so we'll start from 2nd approach,
@@ -245,7 +252,7 @@ approach with perl/Tk syntax.
 
 =item * The Tcl Interpreter
 
-Tcl interpreter is used to process Tcl/Tk widgets; within C<Tcl::Tk> you
+The Tcl interpreter is used to process Tcl/Tk widgets; within C<Tcl::Tk> you
 create it with C<new>, and, given any widget object, you can retreive it by
 C<< $widget->interp >> method. ( Within pure Tcl/Tk the interpreter already exists,
 you don't need to create it explicitly. ) 
@@ -264,11 +271,11 @@ within C<Tcl::Tk>.
 
 =item * The Widget Path as a Tcl/Tk command
 
-When a widget is created, a special command is created within Tcl/Tk, that is the name of the 
-widget's path. For example, a button created in a frame that has a path and command-name C<.fr.b>. This
+When a widget is created in Tcl/Tk, a special command is created that is the name of the 
+widget's path. For example, a button created in a frame has a path and command-name C<.fr.b>. This
 command also has subcommands which manipulate the widget. That is why
 C<< $int->Eval('.fr.b configure -text {new text}'); >> makes sense.
-Note that C<< $button->configure(-text=>'new text'); >> does exactly the same thing,
+Note that using perl/tk syntax C<< $button->configure(-text=>'new text'); >> does exactly the same thing,
 if C<$button> corresponds to C<.fr.b> widget.
 
 
@@ -277,11 +284,11 @@ if C<$button> corresponds to C<.fr.b> widget.
 
 The C<use Tcl::Tk;> statement not only creates the C<Tcl::Tk> package, but also creates the
 C<Tcl::Tk::Widget> package, which is responsible for widgets. Each widget ( an object
-blessed to C<Tcl::Tk::Widget>, or other widgets in ISA-relationships )
+blessed to C<Tcl::Tk::Widget>, or any of its subclasses )
 behaves in such a way that its method will result in calling it's path on the
 interpreter.
 
-=head2 Perl/Tk syntax
+=head3 Perl/Tk syntax
 
 C<Tcl::Tk> fully supports perl/Tk widget syntax of the L<Tk> package, which has been used for many years. This means that any C<Tcl::Tk> widget
 has a number of methods like C<Button>, C<Frame>, C<Text>, C<Canvas> and so
@@ -305,12 +312,12 @@ the Tcl interpreter. This translation that occurs from perl/Tk syntax to Tcl cal
 dealing with widgets are interchangeable.
 
 The newly created widget C<$label> will be blessed to package C<Tcl::Tk::Widget::Label>
-which is isa-C<Tcl::Tk::Widget>
+which is isa-C<Tcl::Tk::Widget> (i.e. C<Tcl::Tk::Widget::Label> is a subclass of C<Tcl::Tk::Widget>).
 
 
-=head2 Categories of Tcl::Tk Widgets
+=head1 Categories of Tcl::Tk Widgets
 
-C<Tcl::Tk> Widgets fall into the following basic categories, based on how they are implemented in the package.
+C<Tcl::Tk> Widgets fall into the following basic categories, based on how they are implemented in the C<Tcl::Tk> package.
 
 =over 1
 
@@ -332,19 +339,20 @@ just like they are in perl/Tk. Examples of these types of widgets are ProgressBa
 
 =item Derived Widgets
 
-Derived widgets are sub-classes of existing widgets that provide some additional functions. Derived widgets are created in Tcl::Tk using very similar syntax to perl/Tk (i.e. using the Tcl::Tk::Derived package, similar to the Tk::Derived package). 
+Derived widgets are sub-classes of existing widgets that provide some additional functions. Derived widgets are created in
+Tcl::Tk using very similar syntax to perl/Tk (i.e. using the Tcl::Tk::Derived package, similar to the Tk::Derived package). 
 Examples of these types of widgets are Tree, TextEdit, TextUndo, ROText, and DirTree.
 
 =back
 
-=head2 Behind-the-scenes look at auto-wrapped widgets
+=head1 A behind-the-scenes look at auto-wrapped widgets
 
-All Widgets in C<Tcl::Tk> are objects, and have a inheritance hierarchy that derives from the C<Tcl::Tk::Widget> 
+All Widgets in C<Tcl::Tk> are objects, and have an inheritance hierarchy that derives from the C<Tcl::Tk::Widget> 
 parent class. Megawidgets and derived widgets are handled very similar (if not exactly) the same as in perl/tk.
 
-Auto-wrapped widgets (like the Entry, Button, Scrollbar, etc) widgets are handled differently. 
-The object system for these widgets is dynamic, classes and/or methods are created when they are 
-first used/needed.
+Auto-wrapped widgets (like the Entry, Button, Scrollbar, etc.) are handled differently. 
+The object system for these types of widgets is dynamic. Classes and/or methods are created when they are 
+first used or needed.
 
 The following describes how methods are called for the two different categories of auto-wrapped widgets
 
@@ -358,26 +366,22 @@ Here is an example of a Entry widget, a direct auto-wrapped widget:
   $entry->insert('end', -text=>'text');  # Insert some text into the Entry
   my $entryText = $entry->get();         # Get the entry's text
   
-Internally, following mechanics comes into play.
-The I<Entry> method creates an I<Entry> widget (known as C<entry> in Tcl/Tk environment). 
-When this creation method invoked first time, a package 
+Internally, the following mechanics comes into play.
+The I<Entry> method creates an I<Entry> widget (known as C<entry> in the Tcl/Tk environment). 
+When this creation method is invoked first time, a package 
 C<Tcl::Tk::Widget::Entry> is created, which sets up the class hierarchy for any
-further Entry widgets. The newly-create C<Tcl::Tk::Widget::Entry> class will be
-a directy subclass of C<Tcl::Tk::Widget>.
+further Entry widgets. The newly-created C<Tcl::Tk::Widget::Entry> class is be
+a direct subclass of C<Tcl::Tk::Widget>.
 
-The second code line above calls the C<insert> of the C<$entry> object of type
-C<Tcl::Tk::Widget::Entry>. When invoked first time, a method C<insert> is 
+The second code line above calls the C<insert> method of the C<$entry> object.
+When invoked first time, a method (i.e. subref) C<insert> is 
 created in package C<Tcl::Tk::Widget::Entry>, which will end-up calling
 calling the C<invoke> method on the Tcl/Tk interpreter (i.e. 
 C<$entry->interp()->invoke($entry, 'insert', -text, 'text')
 
-The first time when C<insert> is called, the C<insert> method does not exist, so AUTOLOAD
+The first time C<insert> is called, the C<insert> method does not exist, so AUTOLOAD
 comes into play and creates the method. The second time C<insert> is called, the already-created
 method is called directly (i.e. not created again), thus saving execution time.
-
-Since the widgets of different type 'live' in different packages, they do not
-intermix, so a C<insert> method of C<Tcl::Tk::Widget::Listbox> will result in completely
-different behavior.
 
 =item Auto-wrapped widgets, with compatibility code
 
@@ -406,15 +410,14 @@ method is called directly (i.e. not created again), thus saving execution time.
 
 =back
 
-=head3 Description of auto-wrapped method call
+=head2 Description of an auto-wrapped method call
 
-Suppose C<$widget> isa-C<Tcl::Tk::Widget>, its path is C<.path> and method
+Suppose C<$widget> isa C<Tcl::Tk::Widget>, its path is C<.path>, and method
 C<method> invoked on it with a list of parameters, C<@parameters>:
 
   $widget->method(@parameters);
 
-In this case as a first step all C<@parameters> will be preprocessed, during
-this preprocessing following actions are performed:
+In this case all C<@parameters> will be preprocessed by performing the following actions:
 
 =over
 
@@ -433,7 +436,7 @@ Each array reference will considered a callback, and proper actions will be take
 
 =back
 
-After adoptation of C<@parameters> Tcl/Tk interpreter will be requested to
+After processing of C<@parameters>, the Tcl/Tk interpreter will be requested to
 perform following operation:
 
 =over
@@ -442,22 +445,24 @@ perform following operation:
 
 C<.path method parameter1 parameter2> I<....>
 
-=item if C<$method> contains exactly one capital letter inside name (e.g. C<tagNames>), C<m/^[a-z]+[A-Z][a-z]+$/>
+=item if C<$method> contains exactly one capital letter inside the method name (e.g. C<tagNames>), C<m/^[a-z]+[A-Z][a-z]+$/>
 
 C<.path method submethod parameter1 parameter2> I<....>
 
-=item if C<$method> contains several capital letter inside name, C<methodSubmethSubsubmeth>
+=item if C<$method> contains several capital letter inside the method name, C<methodSubmethSubsubmeth>
 
 C<.path method submeth subsubmeth parameter1 parameter2> I<....>
 
-=head4 A faster way of invoking methods on widgets
+=back
 
-If you are sure that preprocessing of C<@parameters> in a method call aren't require
+=head2 Fast method invocation for auto-wrapped widgets
+
+If you are sure that preprocessing of C<@parameters> in a method call aren't required
 (i.e. no parameters are Perl references to scalars, subroutines or arrays), then
 the preprocessing step described above can be skipped by calling the method with
 an underscore C<_> prepended to the name. (e.g call C<$text->_markNames()>, instead of
 C<$text->markNames()>). Calling the method this way means you are using an internal
-method that executes faster, but normally you should uses a "public" method, which includes all preprocessing.
+method that executes faster, but normally you should use a "public" (i.e. non-underscore) method, which includes all preprocessing.
 
 Example:
 
@@ -471,27 +476,27 @@ Example:
    # This line does exactly same thing as previous line:
    $text->_insertEnd('text to insert','tag');
 
-When doing many inserts to a text widget, the faster version can speed things up.
+When doing many inserts to a text widget, the faster version can help speed things up.
 
-=back
 
-=head2 using any Tcl/Tk feature with Tcl::Tk module
+=head1 Using any Tcl/Tk feature from Tcl::Tk
 
-Tcl::Tk module allows using any widget from Tcl/Tk widget library with either
-Tcl syntax (via Eval), or with regular Perl syntax.
+In addition to the standard widgets (e.g. Entry, Button, Menu, etc), the C<Tcl::Tk> module 
+lets you use any other widget from the Tcl/Tk widget library. This can be done with either
+Tcl syntax (via the C<Eval> method), or with regular perl/tk syntax.
 
-In order to provide perlTk syntax to any Tcl/Tk widget, only single call
-should be made, namely 'Declare' method. This is a method of any widget in
-Tcl::Tk::Widget package, and also exactly the same method of Tcl::Tk
-interpreter object
+To interface to a new Tcl/Tk widget using perl/tk syntax, a C<Declare> method call
+is made on an already-created widget, or on the C<Tcl::Tk> interpreter object itself.
 
 Syntax is
-
+ 
+ # Calling Declare on a widget object:
  $widget->Declare('perlTk_widget_method_name','tcl/tk-widget_method_name',
     @options);
 
 or, exactly the same,
  
+ # Calling Declare on a the Tcl::Tk Interpreter object:
  $interp->Declare('perlTk_widget_method_name','tcl/tk-widget_method_name',
     @options);
  
@@ -500,76 +505,83 @@ Options are:
   -require => 'tcl-package-name'
   -prefix => 'some-prefix'
 
-'-require' option specifies that said widget requires a Tcl package with a name
+The I<-require> option specifies the new Tcl/Tk widget requires a Tcl package to be loaded with a name
 of 'tcl-package-name';
-'-prefix' option used to specify a part of autogenerated widget name, usually
-used when Tcl widget name contain non-alphabet characters (e.g. ':') so
-to keep autogenerated names syntaxically correct.
 
-A typical example of such invocation is:
+The I<-prefix> option used to specify the prefix of the autogenerated widget path-name. This option is 
+normally used when the Tcl/Tk widget name contains non-alphabetic characters (e.g. ':'). If not specified, the
+prefix will be generated from the package-name.
+
+A typical example of using the C<Declare> method:
 
   $mw->Declare('BLTNoteBook','blt::tabnotebook',-require=>'BLT',-prefix=>'bltnbook');
 
-After such a call Tcl::Tk module will take a knowledge about tabnotebook widget
-from within BLT package and create proper widget creation method for it with a 
-name BLTNoteBook. This means following statement:
+After this call, C<Tcl::Tk> will create a widget creation method for this new package to make it an 
+auto-wrapped widget (See the definition of auto-wrapped widgets above).
+
+This means
 
  my $tab = $mw->BLTNoteBook;
 
-will create blt::tabnotebook widget. Effectively, this is similar to following
+will create blt::tabnotebook widget. Effectively, this is equavalent to the following
 Tcl/Tk code:
 
   package require BLT # but invoked only once
   blt::tabnotebook .bltnbook1
 
-Also, Perl variable $tab will contain ordinary Tcl/Tk widget that behaves in
-usual way, for example:
+After the above example code, the variable C<$tab> is a  B<Tcl::Tk::Widget> that behaves in
+the usual way, for example:
 
   $tab->insert('end', -text=>'text');
   $tab->tabConfigure(0, -window=>$tab->Label(-text=>'text of label'));
 
-These two lines are Tcl/Tk equivalent of:
+These two lines are the Tcl/Tk equivalent of:
 
   .bltnbook1 insert end -text {text}
   .bltnbook1 tab configure 0 -window [label .bltnbook1.lab1 -text {text of label}]
 
-Given all previously said, you can also write intermixing both approaches:
+You can also intermix the perl/tk and Tcl/Tk syntax like this:
 
   $interp->Eval('package require BLT;blt::tabnotebook .bltnbook1');
   $tab = $interp->widget('.bltnbook1');
   $tab->tabConfigure(0, -window=>$tab->Label(-text=>'text of label'));
 
-=head3 using documentation of Tcl/Tk widgets for applying within Tcl::Tk module
+=head1 How to read Tcl/Tk widget docs when using in C<Tcl::Tk>
 
-As a general rule, you need to consult TCL man pages to realize how to
-use a widget, and after that invoke perl command that creates it properly.
-When reading Tcl/Tk documentation about widgets, quite simple transformation is
-needed to apply to Tcl::Tk module.
+For the documentation of standard perl/tk widgets (like Button, Entry, Menu, etc), you can refer
+to the the perl/tk docs L<Tk> (We may move a copy of the perl/tk docs to Tcl::Tk in the future). For non-standard
+widgets (like the BLTNotebook widget example above) you have to use the Tcl docs on the widget for the widget documentation. (Most Tcl/Tk
+docs can be found at http://www.tcl.tk/ )
 
-Suppose it says:
+When reading Tcl/Tk widget documentation about widgets, you can apply the following guidelines to determine how
+to use the widget in C<Tcl::Tk> using perl/tk syntax.
+
+Suppose the Tcl/Tk docs say:
 
   pathName method-name optional-parameters
      (some description)
      
-you should understand, that widget in question has method C<method-name> and you could
-invoke it as
+This means the widget has a has method C<method-name> and you can
+invoke it in C<Tcl::Tk> like
 
   $widget->method-name(optional-parameters);
 
-$widget is that widget with pathName, created with perl/Tk syntax, or fetched by
-C<< $int->widget >> method.
+The C<$widget> variable in C<Tcl::Tk> is like the I<pathName> in the Tcl/Tk docs.
 
-Sometimes in Tcl/Tk method-name consist of two words (verb1 verb2), in this
-case there are two ways to invoke it, C<< $widget->verb1('verb2',...); >> or it
-C<< $widget->verb1Verb2(...); >> - those are identical.
+Sometimes the Tcl/Tk method-name consists of two words (verb1 verb2). In this
+case there are two equivalent ways to invoke it, C< $widget->verb1('verb2',...); > or
+C< $widget->verb1Verb2(...)>; 
 
-Widget options are same within Tcl::Tk and Tcl/Tk.
+Widget options are used just like they are shown in the Tcl/Tk docs. There is no special translation needed
+for the widget options described in the Tcl/Tk docs for use in C<Tcl::Tk>.
 
-=head3 C<< $int->widget( path, widget-type ) >> method
+=head1 Miscellaneous methods
 
-When widgets are created they are stored internally and could be retreived
-by C<widget()>, which takes widget path as first parameter, and optionally
-widget type (such as Button, or Text etc.). Example:
+=head2 C<< $int->widget( path, widget-type ) >>
+
+When widgets are created in C<Tcl::Tk> they are stored internally and can and can be retreived
+by the C<widget()> method, which takes widget path as first parameter, and optionally
+the widget type (such as Button, or Text etc.). For Example:
 
     # this will retrieve widget, and then call configure on it
     widget(".fram.butt")->configure(-text=>"new text");
@@ -578,21 +590,15 @@ widget type (such as Button, or Text etc.). Example:
     my $button = widget(".fram.butt", 'Button');
     
     # same but retrieved widget considered as general widget, without
-    # concrete specifying its type (Tcl::Tk::Widget object)
+    # specifying its type. This will make it a generic Tcl::Tk::Widget object
     my $button = widget(".fram.butt");
 
 Please note that this method will return to you a widget object even if it was
-not created within this module, and check will not be performed whether a 
-widget with given path exists, despite of fact that checking for existence of
-a widget is an easy task (invoking C<< $interp->Eval("info commands $path"); >>
-will do this). Instead, you will receive perl object that will try to operate
-with widget that has given path even if such path do not exists. In case it do
-not actually exist, you will receive an error from Tcl/Tk.
+not created within C<Tcl::Tk>. A check is not performed to see if a 
+widget with given path name exists. This enables the use of widgets created elsewhere
+in Tcl/Tk to be treated like C<Tcl::Tk> widgets.
 
-To check if a widget with a given path exists use C<Tcl::Tk::Exists($widget)>
-subroutine. It queries Tcl/Tk for existance of said widget.
-
-=head3 C<widget_data> method
+=head2 C<widget_data>
 
 If you need to associate any data with particular widget, you can do this with 
 C<widget_data> method of either interpreter or widget object itself. This method
@@ -602,60 +608,32 @@ Examples:
 
   $interp->widget_data('.fram1.label2')->{var} = 'value';
   $label->widget_data()->{var} = 'value';
+  
+B<Note:>
 
-=head2 Non-widget Tk commands
+Use of this method has largely been superceded by the perl/tk-compatible C<privateData> widget method.
 
-Many non-widget Tk commands are also available within Tcl::Tk module, such
-as C<focus>, C<wm>, C<winfo> and so on. If some of them not present directly,
-you can always use C<< $int->Eval('...') >> approach.
 
-=head2 Miscellaneous methods
 
-=head3 C<< $widget->tooltip("text") >> method
+=head2 C<< $widget->tooltip("text") >>
 
-Any widget accepts C<tooltip> method, accepting any text as parameter, which
+Any widget accepts the C<tooltip> method, accepting any text as parameter, which
 will be used as floating help text explaining the widget. The widget itself
 is returned, so to provide convenient way of chaining:
 
   $mw->Button(-text=>"button 1")->tooltip("This is a button, m-kay")->pack;
   $mw->Entry(-textvariable=>\my $e)->tooltip("enter the text here, m-kay")->pack;
 
-C<tooltip> method uses C<tooltip> package, which is a part of C<tklib> within
-Tcl/Tk, so be sure you have it installed.
+The C<tooltip> method uses the C<tooltip> package, which is a part of C<tklib> within
+Tcl/Tk, so be sure you have that Tcl/Tk package installed.
 
+Note: The perl/tk-compatible B<Balloon> widget is also available for installing tool-tips on widgets
+and widget-elements.
   
-=head1 Points of special care
-
-=over
-
-=item list context and scalar context
-
-When widget method returns some result, this result becomes transformed
-according to the context, either list or scalar context. Sometimes this
-transformation is right, but sometimes its not. Unfortunately there are many
-cases, when Tcl/Tk returns a string, and this string become broken into words,
-because the function call is placed in list context.
-
-In such cases concatenate such call with empty string to force right behaviour:
-
-  use Tcl::Tk;
-  my $mw = Tcl::Tk::tkinit;
-  my $int = $mw->interp;
-  my $but = $mw->Button(-text=>'1 2  3')->pack;
-  print "[", $but->cget('-text'), "] wrong - widget method returns 3 values!\n";
-  print "[", "".$but->cget('-text'), "] CORRECT - 1 value in scalar context\n";
-  $int->MainLoop;
-
-Actually, the example above will work correctly, because currently list of
-function names having list results are maintained. But please contact developers
-if you find misbehaving widget method!
-
-=back
-
-=head2 Terminology
+=head1 Terminology
 
 In the documentation and comments for this package, I<perl/Tk>, I<Tcl/Tk>, I<Tcl::Tk>, I<Tcl.pm>, and I<Tcl> are used. These terms have the
-following meaning in the context of this package.
+following meanings in the context of this package.
 
 =over 1
 
@@ -665,12 +643,12 @@ The traditional perl interface to the Tk GUI libraries. i.e the perl package occ
 
 =item Tcl/Tk
 
-The Tcl/Tk package with tcl-code and associated libraries (e.g. Tcl.so or Tcl.dll and associated tcl-code).
+The Tcl/Tk package with tcl-code and associated libraries (e.g. Tcl.so or Tcl.dll and associated tcl-code). See http://www.tcl.tk/
 
 =item Tcl::Tk
 
 This package, which provides a perl interface into the Tcl/Tk GUI libraries.
- 
+
 =item Tcl.pm
 
 The L<Tcl> perl package, which provides a simple interface from perl to Tcl/Tk. L<Tcl::Tk> interpreter objects are subclassed
@@ -679,6 +657,7 @@ from the L<Tcl> package.
 =item Tcl
 
 The I<Tcl> programming language.
+
 =back
 
 
@@ -698,6 +677,8 @@ versions.
 =item Jeff Hobbs, jeffh _a_ activestate com, February 2004.
 
 =item Gisle Aas, gisle _a_ activestate . com, 14 Apr 2004.
+
+=item John Cerney, j-cerney1 _a_ raytheon . com, 29 Sep 2009.
 
 =back
 
