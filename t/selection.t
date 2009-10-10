@@ -4,7 +4,7 @@ use Tcl::Tk qw/:perlTk/;
 #use Tk;
 
 use Test;
-plan tests => 6;
+plan tests => 9;
 
 $| = 1; # Pipes Hot
 my $top = MainWindow->new;
@@ -48,16 +48,6 @@ $t->tagRemove('sel','1.0','end');
 $t->tagAdd('sel','1.0','1.10');
 
 
-# SelectionHanldle doesn't appear to work (even with perl/tk!!) commenting out for now.
-#
-#$top->SelectionHandle( -selection => 'CLIPBOARD', #-type => 'STRING', -format => 'STRING',
-#        sub{
-#                my @args = @_;
-#                print "selection handle args ".join(", ", @args)."\n";
-#        }
-#        );
-#$sel = eval{ $t->GetSelection(-selection => 'CLIPBOARD');};
-#print "SelectHandle = '$sel'\n";
 
 
 my $owner = $t->SelectionOwner();
@@ -74,6 +64,26 @@ ok($val, "This windo", "Unexpected results of clipboardCopy");
 my $get = $t->clipboardGet();
 ok($val, "This windo", "Unexpected results of clipboardGet");
 #print "clip = $get\n";
+
+
+###### SelectionHanldle Test #####
+$t->SelectionOwn( -selection => 'CLIPBOARD'); # Make sure $t owns the selection
+
+# Setup SelectionHandle Callback
+$t->SelectionHandle( -selection => 'CLIPBOARD',
+#$t->interp->call('selection', 'handle', -selection  => 'CLIPBOARD', $t,
+         sub{
+                my @args = @_;
+                #print "selection handle args ".join(", ", @args)."\n";
+                
+                ok($args[0], 0, "1st SelectionHandle Arg is zero");
+                ok($args[1] =~ /^\d+$/, 1, "2nd SelectionHandle Arg is number");
+
+                return "Selection Handle Return";
+        }
+);
+$sel = $t->SelectionGet(-selection => 'CLIPBOARD');
+ok( $sel, "Selection Handle Return", "Selection Returns the right value");
 
 #MainLoop;
 

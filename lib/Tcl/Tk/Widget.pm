@@ -2320,12 +2320,18 @@ sub SelectionHandle{
             unless( blessed($callback) and $callback->isa('Tcl::Tk::Callback')){
                     $callback = Tcl::Tk::Callback->new($callback);
             }
-            return $widget->call('selection', 'handle', @_, $widget, sub{ $callback->Call()} );
+            return $widget->interp->call('selection', 'handle', @_, $widget, 
+                        sub{ 
+                                # Get the proper args for the callback (selection beginning and end)
+                                my @args = @_;
+                                shift @args; shift @args; shift @args; # don't need the first three args
+                                $callback->Call(@args)
+                        } );
 
     }
     
     # Callback not defined, must be reseting the selection handler
-    return $widget->call('selection', 'handle', @_, $widget, $callback );
+    return $widget->interp->call('selection', 'handle', @_, $widget, $callback );
     
     
 }
