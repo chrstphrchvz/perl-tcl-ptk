@@ -2437,6 +2437,11 @@ sub clipboardAppend{
         my $self = shift;
         $self->call('clipboard', 'append', @_);
 }
+sub clipboardGet{
+        my $self = shift;
+        $self->call('clipboard', 'get', @_);
+}
+
 
 # Method to get the patchlevel of the tcl we are using
 sub tclPatchlevel{
