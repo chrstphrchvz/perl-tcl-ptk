@@ -1250,7 +1250,7 @@ sub Getimage {
     foreach my $ext (@image_types) {
 	my $path;
 	foreach my $dir (@INC) {
-	    $path = "$dir/Tcl/Tk/$name.$ext";
+	    $path = "$dir/Tcl/Tk/images/$name.$ext";
             
             if( -f $path){ # File found, check that we can load Img package before accepting a xpm file
                 my $load = 1;

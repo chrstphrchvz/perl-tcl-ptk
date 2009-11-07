@@ -1186,12 +1186,18 @@ EOS
 
 # subroutine findINC copied from perlTk/Tk.pm
 sub findINC {
-    my $file = join('/',@_);
+    my $file = join('/',@_);                 # Normal location
+    my $fileImage = join('/', $_[0], 'images', $_[1]); # alternate location in the 'images' directory
     my $dir;
     $file  =~ s,::,/,g;
+    $fileImage  =~ s,::,/,g;
     foreach $dir (@INC) {
 	my $path;
-	return $path if (-e ($path = "$dir/$file"));
+
+        # check for normal location and 'images' location of the file
+	return $path if (-e ($path = "$dir/$file") );
+	return $path if (-e ($path = "$dir/$fileImage") );
+
     }
     return undef;
 }
