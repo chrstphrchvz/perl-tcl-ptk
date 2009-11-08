@@ -29,6 +29,17 @@ use Tcl::Tk::Submethods ( 'border'   => [qw(dragto)],
 		     'yview'  => [qw(moveto scroll)],
 			);
 
+
+# Override classOkWidgets from Megawidget.pm because TableMatrix can accept the -class option
+#  on widget creation, just like Frame and Toplevel widgets
+sub classOkWidgets{
+	my $package = shift;
+	my @widgetList = $package->SUPER::classOkWidgets();
+	return ('Tcl::Tk::Widget::TableMatrix', @widgetList);
+
+}
+
+
 # 
 sub colWidth{
         my $self = shift;

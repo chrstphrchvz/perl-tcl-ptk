@@ -18,7 +18,7 @@ unless( $retVal){
         exit;
 }
 
-plan tests => 5;
+plan tests => 6;
 
 
 my $arrayVar = {};
@@ -39,6 +39,12 @@ my $t = $top->Scrolled('Spreadsheet', -rows => 21, -cols => 11,
 			     #  -state => 'disabled'
                     );
 $t->pack(-expand => 1, -fill => 'both');
+
+# Check tk classname of the widget
+my $actualWidget = $t->Subwidget('scrolled');
+my $class = $actualWidget->class();
+#print "class = $class\n";
+ok($class, 'Spreadsheet', "Tk Class check");
 	
 # Check to see if empty cell sets work
 $t->update; # update the table, so it's array variables will be read for the following tests

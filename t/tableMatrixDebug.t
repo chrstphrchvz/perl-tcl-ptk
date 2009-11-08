@@ -10,7 +10,7 @@ use Tcl::Tk qw/:perlTk/;
 use Tcl::Tk::Widget::TableMatrix;
 use Test;
 
-plan test => 1;
+plan test => 2;
 
 my ($rows,$cols) = (25,20); # number of rows/cols
 my $top = MainWindow->new;
@@ -63,6 +63,13 @@ my $t = $top->Scrolled('TableMatrix', -rows => $rows, -cols => $cols,
 			      -drawmode => 'single',
 
                     );
+
+# Check tk classname of the widget
+my $actualWidget = $t->Subwidget('scrolled');
+my $class = $actualWidget->class();
+#print "class = $class\n";
+ok($class, 'TableMatrix', "Tk Class check");
+
 
 my $button = $top->Button( -text => "Exit", -command => sub{ $top->destroy});		    
 $label->pack( -expand => 1, -fill => 'both');

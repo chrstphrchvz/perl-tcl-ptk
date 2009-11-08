@@ -224,11 +224,14 @@ sub CreateArgs
  my $class = delete $args->{'-class'};
  ($class) = $package =~ /([A-Z][A-Z0-9_]*)$/i unless (defined $class);
  
- # Using the class option is only valid for Toplevel and Frame
- #  widgets for Tcl/Tk
- my $classOk; 
- $classOk = $package->isa('Tcl::Tk::Widget::Frame') || 
-            $package->isa('Tcl::Tk::Widget::Toplevel');
+ # Using the class option is only valid for Toplevel and Frame 
+ #  widgets for Tcl/Tk (unless classOkWidgets method has been overridden in a subclass)
+ my $classOk;
+ my @classOkPackages = $package->classOkWidgets(); # Get a list of packages (typically Toplevel and Frame)
+ foreach my $classOkPackage( @classOkPackages ){
+	$classOk = $package->isa($classOkPackage);
+	last if $classOk;
+ }
  
  @result = (-class => "\u$class") if (defined($class) && $classOk);
   foreach my $opt ($package->CreateOptions)
@@ -237,6 +240,16 @@ sub CreateArgs
   }
  return @result;
 }
+
+# Class Method to return a list of widget package names where it is ok to supply the -class
+#   option during widget creation. This is just the Toplevel and Frame widgets for the base Tk distribution.
+#  This method can be overridden in subclasses for add-on packages (e.g. TableMatrix) to handle an other
+#   new widgets where it is ok to supply the -class option at widget creation.
+sub classOkWidgets{
+	my $package = shift;
+	return ( qw/ Tcl::Tk::Widget::Frame Tcl::Tk::Widget::Toplevel/);
+}
+
 
 sub AddBindTag
 {
