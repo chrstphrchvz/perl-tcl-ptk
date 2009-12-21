@@ -2409,7 +2409,7 @@ sub MouseWheelBind
  # events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
-	       [ sub { $_[0]->yview('scroll',-($_[1]/120)*3,'units') }, Tcl::Tk::Ev("D")]);
+	       [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::Tk::Ev("D")]);
 
  if ($Tcl::Tk::platform eq 'unix')
   {

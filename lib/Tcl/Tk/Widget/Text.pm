@@ -37,6 +37,9 @@ sub ClassInit
  $mw->bind($class,'<F3>', 'clipboardColumnPaste');
  
  $mw->bind($class,'<BackSpace>','Backspace');
+ 
+ $mw->MouseWheelBind($class);
+
 
 }
 
