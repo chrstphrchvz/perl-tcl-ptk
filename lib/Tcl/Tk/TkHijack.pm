@@ -131,6 +131,7 @@ $packageAliases = {
         'Tk::Text'=> 'Tcl::Tk::Widget::Text',
         'Tk::Tree'=> 'Tcl::Tk::Widget::Tree',
         'Tk::Clipboard'=> 'Tcl::Tk::Widget::Clipboard',
+        'Tk::Configure'=> 'Tcl::Tk::Configure',
         'Tk::BrowseEntry'=> 'Tcl::Tk::Widget::BrowseEntry',
         'Tk::Callback'=> 'Tcl::Tk::Callback',
         'Tk::TableMatrix'=> 'Tcl::Tk::Widget::TableMatrix',
