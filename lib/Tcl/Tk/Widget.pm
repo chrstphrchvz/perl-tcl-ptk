@@ -1042,6 +1042,7 @@ sub messageBox {
     # messageBox should handle pTk's "YesNo" and return "Yes" in
     # addition to Tk's standard all-lc in/out.
     $args{'-type'} = lc $args{'-type'} if defined $args{'-type'};
+    $args{'-default'} = lc $args{'-default'} if defined $args{'-default'};
     my $retVal = $self->call('tk_messageBox', %args);
     if( $retVal ){
             $retVal = ucfirst($retVal); # response is first char upper case
