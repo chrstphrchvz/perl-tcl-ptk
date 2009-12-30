@@ -718,7 +718,7 @@ sub Save
     {
 #    my $end = $w->index("$index + 1024 chars");
      my $end = $w->index("$index  lineend +1c");
-     print $file $w->get($index,$end);
+     print $file scalar($w->get($index,$end));
      $index = $end;
      if (($count++%1000) == 0)
       {

@@ -107,8 +107,14 @@ $t->tag("bind", "hideable","<2>", sub {
     $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink')}
 );
 
+$t->after(500, sub{ $t->Save("tempfile") });
+
 $top->after(1000,sub{$top->destroy}) unless(@ARGV); # For debugging don't close window if options supplied on the command line
 MainLoop;
+
+# Get rid of temp file we wrote to
+unlink('tempfile');
+
 
 sub insertwtag {
   local($w,$text,$tag) = @_;
