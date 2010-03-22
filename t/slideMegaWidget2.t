@@ -110,8 +110,12 @@ my $TOP = MainWindow->new();
     )->pack(qw/-side left -expand 1/);
 
     
-ok(1,1, "Slide Megawidget");
 
+my @bindtags = $sl->bindtags;
+# Make sure there isn't duplicate bindtags
+ok(join(", ", @bindtags), 'SlideSwitch, .f02, ., all', "Slide Megawidget BindTags");
+
+#print "bindtags = '".join("', '", @bindtags)."'\n";
 $TOP->after(1000,sub{$TOP->destroy});
 MainLoop;
     

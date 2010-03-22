@@ -300,7 +300,9 @@ sub SetBindtags
 
  # $obj->bindtags([ref($obj),$tclClass, $obj,$obj->toplevel,'all']);  # Normal bindtags call
  ## Inlined bindtags call
- $int->invoke('bindtags', $path, [ref($obj),$tclClass, $path, $toplevel, 'all']);
+ my @bindtags = ($tclClass, $path, $toplevel, 'all');
+ unshift @bindtags, ref($obj) unless( ref($obj) eq $tclClass ); # Add class name, unless it is the same as the tcl claass
+ $int->invoke('bindtags', $path, [ @bindtags ]);
  
 }
 
