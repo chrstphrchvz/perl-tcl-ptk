@@ -858,6 +858,8 @@ sub after{
     my $ms = shift;
     my $callback = shift;
     
+    $ms = int($ms) if( $ms =~ /\d/ ); # Make into an integer to keep tk from complaining
+    
     if( defined($callback)){
             # Turn into callback, if not one already
             unless( blessed($callback) and $callback->isa('Tcl::Tk::Callback')){
