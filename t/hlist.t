@@ -4,7 +4,7 @@ use Tcl::Tk qw/:perlTk/;
 use Data::Dumper;
 use Test;
 
-plan tests => 4;
+plan tests => 5;
 
 $mw = MainWindow->new;
 $|=1;
@@ -64,6 +64,11 @@ $hl->selectionClear;
 $hl->selectionSet($ent, 'three');
 
 my @selections = $hl->info('selection');
+#print "selection = '".join("', '", @selections)."'\n";
+ok(join(", ", @selections), "two, two.0, two.1, two.2, three");
+
+# Try the same call using infoSelection
+@selections = $hl->infoSelection;
 #print "selection = '".join("', '", @selections)."'\n";
 ok(join(", ", @selections), "two, two.0, two.1, two.2, three");
 

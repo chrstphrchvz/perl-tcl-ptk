@@ -2497,6 +2497,7 @@ my %lists = map {$_=>1} qw(
     coords
     border
     infoBbox
+    infoSelection
     pages
     pageconfigure
 );
