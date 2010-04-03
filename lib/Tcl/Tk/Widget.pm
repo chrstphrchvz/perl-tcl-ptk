@@ -292,8 +292,8 @@ sub call{
                             # Make a subref that will execute the callback
                             my $cbSub = sub{ 
                                         my @callbackArgs = @_;
-                                        # Get rid of extra stuff from the args to be supplied
-                                        shift @callbackArgs; shift @callbackArgs; shift @callbackArgs;
+                                        # Get rid of extra stuff from the args to be supplied for old Tcl.pm's
+                                        splice(@callbackArgs, 0, 3) if( $Tcl::VERSION < 0.98); # remove ClientData, Interp and CmdName
                                         #print "Callback Args = '".join("', '", @callbackArgs)."'\n";
                                         $cb->Call(@callbackArgs)
                             };
@@ -772,7 +772,7 @@ sub bind {
 	    }
 	    $tclsubName = 
 		$self->interp->create_tcl_sub(sub {
-		    splice @_, 0, 3; # remove ClientData, Interp and CmdName
+		    splice(@_, 0, 3) if( $Tcl::VERSION < 0.98); # remove ClientData, Interp and CmdName
 		    $arg->[0]->(@_, @$arg[1..$#$arg]);
 		}, $events);
     }
@@ -2325,7 +2325,7 @@ sub SelectionHandle{
                         sub{ 
                                 # Get the proper args for the callback (selection beginning and end)
                                 my @args = @_;
-                                shift @args; shift @args; shift @args; # don't need the first three args
+                                splice(@args, 0, 3) if( $Tcl::VERSION < 0.98); # remove ClientData, Interp and CmdName
                                 $callback->Call(@args)
                         } );
 
