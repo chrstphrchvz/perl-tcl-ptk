@@ -8,12 +8,12 @@ BEGIN
    plan test => 9;
   };
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 my $mw;
 eval {$mw = MainWindow->new();};
 ok($@, "", "can't create MainWindow");
-ok(Tcl::Tk::Exists($mw), 1, "MainWindow creation failed");
+ok(Tcl::pTk::Exists($mw), 1, "MainWindow creation failed");
 
 # Menu
 my $menubar = $mw->Frame(-relief => 'raised', -borderwidth => 2)

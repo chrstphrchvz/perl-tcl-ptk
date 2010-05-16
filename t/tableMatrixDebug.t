@@ -6,8 +6,8 @@
 ##  Converted to perl/tk by John Cerney
 
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 use Test;
 
 plan test => 2;
@@ -98,7 +98,7 @@ $t->tagConfigure('s', -font => 'courier', -justify => 'center');
 # $initWindow->Label(-image => $top->Photo(-file => Tk->findINC('Xcamel.gif')))->pack;
 
 
-my $perltkLogo = $top->Photo(-file => Tcl::Tk->findINC('Xcamel.gif'));
+my $perltkLogo = $top->Photo(-file => Tcl::pTk->findINC('Xcamel.gif'));
 
 $t->tagConfigure('logo', -image =>  $perltkLogo, -showtext => 1);
 $t->tagCell('logo', '1,2', '2,3', '4,1');

@@ -1,9 +1,9 @@
 #!/usr/local/bin/perl -w
 
-# Simple example that crashes Tcl when run, before the cleanup mods of Tcl::Tk made on 3/26/09
+# Simple example that crashes Tcl when run, before the cleanup mods of Tcl::pTk made on 3/26/09
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
 plan test => 1;

@@ -11,12 +11,12 @@ BEGIN
    plan test => 8;
   };
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 my $mw;
 eval {$mw = MainWindow->new();};
 ok($@, "", "can't create MainWindow");
-ok(Tcl::Tk::Exists($mw), 1, "MainWindow creation failed");
+ok(Tcl::pTk::Exists($mw), 1, "MainWindow creation failed");
 
 # Menu
 my $menubar = $mw->Frame(-relief => 'raised', -borderwidth => 2, -class => 'menubar')
@@ -107,11 +107,11 @@ MainLoop;
 BEGIN{
         
 #### Empty Menubutton Subclass defined here #####
-package Tcl::Tk::Widget::Menubutton2;
+package Tcl::pTk::Widget::Menubutton2;
 
-@Tcl::Tk::Widget::Menubutton2::ISA = (qw/ Tcl::Tk::Derived Tcl::Tk::Widget::Menubutton/);
+@Tcl::pTk::Widget::Menubutton2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Menubutton/);
 
-Construct Tcl::Tk::Widget 'Menubutton2';
+Construct Tcl::pTk::Widget 'Menubutton2';
 
 # Options that need to be issued at widget creation
 sub CreateOptions

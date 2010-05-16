@@ -1,11 +1,11 @@
 #!/usr/bin/perl -w
 #
 #
-#  Simple use of Tcl::Tk::TkHijack;
+#  Simple use of Tcl::pTk::TkHijack;
 #  Putting this at the top of a simple perl/tk script is all that needs to be done
-#   to make it work with Tcl::Tk
+#   to make it work with Tcl::pTk
 
-use Tcl::Tk::TkHijack;
+use Tcl::pTk::TkHijack;
 
 use Tk;
 use Tk::Tree;

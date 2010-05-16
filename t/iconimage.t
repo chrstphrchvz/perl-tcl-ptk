@@ -1,6 +1,6 @@
 # Test of iconimage method. This method is implemented in Tcl as the iconphoto method,
 #  which only exists is Tcl/Tk > 8.5
-use Tcl::Tk (qw/:perlTk/);
+use Tcl::pTk (qw/:perlTk/);
 
 use Test;
 plan tests => 1;
@@ -17,7 +17,7 @@ if( $version < 8.5 ){
 }
 
 
-my $icon = $top->Photo(-file =>  Tcl::Tk->findINC("icon.gif"));
+my $icon = $top->Photo(-file =>  Tcl::pTk->findINC("icon.gif"));
 
 $top->iconimage($icon);
 

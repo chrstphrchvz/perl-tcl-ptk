@@ -5,11 +5,11 @@
 use Test;
 plan tests => 1;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 my $destroyed;
 
-unless( Tcl::Tk::WIDGET_CLEANUP ){
+unless( Tcl::pTk::WIDGET_CLEANUP ){
         skip("Widget Cleanup not enabled", 1);
         exit;
 }
@@ -37,7 +37,7 @@ $top->after(2000, sub{ $top->destroy});
 
 MainLoop;
 
-sub Tcl::Tk::Widget::Button::DESTROY{
+sub Tcl::pTk::Widget::Button::DESTROY{
         my $self = shift;
         $destroyed = 1;
         #print "In destroy\n";

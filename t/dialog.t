@@ -3,8 +3,8 @@
 #use Tk::Dialog;
 
 use strict;
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::Dialog;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::Dialog;
 
 
 use Test;

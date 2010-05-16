@@ -1,6 +1,6 @@
 # vscale.pl
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 use Test;
 
 plan tests => 6;
@@ -27,7 +27,7 @@ $canvas->pack(qw/-side left -anchor nw -fill y/);
 my $dummyID = $canvas->createText( 100,25, -text => "You should never see this" );
 my $defaultfont = $canvas->itemcget($dummyID,-font);
 
-ok( ref($defaultfont), 'Tcl::Tk::Font', "itemcget -font return value check");
+ok( ref($defaultfont), 'Tcl::pTk::Font', "itemcget -font return value check");
 
 # Delete the dummy item
 $canvas->delete($dummyID);
@@ -37,7 +37,7 @@ $canvas->delete($dummyID);
 $canvas->bind('line', '<Any-Enter>' => sub{ print "Line Entry\n"});
 my $bindRet = $canvas->bind('line', '<Any-Enter>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "Canvas 2-arg bind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "Canvas 2-arg bind returns callback");
 
 # Check return of 1-arg bind for items
 my @bindRet = $canvas->bind('line');
@@ -48,7 +48,7 @@ ok(join(", ",@bindRet), '<Enter>', "Canvas 1-arg bind returns list of sequences"
 $canvas->CanvasBind('<1>', sub{ print "Button1\n"});
 $bindRet = $canvas->CanvasBind('<1>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "CanvasBind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "CanvasBind returns callback");
 
 
 my $fill = $canvas->itemcget($id, -fill);

@@ -5,8 +5,8 @@ use Test;
 plan tests => 2;
 use strict;
 
-use Tcl::Tk::TkHijack;
-use Tcl::Tk::TkFacelift;
+use Tcl::pTk::TkHijack;
+use Tcl::pTk::TkFacelift;
 
 ############# Empty subclass test ####################
 

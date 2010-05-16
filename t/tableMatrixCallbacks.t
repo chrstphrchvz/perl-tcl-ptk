@@ -5,8 +5,8 @@
 #   performance issues.
 #   
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 use Test;
 
 

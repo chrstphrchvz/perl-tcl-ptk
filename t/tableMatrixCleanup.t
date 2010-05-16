@@ -5,8 +5,8 @@
 #   performance issues.
 #   
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 use Test;
 
 
@@ -115,7 +115,7 @@ my $label = $top->Label(-text => "TableMatrix v2 Example");
                         $toplevel->destroy;
                         my @commands = $t->interp->invoke('info', 'command', $varTraceCmd);
                         
-                        if( Tcl::Tk::WIDGET_CLEANUP ){
+                        if( Tcl::pTk::WIDGET_CLEANUP ){
                                 # There should be nothing in @commands, if the trace command was properly deleted
                                 ok(scalar(@commands), 0, "Check of trace command deletion");
                                 #print "commands = ".join(", ", @commands)."\n";

@@ -6,7 +6,7 @@ use Test;
 
 BEGIN { plan tests => 19-4 }; # implement formInfo, formForget?
 
-use Tcl::Tk qw(:perlTk);
+use Tcl::pTk qw(:perlTk);
 
 my $mw = MainWindow->new;
 eval { $mw->geometry('+10+10'); };  # This works for mwm and interactivePlacement

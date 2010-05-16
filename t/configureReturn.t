@@ -1,8 +1,8 @@
 # Test to make sure configure with no-args returns a 2-d array (or nothing) for
 #   a large set of widgets
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::widgets(TextUndo);
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::widgets(TextUndo);
 use Test;
 
 plan tests => 20;

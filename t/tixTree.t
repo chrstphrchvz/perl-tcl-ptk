@@ -1,8 +1,8 @@
-# Example of using the TixTree widget directly from Tcl::Tk
+# Example of using the TixTree widget directly from Tcl::pTk
 
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 plan tests => 1;
 

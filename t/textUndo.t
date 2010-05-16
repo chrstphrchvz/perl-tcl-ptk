@@ -1,9 +1,9 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 use Test;
-use Tcl::Tk::Widget::TextUndo;
+use Tcl::pTk::Widget::TextUndo;
 
 plan tests => 3;
 
@@ -83,11 +83,11 @@ $t->tagBind("underline","<3>", [sub { shift; shift->Post(@_)},$m,Ev(X),Ev(Y)] );
 # Check return of 2-arg bind for items
 my $bindRet = $t->tagBind('underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tagBind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
 
 $bindRet = $t->tag('bind','underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tag bind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tag bind returns callback");
 
 # Check return of 1-arg tagBind for items
 my @bindRet = $t->tagBind('underline');

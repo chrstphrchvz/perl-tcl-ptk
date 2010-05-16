@@ -1,17 +1,17 @@
 # This is a test of the BrowseEntry widget, a standard perl/tk megawidget
 
 
-#use Tcl::Tk qw/ :perlTk/;
+#use Tcl::pTk qw/ :perlTk/;
 use strict;
 use Test;
 
 #
-#  Simple use of Tcl::Tk::TkHijack and TkFacelift with a BrowseEntry
+#  Simple use of Tcl::pTk::TkHijack and TkFacelift with a BrowseEntry
 #  Putting this at the top of a simple perl/tk script is all that needs to be done
-#   to make it work with Tcl::Tk
+#   to make it work with Tcl::pTk
 
-use Tcl::Tk::TkHijack;
-use Tcl::Tk::TkFacelift;
+use Tcl::pTk::TkHijack;
+use Tcl::pTk::TkFacelift;
 
 
 use Tk;
@@ -38,7 +38,7 @@ my @choice2 = $be->get( qw/0 end/);
 ok(@choice2, 4, "get returns list context");
 
 # Do some ttkBrowseEntry-specific calls. These should work if hijack and
-#  facelift has replaced Tk::BrowseEntry with a Tcl::Tk::Widget::ttkBrowseEntry
+#  facelift has replaced Tk::BrowseEntry with a Tcl::pTk::Widget::ttkBrowseEntry
 $be->set('two');
 my $choice = $be->choiceget();
 ok($choice, 'two', "ttkBrowseEntry subsitution check");

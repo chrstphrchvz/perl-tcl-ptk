@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 #use Tk;
 
 use Test;
@@ -52,7 +52,7 @@ $t->tagAdd('sel','1.0','1.10');
 
 my $owner = $t->SelectionOwner();
 #print "selection owner = '$owner' ref = ".ref($owner)."\n";
-ok(ref($owner), 'Tcl::Tk::Widget::Text', "Unexpected object type for SelectionOwner");
+ok(ref($owner), 'Tcl::pTk::Widget::Text', "Unexpected object type for SelectionOwner");
 
 # Test the clipboard
 $t->tagRemove('sel','1.0','end');

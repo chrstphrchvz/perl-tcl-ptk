@@ -1,7 +1,7 @@
 # Test Case for bind and commands
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
 plan tests => 15;
@@ -73,7 +73,7 @@ my @bindings = $TOP->bind();
 ok( join(", ", @bindings), '<Button-2>', "No Arg bind call");
 
 my $binding = $TOP->bind('<2>');
-ok( ref($binding) , 'Tcl::Tk::Callback', "bind returns Tcl::Tk::Callback Object");
+ok( ref($binding) , 'Tcl::pTk::Callback', "bind returns Tcl::pTk::Callback Object");
 #print "binding = $binding\n";
 
 
@@ -116,14 +116,14 @@ ok( join(", ", @bindings), '', "button2 bind return with no args");
 ok( join(", ", @bindings), '<Shift-Button-3>', "button1 bind return with ".ref($b)." single arg");
 #print "button2 bind return with ".ref($b)." single arg: ".join(", ", @bindings)."\n";
 
-ok( join(", ", $b2->bindtags), 'Tcl::Tk::Widget::Button, Button, .btn03, ., all', "button2 bindtags");
+ok( join(", ", $b2->bindtags), 'Tcl::pTk::Widget::Button, Button, .btn03, ., all', "button2 bindtags");
 
 # widget created with the _Button call should have correct perl/tk-compatible bindtags
-ok( join(", ", $b3->bindtags), 'Tcl::Tk::Widget::Button, Button, .btn04, ., all', "button2 bindtags");
+ok( join(", ", $b3->bindtags), 'Tcl::pTk::Widget::Button, Button, .btn04, ., all', "button2 bindtags");
 
 #print "b3 bindings = ".join(", ", $b3->bindtags())."\n";
 my $classBinding = $b2->bind(ref($b2), '<Shift-3>');
-ok( ref($classBinding), 'Tcl::Tk::Callback', ref($b2)." Class Binding Returns Callback Object");
+ok( ref($classBinding), 'Tcl::pTk::Callback', ref($b2)." Class Binding Returns Callback Object");
 #print ref($b2)." Class Binding = $classBinding\n";
 ############################################
 # Check of bindtags
@@ -151,7 +151,7 @@ $TOP->after(1000, sub{
 $TOP->after(2000,
         sub{
                 ok( join(", ", $mouseX, $mouseY), '50, 60', "Binding Ev Substitution");
-                ok( ref($eventSource), 'Tcl::Tk::Widget::Button', "Class Binding Event Source");
+                ok( ref($eventSource), 'Tcl::pTk::Widget::Button', "Class Binding Event Source");
 
                 $TOP->destroy;
         });

@@ -8,13 +8,13 @@ use strict;
 
 ############# Empty subclass test ####################
 
-package Tcl::Tk::Widget::Browse2;
+package Tcl::pTk::Widget::Browse2;
 
 
-use base qw/Tcl::Tk::Widget::BrowseEntry/;
+use base qw/Tcl::pTk::Widget::BrowseEntry/;
 
 
-Construct Tcl::Tk::Widget 'Browse2';
+Construct Tcl::pTk::Widget 'Browse2';
 
 
 1;
@@ -24,9 +24,9 @@ Construct Tcl::Tk::Widget 'Browse2';
 
 package main;
 
-use Tcl::Tk qw/ :perlTk/;
+use Tcl::pTk qw/ :perlTk/;
 
-use Tcl::Tk::TkFacelift;
+use Tcl::pTk::TkFacelift;
 
 $| = 1;
 

@@ -1,8 +1,8 @@
 #!/usr/local/bin/perl -w
 
 use Test;
-use Tcl::Tk (qw/ :perlTk /);
-use Tcl::Tk::Widget::Table();
+use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk::Widget::Table();
 
 
 

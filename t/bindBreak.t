@@ -3,7 +3,7 @@
 #   being being run.
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 #use Tk;
 use Test;
 
@@ -51,13 +51,13 @@ $b->bind( ref($b),
                    my @args = @_;
                   # print "classBinding\n";
                    $classBinding = 1;
-                   Tcl::Tk::break();
+                   Tcl::pTk::break();
            }
         
 );
 
 # Check to see if break doesn't die outside of a binding
-Tcl::Tk::break();
+Tcl::pTk::break();
 
 # Generate some events for testing
 $TOP->after(1000, sub{

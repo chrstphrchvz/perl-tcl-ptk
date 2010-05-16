@@ -3,10 +3,10 @@
 #use Tk::Dialog;
 
 use strict;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
-use Tcl::Tk::widgets qw/DialogBox/; # Test the widgets package for loading modules
+use Tcl::pTk::widgets qw/DialogBox/; # Test the widgets package for loading modules
 
 plan tests => 1;
 

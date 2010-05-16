@@ -1,11 +1,11 @@
 # slide.pl
 
 #
-#  Simple use of Tcl::Tk::TkHijack with a megawidget (defined in the same file)
+#  Simple use of Tcl::pTk::TkHijack with a megawidget (defined in the same file)
 #  Putting this at the top of a simple perl/tk script is all that needs to be done
-#   to make it work with Tcl::Tk
+#   to make it work with Tcl::pTk
 
-use Tcl::Tk::TkHijack;
+use Tcl::pTk::TkHijack;
 use Test;
 plan tests => 1;
 

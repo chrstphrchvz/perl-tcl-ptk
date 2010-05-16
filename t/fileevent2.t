@@ -1,11 +1,11 @@
 # Test Case for Fileevent reading
-#  This is different from fileevent.t, in that it uses the Tcl::Tk->fileevent method of calling
+#  This is different from fileevent.t, in that it uses the Tcl::pTk->fileevent method of calling
 
 # fileevent example
 # (reading the output of an external command into a text widget)
 # no luxuries (like scrollbars)
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use IO::File;
 
 use Test;
@@ -24,9 +24,9 @@ open($cmd, "$command|") or die("Can't open $command");
 
 my $text = $mw->Text(qw/ -bd 3 -relief sunken -width 80 -height 30 /)->pack;
 
-Tcl::Tk->fileevent($cmd, 'readable', sub{ handleInput($cmd, $text)});
+Tcl::pTk->fileevent($cmd, 'readable', sub{ handleInput($cmd, $text)});
 
-$mw->after( 6000, sub{ Tcl::Tk->fileevent($cmd, 'readable', undef); close $cmd; }); # Cancel the fileevent
+$mw->after( 6000, sub{ Tcl::pTk->fileevent($cmd, 'readable', undef); close $cmd; }); # Cancel the fileevent
 
 $mw->after( 7000, sub{ $mw->destroy}); # close everything
 

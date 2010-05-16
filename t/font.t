@@ -4,9 +4,9 @@
 BEGIN { $|=1; $^W=1; }
 use strict;
 use Test;
-use Tcl::Tk (qw/ :perlTk/);
+use Tcl::pTk (qw/ :perlTk/);
 
-use Tcl::Tk::Font;
+use Tcl::pTk::Font;
 
 BEGIN { plan tests => 13 };
 

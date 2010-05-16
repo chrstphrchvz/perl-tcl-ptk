@@ -2,7 +2,7 @@
 
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk :eventtypes /;  # import eventtypes, because we are going to check to see if DoOneEvent works
+use Tcl::pTk qw/:perlTk :eventtypes /;  # import eventtypes, because we are going to check to see if DoOneEvent works
 
 
 

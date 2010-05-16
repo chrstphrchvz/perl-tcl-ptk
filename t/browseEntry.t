@@ -1,10 +1,10 @@
 # This is a test of the BrowseEntry widget, a standard perl/tk megawidget
 
 
-use Tcl::Tk qw/ :perlTk/;
+use Tcl::pTk qw/ :perlTk/;
 use strict;
 use Test;
-use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::pTk::Widget::BrowseEntry;
 
 plan tests => 2;
 

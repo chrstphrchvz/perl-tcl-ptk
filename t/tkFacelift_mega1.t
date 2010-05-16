@@ -1,12 +1,12 @@
 # slide.pl
 
 #
-#  Simple use of Tcl::Tk::TkHijack and Facelift with a megawidget (defined in the same file)
+#  Simple use of Tcl::pTk::TkHijack and Facelift with a megawidget (defined in the same file)
 #  Putting this at the top of a simple perl/tk script is all that needs to be done
-#   to make it work with Tcl::Tk
+#   to make it work with Tcl::pTk
 
-use Tcl::Tk::TkHijack;
-use Tcl::Tk::TkFacelift;
+use Tcl::pTk::TkHijack;
+use Tcl::pTk::TkFacelift;
 use Test;
 plan tests => 1;
 

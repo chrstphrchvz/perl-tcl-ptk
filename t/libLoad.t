@@ -3,7 +3,7 @@
 # This test checks to see if loading a library (in this case 'tix') happens for
 #   different tcl interpreters.
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Data::Dumper;
 use Test;
 

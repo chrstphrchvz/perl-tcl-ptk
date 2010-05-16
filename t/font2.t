@@ -3,7 +3,7 @@
 # Script to check that font create methods return font objects
 #   
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 #use Tk;
 use Test;
 
@@ -16,13 +16,13 @@ my $top = MainWindow->new;
         
 my $font = $top->fontCreate('courier', -family => 'courier', -size => 10);
  
-ok( ref($font) , 'Tcl::Tk::Font', "fontCreate returns object");
+ok( ref($font) , 'Tcl::pTk::Font', "fontCreate returns object");
 #print "font is a ".ref($font)."\n";
 
 
 my $font2 = $top->Font(-family => 'courier', -size => 10);
 #print "font2 is a ".ref($font)."\n";
-ok( ref($font) , 'Tcl::Tk::Font', "fontCreate returns object");
+ok( ref($font) , 'Tcl::pTk::Font', "fontCreate returns object");
 
 
 #MainLoop;

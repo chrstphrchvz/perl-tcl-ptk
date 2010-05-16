@@ -2,7 +2,7 @@
 
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk :eventtypes /;  # import eventtypes, because we are going to check to see if DoOneEvent works
+use Tcl::pTk qw/:perlTk :eventtypes /;  # import eventtypes, because we are going to check to see if DoOneEvent works
 
 
 plan tests => 3;
@@ -34,7 +34,7 @@ ok(ref($scalarRef), 'SCALAR', "textvariable is scalar ref");
 DoOneEvent(DONT_WAIT);
 
 # Make sure timeofday works
-my $t = Tcl::Tk::timeofday;
+my $t = Tcl::pTk::timeofday;
 
 
 MainLoop;

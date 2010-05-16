@@ -3,10 +3,10 @@
 #use Tk::Dialog;
 
 use strict;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
-$Tcl::Tk::DEBUG = 1;
+$Tcl::pTk::DEBUG = 1;
 
 plan tests => 1;
 

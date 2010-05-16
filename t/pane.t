@@ -5,8 +5,8 @@
 # This test skips if BWidget tcl package not available.
 #   
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::Pane;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::Pane;
 #use Tk;
 #use Tk::Pane;
 
@@ -33,7 +33,7 @@ my $sff = $top->Scrolled('Pane',  -scrollbars => 'soe',
 
 my $sf = $sff->frame();
 # turn path into a widget
-#$sf = $top->interp->declare_widget($sf, 'Tcl::Tk::Widget::Frame');
+#$sf = $top->interp->declare_widget($sf, 'Tcl::pTk::Widget::Frame');
 
 my @labels;
 foreach my $i (1..25){

@@ -1,8 +1,8 @@
 # This a check of frame widget creation with different combinations of the -foreground and Name options
 #   The -foreground option for Frame is only valid for perl/tk syntax. This test cases checks to see
-#  if Tcl::Tk is compatible.
+#  if Tcl::pTk is compatible.
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 #use Tk;
 use Test;
 

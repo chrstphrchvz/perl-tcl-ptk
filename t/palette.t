@@ -1,7 +1,7 @@
 # Test Case setPalette commands
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
 plan tests => 1;

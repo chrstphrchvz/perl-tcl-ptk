@@ -1,7 +1,7 @@
 # Test Case for a megawidget
 #
 #  This is exactly the same as slideMegaWidget.t, but the namespace is just SlideSwitch, and not
-#    Tcl::Tk::Widget::SlideSwitch.
+#    Tcl::pTk::Widget::SlideSwitch.
 #  This tests to see if we can create megawidgets in an arbitrary namespace, like the WidgetDemo.pm file
 #   in the Tk demos directory.
 
@@ -12,15 +12,15 @@ plan tests => 1;
 
 package SlideSwitch;
 
-use Tcl::Tk;
-use Tcl::Tk::MegaWidget;
+use Tcl::pTk;
+use Tcl::pTk::MegaWidget;
 
 
-use base qw/Tcl::Tk::Widget::Frame/;
+use base qw/Tcl::pTk::Widget::Frame/;
 
 use strict;
 
-Construct Tcl::Tk::Widget 'SlideSwitch';
+Construct Tcl::pTk::Widget 'SlideSwitch';
 
 sub Populate {
 
@@ -92,7 +92,7 @@ sub rlabel {
 
 package main;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 
 my $TOP = MainWindow->new();

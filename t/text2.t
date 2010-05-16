@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 use Test;
 plan tests => 5;
@@ -79,17 +79,17 @@ my $menu = $t->menu;
 my $m2 = $menu->entrycget(3, '-menu');
 #print "menu = $m\n";
 #print "ref menu = ".ref($m)."\n";
-ok(ref($m2), 'Tcl::Tk::Widget::Menu', "entrycget -menu returns widget ref");
+ok(ref($m2), 'Tcl::pTk::Widget::Menu', "entrycget -menu returns widget ref");
 
 
 # Check return of 2-arg bind for items
 my $bindRet = $t->tagBind('underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tagBind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
 
 $bindRet = $t->tag('bind','underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tag bind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tag bind returns callback");
 
 # Check return of 1-arg tagBind for items
 my @bindRet = $t->tagBind('underline');

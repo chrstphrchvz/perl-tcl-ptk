@@ -3,10 +3,10 @@
 #use Tk;
 #use Tk::TextEdit;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 use Test;
-use Tcl::Tk::Widget::TextEdit;
+use Tcl::pTk::Widget::TextEdit;
 
 plan tests => 1;
 

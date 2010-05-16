@@ -1,7 +1,7 @@
 BEGIN { $^W = 1; $| = 1;}
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 
 # This test case checks for a particular bug (fixed 4/9/09) where loading a image using Getimage would cause
@@ -20,7 +20,7 @@ if (!$mw->interp->pkg_require('Img')) {
 
 plan tests => 2;
 
-my $imagefile = Tcl::Tk->findINC('srcfile.xpm');
+my $imagefile = Tcl::pTk->findINC('srcfile.xpm');
 #print STDERR "imagefile = $imagefile\n";
 my $photo = $mw->Photo(-file => $imagefile, -width => 0, -height => 0 );
 

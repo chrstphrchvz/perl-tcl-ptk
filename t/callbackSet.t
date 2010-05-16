@@ -1,7 +1,7 @@
 # Test of getting/setting callbacks from -command options
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
 plan tests => 2;
@@ -26,7 +26,7 @@ my ($commandEntry) = grep $_->[0] eq '-command', @conf;
 
 my $callback = $commandEntry->[4];
 
-ok(ref($callback), 'Tcl::Tk::Callback', "No Arg Configure Callback Return Check");
+ok(ref($callback), 'Tcl::pTk::Callback', "No Arg Configure Callback Return Check");
 
 # Set the command option again to what was returned
 $b->configure(-command => $callback);

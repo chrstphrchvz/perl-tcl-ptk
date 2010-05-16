@@ -4,9 +4,9 @@
 #use Tk::DragDrop;
 #use Tk::DropSite;
 
-use Tcl::Tk (qw/ :perlTk/);
-use Tcl::Tk::Widget::DragDrop;
-use Tcl::Tk::Widget::DropSite;
+use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk::Widget::DragDrop;
+use Tcl::pTk::Widget::DropSite;
 
 use Test;
 

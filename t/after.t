@@ -1,7 +1,7 @@
 #use Test::More (tests => 6);
 use Test;
 BEGIN {plan tests=>8}
-use Tcl::Tk qw(:perlTk);
+use Tcl::pTk qw(:perlTk);
 my $mw = MainWindow->new;
 $mw->update;
 my $start = time;
@@ -25,7 +25,7 @@ $mw->interp->after(3000,sub{
 $mw->interp->after(4000,sub{
         # Do a after with no callback
         my $start2 = time();
-        Tcl::Tk->after(1500);
+        Tcl::pTk->after(1500);
         ok(time >= $start2+1);
         
         $mw->destroy;

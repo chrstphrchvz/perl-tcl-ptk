@@ -2,7 +2,7 @@
 # Script to check the destruction of after callbacks after a window is destroyed
 
 #use Tk;
-use Tcl::Tk qw/ :perlTk /;
+use Tcl::pTk qw/ :perlTk /;
 use Test;
 plan tests=>1;
 

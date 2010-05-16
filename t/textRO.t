@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::ROText;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::ROText;
 #use Tk;
 #use Tk::ROText;
 use Test;
@@ -80,11 +80,11 @@ $t->tagBind("underline","<3>", [sub { shift; shift->Post(@_)},$m,Ev(X),Ev(Y)] );
 # Check return of 2-arg bind for items
 my $bindRet = $t->tagBind('underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tagBind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
 
 $bindRet = $t->tag('bind','underline', '<3>');
 #print "bindRet = $bindRet\n";
-ok(ref($bindRet), 'Tcl::Tk::Callback', "text 2-arg tag bind returns callback");
+ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tag bind returns callback");
 
 # Check return of 1-arg tagBind for items
 my @bindRet = $t->tagBind('underline');
@@ -108,7 +108,7 @@ $t->tag("bind", "hideable","<2>", sub {
 my $realWidget = $t->Subwidget('rotext');
 #print "class bindings for <3> = ".join(", ", $realWidget->bind(ref($realWidget),'<3>'))."\n";
 my $binding = $realWidget->bind(ref($realWidget),'<3>');
-ok(ref($binding), 'Tcl::Tk::Callback', "Inherited <3> binding from the text widget");
+ok(ref($binding), 'Tcl::pTk::Callback', "Inherited <3> binding from the text widget");
 
 
 $top->after(1000,sub{$top->destroy});

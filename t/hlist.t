@@ -1,6 +1,6 @@
 #!/usr/local/bin/nperl -w
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Data::Dumper;
 use Test;
 

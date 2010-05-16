@@ -13,9 +13,9 @@ use Test qw(plan ok);
 
 plan tests => 1;
 
-use Tcl::Tk;
+use Tcl::pTk;
 
-my $int = new Tcl::Tk;
+my $int = new Tcl::pTk;
 
 my $delay = shift || 1;
 

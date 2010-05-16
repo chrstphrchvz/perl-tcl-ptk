@@ -1,7 +1,7 @@
 BEGIN { $^W = 1; $| = 1;}
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 
 my $mw  = MainWindow->new();

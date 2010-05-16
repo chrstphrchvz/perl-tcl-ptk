@@ -3,7 +3,7 @@
 #use Tk;
 #use Tk::Balloon;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 use Test;
 

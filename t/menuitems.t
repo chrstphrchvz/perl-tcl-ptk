@@ -2,9 +2,9 @@
 #
 #
 
-use Tcl::Tk qw/:perlTk/;
-#require Tcl::Tk::Widget::Menu;
-#require Tcl::Tk::Widget::Menu::Item;
+use Tcl::pTk qw/:perlTk/;
+#require Tcl::pTk::Widget::Menu;
+#require Tcl::pTk::Widget::Menu::Item;
 #use Tk;
 #use English;
 use Carp;

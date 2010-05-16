@@ -8,12 +8,12 @@ BEGIN
    plan test => 22-2;
   };
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 my $mw;
 eval {$mw = MainWindow->new();};
 ok($@, "", "can't create MainWindow");
-ok(Tcl::Tk::Exists($mw), 1, "MainWindow creation failed");
+ok(Tcl::pTk::Exists($mw), 1, "MainWindow creation failed");
 
 my $foo = 12;
 my @opt = (0..20);
@@ -23,14 +23,14 @@ my $opt = $mw->Optionmenu(-variable => \$foo,
 	                  -options => \@opt)->pack;
 
 ok($@, "", "can't create Optionmenu");
-ok(Tcl::Tk::Exists($opt), 1, "Optionmenu creation failed");
+ok(Tcl::pTk::Exists($opt), 1, "Optionmenu creation failed");
 
 ok($ {$opt->cget(-variable)}, $foo, "setting of -variable failed");
 ok($opt->cget(-variable),\$foo, "Wrong variable");
 
 my $optmenu = $opt->cget(-menu);
 ok($optmenu ne "", 1, "can't get menu from Optionmenu");
-ok(ref $optmenu, 'Tcl::Tk::Widget::Menu', "reference returned is not a Tk::Menu");# or Tcl::Tk::Widget::Menu?
+ok(ref $optmenu, 'Tcl::pTk::Widget::Menu', "reference returned is not a Tk::Menu");# or Tcl::pTk::Widget::Menu?
 ok($optmenu->index("last"), 20, "wrong number of elements in menu");
 ok($optmenu->entrycget("last", -label), "20", "wrong label");
 
@@ -43,7 +43,7 @@ my $opt3 = $mw->Optionmenu(-variable => \$foo3,
 			   -options => [map { [ "Label $_"  => $_ ] } @opt],
 			  )->pack;
 ok($@, "", "can't create Optionmenu");
-ok(Tcl::Tk::Exists($opt3), 1, "Optionmenu creation failed");
+ok(Tcl::pTk::Exists($opt3), 1, "Optionmenu creation failed");
 
 ok($ {$opt3->cget(-variable)}, $foo3, "setting of -variable failed");
 #TODO ok($bar3, "Label $foo3", "textvariable set to wrong value");
@@ -57,7 +57,7 @@ my $opt2 = $mw->Optionmenu(-variable => \$foo2,
 			   -options => [map { [ "Label $_"  => $_ ] } @opt],
 			  )->pack;
 ok($@, "", "can't create Optionmenu");
-ok(Tcl::Tk::Exists($opt2), 1, "Optionmenu creation failed");
+ok(Tcl::pTk::Exists($opt2), 1, "Optionmenu creation failed");
 
 ok($ {$opt2->cget(-variable)}, $foo2, "setting of -variable failed");
 my $opt2menu = $opt2->cget(-menu);

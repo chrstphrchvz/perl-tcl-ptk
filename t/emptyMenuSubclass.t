@@ -4,7 +4,7 @@
 
 use strict;
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
 use Test;
 
@@ -49,17 +49,17 @@ ok(1);
 BEGIN{
         
 #### Empty Menu Subclass #####
-package Tcl::Tk::Widget::Menu2;
+package Tcl::pTk::Widget::Menu2;
 
-@Tcl::Tk::Widget::Menu2::ISA = (qw/ Tcl::Tk::Derived Tcl::Tk::Widget::Menu/);
+@Tcl::pTk::Widget::Menu2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Menu/);
 
-Construct Tcl::Tk::Widget 'Menu2';
+Construct Tcl::pTk::Widget 'Menu2';
 
 #### Empty Button Subclass #####
-package Tcl::Tk::Widget::Button2;
+package Tcl::pTk::Widget::Button2;
 
-@Tcl::Tk::Widget::Button2::ISA = (qw/ Tcl::Tk::Derived Tcl::Tk::Widget::Button/);
+@Tcl::pTk::Widget::Button2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Button/);
 
-Construct Tcl::Tk::Widget 'Button2';
+Construct Tcl::pTk::Widget 'Button2';
 
 }

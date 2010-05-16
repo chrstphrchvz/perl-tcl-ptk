@@ -2,7 +2,7 @@
 
 #use Tk;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 use Test;
 

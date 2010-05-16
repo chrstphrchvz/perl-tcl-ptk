@@ -1,10 +1,10 @@
 # This is a test of the BrowseEntry widget, a standard perl/tk megawidget
 
 
-use Tcl::Tk qw/ :perlTk/;
+use Tcl::pTk qw/ :perlTk/;
 use strict;
 use Test;
-use Tcl::Tk::Widget::ttkBrowseEntry;
+use Tcl::pTk::Widget::ttkBrowseEntry;
 
 #use Tk;
 #use Tk::BrowseEntry;
@@ -54,7 +54,7 @@ $cb->configure(-listcmd => [sub{
 
 $cb->_postcommandCallback();
 
-ok(ref($listCmdArg), 'Tcl::Tk::Widget::ttkBrowseEntry', '-listcmd callback');
+ok(ref($listCmdArg), 'Tcl::pTk::Widget::ttkBrowseEntry', '-listcmd callback');
 ok(join(", ", @listCmdArgs), "ExtraArg1, ExtraArg2", '-listcmd callback args');
 
 #$cb->set("10");

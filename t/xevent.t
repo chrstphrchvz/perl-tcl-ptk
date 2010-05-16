@@ -2,7 +2,7 @@
 
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk  /;  
+use Tcl::pTk qw/:perlTk  /;  
 
 plan tests => 1;
 

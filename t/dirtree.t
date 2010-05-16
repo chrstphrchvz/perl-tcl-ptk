@@ -2,9 +2,9 @@
 
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
-use Tcl::Tk::Widget::DirTree;
+use Tcl::pTk::Widget::DirTree;
 
 plan tests => 1;
 

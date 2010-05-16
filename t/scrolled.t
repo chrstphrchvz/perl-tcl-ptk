@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/ :perlTk/;
+use Tcl::pTk qw/ :perlTk/;
 
 #use Tk;
 use strict;

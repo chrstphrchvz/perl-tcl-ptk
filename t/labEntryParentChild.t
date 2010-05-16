@@ -2,8 +2,8 @@
 #  megawidget (the LabEntry widget)
 
 
-use Tcl::Tk qw/ :perlTk/;
-use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::pTk qw/ :perlTk/;
+use Tcl::pTk::Widget::BrowseEntry;
 #use Tk;
 #use Tk::BrowseEntry;
 use strict;
@@ -41,8 +41,8 @@ ok($labelParent, $LE_entry, "Unexpected parent of label");
 print "labelParent = ".$label->parent()->PathName."\n" if($debug);
 
 # Unlike the above label, the label subwidget of the labEntry should be a child
-#   of the labEntry, NOT the Entry widget. This is achieved in the Tcl::Tk::Frame code
-#  by calling $labEntry->Tcl::Tk::Label, instead of calling $labEntry->Label.
+#   of the labEntry, NOT the Entry widget. This is achieved in the Tcl::pTk::Frame code
+#  by calling $labEntry->Tcl::pTk::Label, instead of calling $labEntry->Label.
 my $LElabel = $labEntry->Subwidget('label');
 my $LElabelParent = $LElabel->parent();
 ok($LElabelParent, $labEntry, "Unexpected parent of LElabel");

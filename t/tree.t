@@ -7,8 +7,8 @@
 
 
 use strict;
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::Tree;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::Tree;
 use Test;
 
 plan tests => 2;
@@ -40,7 +40,7 @@ $tree->autosetmode();
 
 
 my $ind = $tree->cget(-indicatorcmd);
-ok(ref($ind), "Tcl::Tk::Callback", "-indicatormcd returns callback");
+ok(ref($ind), "Tcl::pTk::Callback", "-indicatormcd returns callback");
 
 ok(1, 1, "Tree Widget Creation");
  

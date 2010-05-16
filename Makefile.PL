@@ -48,8 +48,8 @@ EOS
 }
 
 WriteMakefile(
-    NAME => "Tcl::Tk",
-    VERSION_FROM => 'lib/Tcl/Tk.pm',
+    NAME => "Tcl::pTk",
+    VERSION_FROM => 'lib/Tcl/pTk.pm',
     EXE_FILES => \@SCRIPTS,
     NO_META => 1,
     PREREQ_PM => {

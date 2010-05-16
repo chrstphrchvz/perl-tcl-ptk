@@ -3,8 +3,8 @@
 BEGIN { $^W = 1; $| = 1;}
 use strict;
 use Test;
-use Tcl::Tk qw/:perlTk/;
-#use Tcl::Tk::Widget::Photo;
+use Tcl::pTk qw/:perlTk/;
+#use Tcl::pTk::Widget::Photo;
 #use Tk;
 
 my $mw  = MainWindow->new();

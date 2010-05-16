@@ -1,19 +1,19 @@
 # Test script that checks for a particular bug where a simple scrolled widget
 #   would get pack errors if the Delegates 'DEFAULT' was set.
 
-package Tcl::Tk::Widget::TextTest;
+package Tcl::pTk::Widget::TextTest;
 
 use strict;
 use vars qw($VERSION @ISA);
 
 $VERSION = substr(q$Revision: 2.8 $, 10) . "";
 
-use Tcl::Tk;
-use Tcl::Tk::Derived;
-use Tcl::Tk::Widget::Frame;
-@ISA = qw(Tcl::Tk::Derived Tcl::Tk::Widget::Frame);
+use Tcl::pTk;
+use Tcl::pTk::Derived;
+use Tcl::pTk::Widget::Frame;
+@ISA = qw(Tcl::pTk::Derived Tcl::pTk::Widget::Frame);
 
-Construct Tcl::Tk::Widget 'TextTest';
+Construct Tcl::pTk::Widget 'TextTest';
 
 sub Populate {
     my ($cw, $args) = @_;
@@ -43,7 +43,7 @@ sub Populate {
 
 package main;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use Test;
 
 plan tests => 1;

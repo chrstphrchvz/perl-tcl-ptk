@@ -1,6 +1,6 @@
 # Check of OnDestroy operation
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 #use Tk;
 
 use Test;
@@ -25,7 +25,7 @@ MainLoop;
 ok($afterIdleCalled, 1, 'AfterIdle Callback not called');
 
 # Dummy sub to set if method => object form works with afterIdel
-sub Tcl::Tk::Widget::_dummySub{
+sub Tcl::pTk::Widget::_dummySub{
         my $self = shift;
         $afterIdleCalled = 1;
 }

@@ -1,7 +1,7 @@
 # Test Case for bind and commands
 #
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 #use Tk;
 use Test;
 
@@ -34,7 +34,7 @@ ok( join(", ", @protos), 'WM_DELETE_WINDOW', "protocol return with no args");
 #print "protos = ".join(", ", @protos)."\n";
 
 my $protoCallback = $TOP->protocol('WM_DELETE_WINDOW');
-ok( ref($protoCallback), 'Tcl::Tk::Callback', "Protocol WM_DELETE_WINDOW Returns Callback Object");
+ok( ref($protoCallback), 'Tcl::pTk::Callback', "Protocol WM_DELETE_WINDOW Returns Callback Object");
 
 # Un-set a protocol
 $TOP->protocol('WM_DELETE_WINDOW' =>  undef);

@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::Tk qw/ :perlTk/;
+use Tcl::pTk qw/ :perlTk/;
 #use Tk;
 use Test;
 use strict;
@@ -52,7 +52,7 @@ $lb->configure(-listvariable => undef);
 
 my @listVar2 = ();
 
-tie @listVar2, 'Tcl::Tk::Widget::Listbox', $lb;
+tie @listVar2, 'Tcl::pTk::Widget::Listbox', $lb;
 
 @listVar2 = (qw/a b c d e f/);
 
