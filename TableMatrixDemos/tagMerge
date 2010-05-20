@@ -3,8 +3,8 @@
 #
 #   Should display with one row hightlighted red and a cell in the row left-justified
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 
 use strict;
 

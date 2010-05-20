@@ -3,10 +3,10 @@
 ### Tool tips are defined using the %tipsData hash below, which has only a few
 ###   cells setup with tooltips.
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows;
-use Tcl::Tk::Widget::Balloon;
+use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
+use Tcl::pTk::Widget::Balloon;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;

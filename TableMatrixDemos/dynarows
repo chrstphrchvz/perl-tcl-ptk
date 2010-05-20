@@ -7,9 +7,9 @@
 ## jeff.hobbs@acm.org
 ## Converted to perl/tk and Tcl:Tk by John Cerney
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::Tk::Widget::TableMatrix::Spreadsheet;
+use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
 
 use Date::Parse;   
 use Date::Format;  

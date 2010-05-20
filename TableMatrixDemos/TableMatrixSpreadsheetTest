@@ -1,8 +1,8 @@
 
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows;
+use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;

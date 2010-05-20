@@ -7,9 +7,9 @@
 ##  Converted to perl/tk by John Cerney
 
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
-use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::Widget::BrowseEntry;
 
 $| = 1;
 

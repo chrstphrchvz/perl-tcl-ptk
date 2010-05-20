@@ -7,8 +7,8 @@
 ## Converted to perl/tk by John Cerney 7/24/00
 
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 
 my $top = MainWindow->new;
 

@@ -4,11 +4,11 @@
 ##
 ## ellson@lucent.com
 ## modifications made by jeff.hobbs@acm.org
-##  Modified by John Cerney for perl/tk and Tcl::Tk
+##  Modified by John Cerney for perl/tk and Tcl::pTk
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk::Widget::TableMatrix;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;
@@ -51,11 +51,11 @@ $t->bind('<Motion>', sub{
     my $w = shift;
     my $Ev = $w->XEvent;
     if( $w->selectionIncludes('@' . $Ev->x.",".$Ev->y)){
-    	Tcl::Tk->break;
+    	Tcl::pTk->break;
     }
     $w->selectionClear('all');
     $w->selectionSet('@' . $Ev->x.",".$Ev->y);
-    Tcl::Tk->break;
+    Tcl::pTk->break;
     ## "break" prevents the call to TableMatrixCheckBorder
 });
 
@@ -94,17 +94,17 @@ for( $i = 0; $i < $rows; $i++){
 MainLoop;
 
 
-sub Tcl::Tk::Widget::XEvent{
+sub Tcl::pTk::Widget::XEvent{
         
         my $widget = shift;
         
-        my $self = bless {'widget' => $widget }, 'Tcl::Tk::Widget::XEvent';
+        my $self = bless {'widget' => $widget }, 'Tcl::pTk::Widget::XEvent';
         
         return $self;
         
 }
 
-sub Tcl::Tk::Widget::XEvent::x{
+sub Tcl::pTk::Widget::XEvent::x{
         my $self = shift;
         
         my $widget = $self->{widget};
@@ -115,7 +115,7 @@ sub Tcl::Tk::Widget::XEvent::x{
         return $x;
 }
         
-sub Tcl::Tk::Widget::XEvent::y{
+sub Tcl::pTk::Widget::XEvent::y{
         my $self = shift;
         
         my $widget = $self->{widget};

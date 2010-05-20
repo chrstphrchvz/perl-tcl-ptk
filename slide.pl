@@ -3,17 +3,18 @@
 #$Tk::SlideSwitch::VERSION = '1.1';
 
 
-package Tcl::Tk::Widget::SlideSwitch;
+package Tcl::pTk::Widget::SlideSwitch;
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::MegaWidget;
+use Tcl::pTk;
 
 
-use base qw/Tcl::Tk::Widget::Frame/;
+
+
+use base qw/Tcl::pTk::Widget::Frame/;
 
 use strict;
 
-Construct Tcl::Tk::Widget 'SlideSwitch';
+Construct Tcl::pTk::Widget 'SlideSwitch';
 
 sub Populate {
 
@@ -82,7 +83,7 @@ sub rlabel {
 
 package main;
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 
 
 my $TOP = MainWindow->new();

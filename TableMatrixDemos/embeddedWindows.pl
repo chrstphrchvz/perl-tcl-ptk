@@ -7,10 +7,10 @@
 ###  See edit_styles.pl for an alternative that is faster for larger
 ###    tables
 
-use Tcl::Tk qw/:perlTk/;
-use Tcl::Tk::Widget::TableMatrix;
+use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk::Widget::TableMatrix;
 
-use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::pTk::Widget::BrowseEntry;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;

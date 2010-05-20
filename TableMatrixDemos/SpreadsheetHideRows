@@ -1,4 +1,4 @@
-# Example of Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows widget:
+# Example of Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows widget:
 #   Table display with hidden detail data
 #
 # This example displays made-up average temperature data
@@ -8,9 +8,9 @@
 #    lower level Rows should look ok, with the spans restoring back
 #    to where they were.
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::Tk::Widget::TableMatrix::SpreadsheetHideRows;
+use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
 
 my $top = MainWindow->new;
 

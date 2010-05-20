@@ -9,8 +9,8 @@
 ##  faster than using embedded windows, especially for large
 ##  tables.
 
-use Tcl::Tk (qw/ :perlTk /);
-use Tcl::Tk::Widget::TableMatrix::Spreadsheet;
+use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
 
 $| = 1; # Pipes hot
 main();
@@ -77,11 +77,11 @@ sub main
 		my $w = shift;
 		my $Ev = $w->XEvent;
 		if( $w->selectionIncludes('@' . $Ev->x.",".$Ev->y)){
-			Tcl::Tk->break;
+			Tcl::pTk->break;
 		}
 		$w->selectionClear('all');
 		$w->selectionSet('@' . $Ev->x.",".$Ev->y);
-		Tcl::Tk->break;
+		Tcl::pTk->break;
 		## "break" prevents the call to TableMatrixCheckBorder
 	});
 	
@@ -118,7 +118,7 @@ sub main
 	});
 	
 	# replace std b1-release
-	$t->bind('Tcl::Tk::Widget::TableMatrix' => '<ButtonRelease-1>', \&set_style_state);
+	$t->bind('Tcl::pTk::Widget::TableMatrix' => '<ButtonRelease-1>', \&set_style_state);
 	
 	# inititialize the array, titles, and celltags
 	for (my $r = 0; $r < $rows; $r++)
