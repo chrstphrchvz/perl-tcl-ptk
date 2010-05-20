@@ -97,7 +97,7 @@ $t->bind("<Any-Enter>", sub { $t->focus });
 
 $t->Subwidget('rotext')->OnDestroy(sub { 
         print "Destroyed!\n"; 
-        # print $t->get('1.0','end') # Doesn't work for Tcl/Tk 8.5
+        # print $t->get('1.0','end') # Doesn't work for Tcl/pTk 8.5
 });
 
 $t->tag("bind", "hideable","<2>", sub {

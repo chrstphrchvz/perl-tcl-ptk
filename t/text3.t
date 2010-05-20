@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl -w
 
 # Test for many of the commands/methods added to the text widget by
-#    Tcl/Tk/Widget/Text.pm
+#    Tcl/pTk/Widget/Text.pm
 
 #use Tk;
 use Tcl::pTk qw/:perlTk/;

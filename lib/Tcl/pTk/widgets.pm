@@ -36,7 +36,7 @@ sub import
   {
    local $SIG{__DIE__} = \&Carp::croak;
    # carp "$_ already loaded" if (exists $INC{"Tk/$_.pm"});
-   require "Tcl/Tk/Widget/$_.pm";
+   require "Tcl/pTk/Widget/$_.pm";
   }
 }
 
