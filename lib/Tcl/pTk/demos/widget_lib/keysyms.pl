@@ -16,6 +16,6 @@ sub keysyms {
     $mw->bind( '<KeyPress>' => [sub {
         my ($w, $key) = @_;
         $k = sprintf( "%s", $key );
-    }, Tcl::Tk::Ev('K')]);
+    }, Tcl::pTk::Ev('K')]);
 
 } # end keysyms

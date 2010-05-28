@@ -15,7 +15,7 @@ sub photo1 {
 
     my $l = $TOP->Label( qw/ -background green -width 300 -height 300 / )->pack;
 
-    my $f1 = $TOP->Photo( -file => Tcl::Tk->findINC( 'demos/images/teapot.ppm' ) );
+    my $f1 = $TOP->Photo( -file => Tcl::pTk->findINC( 'demos/images/teapot.ppm' ) );
     $l->configure( -image => $f1 );
     $TOP->idletasks;
     $TOP->after(2000);

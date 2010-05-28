@@ -1,15 +1,15 @@
 # trace2.pl
 
-$Tcl::Tk::Widget::TraceText::VERSION = '1.0';
+$Tcl::pTk::Widget::TraceText::VERSION = '1.0';
 
-package Tcl::Tk::Widget::TraceText;
+package Tcl::pTk::Widget::TraceText;
 
-use Tcl::Tk;
+use Tcl::pTk;
 #use Tk::widgets qw/ Trace /;
-use base qw/ Tcl::Tk::Derived Tcl::Tk::Widget::Text /;
+use base qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Text /;
 use strict;
 
-Construct Tcl::Tk::Widget 'TraceText';
+Construct Tcl::pTk::Widget 'TraceText';
 
 sub Populate {
 
@@ -55,7 +55,7 @@ sub tracew {
 
     my ( $index, $value, $op, $self, $vref ) = @_;
 
-    return unless (defined($self) && (Tcl::Tk::Exists($self)) );	# if app is being destroyed
+    return unless (defined($self) && (Tcl::pTk::Exists($self)) );	# if app is being destroyed
     return if $self->{_busy};
 
     if ( $op eq 'w' ) {
@@ -90,7 +90,7 @@ sub insert {
 
 package main;
 
-use Tcl::Tk (qw/ :perlTk/);
+use Tcl::pTk (qw/ :perlTk/);
 #use Tk::widgets qw/ Trace /;
 use vars qw / $TOP /;
 use strict;
@@ -130,7 +130,7 @@ __END__
 
 =head1 NAME
 
-Tcl::Tk::Widget::TraceText - Text contents defined by a traced variable.
+Tcl::pTk::Widget::TraceText - Text contents defined by a traced variable.
 
 =for pm Tk/TraceText.pm
 

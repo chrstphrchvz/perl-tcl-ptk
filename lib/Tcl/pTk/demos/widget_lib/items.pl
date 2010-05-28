@@ -63,7 +63,7 @@ sub items {
                    8.2c 1.2c 8.2c 4.6c 8.6c 4.6c 8.6c 1.4c 8.4c 1.4c
 	           8.4c 4.4c -width 3 -tags item -fill/ => $red);
     $c->createLine(qw/1c 5c 7c 5c 7c 7c 9c 7c -width .5c/,
-	           -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	           -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
 	           qw/-arrow both -tags item -arrowshape/ => [15, 15, 7]);
     $c->createLine(qw/1c 7c 1.75c 5.8c 2.5c 7c 3.25c 5.8c 4c 7c -width .5c
 	           -cap round -join round -tags item/);
@@ -75,7 +75,7 @@ sub items {
 	           -arrow both -width 3 -tags item/);
     $c->createLine(qw/12c 6c 13.5c 4.5c 16.5c 7.5c 18c 6c 16.5c 4.5c 13.5c
 	           7.5c 12c 6c -smooth on -width 3m -cap round -tags item/,
-	           -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	           -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
 	           -fill => $red);
 
     $c->createText(qw/25c .2c -text Polygons -anchor n/);
@@ -86,7 +86,7 @@ sub items {
 	              29c 4c 29c 4c -smooth on -tags item/, -fill => $red);
     $c->createPolygon(qw/22c 4.5c 25c 4.5c 25c 6.75c 28c 6.75c 28c 5.25c 24c
 	              5.25c 24c 6.0c 26c 6c 26c 7.5c 22c 7.5c -tags item/,
-	              -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'));
+	              -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'));
 
     $c->createText(qw/5c 8.2c -text Rectangles -anchor n/);
     $c->createRectangle(qw/1c 9.5c 4c 12.5c/, -outline => $red,
@@ -94,7 +94,7 @@ sub items {
     $c->createRectangle(qw/0.5c 13.5c 4.5c 15.5c/, -fill => $green,
 	                qw/-tags item/);
     $c->createRectangle(qw/6c 10c 9c 15c -tags item/, -outline => undef,
-	                -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	                -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
 	                -fill => $blue);
 
     $c->createText(qw/15c 8.2c -text Ovals -anchor n/);
@@ -103,7 +103,7 @@ sub items {
     $c->createOval(qw/10.5c 13.5c 14.5c 15.5c/, -fill => $green,
 	           qw/-tags item/);
     $c->createOval(qw/16c 10c 19c 15c -tags item/, -outline => undef,
-	           -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	           -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
 	           -fill => $blue);
 
     $c->createText(qw/25c 8.2c -text Text -anchor n/);
@@ -122,7 +122,7 @@ sub items {
 
     $c->createText(qw/5c 16.2c -text Arcs -anchor n/);
     $c->createArc(qw/0.5c 17c 7c 20c/, -fill => $green, qw/-outline black/,
-	          -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	          -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
 	          qw/-start 45 -extent 270 -style pieslice -tags item/);
     $c->createArc(qw/6.5c 17c 9.5c 20c -width 4m -style arc/, -fill => $blue,
 	          qw/-start -135 -extent 270 -tags item/);
@@ -135,12 +135,12 @@ sub items {
 
     $c->createText(qw/15c 16.2c -text Bitmaps -anchor n/);
     $c->createBitmap(qw/13c 20c -bitmap/ =>
-                     '@'.Tcl::Tk->findINC('demos/images/face'), qw/-tags item/);
+                     '@'.Tcl::pTk->findINC('demos/images/face'), qw/-tags item/);
     $c->createBitmap(qw/17c 18.5c/,
-	             -bitmap => '@'.Tcl::Tk->findINC('demos/images/noletters'),
+	             -bitmap => '@'.Tcl::pTk->findINC('demos/images/noletters'),
 	             qw/-tags item/);
     $c->createBitmap(qw/17c 21.5c/,
-	             -bitmap => '@'.Tcl::Tk->findINC('demos/images/letters'),
+	             -bitmap => '@'.Tcl::pTk->findINC('demos/images/letters'),
 	             qw/-tags item/);
 
     $c->createText(qw/25c 16.2c -text Windows -anchor n/);

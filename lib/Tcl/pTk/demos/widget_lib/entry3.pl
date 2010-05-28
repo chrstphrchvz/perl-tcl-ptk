@@ -79,7 +79,7 @@ sub entry3 {
 	    $e->icursor(3);
 	    $e->afterIdle(sub {$e->selectionClear});
 	}
-    }, Tcl::Tk::Ev('d')]);
+    }, Tcl::pTk::Ev('d')]);
     $e3->bind('<Left>'  => \&entry3_phone_left);
     $e3->bind('<Right>' => \&entry3_phone_right);
 
@@ -139,7 +139,7 @@ sub entry3_phone_left {
 	# Can't move any further
 	$e->bell;
 	#return -code break
-	Tcl::Tk::break;
+	Tcl::pTk::break;
     }
 
 } # end entry3_phone_left
@@ -164,7 +164,7 @@ sub entry3_phone_right {
 	# Can't move any further
 	$e->bell;
 	#return -code break
-	Tcl::Tk::break;
+	Tcl::pTk::break;
     }
 
 } # end entry3_phone_right

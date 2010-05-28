@@ -1,7 +1,7 @@
 # Notebook, selectable pages.
 
-use Tcl::Tk qw( :perlTk);
-use Tcl::Tk::Widget::DialogBox;
+use Tcl::pTk qw( :perlTk);
+use Tcl::pTk::Widget::DialogBox;
 #use Tk::NoteBook;
 #use Tk::LabEntry;
 

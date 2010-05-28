@@ -1,8 +1,8 @@
 # LabFrame, frame with embedded label.
 
-use Tcl::Tk (qw/ :perlTk/);
-#use Tcl::Tk::Widget::LabFrame;
-use Tcl::Tk::Widget::LabEntry;
+use Tcl::pTk (qw/ :perlTk/);
+#use Tcl::pTk::Widget::LabFrame;
+use Tcl::pTk::Widget::LabEntry;
 
 my $test = 'Test this';
 

@@ -15,12 +15,12 @@ sub icon {
     );
 
     $TOP->Bitmap('flagup',
-        -file     => Tcl::Tk->findINC('demos/images/flagup'),
-	-maskfile => Tcl::Tk->findINC('demos/images/flagup'),
+        -file     => Tcl::pTk->findINC('demos/images/flagup'),
+	-maskfile => Tcl::pTk->findINC('demos/images/flagup'),
     );
     $TOP->Bitmap('flagdown',
-        -file     => Tcl::Tk->findINC('demos/images/flagdown'),
-	-maskfile => Tcl::Tk->findINC('demos/images/flagdown'),
+        -file     => Tcl::pTk->findINC('demos/images/flagdown'),
+	-maskfile => Tcl::pTk->findINC('demos/images/flagdown'),
     );
 
     my $frame = $TOP->Frame(qw/-borderwidth 10/);
@@ -38,7 +38,7 @@ sub icon {
     $frame_b1->pack(@pl);
     $frame_b1->configure(-selectcolor => $frame_b1->cget(-background));
     my $frame_b2 = $frame->Checkbutton(
-        -bitmap      => '@' . Tcl::Tk->findINC('demos/images/letters'),
+        -bitmap      => '@' . Tcl::pTk->findINC('demos/images/letters'),
         -indicatoron => 0,
 	-selectcolor => 'SeaGreen1',
     );
@@ -47,13 +47,13 @@ sub icon {
     my $letters = 'full';
     @pl = qw/-side top -expand yes/;
     my $frame_left_b3 = $frame_left->Radiobutton(
-        -bitmap   => '@' . Tcl::Tk->findINC('demos/images/letters'),
+        -bitmap   => '@' . Tcl::pTk->findINC('demos/images/letters'),
         -variable => \$letters,
         -value    => 'full',
     );
     $frame_left_b3->pack(@pl);
     my $frame_left_b4 = $frame_left->Radiobutton(
-        -bitmap   => '@' . Tcl::Tk->findINC('demos/images/noletters'),
+        -bitmap   => '@' . Tcl::pTk->findINC('demos/images/noletters'),
         -variable => \$letters,
         -value    => 'empty',
     );

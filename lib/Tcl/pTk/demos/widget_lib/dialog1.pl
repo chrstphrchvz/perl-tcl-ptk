@@ -2,7 +2,7 @@
 
 use subs qw/see_code/;
 use vars qw/$DIALOG1/;
-use Tcl::Tk::Widget::Dialog;
+use Tcl::pTk::Widget::Dialog;
 
 sub dialog1 {
 

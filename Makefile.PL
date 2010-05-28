@@ -5,7 +5,7 @@ use Getopt::Long qw(GetOptions);
 use ExtUtils::MakeMaker;
 
 ## The executable scripts to be installed
-my @SCRIPTS   = qw( widgetTclTk
+my @SCRIPTS   = qw( widgetTclpTk
                );
 
 my $tclshArg;

@@ -21,8 +21,8 @@ sub photo2 {
     );
 
     my $mw = $TOP;
-    my $i1 = $mw->Photo( -file => Tcl::Tk->findINC( 'demos/images/earth.gif' ) ); 
-    my $i2 = $mw->Photo( -file => Tcl::Tk->findINC( 'demos/images/earthris.gif' ) ); 
+    my $i1 = $mw->Photo( -file => Tcl::pTk->findINC( 'demos/images/earth.gif' ) ); 
+    my $i2 = $mw->Photo( -file => Tcl::pTk->findINC( 'demos/images/earthris.gif' ) ); 
     my $i3 = $mw->Photo( qw/ -format png -width 320 -height 200 / );
 
     my $tf = $mw->Frame;
@@ -121,7 +121,7 @@ sub photo2_blend {
 	    # combine the proper percentage of each color component and
 	    # put the pixel into the third image.
 
-	    Tcl::Tk::catch {
+	    Tcl::pTk::catch {
 		if ( not $img2->transparencyGet( $x2, $y2 ) ) {
 
 		    my ( @c1 ) = $img1->get( $x1, $y1 );

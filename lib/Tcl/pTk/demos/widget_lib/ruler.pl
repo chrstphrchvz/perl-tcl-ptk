@@ -1,6 +1,6 @@
 # ruler.pl
 
-use Tcl::Tk qw/Ev/;
+use Tcl::pTk qw/Ev/;
 
 use subs qw/ruler_make_tab ruler_move_tab ruler_new_tab ruler_release_tab
 	    ruler_select_tab/;
@@ -34,13 +34,13 @@ sub ruler {
 	$rinfo{activeStyle} = [qw/-fill red -stipple/ => undef];
 	$rinfo{deleteStyle} = [
             -fill    => 'red',
-	    -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+	    -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
         ];
     } else {
 	$rinfo{activeStyle} = [qw/-fill black -stipple/ => undef];
 	$rinfo{deleteStyle} = [
             -fill    => 'black',
-            -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+            -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
         ];
     }
 

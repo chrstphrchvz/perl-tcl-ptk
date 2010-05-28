@@ -31,7 +31,7 @@ sub trace1 {
 
     $mw->traceVariable(\$v, 'w' => [\&trace1_update_meter, $c, $s]);
     
-    # Tcl::Tk trace mechanism doen't trigger when the variable is updated in Tcl,
+    # Tcl::pTk trace mechanism doen't trigger when the variable is updated in Tcl,
     #  only when the variable is written or read in perl-land. 
     #  To make this work, we add a command to the scale to write to the variable,
     #   This will trigger the trace_update_meter call    

@@ -74,9 +74,9 @@ sub radio {
 	    },
         );
     }
-    Tcl::Tk::Widget->grid('x', $w{'top'});
+    Tcl::pTk::Widget->grid('x', $w{'top'});
     $w{'left'}->grid($l, $w{'right'});
-    Tcl::Tk::Widget->grid('x', $w{'bottom'});
+    Tcl::pTk::Widget->grid('x', $w{'bottom'});
 
 } # end radio
 

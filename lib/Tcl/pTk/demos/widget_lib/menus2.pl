@@ -143,7 +143,7 @@ sub menus2 {
 
     my $i = $menubar->Cascade(qw/-label ~Icons -tearoff 0 -menuitems/ =>
         [
-	 [Button   => '', -bitmap => '@'.Tcl::Tk->findINC('demos/images/pattern'),
+	 [Button   => '', -bitmap => '@'.Tcl::pTk->findINC('demos/images/pattern'),
 	  -command => sub {
 	      $TOP->messageBox(
 			       -title => 'Bitmap Menu Entry', 

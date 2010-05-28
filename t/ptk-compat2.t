@@ -22,11 +22,20 @@ my $mb = $m->Menubutton(qw/-text File -underline 0 -tearoff 0 -menuitems/ =>
     ]
     );
 
+# Check to see if Cascade usage works
+my $mb2 = $m->Cascade(qw/-label File-Cascade -underline 0 -tearoff 0 -menuitems/ =>
+  [
+    [Button => '~Open ...',     -accelerator => 'Control+o'],
+    [Button => '~New',          -accelerator => 'Control+n'],
+    [Button => '~Save',         -accelerator => 'Control+s'],
+    ]
+    );
+
 
 my $noEntries = $m->index('end');
 my $type = $m->type(1);
 #print "Childs = $noEntries, type = $type\n";
-ok($noEntries, 1, "Number of entries in the popup");
+ok($noEntries, 2, "Number of entries in the popup");
 ok($type, 'cascade', 'Type of menuitem is cascade');
 
 

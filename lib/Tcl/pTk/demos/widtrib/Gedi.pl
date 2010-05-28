@@ -1,6 +1,6 @@
 # Gedi master advanced text editor.
 
-use Tcl::Tk::Widget::TextEdit;
+use Tcl::pTk::Widget::TextEdit;
 
 use vars qw/$TOP/;
 
@@ -166,7 +166,7 @@ $textwindow->CallNextGUICallback;
 # adjust height
 $TOP->update;
 
-# Tcl::Tk doesn't support the wrapper method, so we comment this out
+# Tcl::pTk doesn't support the wrapper method, so we comment this out
 #my $menuheight = ($TOP->wrapper)[1];
 #my $TOPheight = 30 + $TOP->reqheight + $menuheight;
 #if ($TOP->screenheight < $TOPheight) {

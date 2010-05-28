@@ -15,10 +15,10 @@ sub image1 {
     );
 
     my(@pl) = qw/-side top -padx .5m -pady .5m/;
-    $TOP->Photo('image1a', -file => Tcl::Tk->findINC('demos/images/earth.gif'));
+    $TOP->Photo('image1a', -file => Tcl::pTk->findINC('demos/images/earth.gif'));
     $TOP->Label(-image => 'image1a')->pack(@pl);
 
-    $TOP->Photo('image1b', -file => Tcl::Tk->findINC('demos/images/earthris.gif'));
+    $TOP->Photo('image1b', -file => Tcl::pTk->findINC('demos/images/earthris.gif'));
     $TOP->Label(-image => 'image1b')->pack(@pl);
 
 } # end image1

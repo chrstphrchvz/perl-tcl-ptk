@@ -3,7 +3,7 @@
 # Chris Dean <ctdean@cogit.com>
 
 use strict;
-use Tcl::Tk::Widget::BrowseEntry;
+use Tcl::pTk::Widget::BrowseEntry;
 
 my $top = MainWindow->new( -title => "BrowseEntry 2" );
 main( $top );

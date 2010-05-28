@@ -4,7 +4,7 @@
 #
 # SCCS: @(#) filebox.tcl 1.3 97/03/02 16:22:36
 
-# Note: For Tcl::Tk, removed the importing of Tk::Fileselect, since this doesn't exist in Tcl::Tk
+# Note: For Tcl::pTk, removed the importing of Tk::Fileselect, since this doesn't exist in Tcl::pTk
 #   the getOpenFile and getSaveFile methods already exist natively in Tcl::tk
 
 use vars qw/$TOP/;

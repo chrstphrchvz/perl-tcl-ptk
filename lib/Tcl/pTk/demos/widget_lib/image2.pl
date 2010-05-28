@@ -18,7 +18,7 @@ sub image2 {
     );
 
     my $dir_label = $TOP->Label(-text => 'Directory:');
-    my $demo_img = Tcl::Tk->findINC('demos/images');
+    my $demo_img = Tcl::pTk->findINC('demos/images');
     my $dir_name = $TOP->Entry(-width => 30, -textvariable => \$demo_img);
     my $frog0 = $TOP->Frame;
     my $frog = $frog0->Frame;
@@ -48,7 +48,7 @@ sub image2 {
     $f_list->insert(0, qw(earth.gif earthris.gif mickey.gif teapot.ppm));
 
     my $image2a = $TOP->Photo;
-    $f_list->bind('<Double-1>' => [\&image2_load_image, $image2a, \$demo_img, Tcl::Tk::Ev('x'), Tcl::Tk::Ev('y') ]);
+    $f_list->bind('<Double-1>' => [\&image2_load_image, $image2a, \$demo_img, Tcl::pTk::Ev('x'), Tcl::pTk::Ev('y') ]);
     my $image_label = $toad->Label(-text => 'Image:');
     my $image = $toad->Label(-image => $image2a);
     @pl = qw/-side top -anchor w/;

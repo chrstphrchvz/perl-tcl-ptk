@@ -1,8 +1,8 @@
 # ProgressBar - display various progress bars.
 
 use strict;
-use Tcl::Tk (qw/:perlTk/);
-use Tcl::Tk::Widget::ProgressBar;
+use Tcl::pTk (qw/:perlTk/);
+use Tcl::pTk::Widget::ProgressBar;
 #use Tk::Scale;
 
 my $mw = MainWindow->new;

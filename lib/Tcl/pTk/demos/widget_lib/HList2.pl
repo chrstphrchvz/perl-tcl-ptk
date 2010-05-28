@@ -13,8 +13,8 @@
 # WWW:  http://user.cs.tu-berlin.de/~eserte/
 #
 
-use Tcl::Tk::Widget::HList;
-use Tcl::Tk::Widget::ItemStyle;
+use Tcl::pTk::Widget::HList;
+use Tcl::pTk::Widget::ItemStyle;
 
 sub HList2 {
     my($demo) = @_;
@@ -38,7 +38,7 @@ sub HList2 {
 
     my @img;
     foreach ('Xcamel.gif', 'anim.gif', 'icon.gif', 'Camel.xpm') {
-	push @img, $TOP->Photo(-file => Tcl::Tk->findINC($_)),
+	push @img, $TOP->Photo(-file => Tcl::pTk->findINC($_)),
     }
 
     my(@fonts) = ('-*-Helvetica-Medium-R-Normal--*-180-*-*-*-*-*-*',

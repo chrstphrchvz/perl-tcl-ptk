@@ -20,10 +20,10 @@ sub HList {
 	print "Double click $_[0], size=", $h->info('data', $_[0]) ,".\n";
     });
 
-    $FILEIMG = $TOP->Bitmap(-file => Tcl::Tk->findINC('file.xbm'));
-    $FOLDIMG = $TOP->Bitmap(-file => Tcl::Tk->findINC('folder.xbm'));
+    $FILEIMG = $TOP->Bitmap(-file => Tcl::pTk->findINC('file.xbm'));
+    $FOLDIMG = $TOP->Bitmap(-file => Tcl::pTk->findINC('folder.xbm'));
 
-    my $root = Tcl::Tk->findINC('demos');
+    my $root = Tcl::pTk->findINC('demos');
     my $olddir = cwd;
     chdir $root;
     show_dir '.', $root, $h;

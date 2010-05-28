@@ -1,7 +1,7 @@
 # bounce.pl
 
 use Ball;
-use Tcl::Tk qw/:eventtypes/;
+use Tcl::pTk qw/:eventtypes/;
 use subs qw/ClearMsg DoSingleStep NotDone ShowMsg SimStart SimStop mkmb/;
 use vars qw/$TOP/;
 
@@ -24,7 +24,7 @@ sub bounce {
 
     my($demo) = @_;
 
-    $TOP->destroy if Tcl::Tk::Exists($TOP);
+    $TOP->destroy if Tcl::pTk::Exists($TOP);
     $TOP = $MW->Toplevel;
     $TOP->title('Bouncing Ball Simulator');
     $TOP->iconname('bounce');
@@ -123,7 +123,7 @@ sub bounce {
     my $w_ball = $w_buttons->Button(
         -text    => 'View Ball Class Module',
         -command => [\&view_widget,
-		     Tcl::Tk->findINC('demos/widget_lib') . '/Ball.pm'],
+		     Tcl::pTk->findINC('demos/widget_lib') . '/Ball.pm'],
     );
     $w_ball->pack(qw(-side left -expand 1));
 

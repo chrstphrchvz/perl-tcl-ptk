@@ -131,7 +131,7 @@ sub menus {
 
     my $i = $menubar->cascade(-label => '~Icons', -tearoff => 0);
     $i->command(
-        -bitmap => '@'.Tcl::Tk->findINC('demos/images/pattern'),
+        -bitmap => '@'.Tcl::pTk->findINC('demos/images/pattern'),
 	-command => sub {
 	    $TOP->messageBox(
 			     -title => 'Bitmap Menu Entry', 

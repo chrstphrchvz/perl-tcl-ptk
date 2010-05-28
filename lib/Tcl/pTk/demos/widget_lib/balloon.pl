@@ -1,6 +1,6 @@
 # Balloon, pop up help window when mouse lingers over widget.
 
-use Tcl::Tk qw/:perlTk/;
+use Tcl::pTk qw/:perlTk/;
 use English;
 use Carp;
 

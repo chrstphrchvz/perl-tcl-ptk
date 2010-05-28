@@ -1,15 +1,15 @@
 # slide.pl
 
-$Tcl::Tk::SlideSwitch::VERSION = '1.1';
+$Tcl::pTk::SlideSwitch::VERSION = '1.1';
 
-package Tcl::Tk::Widget::SlideSwitch;
+package Tcl::pTk::Widget::SlideSwitch;
 
-use Tcl::Tk;
+use Tcl::pTk;
 #use Tk::widgets qw/Label Scale/;
-use base qw/Tcl::Tk::Widget::Frame/;
+use base qw/Tcl::pTk::Widget::Frame/;
 use strict;
 
-Construct Tcl::Tk::Widget 'SlideSwitch';
+Construct Tcl::pTk::Widget 'SlideSwitch';
 
 sub Populate {
 
@@ -77,7 +77,7 @@ package main;
 
 use vars qw / $TOP /;
 use strict;
-use Tcl::Tk (qw/:perlTk/);
+use Tcl::pTk (qw/:perlTk/);
 
 sub slide {
 
@@ -107,11 +107,11 @@ __END__
 
 =head1 NAME
 
-Tcl::Tk::Widget::SlideSwitch - a 2 position horizontal or vertical switch.
+Tcl::pTk::Widget::SlideSwitch - a 2 position horizontal or vertical switch.
 
 =head1 SYNOPSIS
 
- use Tcl::Tk::Widget::SlideSwitch;
+ use Tcl::pTk::Widget::SlideSwitch;
 
  my $sl = $frame1->SlideSwitch(
      -bg          => 'gray',
@@ -124,7 +124,7 @@ Tcl::Tk::Widget::SlideSwitch - a 2 position horizontal or vertical switch.
 
 =head1 DESCRIPTION
 
-Tcl::Tk::Widget::SlideSwitch is a Frame based composite mega-widget featuring a binary Scale
+Tcl::pTk::Widget::SlideSwitch is a Frame based composite mega-widget featuring a binary Scale
 widget surrounded by two Label widgets.  The Scale's value can be either 0 or
 1. The Labels are positioned to the left and right of the Scale if its
 orientation is horizontal, else on the top and bottom of the Scale.

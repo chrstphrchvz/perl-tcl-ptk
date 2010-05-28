@@ -15,7 +15,7 @@ sub transtile {
         -iconname => 'transtile',
     );
 
-    my $tile = $TOP->Photo(-file =>Tcl::Tk->findINC('Camel.xpm'));
+    my $tile = $TOP->Photo(-file =>Tcl::pTk->findINC('Camel.xpm'));
 
     # A tiled Canvas - the tile overlays the background color.
 
@@ -36,7 +36,7 @@ sub transtile {
 
     my($x, $y) = (30, 30);
     foreach (qw/Xcamel.gif anim.gif icon.gif/) {
-	$c->createImage($x, $y, -image => $TOP->Photo(-file => Tcl::Tk->findINC($_)));
+	$c->createImage($x, $y, -image => $TOP->Photo(-file => Tcl::pTk->findINC($_)));
 	$x += 50;
 	$y += 50;
     }
@@ -67,7 +67,7 @@ sub transtile {
     my $o3 = $c->createOval(25, 120, 100, 195,
         -outline => 'red',
         -fill    => 'blue',
-        -stipple => '@'.Tcl::Tk->findINC('transpnt.bmp') # transparent bitmap not built-in, so read from file
+        -stipple => '@'.Tcl::pTk->findINC('transpnt.bmp') # transparent bitmap not built-in, so read from file
     );
     $c->bind($o3, '<Motion>' => $cb);
 

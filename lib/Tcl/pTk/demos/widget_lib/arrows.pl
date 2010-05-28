@@ -42,7 +42,7 @@ sub arrows {
     } else {
 	$ainfo{bigLineStyle} = [
             -fill    => 'black',
-            -stipple => '@'.Tcl::Tk->findINC('demos/images/grey.25'),
+            -stipple => '@'.Tcl::pTk->findINC('demos/images/grey.25'),
         ];
 	$ainfo{boxStyle}     = [-fill => undef, qw/-outline black -width 1/];
 	$ainfo{activeStyle}  = [qw/-fill black -outline black -width 1/];

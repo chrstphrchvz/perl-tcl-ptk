@@ -2,8 +2,8 @@
 
 use 5.008;
 use Config;
-use Tcl::Tk qw/:perlTk/;
-use lib Tcl::Tk->findINC( 'demos/widget_lib' );
+use Tcl::pTk qw/:perlTk/;
+use lib Tcl::pTk->findINC( 'demos/widget_lib' );
 #use Tk::widgets qw/ DialogBox ErrorDialog LabEntry ROText /;
 use WidgetDemo;
 use subs qw/
@@ -22,7 +22,7 @@ $MW->configure(-menu => my $menubar = $MW->Menu);
 
 {
     package WidgetWrap;
-    @WidgetWrap::ISA = qw/Tcl::Tk::Widget::MainWindow/;
+    @WidgetWrap::ISA = qw/Tcl::pTk::Widget::MainWindow/;
 
     # This magic conspires with widget's AUTOLOAD subroutine to make user
     # contributed demonstrations that don't use WidgetDemo embed properly.
@@ -41,9 +41,9 @@ $MW->configure(-menu => my $menubar = $MW->Menu);
 $MW->title('Perl/Tk Widget Demonstration');
 $MW->iconname('widget');
 $FONT = 'Helvetica 12';
-my $widget_lib = Tcl::Tk->findINC('demos/widget_lib');
+my $widget_lib = Tcl::pTk->findINC('demos/widget_lib');
 my $wd = "$widget_lib/WidgetDemo.pm";
-$WIDTRIB = Tcl::Tk->findINC('demos/widtrib');
+$WIDTRIB = Tcl::pTk->findINC('demos/widtrib');
 unless (1) {
     $WIDTRIB = $ENV{WIDTRIB} if defined $ENV{WIDTRIB};
     $WIDTRIB = $ARGV[0] if defined $ARGV[0];
@@ -318,20 +318,20 @@ sub build_about_dialog {
     my $help = shift;
 
     my $dialog = $MW->DialogBox(
-        -title          => "Perl/Tk, based on Tcl/Tk ${Tcl::Tk::VERSION}",
+        -title          => "Perl/Tk, based on Tcl/Tk ${Tcl::pTk::VERSION}",
         -default_button => 'OK',
         -buttons        => ['OK'],
     );
     my $df = $dialog->add( 'Labelframe', -text => '  2004 - Feb - 11  ' );
     $df->pack( qw/ -fill both -expand 1 / );
-    my( $tk_date ) = scalar localtime( ( stat $Tcl::Tk::library )[9] );
-    my( $tk ) = "$Tcl::Tk::VERSION, $tk_date";
+    my( $tk_date ) = scalar localtime( ( stat $Tcl::pTk::library )[9] );
+    my( $tk ) = "$Tcl::pTk::VERSION, $tk_date";
 
     foreach my $item (
          [ 'Perl',    "$], $Config{cf_time}" ],
-         [ 'Tcl::Tk',                         $tk ],
-         [ 'Platform',         $Tcl::Tk::platform ],
-         [ 'Library',           $Tcl::Tk::library ],
+         [ 'Tcl::pTk',                         $tk ],
+         [ 'Platform',         $Tcl::pTk::platform ],
+         [ 'Library',           $Tcl::pTk::library ],
         ) {
         my $l = $item->[0] . ':';
         my $le = $df->LabEntry(

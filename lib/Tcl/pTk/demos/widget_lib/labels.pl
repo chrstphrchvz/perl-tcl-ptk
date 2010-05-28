@@ -32,7 +32,7 @@ sub labels {
 
     @pl = qw/-side top/;
     my $right_bitmap = $right->Label(
-        -image       => $TOP->Photo(-file => Tcl::Tk->findINC('Xcamel.gif')),
+        -image       => $TOP->Photo(-file => Tcl::pTk->findINC('Xcamel.gif')),
         -borderwidth => 2,
 	-relief      => 'sunken',
     )->pack(@pl);

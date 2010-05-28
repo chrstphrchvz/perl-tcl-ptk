@@ -30,6 +30,27 @@ sub CreateArgs{
         return $package->SUPER::CreateArgs($parent, $args);
 }
 
+
+sub InitObject
+{
+ my ($menu,$args) = @_;
+ my $menuitems = delete $args->{-menuitems};
+ $menu->SUPER::InitObject($args);
+ if (defined $menuitems)
+  {
+   # If any other args do configure now
+   if (%$args)
+    {
+     $menu->configure(%$args);
+     %$args = ();
+    }
+    # Process menu items using the internal widget method
+    my $int = $menu->interp;
+    $menu->_process_menuitems($int,$menu,$menuitems);
+
+  }
+}
+
 # Create widget packages and methods for Menu
 Tcl::pTk::Widget::create_widget_package('Menu');
 Tcl::pTk::Widget::create_method_in_widget_package('Menu',
