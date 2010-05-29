@@ -32,7 +32,7 @@ sub menus2 {
     my $modifier;
     if ( $ws eq 'classic' or $ws eq 'aqua') {
 	$modifier = 'Command';
-    } elsif ($Tk::platform eq 'windows') {
+    } elsif ($Tcl::pTk::platform eq 'windows') {
 	$modifier = 'Control';
     } else {
 	$modifier = 'Meta';
