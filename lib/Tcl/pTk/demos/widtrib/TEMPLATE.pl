@@ -50,7 +50,7 @@ Alternatively the .pl file may contain typical Perl/Tk code of the form:
 
     # Demonstration Description Data
 
-    use Tk;
+    use Tcl::pTk;
     my $top = MainWindow->new;
     $top->Label(-text => 'Whatever');
     MainLoop;

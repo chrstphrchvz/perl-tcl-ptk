@@ -1,7 +1,7 @@
 # hello.pl
 
 use Config;
-use Tk::widgets qw/ ROText /;
+use Tcl::pTk::widgets qw/ ROText /;
 use vars qw/ $TOP /;
 use strict;
 

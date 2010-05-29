@@ -245,7 +245,7 @@ sub GotoLineNumberPopUp
   }
  unless (defined($popup))
   {
-   require Tk::DialogBox;
+   require Tcl::pTk::Widget::DialogBox;
    $popup = $w->DialogBox(-buttons => [qw[Ok Cancel]],-title => "Goto Line Number", -popover => $w,
                           -command => sub { $w->GotoLineNumber($w->{'LAST_GOTO_LINE'}) if $_[0] eq 'Ok'});
    $w->{'GOTO_LINE_NUMBER_POPUP'}=$popup;

@@ -1,6 +1,6 @@
 # radio.pl
 
-use Tk::widgets qw/LabFrame/;
+
 use vars qw/$TOP/;
 
 sub radio {

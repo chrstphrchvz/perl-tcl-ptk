@@ -1,6 +1,6 @@
 # clrpick.pl
 
-use Tk qw/catch/;
+
 use subs qw/setColor setColor_helper/;
 use vars qw/$TOP/;
 
@@ -34,7 +34,7 @@ sub setColor {
 sub setColor_helper {
     my($widget, $options, $color) = @_;
     foreach my $option (@$options) {
-	catch {
+	Tcl::pTk::catch {
 	    $widget->configure($option => $color);
 	}
     }

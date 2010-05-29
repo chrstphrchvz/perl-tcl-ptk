@@ -1,6 +1,6 @@
 # search.pl
 
-use Tk::LabEntry;
+use Tcl::pTk::Widget::LabEntry;
 use subs qw/search_flash_matches search_load_file search_text/;
 use vars qw/$TOP/;
 
