@@ -155,7 +155,7 @@ sub path{
         my $path = $self->Tcl::pTk::Widget::path(@_); # get normal path
         
         # If this is a menubar, then it will be a cloned menu, which the
-        #  tk source prepends a '#' to the name (e.g. .menu02 becomes '.#menuo2'
+        #  tk source prepends a '#' to the name (e.g. .menu02 becomes '.#menu02'
         #  (See TkNewMenuName in tkMenu.c for details)
         #
         # Prepend '#' to the name to make bindings work correctly
@@ -163,15 +163,20 @@ sub path{
         my $exists = $self->interp->icall('winfo','exists',$path); # only do this if the widget exists
         if( $exists && $self->interp->icall($path, 'cget', '-type') eq 'menubar'){
                 
-                #print "path path = '$path'\n";
-                my @pieces = split('\.', $path);
-                #print "pieces = '".join("', '", @pieces)."'\n";
-                shift @pieces;
-                my $newLastPiece = "#".join("#", @pieces);
-                        
-                $pieces[-1] = $newLastPiece;
+                # Build cloned menu path #
+                my $toplevelPath = $self->interp->icall('winfo','toplevel',$path);
+                my $nonToplevelPath = $path;
+                my $toplevelPathMatch = quotemeta($toplevelPath); # make toplevelPath work for a regexp matching
+                $nonToplevelPath =~ s/$toplevelPathMatch//;
                 
-                my $newpath = '.'.join('.', @pieces); # Prepend '#' to the names
+                my @pieces = split('\.', $path);
+                shift @pieces if ($pieces[0] eq ''); # get rid of empty first piece, which happens when non-toplevel starts with '.'
+                
+                #print "pieces = '".join("', '", @pieces)."'\n";
+                my $newPathPiece = "#".join("#", @pieces);
+                        
+                $toplevelPath = '' if( $toplevelPath eq '.'); # Allow for simple '.' toplevel pathname
+                my $newpath = join('.', $toplevelPath, $newPathPiece); # Prepend '#' to the names
                
                 #print "newpath = '$newpath'\n";
                 # Use the new path only if it exists
