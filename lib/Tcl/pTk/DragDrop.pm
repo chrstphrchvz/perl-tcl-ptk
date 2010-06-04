@@ -1,9 +1,9 @@
-package Tcl::pTk::Widget::DragDrop;
-require Tcl::pTk::Widget::DragDrop::Common;
-require Tcl::pTk::Widget::Toplevel;
+package Tcl::pTk::DragDrop;
+require Tcl::pTk::DragDrop::Common;
+require Tcl::pTk::Toplevel;
 
 
-use base  qw(Tcl::pTk::Widget::DragDrop::Common Tcl::pTk::Widget::Toplevel);
+use base  qw(Tcl::pTk::DragDrop::Common Tcl::pTk::Toplevel);
 
 
 my $useWmRelease = 0; # We dont' ever use wmRelease
@@ -85,7 +85,7 @@ sub sitetypes
      my $type;
      foreach $type (@$val)
       {
-       Tcl::pTk::Widget::DragDrop->import($type);
+       Tcl::pTk::DragDrop->import($type);
       }
     }
    $$var = $val;
@@ -129,7 +129,7 @@ sub FindSite
  my ($token,$X,$Y) = @_;
  my $site;
  my $types = $token->sitetypes;
- my $siteType = "Tcl::pTk::Widget::DropSite"->type;
+ my $siteType = "Tcl::pTk::DropSite"->type;
  
  if (defined $types && @$types)
   {

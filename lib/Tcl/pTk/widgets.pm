@@ -13,8 +13,8 @@ Tcl::pTk::widgets -  Convenience Module for loading Tcl::pTk Widgets
         use Tcl::pTk::widgets qw/ Text Tree /;
         
         # Above is equivalent to
-        use Tcl::pTk::Widget::Text;
-        use Tcl::pTk::Widget::Tree;
+        use Tcl::pTk::Text;
+        use Tcl::pTk::Tree;
 
 =head1 DESCRIPTION
 
@@ -36,7 +36,7 @@ sub import
   {
    local $SIG{__DIE__} = \&Carp::croak;
    # carp "$_ already loaded" if (exists $INC{"Tk/$_.pm"});
-   require "Tcl/pTk/Widget/$_.pm";
+   require "Tcl/pTk/$_.pm";
   }
 }
 

@@ -3,7 +3,7 @@
 use Tcl::pTk (qw/ :perlTk /);
 use Test;
 
-use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
+use Tcl::pTk::TableMatrix::Spreadsheet;
 
 
 

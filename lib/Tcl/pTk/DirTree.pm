@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::DirTree;
+package Tcl::pTk::DirTree;
 # DirTree -- TixDirTree widget
 #
 # Derived from DirTree.tcl in Tix 4.1
@@ -10,11 +10,11 @@ package Tcl::pTk::Widget::DirTree;
 
 use Tcl::pTk;
 use Tcl::pTk::Derived;
-use Tcl::pTk::Widget::Tree;
+use Tcl::pTk::Tree;
 use Cwd;
 use DirHandle;
 
-use base  qw(Tcl::pTk::Derived Tcl::pTk::Widget::Tree);
+use base  qw(Tcl::pTk::Derived Tcl::pTk::Tree);
 use strict;
 
 Construct Tcl::pTk::Widget 'DirTree';
@@ -125,7 +125,7 @@ sub add_to_tree {
     my( $w, $dir, $name, $parent ) = @_;
 
     my $image = $w->cget('-image');
-    if ( !UNIVERSAL::isa($image, 'Tcl::pTk::Widget::Image') ) {
+    if ( !UNIVERSAL::isa($image, 'Tcl::pTk::Image') ) {
 	$image = $w->Getimage( $image );
     }
     my $mode = 'none';
@@ -162,8 +162,8 @@ sub dirnames {
 }
 
 {
-    package Tcl::pTk::Widget::DirTreeDialog;
-    use base qw(Tcl::pTk::Widget::Toplevel);
+    package Tcl::pTk::DirTreeDialog;
+    use base qw(Tcl::pTk::Toplevel);
     Construct Tcl::pTk::Widget 'DirTreeDialog';
 
     sub Populate {

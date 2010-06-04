@@ -10,7 +10,7 @@
 
 use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
+use Tcl::pTk::TableMatrix::SpreadsheetHideRows;
 use Test;
 plan tests => 1;
 

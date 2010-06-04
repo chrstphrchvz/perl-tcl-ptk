@@ -1,9 +1,9 @@
 ###### Menu::Item widgets #################
 ## Converted from perl/tk version #########
 
-package Tcl::pTk::Widget::Menu::Item;
+package Tcl::pTk::Menu::Item;
 
-require Tcl::pTk::Widget::Menu;
+require Tcl::pTk::Menu;
 
 use Carp;
 use strict;
@@ -82,23 +82,23 @@ sub kind { return 'command' }
 
 # Now the derived packages
 
-package Tcl::pTk::Widget::Menu::Separator;
-use base qw(Tcl::pTk::Widget::Menu::Item);
-Tcl::pTk::Widget::Menu->Construct( 'Separator' );
+package Tcl::pTk::Menu::Separator;
+use base qw(Tcl::pTk::Menu::Item);
+Tcl::pTk::Menu->Construct( 'Separator' );
 sub kind { return undef }
 
-package Tcl::pTk::Widget::Menu::Button;
-use base qw(Tcl::pTk::Widget::Menu::Item);
-Tcl::pTk::Widget::Menu->Construct( 'Button' );
-Tcl::pTk::Widget::Menu->Construct( 'Command' );
+package Tcl::pTk::Menu::Button;
+use base qw(Tcl::pTk::Menu::Item);
+Tcl::pTk::Menu->Construct( 'Button' );
+Tcl::pTk::Menu->Construct( 'Command' );
 
 #package Tk::Menu::Command;
 #use base qw(Tk::Menu::Button);
 #Construct Tk::Menu 'Command';
 
-package Tcl::pTk::Widget::Menu::Cascade;
-use base qw(Tcl::pTk::Widget::Menu::Item);
-Tcl::pTk::Widget::Menu->Construct( 'Cascade' );
+package Tcl::pTk::Menu::Cascade;
+use base qw(Tcl::pTk::Menu::Item);
+Tcl::pTk::Menu->Construct( 'Cascade' );
 sub kind { return 'cascade' }
 use Carp;
 
@@ -130,7 +130,7 @@ sub menu
  my $menu = $self->cget('-menu');
  if (!defined $menu)
   {
-   require Tcl::pTk::Widget::Menu;
+   require Tcl::pTk::Menu;
    $w->ColorOptions(\%args);
    my $name = $self->cget('-label');
    warn "Had to (re-)reate menu for $name";
@@ -162,17 +162,17 @@ sub pack
   }
 }
 
-package Tcl::pTk::Widget::Menu::Checkbutton;
-use base qw(Tcl::pTk::Widget::Menu::Item);
-Tcl::pTk::Widget::Menu->Construct( 'Checkbutton' );
+package Tcl::pTk::Menu::Checkbutton;
+use base qw(Tcl::pTk::Menu::Item);
+Tcl::pTk::Menu->Construct( 'Checkbutton' );
 sub kind { return 'checkbutton' }
 
-package Tcl::pTk::Widget::Menu::Radiobutton;
-use base qw(Tcl::pTk::Widget::Menu::Item);
-Tcl::pTk::Widget::Menu->Construct( 'Radiobutton' );
+package Tcl::pTk::Menu::Radiobutton;
+use base qw(Tcl::pTk::Menu::Item);
+Tcl::pTk::Menu->Construct( 'Radiobutton' );
 sub kind { return 'radiobutton' }
 
-package Tcl::pTk::Widget::Menu::Item;
+package Tcl::pTk::Menu::Item;
 
 1;
 __END__

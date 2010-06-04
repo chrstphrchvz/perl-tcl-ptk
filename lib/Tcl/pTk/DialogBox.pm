@@ -4,13 +4,13 @@
 # there exists no way of deleting a widget once it has been added.
 
 # Modified from the Perl/Tk version for inclusion into Tcl::pTk
-package Tcl::pTk::Widget::DialogBox;
+package Tcl::pTk::DialogBox;
 
 use strict;
 use Carp;
 
 
-use base  qw(Tcl::pTk::Widget::Toplevel );
+use base  qw(Tcl::pTk::Toplevel );
 
 Tcl::pTk::Widget->Construct('DialogBox');
 

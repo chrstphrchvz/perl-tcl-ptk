@@ -6,7 +6,7 @@
 #   
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::Pane;
+use Tcl::pTk::Pane;
 #use Tk;
 #use Tk::Pane;
 
@@ -33,7 +33,7 @@ my $sff = $top->Scrolled('Pane',  -scrollbars => 'soe',
 
 my $sf = $sff->frame();
 # turn path into a widget
-#$sf = $top->interp->declare_widget($sf, 'Tcl::pTk::Widget::Frame');
+#$sf = $top->interp->declare_widget($sf, 'Tcl::pTk::Frame');
 
 my @labels;
 foreach my $i (1..25){

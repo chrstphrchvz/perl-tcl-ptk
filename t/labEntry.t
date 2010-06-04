@@ -2,7 +2,7 @@
 
 
 use Tcl::pTk (qw/ :perlTk/);
-use Tcl::pTk::Widget::LabEntry;
+use Tcl::pTk::LabEntry;
 use Test;
 use strict;
 

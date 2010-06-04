@@ -30,7 +30,7 @@ ok($opt->cget(-variable),\$foo, "Wrong variable");
 
 my $optmenu = $opt->cget(-menu);
 ok($optmenu ne "", 1, "can't get menu from Optionmenu");
-ok(ref $optmenu, 'Tcl::pTk::Widget::Menu', "reference returned is not a Tk::Menu");# or Tcl::pTk::Widget::Menu?
+ok(ref $optmenu, 'Tcl::pTk::Menu', "reference returned is not a Tk::Menu");# or Tcl::pTk::Menu?
 ok($optmenu->index("last"), 20, "wrong number of elements in menu");
 ok($optmenu->entrycget("last", -label), "20", "wrong label");
 

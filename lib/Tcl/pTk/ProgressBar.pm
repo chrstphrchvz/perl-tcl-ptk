@@ -1,13 +1,13 @@
-package Tcl::pTk::Widget::ProgressBar;
+package Tcl::pTk::ProgressBar;
 
 
 use Tcl::pTk;
-use Tcl::pTk::Widget::Canvas;
+use Tcl::pTk::Canvas;
 #use Tk::Trace;
 use Carp;
 use strict;
 
-use base qw(Tcl::pTk::Derived Tcl::pTk::Widget::Canvas);
+use base qw(Tcl::pTk::Derived Tcl::pTk::Canvas);
 
 Construct Tcl::pTk::Widget 'ProgressBar';
 
@@ -102,7 +102,7 @@ sub _arrange {
  	#$c->GeometryRequest($w,$h);
         # Tcl::pTk doesn't support GeometryRequest on non-toplevel windows, so we directly set the
         #   width/height of the parent canvas
-        $c->Tcl::pTk::Widget::Canvas::configure(-width => $w, -height => $h);
+        $c->Tcl::pTk::Canvas::configure(-width => $w, -height => $h);
 	$c->parent->update;
 	$c->update;
 
@@ -327,13 +327,13 @@ __END__
 
 =head1 NAME
 
-Tcl::pTk::Widget::ProgressBar - A graphical progress bar
+Tcl::pTk::ProgressBar - A graphical progress bar
 
 =for category Derived Widgets
 
 =head1 SYNOPSIS
 
-    use Tcl::pTk::Widget::ProgressBar;
+    use Tcl::pTk::ProgressBar;
 
     $progress = $parent->ProgressBar(
 	-width => 200,
@@ -350,7 +350,7 @@ Tcl::pTk::Widget::ProgressBar - A graphical progress bar
 
 =head1 DESCRIPTION
 
-B<Tcl::pTk::Widget::ProgressBar> provides a widget which will show a graphical representation
+B<Tcl::pTk::ProgressBar> provides a widget which will show a graphical representation
 of a value, given maximum and minimum reference values.
 
 =head1 STANDARD OPTIONS

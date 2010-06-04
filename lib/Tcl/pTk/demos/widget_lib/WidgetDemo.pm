@@ -11,7 +11,7 @@ use Carp;
 #use Tk;
 #use Tk::Toplevel;
 use strict;
-use base  'Tcl::pTk::Widget::Toplevel';
+use base  'Tcl::pTk::Toplevel';
 Construct Tcl::pTk::Widget 'WidgetDemo';
 
 # %WIDGDEMO is a class global that tracks all WidgetDemo composite widgets,

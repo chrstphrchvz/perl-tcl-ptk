@@ -3,7 +3,7 @@
 use Tcl::pTk qw/:perlTk/;
 
 use Test;
-use Tcl::pTk::Widget::TextUndo;
+use Tcl::pTk::TextUndo;
 
 plan tests => 3;
 

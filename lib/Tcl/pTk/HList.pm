@@ -1,8 +1,8 @@
 
 
-package Tcl::pTk::Widget::HList;
+package Tcl::pTk::HList;
 
-@Tcl::pTk::Widget::HList::ISA = (Tcl::pTk::Widget);
+@Tcl::pTk::HList::ISA = (Tcl::pTk::Widget);
 
 use strict;
 

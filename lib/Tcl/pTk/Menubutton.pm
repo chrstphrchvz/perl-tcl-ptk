@@ -1,11 +1,11 @@
-package Tcl::pTk::Widget::Menubutton;
+package Tcl::pTk::Menubutton;
 
 # Simple Menu package.
 
 
 use Tcl::pTk::Widget();
 
-@Tcl::pTk::Widget::Menubutton::ISA = qw(Tcl::pTk::Widget);
+@Tcl::pTk::Menubutton::ISA = qw(Tcl::pTk::Widget);
 
 Tcl::pTk::Widget->Construct('Menubutton');
 
@@ -91,7 +91,7 @@ sub Tcl::pTk::Menubutton {
     my ($mnub, $mnu);
     
     # For creating menubuttons on a already-created menu, create a cascade item
-    if( $self->isa('Tcl::pTk::Widget::Menu') ){
+    if( $self->isa('Tcl::pTk::Menu') ){
             $mnu = $self;
             
             # Get name, if defined
@@ -115,9 +115,9 @@ sub Tcl::pTk::Menubutton {
     # Not calling menubutton on a menu (Normal Case)
     $mnub = $int->widget(
         $self->call('menubutton', $w, -menu => "$w.m", %args),
-                "Tcl::pTk::Widget::Menubutton");
+                "Tcl::pTk::Menubutton");
     
-    $mnu = $int->widget($self->call('menu',"$w.m"), "Tcl::pTk::Widget::Menu");
+    $mnu = $int->widget($self->call('menu',"$w.m"), "Tcl::pTk::Menu");
     #print "menubutton = '$mnub'\n";
     #print "menu = '$mnu'\n";
     $mnub->_process_menuitems($int,$mnu,$mis);

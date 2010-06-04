@@ -2,10 +2,10 @@
 # This program is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
 
-package Tcl::pTk::Widget::LabEntry;
+package Tcl::pTk::LabEntry;
 
 
-use base  qw(Tcl::pTk::Widget::Frame);
+use base  qw(Tcl::pTk::Frame);
 #use Tk::widgets qw(Frame Label Entry);
 
 Construct Tcl::pTk::Widget 'LabEntry';

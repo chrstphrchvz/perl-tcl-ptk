@@ -3,8 +3,8 @@
 #
 
 use Tcl::pTk qw/:perlTk/;
-#require Tcl::pTk::Widget::Menu;
-#require Tcl::pTk::Widget::Menu::Item;
+#require Tcl::pTk::Menu;
+#require Tcl::pTk::Menu::Item;
 #use Tk;
 #use English;
 use Carp;

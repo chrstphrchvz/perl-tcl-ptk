@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::Dialog;
+package Tcl::pTk::Dialog;
 
 # Dialog from Perl/Tk Modified for use under Tcl::pTk
 #
@@ -12,7 +12,7 @@ package Tcl::pTk::Widget::Dialog;
 
 use Carp;
 use strict;
-use base qw(Tcl::pTk::Widget::DialogBox);
+use base qw(Tcl::pTk::DialogBox);
 
 Construct Tcl::pTk::Widget 'Dialog';
 

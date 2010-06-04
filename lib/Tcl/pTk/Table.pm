@@ -4,12 +4,12 @@
 #    which aren't supported in Tcl::pTk
 #
 
-package Tcl::pTk::Widget::Table;
+package Tcl::pTk::Table;
 use strict;
 
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 
-use base qw(Tcl::pTk::Derived Tcl::pTk::Widget::Frame);
+use base qw(Tcl::pTk::Derived Tcl::pTk::Frame);
 
 Construct Tcl::pTk::Widget 'Table';
 

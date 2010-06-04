@@ -14,15 +14,15 @@
 
 # Oct 20, 2008 - John Cerney
 #  Modified for use in Tcl::pTk
-package Tcl::pTk::Widget::Balloon;
+package Tcl::pTk::Balloon;
 
 
 use Tcl::pTk;
 use Carp;
-use Tcl::pTk::Widget::Toplevel;
+use Tcl::pTk::Toplevel;
 
 Tcl::pTk::Widget->Construct('Balloon');
-use base qw(Tcl::pTk::Widget::Toplevel);
+use base qw(Tcl::pTk::Toplevel);
 
 # use UNIVERSAL; avoid the UNIVERSAL.pm file subs are XS in perl core
 
@@ -40,10 +40,10 @@ my %arrows = ( TL => 'R0lGODlhBgAGAJEAANnZ2QAAAP///////yH5BAEAAAAALAAAAAAGAAYAAA
 
 sub ClassInit {
     my ($class, $mw) = @_;
-    $mw->bind('all', '<Motion>', ['Tcl::pTk::Widget::Balloon::Motion', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y'), Tcl::pTk::Ev('s')]);
-    $mw->bind('all', '<Leave>',  ['Tcl::pTk::Widget::Balloon::Motion', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y'), Tcl::pTk::Ev('s')]);
-    $mw->bind('all', '<Button>', 'Tcl::pTk::Widget::Balloon::ButtonDown');
-    $mw->bind('all', '<ButtonRelease>', 'Tcl::pTk::Widget::Balloon::ButtonUp');
+    $mw->bind('all', '<Motion>', ['Tcl::pTk::Balloon::Motion', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y'), Tcl::pTk::Ev('s')]);
+    $mw->bind('all', '<Leave>',  ['Tcl::pTk::Balloon::Motion', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y'), Tcl::pTk::Ev('s')]);
+    $mw->bind('all', '<Button>', 'Tcl::pTk::Balloon::ButtonDown');
+    $mw->bind('all', '<ButtonRelease>', 'Tcl::pTk::Balloon::ButtonUp');
     return $class;
 }
 
@@ -254,7 +254,7 @@ sub grabBad {
     return 0 unless Tcl::pTk::Exists($client);
     my $g = $w->grabCurrent;
     return 0 unless defined $g;
-    return 0 if $g->isa('Tcl::pTk::Widget::Menu');
+    return 0 if $g->isa('Tcl::pTk::Menu');
     return 0 if $g eq $client;
 
     # Grab is ok if the grap has a different interp than the window ( i.e. is from a different mainwindow)

@@ -1,13 +1,13 @@
-package Tcl::pTk::Widget::DragDrop::LocalDrop;
+package Tcl::pTk::DragDrop::LocalDrop;
 use strict;
 
-use base qw(Tcl::pTk::Widget::DragDrop::Rect);
-require Tcl::pTk::Widget::DragDrop;
+use base qw(Tcl::pTk::DragDrop::Rect);
+require Tcl::pTk::DragDrop;
 
 my @toplevels;
 
-#Tcl::pTk::Widget::DragDrop->Type('Local');
-Tcl::pTk::Widget::DragDrop::Common::Type('Tcl::pTk::Widget::DragDrop', 'Local');
+#Tcl::pTk::DragDrop->Type('Local');
+Tcl::pTk::DragDrop::Common::Type('Tcl::pTk::DragDrop', 'Local');
 
 sub XY
 {

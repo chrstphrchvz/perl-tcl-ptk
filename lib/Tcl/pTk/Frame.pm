@@ -1,8 +1,8 @@
 #
 # Dummy Frame.pm
-#  Needed so 'use base('Tcl::pTk::Widget::Frame') works in megawidgets (e.g. SlideSwitch.pm)
+#  Needed so 'use base('Tcl::pTk::Frame') works in megawidgets (e.g. SlideSwitch.pm)
 
-package Tcl::pTk::Widget::Frame;
+package Tcl::pTk::Frame;
 
 
 use base ('Tcl::pTk::Derived', 'Tcl::pTk::Widget');

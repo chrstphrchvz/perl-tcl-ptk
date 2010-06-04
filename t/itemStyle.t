@@ -4,7 +4,7 @@
 #use Tk::HList;
 #use Tk::ItemStyle;
 use Tcl::pTk qw(:perlTk);
-use Tcl::pTk::Widget::ItemStyle;
+use Tcl::pTk::ItemStyle;
 use Test;
 plan tests => 1;
 

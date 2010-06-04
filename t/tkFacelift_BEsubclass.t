@@ -8,10 +8,10 @@ use strict;
 
 ############# Empty subclass test ####################
 
-package Tcl::pTk::Widget::Browse2;
+package Tcl::pTk::Browse2;
 
 
-use base qw/Tcl::pTk::Widget::BrowseEntry/;
+use base qw/Tcl::pTk::BrowseEntry/;
 
 
 Construct Tcl::pTk::Widget 'Browse2';

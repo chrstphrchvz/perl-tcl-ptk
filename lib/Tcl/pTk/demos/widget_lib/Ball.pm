@@ -20,11 +20,11 @@ package Ball;
 use vars qw/$VERSION/;
 $VERSION = '4.004'; # $Id: //depot/Tkutf8/demos/demos/widget_lib/Ball.pm#4 $
 
-use Tcl::pTk::Widget::Canvas;
+use Tcl::pTk::Canvas;
 #use Tk::Widget;
 use Tcl::pTk qw/DoOneEvent DONT_WAIT/;
 
-@Ball::ISA = ('Tcl::pTk::Widget::Canvas');
+@Ball::ISA = ('Tcl::pTk::Canvas');
 Construct Tcl::pTk::Widget 'Ball';
 use strict;
 

@@ -5,14 +5,14 @@
 # Converted to Tcl:Tk 4/8/09  John Cerney
 #
 
-package Tcl::pTk::Widget::Optionmenu;
+package Tcl::pTk::Optionmenu;
 use Tcl::pTk;
-require Tcl::pTk::Widget::Menubutton;
-require Tcl::pTk::Widget::Menu;
+require Tcl::pTk::Menubutton;
+require Tcl::pTk::Menu;
 use Carp;
 
 
-use base  qw(Tcl::pTk::Derived Tcl::pTk::Widget::Menubutton);
+use base  qw(Tcl::pTk::Derived Tcl::pTk::Menubutton);
 
 use strict;
 

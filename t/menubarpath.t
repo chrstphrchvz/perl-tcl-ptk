@@ -17,7 +17,7 @@ plan test => 6;
 
 package dummyToplevel;
 
-use base  'Tcl::pTk::Widget::Toplevel';
+use base  'Tcl::pTk::Toplevel';
 Construct Tcl::pTk::Widget 'dummyToplevel';
 
 

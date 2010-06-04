@@ -1,11 +1,11 @@
-package Tcl::pTk::Widget::Photo;
+package Tcl::pTk::Photo;
 
 
 use Tcl::pTk;
 
-use base  qw(Tcl::pTk::Widget::Image);
+use base  qw(Tcl::pTk::Image);
 
-Construct Tcl::pTk::Widget::Image 'Photo';
+Construct Tcl::pTk::Image 'Photo';
 
 sub Tk_image { 'photo' }
 

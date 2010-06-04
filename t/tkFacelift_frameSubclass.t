@@ -30,7 +30,7 @@ Construct Tk::Widget 'Frame2';
 package main;
 ##########################################################
 
-#@Tk::Frame2::ISA = ('Tcl::pTk::Widget::FramettkSubs');
+#@Tk::Frame2::ISA = ('Tcl::pTk::FramettkSubs');
 
 my $top = MainWindow->new( -title => "Hijack Test" );
 
@@ -40,6 +40,6 @@ my $frame = $top->Frame2()->pack();
 $frame->configure(-bd=> 1);
 
 # Frame2 should be a subclass of FramettkSubs when Tcl::pTk::TkFacelift is present
-ok(join(", ", @Tk::Frame2::ISA), "Tcl::pTk::Widget::FramettkSubs");
+ok(join(", ", @Tk::Frame2::ISA), "Tcl::pTk::FramettkSubs");
 
 

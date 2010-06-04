@@ -1,10 +1,10 @@
 use strict;
 
 
-package Tcl::pTk::Widget::Text;
+package Tcl::pTk::Text;
 # borrowed from Tk/Text.pm without any modifications
 
-use base  qw(Tcl::pTk::Widget::Clipboard Tcl::pTk::Widget);
+use base  qw(Tcl::pTk::Clipboard Tcl::pTk::Widget);
 
 use Tcl::pTk::Submethods
                    ( 'mark'   => [qw(gravity  next previous set unset)],  # names left out, because defined as a list function in Widget.pm
@@ -245,7 +245,7 @@ sub GotoLineNumberPopUp
   }
  unless (defined($popup))
   {
-   require Tcl::pTk::Widget::DialogBox;
+   require Tcl::pTk::DialogBox;
    $popup = $w->DialogBox(-buttons => [qw[Ok Cancel]],-title => "Goto Line Number", -popover => $w,
                           -command => sub { $w->GotoLineNumber($w->{'LAST_GOTO_LINE'}) if $_[0] eq 'Ok'});
    $w->{'GOTO_LINE_NUMBER_POPUP'}=$popup;

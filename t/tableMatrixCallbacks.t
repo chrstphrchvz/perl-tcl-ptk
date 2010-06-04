@@ -6,7 +6,7 @@
 #   
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 use Test;
 
 

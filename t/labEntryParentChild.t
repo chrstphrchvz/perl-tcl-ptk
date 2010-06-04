@@ -3,7 +3,7 @@
 
 
 use Tcl::pTk qw/ :perlTk/;
-use Tcl::pTk::Widget::BrowseEntry;
+use Tcl::pTk::BrowseEntry;
 #use Tk;
 #use Tk::BrowseEntry;
 use strict;

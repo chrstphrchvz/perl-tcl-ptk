@@ -1,12 +1,12 @@
 
 
-package Tcl::pTk::Widget::TableMatrix;
+package Tcl::pTk::TableMatrix;
 
 ###########################################################
 # Emulation of the perl/tk Tablematrix widget using Tcl::pTk
 ###########################################################
 
-@Tcl::pTk::Widget::TableMatrix::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::TableMatrix::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 use strict;
 use Tcl::pTk ('Ev');
@@ -35,7 +35,7 @@ use Tcl::pTk::Submethods ( 'border'   => [qw(dragto)],
 sub classOkWidgets{
 	my $package = shift;
 	my @widgetList = $package->SUPER::classOkWidgets();
-	return ('Tcl::pTk::Widget::TableMatrix', @widgetList);
+	return ('Tcl::pTk::TableMatrix', @widgetList);
 
 }
 

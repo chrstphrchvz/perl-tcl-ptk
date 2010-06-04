@@ -1,18 +1,18 @@
-package Tcl::pTk::Widget::Menu;
+package Tcl::pTk::Menu;
 
 # Simple Menu package.
 #  This file is needed to provide the proper inheritance of Menu to 
 #   the Wm, Derived and widget packages
 #
 
+use base qw(Tcl::pTk::Wm Tcl::pTk::Derived Tcl::pTk::Widget);
+
 use Tcl::pTk::Widget();
 use Tcl::pTk::Wm();
 use Tcl::pTk::Derived();
-use Tcl::pTk::Widget::Menubutton;
+use Tcl::pTk::Menubutton;
+use Tcl::pTk::Menu::Item;
 
-@Tcl::pTk::Widget::Menu::ISA = qw(Tcl::pTk::Wm Tcl::pTk::Derived Tcl::pTk::Widget);
-
-require Tcl::pTk::Widget::Menu::Item;
 
 Tcl::pTk::Widget->Construct('Menu');
 
@@ -122,7 +122,7 @@ sub cget {
 #  the -menu option, it takes the pathname returned by tcl and turns it into a widget.
 #  This is for compatibility with perl/tk
 #
-sub Tcl::pTk::Widget::Menu::entrycget{
+sub Tcl::pTk::Menu::entrycget{
         
         my $self = shift;
         
@@ -143,7 +143,7 @@ sub Tcl::pTk::Widget::Menu::entrycget{
         return $result;
 }
 
-# Wrapper method for Tcl::pTk::Widget::Menu path method
+# Wrapper method for Tcl::pTk::Menu path method
 #  This gets the cloned menu path (like the menubar menu), rather than non-cloned menu path.
 #   The cloned menu path is needed for bindings to work correctly on cloned menus
 #
@@ -198,7 +198,7 @@ sub Post{
 }
 
 # Calling Menubutton on a menu will directly call the menubutton creation sub
-#   instead of going thru the Tcl::pTk::Widget::new delegation code
+#   instead of going thru the Tcl::pTk::new delegation code
 sub Menubutton{
         my $self = shift;
         $self->Tcl::pTk::Menubutton(@_);
@@ -228,7 +228,7 @@ sub Tcl::pTk::Menu {
     my $mis         = delete $args{'-menuitems'};
     $args{'-state'} = delete $args{state} if exists $args{state};
 
-    my $mnu = $int->widget($self->call('menu', $w, %args), "Tcl::pTk::Widget::Menu");
+    my $mnu = $int->widget($self->call('menu', $w, %args), "Tcl::pTk::Menu");
     $mnu->_process_menuitems($int,$mnu,$mis);
     
     # Cal normal widget initialization methods

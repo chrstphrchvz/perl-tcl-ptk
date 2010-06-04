@@ -4,7 +4,7 @@
 use Tcl::pTk qw/ :perlTk/;
 use strict;
 use Test;
-use Tcl::pTk::Widget::ttkBrowseEntry;
+use Tcl::pTk::ttkBrowseEntry;
 
 #use Tk;
 #use Tk::BrowseEntry;
@@ -54,7 +54,7 @@ $cb->configure(-listcmd => [sub{
 
 $cb->_postcommandCallback();
 
-ok(ref($listCmdArg), 'Tcl::pTk::Widget::ttkBrowseEntry', '-listcmd callback');
+ok(ref($listCmdArg), 'Tcl::pTk::ttkBrowseEntry', '-listcmd callback');
 ok(join(", ", @listCmdArgs), "ExtraArg1, ExtraArg2", '-listcmd callback args');
 
 #$cb->set("10");

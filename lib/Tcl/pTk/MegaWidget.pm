@@ -126,7 +126,7 @@ sub basicWidget{
   
         # Widget is a "basic" widget if it's container widget is the same as its
         #   package name like so
-        return 1 if( "Tcl::pTk::Widget::$containerWidget" eq $package);
+        return 1 if( "Tcl::pTk::$containerWidget" eq $package);
         return 0;
 }
 
@@ -247,7 +247,7 @@ sub CreateArgs
 #   new widgets where it is ok to supply the -class option at widget creation.
 sub classOkWidgets{
 	my $package = shift;
-	return ( qw/ Tcl::pTk::Widget::Frame Tcl::pTk::Widget::Toplevel/);
+	return ( qw/ Tcl::pTk::Frame Tcl::pTk::Toplevel/);
 }
 
 
@@ -334,7 +334,7 @@ sub Tcl::pTk::catch (&)
 ######### This was copied from Tk::Scrollbar #######
 ### It is needed for some of the standard Tk megawidgets (like BrowseEntry) to work
 ###
-sub Tcl::pTk::Widget::Scrollbar::Needed
+sub Tcl::pTk::Scrollbar::Needed
 {
  my ($sb) = @_;
  my @val = $sb->get;
@@ -348,7 +348,7 @@ sub Tcl::pTk::Widget::Scrollbar::Needed
 }
 
 ## Copy of above for ttkScrollbar. Needed for using Tile scrollbar with the 'Scrolled' widget
-sub Tcl::pTk::Widget::ttkScrollbar::Needed
+sub Tcl::pTk::ttkScrollbar::Needed
 {
  my ($sb) = @_;
  my @val = $sb->get;

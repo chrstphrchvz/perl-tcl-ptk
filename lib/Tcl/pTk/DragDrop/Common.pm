@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::DragDrop::Common;
+package Tcl::pTk::DragDrop::Common;
 
 use strict;
 use Carp;
@@ -36,7 +36,7 @@ sub import
     {
       
        my ($kind) = $class =~ /([A-Z][a-z]+)$/;
-       my $file = Tcl::pTk->findINC("Widget/DragDrop/${type}${kind}.pm");
+       my $file = Tcl::pTk->findINC("DragDrop/${type}${kind}.pm");
        if (defined $file)
         {
          #print "DragDrop Loading $file\n";

@@ -3,13 +3,13 @@
 # All rights reserved.
 # This program is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
-package Tcl::pTk::Widget::TextUndo;
+package Tcl::pTk::TextUndo;
 
 $DoDebug = 0;
 
 use Tcl::pTk qw (Ev);
 
-use base qw(Tcl::pTk::Widget::Text Tcl::pTk::Derived );
+use base qw(Tcl::pTk::Text Tcl::pTk::Derived );
 
 Construct Tcl::pTk::Widget 'TextUndo';
 

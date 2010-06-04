@@ -1,8 +1,8 @@
 
 
-package Tcl::pTk::Widget::Listbox;
+package Tcl::pTk::Listbox;
 
-@Tcl::pTk::Widget::Listbox::ISA = (Tcl::pTk::Widget);
+@Tcl::pTk::Listbox::ISA = (Tcl::pTk::Widget);
 
 use strict;
 
@@ -23,7 +23,7 @@ sub configure{
                         my @listVars = @$listvariable;  # Save the values for reseting after the tie
                         # Tie the list var, so that changes to it will be reflected in the
                         #   Listbox
-                        tie @$listvariable, 'Tcl::pTk::Widget::Listbox', $self;
+                        tie @$listvariable, 'Tcl::pTk::Listbox', $self;
                         
                         @$listvariable = @listVars; # set the values after the tie
                         

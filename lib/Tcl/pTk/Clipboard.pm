@@ -1,7 +1,7 @@
 # Copyright (c) 1995-2003 Nick Ing-Simmons. All rights reserved.
 # This program is free software; you can redistribute it and/or
 # modify it under the same terms as Perl itself.
-package Tcl::pTk::Widget::Clipboard;
+package Tcl::pTk::Clipboard;
 use strict;
 
 

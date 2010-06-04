@@ -79,7 +79,7 @@ my $menu = $t->menu;
 my $m2 = $menu->entrycget(3, '-menu');
 #print "menu = $m\n";
 #print "ref menu = ".ref($m)."\n";
-ok(ref($m2), 'Tcl::pTk::Widget::Menu', "entrycget -menu returns widget ref");
+ok(ref($m2), 'Tcl::pTk::Menu', "entrycget -menu returns widget ref");
 
 
 # Check return of 2-arg bind for items

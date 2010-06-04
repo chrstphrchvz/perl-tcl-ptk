@@ -1,10 +1,10 @@
-package Tcl::pTk::Widget::DragDrop::LocalSite;
+package Tcl::pTk::DragDrop::LocalSite;
 use strict;
 
-use base qw(Tcl::pTk::Widget::DropSite);
+use base qw(Tcl::pTk::DropSite);
 
 
-Tcl::pTk::Widget::DragDrop::Common::Type('Tcl::pTk::Widget::DropSite', 'Local');
+Tcl::pTk::DragDrop::Common::Type('Tcl::pTk::DropSite', 'Local');
 
 ##### Currently Empty subclass of DropSite used for local drag/drops ####
 

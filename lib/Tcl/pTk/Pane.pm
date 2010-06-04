@@ -2,11 +2,11 @@
 #
 
 # Dummy package declaration for Scrollable Frame, to avoid warning messages
-#   when we set the Tcl::pTk::Widget::Pane::ISA below
+#   when we set the Tcl::pTk::Pane::ISA below
 #
-package Tcl::pTk::Widget::ScrollableFrame;
+package Tcl::pTk::ScrollableFrame;
 
-package Tcl::pTk::Widget::Pane;
+package Tcl::pTk::Pane;
 
 
 use Tcl::pTk;
@@ -17,8 +17,8 @@ use Carp (qw/ croak /);
 
 use strict;
 
-#use base qw(Tcl::pTk::Derived Tcl::pTk::Widget::ScrollableFrame);
-@Tcl::pTk::Widget::Pane::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::ScrollableFrame /);
+#use base qw(Tcl::pTk::Derived Tcl::pTk::ScrollableFrame);
+@Tcl::pTk::Pane::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::ScrollableFrame /);
 
 Tcl::pTk::Widget->Construct('Pane');
 
@@ -73,7 +73,7 @@ sub Populate {
     # The frame widget of the BWidget ScrollableFrame is our default delegate
     #   for any methods
     my $frame = $cw->getframe;
-    $frame = $cw->interp->declare_widget($frame, 'Tcl::pTk::Widget::Frame'); # turn path name into widget
+    $frame = $cw->interp->declare_widget($frame, 'Tcl::pTk::Frame'); # turn path name into widget
 
     $cw->Advertise('frame', $frame); 
     
@@ -197,13 +197,13 @@ __END__
 
 =head1 NAME
 
-Tcl::pTk::Widget::Pane - A window panner
+Tcl::pTk::Pane - A window panner
 
 =for category Derived Widgets
 
 =head1 SYNOPSIS
 
-    use Tcl::pTk::Widget::Pane;
+    use Tcl::pTk::Pane;
 
     $pane = $mw->Scrolled(Pane, Name => 'fred',
 	-scrollbars => 'soe',
@@ -218,7 +218,7 @@ Tcl::pTk::Widget::Pane - A window panner
 
 =head1 DESCRIPTION
 
-B<Tcl::pTk::Widget::Pane> provides a scrollable frame widget. Once created it can be
+B<Tcl::pTk::Pane> provides a scrollable frame widget. Once created it can be
 treated as a frame, except it is scrollable.
         
 B<Note:> This L<Tcl::pTk> Implementation of the L<Tk::Pane> widget. It uses the Tcl/Tk I<BWidget> package

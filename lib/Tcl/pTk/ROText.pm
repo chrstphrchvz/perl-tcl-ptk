@@ -4,9 +4,9 @@
 #
 # Modified 2008 for inclusion into the Tcl::pTk package
 
-package Tcl::pTk::Widget::ROText;
+package Tcl::pTk::ROText;
 
-use base  qw(Tcl::pTk::Derived Tcl::pTk::Widget::Text);
+use base  qw(Tcl::pTk::Derived Tcl::pTk::Text);
 
 Construct Tcl::pTk::Widget 'ROText';
 

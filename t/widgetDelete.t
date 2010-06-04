@@ -37,7 +37,7 @@ $top->after(2000, sub{ $top->destroy});
 
 MainLoop;
 
-sub Tcl::pTk::Widget::Button::DESTROY{
+sub Tcl::pTk::Button::DESTROY{
         my $self = shift;
         $destroyed = 1;
         #print "In destroy\n";

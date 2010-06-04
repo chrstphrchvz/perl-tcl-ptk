@@ -9,7 +9,7 @@
 # Andy Worhal had it wrong, its "fifteen megabytes of fame"
 #	-Greg Bartels
 
-package Tcl::pTk::Widget::TextEdit;
+package Tcl::pTk::TextEdit;
 
 
 
@@ -18,7 +18,7 @@ use AutoLoader;
 
 use Text::Tabs;
 
-use base qw(Tcl::pTk::Widget::TextUndo);
+use base qw(Tcl::pTk::TextUndo);
 
 Construct Tcl::pTk::Widget 'TextEdit';
 

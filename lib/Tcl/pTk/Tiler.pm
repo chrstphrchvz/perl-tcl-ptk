@@ -4,13 +4,13 @@
 # An example of a geometry manager "widget" in perl
 package Tcl::pTk::Tiler;
 require Tcl::pTk;
-require Tcl::pTk::Widget::Frame;
+require Tcl::pTk::Frame;
 
 
-use base  qw(Tcl::pTk::Widget::Frame);
+use base  qw(Tcl::pTk::Frame);
 
 Construct Tcl::pTk::Widget 'Tiler';
-sub Tcl::pTk::Widget::ScrlTiler { shift->Scrolled('Tiler' => @_) }
+sub Tcl::pTk::ScrlTiler { shift->Scrolled('Tiler' => @_) }
 
 #use Tk::Pretty;
 

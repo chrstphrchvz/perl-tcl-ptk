@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::Toplevel;
+package Tcl::pTk::Toplevel;
 
 # Simple Toplevel package.
 #  Split-out from the Tcl::pTk::Widget package for compatibility with
@@ -8,7 +8,7 @@ package Tcl::pTk::Widget::Toplevel;
 use Tcl::pTk::Widget();
 use Tcl::pTk::Wm();
 
-@Tcl::pTk::Widget::Toplevel::ISA = qw(Tcl::pTk::Wm Tcl::pTk::Widget);
+@Tcl::pTk::Toplevel::ISA = qw(Tcl::pTk::Wm Tcl::pTk::Widget);
 
 
 sub Populate

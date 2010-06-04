@@ -14,7 +14,7 @@ require 5.005_03;
 
 use Tcl::pTk qw/Ev/;
 
-use base  qw/Tcl::pTk::Widget::Frame/;
+use base  qw/Tcl::pTk::Frame/;
 Construct Tcl::pTk::Widget 'Plot';
 use strict;
 

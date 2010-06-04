@@ -26,7 +26,7 @@ sub SetBindtags
  my ($obj) = @_;
  
  # Setting bindtags for popup menus causes the menu items to be inactive on linux, so skip
- return if( $obj->isa('Tcl::pTk::Widget::Menu') );
+ return if( $obj->isa('Tcl::pTk::Menu') );
          
  $obj->bindtags([ref($obj),$obj,'all']);
 }

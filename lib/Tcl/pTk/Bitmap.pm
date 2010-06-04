@@ -1,9 +1,9 @@
-package Tcl::pTk::Widget::Bitmap;
+package Tcl::pTk::Bitmap;
 require Tcl::pTk;
-require Tcl::pTk::Widget::Image;
+require Tcl::pTk::Image;
 
-use base  qw(Tcl::pTk::Widget::Image);
-Construct Tcl::pTk::Widget::Image 'Bitmap';
+use base  qw(Tcl::pTk::Image);
+Construct Tcl::pTk::Image 'Bitmap';
 sub Tk_image { 'bitmap' }
 1;
 __END__

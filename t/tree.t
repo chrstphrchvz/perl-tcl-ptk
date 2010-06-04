@@ -8,7 +8,7 @@
 
 use strict;
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::Tree;
+use Tcl::pTk::Tree;
 use Test;
 
 plan tests => 2;

@@ -1,7 +1,7 @@
 # Test Case for a megawidget
 #
 #  This is exactly the same as slideMegaWidget.t, but the namespace is just SlideSwitch, and not
-#    Tcl::pTk::Widget::SlideSwitch.
+#    Tcl::pTk::SlideSwitch.
 #  This tests to see if we can create megawidgets in an arbitrary namespace, like the WidgetDemo.pm file
 #   in the Tk demos directory.
 
@@ -16,7 +16,7 @@ use Tcl::pTk;
 use Tcl::pTk::MegaWidget;
 
 
-use base qw/Tcl::pTk::Widget::Frame/;
+use base qw/Tcl::pTk::Frame/;
 
 use strict;
 

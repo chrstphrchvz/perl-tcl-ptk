@@ -1,11 +1,11 @@
 =head1 NAME 
 
-Tcl::pTk::Widget::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobox
+Tcl::pTk::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobox
 
 =head1 SYNOPSIS
 
  use Tcl::pTk qw/ :perlTk/;
- use Tcl::pTk::Widget::ttkBrowseEntry;
+ use Tcl::pTk::ttkBrowseEntry;
 
  $b = $frame->ttkBrowseEntry(-label => "Label", -variable => \$var, 
           -labelPack => [-side => 'left']);
@@ -17,7 +17,7 @@ Tcl::pTk::Widget::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobo
 
 =head1 DESCRIPTION
 
-L<Tcl::pTk::Widget::ttkBrowseEntry> is a wrapper around the Tile widget I<ttkCombobox> that is compatible with L<Tcl::pTk::Widget::BrowseEntry>.
+L<Tcl::pTk::ttkBrowseEntry> is a wrapper around the Tile widget I<ttkCombobox> that is compatible with L<Tcl::pTk::BrowseEntry>.
 It is provided for a quick upgrade of existing code to use the newer Combobox widget.
 
 =head1 OPTIONS
@@ -136,14 +136,14 @@ Get the current selected choice. This directly maps to the I<get> method of the 
 
 =cut
 
-package Tcl::pTk::Widget::ttkBrowseEntry;
+package Tcl::pTk::ttkBrowseEntry;
 
 use Tcl::pTk qw(Ev);
 use Carp;
 use strict;
 
 
-use base qw(Tcl::pTk::Widget::Frame);
+use base qw(Tcl::pTk::Frame);
 Construct Tcl::pTk::Widget 'ttkBrowseEntry';
 
 sub Populate {

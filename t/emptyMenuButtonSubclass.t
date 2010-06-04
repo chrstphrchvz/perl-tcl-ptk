@@ -107,9 +107,9 @@ MainLoop;
 BEGIN{
         
 #### Empty Menubutton Subclass defined here #####
-package Tcl::pTk::Widget::Menubutton2;
+package Tcl::pTk::Menubutton2;
 
-@Tcl::pTk::Widget::Menubutton2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Menubutton/);
+@Tcl::pTk::Menubutton2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Menubutton/);
 
 Construct Tcl::pTk::Widget 'Menubutton2';
 

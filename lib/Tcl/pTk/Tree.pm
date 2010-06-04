@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::Tree;
+package Tcl::pTk::Tree;
 # Tree -- TixTree widget
 #
 # Derived from Tree.tcl in Tix 4.1
@@ -12,8 +12,8 @@ $VERSION = '4.005'; # $Id: //depot/Tkutf8/Tixish/Tree.pm#5 $
 
 use Tcl::pTk ();
 use Tcl::pTk::Derived;
-use Tcl::pTk::Widget::HList;
-use base  qw(Tcl::pTk::Derived Tcl::pTk::Widget::HList);
+use Tcl::pTk::HList;
+use base  qw(Tcl::pTk::Derived Tcl::pTk::HList);
 use strict;
 
 Construct Tcl::pTk::Widget 'Tree';

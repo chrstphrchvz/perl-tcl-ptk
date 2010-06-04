@@ -1,11 +1,11 @@
 =head1 NAME
 
-Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows - Table Display with selectable hide/un-hide of rows
+Tcl::pTk::TableMatrix::SpreadsheetHideRows - Table Display with selectable hide/un-hide of rows
 
 =head1 SYNOPSIS
 
   use Tcl::pTk;
-  use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
+  use Tcl::pTk::TableMatrix::SpreadsheetHideRows;
 
 
 
@@ -25,7 +25,7 @@ Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows - Table Display with selectab
 
 =head1 DESCRIPTION
 
-L<Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows> is a L<Tcl::pTk::Widget::TableMatrix::Spreadsheet>-derived widget that implements
+L<Tcl::pTk::TableMatrix::SpreadsheetHideRows> is a L<Tcl::pTk::TableMatrix::Spreadsheet>-derived widget that implements
 a Spreadsheet-like display of tabular information, where some of the rows in the table
 can be expanded/hidden by clicking a '+/-' selector in the row. This can be used to display
 top-level information in a table, while allowing the user to expand certain table rows to 
@@ -35,7 +35,7 @@ See demos/SpreadsheetHideRows in the source distribution for a simple example of
 
 =head1 Widget-specific Options 
 
-In addition the standard L<Tcl::pTk::Widget::TableMatrix> widget options. The following options are implemented:
+In addition the standard L<Tcl::pTk::TableMatrix> widget options. The following options are implemented:
 
 =over 1
 
@@ -113,16 +113,16 @@ In addition the standard L<Tk::TableMatrix> widget method. The following methods
 
 =cut
 
-package Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
+package Tcl::pTk::TableMatrix::SpreadsheetHideRows;
 
 use Carp;
 
 
 use Tcl::pTk;
-use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
+use Tcl::pTk::TableMatrix::Spreadsheet;
 use Tcl::pTk::Derived;
 
-use base qw/ Tcl::pTk::Derived Tcl::pTk::Widget::TableMatrix::Spreadsheet/;
+use base qw/ Tcl::pTk::Derived Tcl::pTk::TableMatrix::Spreadsheet/;
 
 $VERSION = '1.23';
 

@@ -23,17 +23,17 @@ BEGIN{
 
 
 use Tcl::pTk::Widget;
-use Tcl::pTk::Widget::MainWindow;
-use Tcl::pTk::Widget::DialogBox;
-use Tcl::pTk::Widget::Dialog;
-use Tcl::pTk::Widget::LabEntry;
-use Tcl::pTk::Widget::ROText;
-use Tcl::pTk::Widget::Listbox;
-use Tcl::pTk::Widget::Balloon;
-use Tcl::pTk::Widget::Menu;
-use Tcl::pTk::Widget::Menubutton;
-use Tcl::pTk::Widget::Optionmenu;
-use Tcl::pTk::Widget::Canvas;
+use Tcl::pTk::MainWindow;
+use Tcl::pTk::DialogBox;
+use Tcl::pTk::Dialog;
+use Tcl::pTk::LabEntry;
+use Tcl::pTk::ROText;
+use Tcl::pTk::Listbox;
+use Tcl::pTk::Balloon;
+use Tcl::pTk::Menu;
+use Tcl::pTk::Menubutton;
+use Tcl::pTk::Optionmenu;
+use Tcl::pTk::Canvas;
 use Tcl::pTk::Font;
 
 
@@ -311,8 +311,8 @@ This way Tcl::pTk widget commands are translated to Tcl syntax and directed to
 the Tcl interpreter. This translation that occurs from perl/Tk syntax to Tcl calls is why the two approaches for
 dealing with widgets are interchangeable.
 
-The newly created widget C<$label> will be blessed to package C<Tcl::pTk::Widget::Label>
-which is isa-C<Tcl::pTk::Widget> (i.e. C<Tcl::pTk::Widget::Label> is a subclass of C<Tcl::pTk::Widget>).
+The newly created widget C<$label> will be blessed to package C<Tcl::pTk::Label>
+which is isa-C<Tcl::pTk::Widget> (i.e. C<Tcl::pTk::Label> is a subclass of C<Tcl::pTk::Widget>).
 
 
 =head1 Categories of Tcl::pTk Widgets
@@ -369,13 +369,13 @@ Here is an example of a Entry widget, a direct auto-wrapped widget:
 Internally, the following mechanics comes into play.
 The I<Entry> method creates an I<Entry> widget (known as C<entry> in the Tcl/Tk environment). 
 When this creation method is invoked first time, a package 
-C<Tcl::pTk::Widget::Entry> is created, which sets up the class hierarchy for any
-further Entry widgets. The newly-created C<Tcl::pTk::Widget::Entry> class is be
+C<Tcl::pTk::Entry> is created, which sets up the class hierarchy for any
+further Entry widgets. The newly-created C<Tcl::pTk::Entry> class is be
 a direct subclass of C<Tcl::pTk::Widget>.
 
 The second code line above calls the C<insert> method of the C<$entry> object.
 When invoked first time, a method (i.e. subref) C<insert> is 
-created in package C<Tcl::pTk::Widget::Entry>, which will end-up calling
+created in package C<Tcl::pTk::Entry>, which will end-up calling
 calling the C<invoke> method on the Tcl/Tk interpreter (i.e. 
 C<$entry->interp()->invoke($entry, 'insert', -text, 'text')
 
@@ -395,15 +395,15 @@ code added for compatibility with the perl/tk Text widget.
   
 Internally, following mechanics comes into play.
 The I<Text> method creates an I<Text> widget (known as C<text> in Tcl/Tk environment). 
-Because a C<Tcl::pTk::Widget::Text> package already exists, a new package is not created
+Because a C<Tcl::pTk::Text> package already exists, a new package is not created
 at runtime like the case above. 
 
 The second code line above calls the C<insert> of the C<$text> object of type
-C<Tcl::pTk::Widget::Text>. This C<insert> method is already defined in the C<Tcl::pTk::Widget::Text> package,
+C<Tcl::pTk::Text>. This C<insert> method is already defined in the C<Tcl::pTk::Text> package,
 so it is called directly. 
 
 The third code line above calls the C<markNames> method on the C<$text> object. This method
-is not defined in the C<Tcl::pTk::Widget::Text> package, so the first time when C<makrNames> is called, 
+is not defined in the C<Tcl::pTk::Text> package, so the first time when C<makrNames> is called, 
 AUTOLOAD in the L<Tcl::pTk> package comes into play and creates the method. 
 The second time C<makkNames> is called, the already-created
 method is called directly (i.e. not created again), thus saving execution time.
@@ -586,7 +586,7 @@ the widget type (such as Button, or Text etc.). For Example:
     # this will retrieve widget, and then call configure on it
     widget(".fram.butt")->configure(-text=>"new text");
 
-    # this will retrieve widget as Button (Tcl::pTk::Widget::Button object)
+    # this will retrieve widget as Button (Tcl::pTk::Button object)
     my $button = widget(".fram.butt", 'Button');
     
     # same but retrieved widget considered as general widget, without
@@ -750,7 +750,7 @@ sub new {
     $W{PATH}->{$mwid} = '.';
     $W{INT}->{$mwid} = $i;
     $W{MWID}->{'.'} = $mwid;
-    $W{mainwindow}->{"$i"} = bless({ winID => $mwid }, 'Tcl::pTk::Widget::MainWindow');
+    $W{mainwindow}->{"$i"} = bless({ winID => $mwid }, 'Tcl::pTk::MainWindow');
     $i->call('trace', 'add', 'command', '.', 'delete',
 	 sub { for (keys %W) {$W{$_}->{$mwid} = undef; }});
     $i->ResetResult();
@@ -950,7 +950,7 @@ sub create_widget{
 # args:
 #   - a path of existing Tcl/Tk widget to declare its existance in Tcl::pTk
 #   - (optionally) package name where this widget will be declared, default
-#     is 'Tcl::pTk::Widget', but could be 'Tcl::pTk::Widget::somewidget'
+#     is 'Tcl::pTk::Widget', but could be 'Tcl::pTk::somewidget'
 sub declare_widget {
     my $int = shift;
     my $path = shift;
@@ -1074,9 +1074,9 @@ sub widget($@) {
     if (exists $W{RPATH}->{$wpath}) {
         return $W{RPATH}->{$wpath};
     }
-    unless ($wtype=~/^(?:Tcl::pTk::Widget)/) {
+    unless ($wtype=~/^(?:Tcl::pTk)/) {
 	Tcl::pTk::Widget::create_widget_package($wtype);
-	$wtype = "Tcl::pTk::Widget::$wtype";
+	$wtype = "Tcl::pTk::$wtype";
     }
     #if ($wtype eq 'Tcl::pTk::Widget') {
     #	require Carp;

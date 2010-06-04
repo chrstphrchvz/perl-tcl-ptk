@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl -w
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::ROText;
+use Tcl::pTk::ROText;
 #use Tk;
 #use Tk::ROText;
 use Test;

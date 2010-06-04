@@ -52,7 +52,7 @@ $lb->configure(-listvariable => undef);
 
 my @listVar2 = ();
 
-tie @listVar2, 'Tcl::pTk::Widget::Listbox', $lb;
+tie @listVar2, 'Tcl::pTk::Listbox', $lb;
 
 @listVar2 = (qw/a b c d e f/);
 

@@ -1,9 +1,9 @@
-package Tcl::pTk::Widget::DropSite;
-require Tcl::pTk::Widget::DragDrop::Common;
-require Tcl::pTk::Widget::DragDrop::Rect;
+package Tcl::pTk::DropSite;
+require Tcl::pTk::DragDrop::Common;
+require Tcl::pTk::DragDrop::Rect;
 
 
-use base  qw(Tcl::pTk::Widget::DragDrop::Common Tcl::pTk::Widget::DragDrop::Rect);
+use base  qw(Tcl::pTk::DragDrop::Common Tcl::pTk::DragDrop::Rect);
 
 Construct Tcl::pTk::Widget 'DropSite';
 
@@ -15,7 +15,7 @@ use strict;
 #   @types: List of supported drag types (e.g. Local, XDND, etc)
 use vars qw(%type @types);
 
-#Tcl::pTk::Widget::DragDrop->Tcl::pTk::Widget::DragDrop::Common::Type('Local');
+#Tcl::pTk::DragDrop->Tcl::pTk::DragDrop::Common::Type('Local');
 
 my @toplevels;
 
@@ -106,7 +106,7 @@ sub NoteSites
  my ($class,$t,$sites) = @_;
  unless (grep($_ == $t,@toplevels))
   {
-   $Tcl::pTk::Widget::DragDrop::types{'Local'} = $class if (@$sites);
+   $Tcl::pTk::DragDrop::types{'Local'} = $class if (@$sites);
    push(@toplevels,$t);
    $t->OnDestroy(sub { @toplevels = grep($_ != $t,@toplevels) });
   }
@@ -231,7 +231,7 @@ sub new
  my $type;
  foreach $type (@{$args{'-droptypes'}})
   {
-   Tcl::pTk::Widget::DropSite->import($type) unless (exists $type{$type});
+   Tcl::pTk::DropSite->import($type) unless (exists $type{$type});
    my $class = $type{$type};
    $class->InitSite($obj);
    # Should this be indexed by type or class ?

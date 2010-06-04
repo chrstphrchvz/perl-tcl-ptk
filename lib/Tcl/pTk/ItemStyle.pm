@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::ItemStyle;
+package Tcl::pTk::ItemStyle;
 
 
 require Tcl::pTk;

@@ -4,7 +4,7 @@
 
 use strict;
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::Dialog;
+use Tcl::pTk::Dialog;
 
 
 use Test;

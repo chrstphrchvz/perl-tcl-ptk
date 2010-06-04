@@ -49,16 +49,16 @@ ok(1);
 BEGIN{
         
 #### Empty Menu Subclass #####
-package Tcl::pTk::Widget::Menu2;
+package Tcl::pTk::Menu2;
 
-@Tcl::pTk::Widget::Menu2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Menu/);
+@Tcl::pTk::Menu2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Menu/);
 
 Construct Tcl::pTk::Widget 'Menu2';
 
 #### Empty Button Subclass #####
-package Tcl::pTk::Widget::Button2;
+package Tcl::pTk::Button2;
 
-@Tcl::pTk::Widget::Button2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Button/);
+@Tcl::pTk::Button2::ISA = (qw/ Tcl::pTk::Derived Tcl::pTk::Button/);
 
 Construct Tcl::pTk::Widget 'Button2';
 

@@ -4,7 +4,7 @@
 use Tcl::pTk qw/ :perlTk/;
 use strict;
 use Test;
-use Tcl::pTk::Widget::BrowseEntry;
+use Tcl::pTk::BrowseEntry;
 
 plan tests => 2;
 

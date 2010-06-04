@@ -9,7 +9,7 @@ use Carp;
 use overload '""' => 'as_string';
 sub as_string { return $_[0]->{name} }
 
-*MainWindow = \&Tcl::pTk::Widget::MainWindow;
+*MainWindow = \&Tcl::pTk::MainWindow;
 
 foreach my $key (qw( metrics measure configure))
  {

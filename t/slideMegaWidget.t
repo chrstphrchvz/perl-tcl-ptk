@@ -5,16 +5,16 @@
 use Test;
 plan tests => 2;
 
-package Tcl::pTk::Widget::SlideSwitch;
+package Tcl::pTk::SlideSwitch;
 
 use Tcl::pTk;
 use Tcl::pTk::MegaWidget;
-use Tcl::pTk::Widget::TextUndo;
+use Tcl::pTk::TextUndo;
 
 #use Tk;
 #use Tk::TextUndo;
 
-use base qw/Tcl::pTk::Widget::Frame/;
+use base qw/Tcl::pTk::Frame/;
 #use base qw/Tk::Frame/;
 
 use strict;

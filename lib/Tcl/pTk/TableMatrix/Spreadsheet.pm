@@ -1,12 +1,12 @@
 
 =head1 NAME
 
-Tcl::pTk::Widget::TableMatrix::Spreadsheet - Table Display with Spreadsheet-like bindings.
+Tcl::pTk::TableMatrix::Spreadsheet - Table Display with Spreadsheet-like bindings.
 
 =head1 SYNOPSIS
 
   use Tcl::pTk ( qw/ :perlTk /);
-  use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
+  use Tcl::pTk::TableMatrix::Spreadsheet;
 
 
 
@@ -22,7 +22,7 @@ Tcl::pTk::Widget::TableMatrix::Spreadsheet - Table Display with Spreadsheet-like
 
 =head1 DESCRIPTION
 
-L<Tcl::pTk::Widget::TableMatrix::Spreadsheet> is a L<Tcl::pTk::Widget::TableMatrix>-derived widget that implements
+L<Tcl::pTk::TableMatrix::Spreadsheet> is a L<Tcl::pTk::TableMatrix>-derived widget that implements
 some bindings so the resulting widget behaves more like a spreadsheet.
 
 B<Bindings Added:>
@@ -50,7 +50,7 @@ row/col title areas.
 =item *
 
 Cells activate (i.e. the contents become edit-able) only when the cell is double-clicked
-or the F2 button is pressed. The default L<Tcl::pTk::Widget::TableMatrix> behavior is for the
+or the F2 button is pressed. The default L<Tcl::pTk::TableMatrix> behavior is for the
 cell to be activated when the cell is single-clicked.
 
 =item *
@@ -79,23 +79,23 @@ clipboard).
 
 =head1 Additional Information
 
-Widget methods, options, etc, are inherited from the L<Tcl::pTk::Widget::TableMatrix> widget. See its 
+Widget methods, options, etc, are inherited from the L<Tcl::pTk::TableMatrix> widget. See its 
 docs for additional information.
 
 =cut
 
 
 
-package Tcl::pTk::Widget::TableMatrix::Spreadsheet;
+package Tcl::pTk::TableMatrix::Spreadsheet;
 
 use Carp;
 
 
 use Tcl::pTk (qw/ Ev /);
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 use Tcl::pTk::Derived;
 
-use base qw/ Tcl::pTk::Derived Tcl::pTk::Widget::TableMatrix/;
+use base qw/ Tcl::pTk::Derived Tcl::pTk::TableMatrix/;
 
 $VERSION = '1.23';
 
@@ -216,7 +216,7 @@ sub ClassInit{
 		   {
 		    my $w = shift;
 		    my ($x, $y) = @_;
-		    $w->Paste($w->index('@' . $x.",".$y),'PRIMARY') unless ($Tcl::pTk::Widget::TableMatrix::tkPriv{'mouseMoved'});
+		    $w->Paste($w->index('@' . $x.",".$y),'PRIMARY') unless ($Tcl::pTk::TableMatrix::tkPriv{'mouseMoved'});
 		   }, Ev('x'), Ev('y')
                    ]
 		 );
@@ -670,7 +670,7 @@ sub MoveCell{
 	  $w->selection('clear','all');
 	  $w->selection('set',$cell);
 	  $w->selection('anchor',$cell);
-	  $Tcl::pTk::Widget::TableMatrix::tkPriv{'tablePrev'} = $cell;
+	  $Tcl::pTk::TableMatrix::tkPriv{'tablePrev'} = $cell;
 	 }
 }	
 	
@@ -884,7 +884,7 @@ sub B1Motion {
 	my $rowColResize = $w->{rowColResize};  # Flag = 1 if cursor has been changed for a row/col resize
         
         # if the row/col handles are present Or we aren't over a border, do a normal B1Motion
-        if( $rowColResize || !$Tcl::pTk::Widget::TableMatrix::tkPriv{borderInfo}  ) {
+        if( $rowColResize || !$Tcl::pTk::TableMatrix::tkPriv{borderInfo}  ) {
                 $w->SUPER::B1Motion($x,$y);
         }
         else{

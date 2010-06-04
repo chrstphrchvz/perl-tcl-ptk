@@ -1,14 +1,14 @@
-package Tcl::pTk::Widget::MainWindow;
+package Tcl::pTk::MainWindow;
 
-use Tcl::pTk::Widget::Toplevel;
+use Tcl::pTk::Toplevel;
 
-@Tcl::pTk::Widget::MainWindow::ISA = (qw/ Tcl::pTk::Widget::Toplevel/);
+@Tcl::pTk::MainWindow::ISA = (qw/ Tcl::pTk::Toplevel/);
 
 
 sub DESTROY {}			# do not let AUTOLOAD catch this method
 
 sub AUTOLOAD {
-    $Tcl::pTk::Widget::AUTOLOAD = $Tcl::pTk::Widget::MainWindow::AUTOLOAD;
+    $Tcl::pTk::Widget::AUTOLOAD = $Tcl::pTk::MainWindow::AUTOLOAD;
     return &Tcl::pTk::Widget::AUTOLOAD;
 }
 

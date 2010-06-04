@@ -4,7 +4,7 @@ use strict;
 use Test;
 use Tcl::pTk qw/:perlTk/;
 
-use Tcl::pTk::Widget::DirTree;
+use Tcl::pTk::DirTree;
 
 plan tests => 1;
 

@@ -4,7 +4,7 @@
 
 use Test;
 use Tcl::pTk (qw/ :perlTk /);
-use Tcl::pTk::Widget::Table();
+use Tcl::pTk::Table();
 use Tcl::pTk::TkFacelift;
 
 

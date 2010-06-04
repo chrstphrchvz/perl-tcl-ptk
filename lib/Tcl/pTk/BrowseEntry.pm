@@ -7,17 +7,17 @@
 #
 # Converted to Tcl::pTk by John Cerney
 
-package Tcl::pTk::Widget::BrowseEntry;
+package Tcl::pTk::BrowseEntry;
 
 
 use Tcl::pTk qw(Ev);
 use Carp;
 use strict;
 
-use base qw(Tcl::pTk::Widget::Frame);
+use base qw(Tcl::pTk::Frame);
 Construct Tcl::pTk::Widget 'BrowseEntry';
 
-require Tcl::pTk::Widget::LabEntry;
+require Tcl::pTk::LabEntry;
 
 sub LabEntryWidget { "LabEntry" }
 sub ButtonWidget   { "Button"   }

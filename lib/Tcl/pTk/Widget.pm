@@ -13,11 +13,11 @@ use Tcl::pTk::Callback;
 use Tcl::pTk::MegaWidget;
 use Tcl::pTk::Derived;
 use Tcl::pTk::Trace;
-use Tcl::pTk::Widget::Frame;
-use Tcl::pTk::Widget::HList;
-use Tcl::pTk::Widget::Text;
-use Tcl::pTk::Widget::Photo;
-use Tcl::pTk::Widget::Bitmap;
+use Tcl::pTk::Frame;
+use Tcl::pTk::HList;
+use Tcl::pTk::Text;
+use Tcl::pTk::Photo;
+use Tcl::pTk::Bitmap;
 use Tcl::pTk::XEvent;  # Limited XEvent support
 use Tcl::pTk::Font;
 
@@ -105,18 +105,18 @@ my %ptk2tcltk =
 #   isn't in the lookup below, then its ISA is set to Tcl::pTk::Widget
 my %ptk2tcltk_ISAs =
     (
-     Checkbutton => [qw/ Tcl::pTk::Widget::Button /],
-     Entry       => [qw/ Tcl::pTk::Widget::Clipboard Tcl::pTk::Widget /],
-     Listbox     => [qw/ Tcl::pTk::Widget::Clipboard Tcl::pTk::Widget /],
-     Radiobutton => [qw/ Tcl::pTk::Widget::Button /],
+     Checkbutton => [qw/ Tcl::pTk::Button /],
+     Entry       => [qw/ Tcl::pTk::Clipboard Tcl::pTk::Widget /],
+     Listbox     => [qw/ Tcl::pTk::Clipboard Tcl::pTk::Widget /],
+     Radiobutton => [qw/ Tcl::pTk::Button /],
      );
 
 # Set the container names for the autoloaded widgets above that have set ISAs other than
 #   the default Tcl::pTk::Widget
-sub Tcl::pTk::Widget::Radiobutton::containerName{
+sub Tcl::pTk::Radiobutton::containerName{
     return 'Radiobutton';
 }
-sub Tcl::pTk::Widget::Checkbutton::containerName{
+sub Tcl::pTk::Checkbutton::containerName{
     return 'Checkbutton';
 }
 
@@ -125,7 +125,7 @@ sub Tcl::pTk::Widget::Checkbutton::containerName{
 #   names for the same tcl/tk methods
 # This is a 2D lookup table of Widget class => ptkMethodName => TclMethodName
 my %ptk2tcltk_methodMap = (
-        'Tcl::pTk::Widget::Menu'  => {
+        'Tcl::pTk::Menu'  => {
                 'Post' => 'post'
         }
 );
@@ -381,7 +381,7 @@ sub cget {
                     # Turn image into an object;
                     my $type = $self->call('image', 'type', $name);
                     $type = ucfirst($type);
-                    my $package = "Tcl::pTk::Widget::$type";
+                    my $package = "Tcl::pTk::$type";
                     my $obj = $self->interp->declare_widget($name, $package);
                     return $obj;
             }
@@ -1251,7 +1251,7 @@ sub Getimage {
     foreach my $ext (@image_types) {
 	my $path;
 	foreach my $dir (@INC) {
-	    $path = "$dir/Tcl/Tk/images/$name.$ext";
+	    $path = "$dir/Tcl/pTk/images/$name.$ext";
             
             if( -f $path){ # File found, check that we can load Img package before accepting a xpm file
                 my $load = 1;
@@ -1337,7 +1337,7 @@ sub create_ptk_widget_sub {
 
             my %args = @_;
             my @code_todo = process_replace_options($replace_options_wid, \%args);
-            my $packageName = "Tcl::pTk::Widget::$wtype";
+            my $packageName = "Tcl::pTk::$wtype";
             $packageName->InitClass($self); # Any Class initialization is performed here
             my $wid  = $int->create_widget($self, $w, $ttktype, $packageName, %args);
 	    $_->[0]->($wid,$_->[1]) for @code_todo;
@@ -1368,7 +1368,7 @@ sub create_ptk_widget_sub {
         }
 
         my $w    = w_uniq($self, $wpref); # create uniq pref's widget id
-	my $wid  = $int->declare_widget($int->invoke($ttktype,$w,@_), "Tcl::pTk::Widget::$wtype");
+	my $wid  = $int->declare_widget($int->invoke($ttktype,$w,@_), "Tcl::pTk::$wtype");
         $wid->SetBindtags; # set perl/tk compatible bindtags on the widget
 
 	return $wid;
@@ -1394,7 +1394,7 @@ sub create_ptk_widget_sub {
         my %args = @_;
 
         my $w    = w_uniq($self, $wpref); # create uniq pref's widget id
-        my $packageName = "Tcl::pTk::Widget::$wtype";
+        my $packageName = "Tcl::pTk::$wtype";
         $packageName->InitClass($self); # Any Class initialization is performed here
 	my $wid  = $int->create_widget($self, $w, $ttktype, $packageName, %args);
 
@@ -1504,7 +1504,7 @@ sub LabFrame {
 	}
     }
     create_widget_package('LabFrame');
-    my $lf = $int->declare_widget($self->call($ttktype, $w, %args), "Tcl::pTk::Widget::LabFrame");
+    my $lf = $int->declare_widget($self->call($ttktype, $w, %args), "Tcl::pTk::LabFrame");
     create_method_in_widget_package('LabFrame',
 	Subwidget => sub {
 	    my $lf = shift;
@@ -1518,7 +1518,7 @@ sub LabFrame {
 
 # Text
 sub _prepare_ptk_Text {
-    require Tcl::pTk::Widget::Text; # get more Text p/Tk compat methods
+    require Tcl::pTk::Text; # get more Text p/Tk compat methods
 }
 
 
@@ -1631,7 +1631,7 @@ sub _addcascade {
     #  if the menu method is called on the menu button
     my $entries = $mnu->index('end');
     $entries++;
-    my $smnu = $int->widget($mnu->call('menu',"$mnu.m$entries"), "Tcl::pTk::Widget::Menu");
+    my $smnu = $int->widget($mnu->call('menu',"$mnu.m$entries"), "Tcl::pTk::Menu");
     #my $smnu = $mnu->Menu; # return unique widget id
     
     #print  " smenu = $smnu\n";
@@ -1694,7 +1694,7 @@ sub NoteBook {
     delete $args{'-tabpady'};
     delete $args{'-inactivebackground'};
     create_widget_package('NoteBook');
-    my $bw = $int->declare_widget($self->call('tixNoteBook', $w, %args), "Tcl::pTk::Widget::NoteBook");
+    my $bw = $int->declare_widget($self->call('tixNoteBook', $w, %args), "Tcl::pTk::NoteBook");
     create_method_in_widget_package('NoteBook',
 	add=>sub {
 	    my $bw = shift;
@@ -1745,7 +1745,7 @@ sub Scrolled
  # Check for existing mousewheel bindings.
  # If there aren't any, then add them
  my $mouseWheel = $cw->bind(ref($w), '<MouseWheel>'); # Check for class binding
- $mouseWheel = 1 if( $w->isa('Tcl::pTk::Widget::Text')); # Text is a special case, it has already has mousewheel binding
+ $mouseWheel = 1 if( $w->isa('Tcl::pTk::Text')); # Text is a special case, it has already has mousewheel binding
  if( !$mouseWheel ){
  	$cw->MouseWheelBind($w) unless $mouseWheel;
 
@@ -1856,9 +1856,11 @@ sub declareAutoWidget{
                 
                 # defined widget package, unless it has been defined already
                 unless( defined( &{"Tcl::pTk::Widget::$widgetname"} ) ){
+
+
                         Tcl::pTk::Widget::create_widget_package($widgetname);
                         my $sub = Tcl::pTk::Widget::create_ptk_widget_sub($interp,$widgetname,'');
-                        
+
                         # Real Widget sub created in Tcl::pTk namespace
                         no strict 'refs';
                         *{"Tcl::pTk::$widgetname"} = $sub;
@@ -1871,9 +1873,10 @@ sub declareAutoWidget{
                          # to force creation in a delegate e.g. a ScrlText with embeded windows
                          # need those windows to be children of the Text to get clipping right
                          # and not of the Frame which contains the Text and the scrollbars.
-                         my $class = "Tcl::pTk::Widget::$widgetname";
+                         my $class = "Tcl::pTk::$widgetname";
                          *{'Tcl::pTk::Widget::'.$widgetname}  = $sub =  sub { $class->new(shift->DelegateFor('Construct'),@_) };
                          subname('Tcl::pTk::Widget::'.$widgetname, $sub) if($Tcl::pTk::DEBUG); # Name the anonymous sub, if in debug mode
+
                                           
                 }
 
@@ -1889,14 +1892,14 @@ sub setAutoWidgetISAs{
 
     no strict 'refs'; # Allow us to refer to package ISAs variables by string
     
-    unless( @{"Tcl::pTk::Widget::${widgetname}::ISA"} ){ # only create ISA if it is empty (i.e. hasn't been set)
+    unless( @{"Tcl::pTk::${widgetname}::ISA"} ){ # only create ISA if it is empty (i.e. hasn't been set)
             if( defined($ptk2tcltk_ISAs{$widgetname})){ # Use lookup table, if it is there 
                     my $ISAentry = $ptk2tcltk_ISAs{$widgetname};
-                    @{"Tcl::pTk::Widget::${widgetname}::ISA"} = @$ISAentry;
+                    @{"Tcl::pTk::${widgetname}::ISA"} = @$ISAentry;
                     #print STDERR "Declaring autowidget $widgetname ".join(", ", @$ISAentry)."\n";
             }
             else{ # Not defined in table, use default
-                    @{"Tcl::pTk::Widget::${widgetname}::ISA"} = qw(Tcl::pTk::Widget);                    
+                    @{"Tcl::pTk::${widgetname}::ISA"} = qw(Tcl::pTk::Widget);                    
                     #print STDERR "Declaring Default autowidget $widgetname Tcl::pTk::Widget\n";
             }
     }
@@ -1923,15 +1926,15 @@ sub create_widget_package {
             setAutoWidgetISAs($widgetname); # Set widget inheritance/ISAs
 
             my $destroySub;
-            unless( defined( &{"Tcl::pTk::Widget::${widgetname}::DESTROY"} ) ){ # (AUTOLOAD protection)    
-                    *{"Tcl::pTk::Widget::${widgetname}::DESTROY"} = $destroySub = sub {}; 
+            unless( defined( &{"Tcl::pTk::${widgetname}::DESTROY"} ) ){ # (AUTOLOAD protection)    
+                    *{"Tcl::pTk::${widgetname}::DESTROY"} = $destroySub = sub {}; 
                     # Name the sub we just created, if debug mode
-                    Sub::Name::subname("Tcl::pTk::Widget::${widgetname}::DESTROY", $destroySub) if( $Tcl::pTk::DEBUG);
+                    Sub::Name::subname("Tcl::pTk::${widgetname}::DESTROY", $destroySub) if( $Tcl::pTk::DEBUG);
             }
             
 	    eval "
-	    sub Tcl::pTk::Widget::${widgetname}::AUTOLOAD {
-	        \$Tcl::pTk::Widget::AUTOLOAD = \${Tcl::pTk::Widget::${widgetname}::AUTOLOAD};
+	    sub Tcl::pTk::${widgetname}::AUTOLOAD {
+	        \$Tcl::pTk::Widget::AUTOLOAD = \${Tcl::pTk::${widgetname}::AUTOLOAD};
 	        return &Tcl::pTk::Widget::AUTOLOAD;
 	    }
 	    ";
@@ -1961,7 +1964,7 @@ sub create_method_in_widget_package {
 	next if exists $created_w_packages{$widgetname}->{$widgetmethod};
 	$created_w_packages{$widgetname}->{$widgetmethod}++;
 	no strict 'refs';
-	my $package = "Tcl::pTk::Widget::$widgetname";
+	my $package = "Tcl::pTk::$widgetname";
 	*{"${package}::$widgetmethod"} = $sub;
 	*{"${package}::_$widgetmethod"} = $sub;
     }
@@ -2023,7 +2026,7 @@ sub Busy
     {
      if (defined $sub)
       {
-       croak "Multiple code definitions not allowed in Tcl::pTk::Widget::Busy";
+       croak "Multiple code definitions not allowed in Tcl::pTk::Busy";
       }
      $sub = $args[$i];
     }
@@ -2631,9 +2634,9 @@ sub AUTOLOAD {
     my $fast = '';
     $method =~ s/^_// and do {
 	$fast='_';
-	if (exists $::{"Tcl::pTk::Widget::${wtype}::"}{$method}) {
+	if (exists $::{"Tcl::pTk::${wtype}::"}{$method}) {
 	    no strict 'refs';
-	    *{"::Tcl::pTk::Widget::${wtype}::_$method"} = *{"::Tcl::pTk::Widget::${wtype}::$method"};
+	    *{"::Tcl::pTk::${wtype}::_$method"} = *{"::Tcl::pTk::${wtype}::$method"};
 	    return $w->$method(@_);
 	}
     };
@@ -2704,7 +2707,7 @@ sub AUTOLOAD {
     #
     # 3.5) If the method is "containerName", find a base class of the $package that
     #       is a mapped tcl-tk widget. This enables perl/tk subwidgets to be defind
-    #       from tcl-tk widgets (for example Tcl::pTk::Widget::Tree, which is derived 
+    #       from tcl-tk widgets (for example Tcl::pTk::Tree, which is derived 
     #       from the tcl-tk widget HList)
     if( $method eq 'containerName'){
             my $packageLookup = $package;
@@ -2724,7 +2727,7 @@ sub AUTOLOAD {
             }
             
             if( defined( $baseWidget ) ){ # baseWidget found, create containerName method that returns its name.
-                                          #  (e.g. Tcl::pTk::Widget::HList::containerName would return HList)
+                                          #  (e.g. Tcl::pTk::HList::containerName would return HList)
                     no strict 'refs';
                     no warnings; # Turn off warnings, to avoid redefined warning messages
                     my $containerSub = sub{ return $baseWidget };

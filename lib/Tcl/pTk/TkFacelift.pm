@@ -1,6 +1,6 @@
 use Tcl::pTk;
-use Tcl::pTk::Widget::BrowseEntry;
-use Tcl::pTk::Widget::ttkBrowseEntry;
+use Tcl::pTk::BrowseEntry;
+use Tcl::pTk::ttkBrowseEntry;
 
 package Tcl::pTk::TkFacelift;
 
@@ -86,10 +86,10 @@ Options in the old widgets that aren't present the new Tile widgets are simply i
 
 ############# Substitution Package for oldwidget "Radiobutton" to tile widget "ttkRadiobutton" ####################
 
-package Tcl::pTk::Widget::RadiobuttonttkSubs;
+package Tcl::pTk::RadiobuttonttkSubs;
 
 
-@Tcl::pTk::Widget::RadiobuttonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::RadiobuttonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 
 Construct Tcl::pTk::Widget 'Radiobutton';
@@ -166,10 +166,10 @@ sub containerName{
 
 ############# Substitution Package for oldwidget "Button" to tile widget "ttkButton" ####################
 
-package Tcl::pTk::Widget::ButtonttkSubs;
+package Tcl::pTk::ButtonttkSubs;
 
 
-@Tcl::pTk::Widget::ButtonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::ButtonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 
 Construct Tcl::pTk::Widget 'Button';
@@ -241,10 +241,10 @@ sub containerName{
 
 ############# Substitution Package for oldwidget "Entry" to tile widget "ttkEntry" ####################
 
-package Tcl::pTk::Widget::EntryttkSubs;
+package Tcl::pTk::EntryttkSubs;
 
 
-@Tcl::pTk::Widget::EntryttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::EntryttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 
 Construct Tcl::pTk::Widget 'Entry';
@@ -321,10 +321,10 @@ sub containerName{
 
 ############# Substitution Package for oldwidget "Frame" to tile widget "ttkFrame" ####################
 
-package Tcl::pTk::Widget::FramettkSubs;
+package Tcl::pTk::FramettkSubs;
 
 
-@Tcl::pTk::Widget::FramettkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget::Frame/);
+@Tcl::pTk::FramettkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Frame/);
 
 
 Construct Tcl::pTk::Widget 'Frame';
@@ -385,7 +385,7 @@ sub CreateOptions{
 sub Tcl::pTk::Frame{
         my $self = shift;
         my $obj = $self->Tcl::pTk::ttkFrame(@_);
-        bless $obj, "Tcl::pTk::Widget::FramettkSubs";
+        bless $obj, "Tcl::pTk::FramettkSubs";
         return $obj;
 }
 
@@ -397,10 +397,10 @@ sub Tcl::pTk::Frame{
 
 ############# Substitution Package for oldwidget "Checkbutton" to tile widget "ttkCheckbutton" ####################
 
-package Tcl::pTk::Widget::CheckbuttonttkSubs;
+package Tcl::pTk::CheckbuttonttkSubs;
 
 
-@Tcl::pTk::Widget::CheckbuttonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::CheckbuttonttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 
 Construct Tcl::pTk::Widget 'Checkbutton';
@@ -476,10 +476,10 @@ sub containerName{
 
 ############# Substitution Package for oldwidget "Label" to tile widget "ttkLabel" ####################
 
-package Tcl::pTk::Widget::LabelttkSubs;
+package Tcl::pTk::LabelttkSubs;
 
 
-@Tcl::pTk::Widget::LabelttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
+@Tcl::pTk::LabelttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget/);
 
 
 Construct Tcl::pTk::Widget 'Label';
@@ -534,7 +534,7 @@ sub containerName{
 sub Tcl::pTk::Label{
         my $self = shift;
         my $obj = $self->Tcl::pTk::ttkLabel(@_);
-        bless $obj, "Tcl::pTk::Widget::LabelttkSubs";
+        bless $obj, "Tcl::pTk::LabelttkSubs";
         return $obj;
 }
 
@@ -545,10 +545,10 @@ sub Tcl::pTk::Label{
 
 ############# Substitution Package for oldwidget "BrowseEntry" to tile widget "ttkBrowseEntry" ####################
 
-package Tcl::pTk::Widget::BrowseEntryttkSubs;
+package Tcl::pTk::BrowseEntryttkSubs;
 
 
-@Tcl::pTk::Widget::BrowseEntryttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::Widget::ttkBrowseEntry/);
+@Tcl::pTk::BrowseEntryttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::ttkBrowseEntry/);
 
 {
         local $^W = 0; # To avoid subroutine redefined warning messages
@@ -584,17 +584,17 @@ sub Populate {
 
 # Alias the entire BrowseEntry namespace to ttkBrowseEntry, so Browse-Entry subclasses widgets
 #   work correctly
-*Tcl::pTk::Widget::BrowseEntry:: = *Tcl::pTk::Widget::ttkBrowseEntry::;
+*Tcl::pTk::BrowseEntry:: = *Tcl::pTk::ttkBrowseEntry::;
 
 # Redefine the BrowseEntry Mapping if TkHijack loaded, so BrowseEntry subclasses will still work
-*Tk::BrowseEntry:: = *Tcl::pTk::Widget::BrowseEntry:: if( defined $Tcl::pTk::TkHijack::packageAliases );
+*Tk::BrowseEntry:: = *Tcl::pTk::BrowseEntry:: if( defined $Tcl::pTk::TkHijack::packageAliases );
 
 
 # Wrapper sub so mega-widgets still work with the facelift
 sub Tcl::pTk::BrowseEntry{
         my $self = shift;
         my $obj = $self->Tcl::pTk::ttkBrowseEntry(@_);
-        bless $obj, "Tcl::pTk::Widget::BrowseEntryttkSubs";
+        bless $obj, "Tcl::pTk::BrowseEntryttkSubs";
         return $obj;
 }
 
@@ -611,20 +611,20 @@ sub Tcl::pTk::BrowseEntry{
         
         # Mapping of superclass inheritance. e.g Tk::Frame inheritance should be mapped to FramettkSubs inheritance
         my %hijackInheritance = (
-                'Tk::Frame'                    => 'Tcl::pTk::Widget::FramettkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Frame'       => 'Tcl::pTk::Widget::FramettkSubs', # For normal Tcl::pTk widgets
-                'Tk::Radiobutton'              => 'Tcl::pTk::Widget::RadiobuttonettkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Radiobutton' => 'Tcl::pTk::Widget::RadiobuttonettkSubs', # For normal Tcl::pTk widgets
-                'Tk::Button'                   => 'Tcl::pTk::Widget::ButtonttkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Button'      => 'Tcl::pTk::Widget::ButtonttkSubs', # For normal Tcl::pTk widgets
-                'Tk::Entry'                    => 'Tcl::pTk::Widget::EntryttkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Entry'       => 'Tcl::pTk::Widget::EntryttkSubs', # For normal Tcl::pTk widgets
-                'Tk::Checkbutton'              => 'Tcl::pTk::Widget::CheckbuttonttkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Checkbutton' => 'Tcl::pTk::Widget::CheckbuttonttkSubs', # For normal Tcl::pTk widgets
-                'Tk::Label'                    => 'Tcl::pTk::Widget::LabelbuttonttkSubs', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::Label'       => 'Tcl::pTk::Widget::LabelbuttonttkSubs', # For normal Tcl::pTk widgets
-                'Tk::BrowseEntry'              => 'Tcl::pTk::Widget::BrowseEntry', # For Hijack Tk Widgets
-                'Tcl::pTk::Widget::BrowseEntry' => 'Tcl::pTk::Widget::BrowseEntryttkSubs', # For normal Tcl::pTk widgets
+                'Tk::Frame'                    => 'Tcl::pTk::FramettkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Frame'       => 'Tcl::pTk::FramettkSubs', # For normal Tcl::pTk widgets
+                'Tk::Radiobutton'              => 'Tcl::pTk::RadiobuttonettkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Radiobutton' => 'Tcl::pTk::RadiobuttonettkSubs', # For normal Tcl::pTk widgets
+                'Tk::Button'                   => 'Tcl::pTk::ButtonttkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Button'      => 'Tcl::pTk::ButtonttkSubs', # For normal Tcl::pTk widgets
+                'Tk::Entry'                    => 'Tcl::pTk::EntryttkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Entry'       => 'Tcl::pTk::EntryttkSubs', # For normal Tcl::pTk widgets
+                'Tk::Checkbutton'              => 'Tcl::pTk::CheckbuttonttkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Checkbutton' => 'Tcl::pTk::CheckbuttonttkSubs', # For normal Tcl::pTk widgets
+                'Tk::Label'                    => 'Tcl::pTk::LabelbuttonttkSubs', # For Hijack Tk Widgets
+                'Tcl::pTk::Label'       => 'Tcl::pTk::LabelbuttonttkSubs', # For normal Tcl::pTk widgets
+                'Tk::BrowseEntry'              => 'Tcl::pTk::BrowseEntry', # For Hijack Tk Widgets
+                'Tcl::pTk::BrowseEntry' => 'Tcl::pTk::BrowseEntryttkSubs', # For normal Tcl::pTk widgets
                 );
         
         # Save the existing Construct method. We will chain to that at the end of our routine 

@@ -1,4 +1,4 @@
-package Tcl::pTk::Widget::DragDrop::Rect;
+package Tcl::pTk::DragDrop::Rect;
 use strict;
 use Carp;
 

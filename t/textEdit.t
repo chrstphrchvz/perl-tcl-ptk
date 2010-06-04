@@ -6,7 +6,7 @@
 use Tcl::pTk qw/:perlTk/;
 
 use Test;
-use Tcl::pTk::Widget::TextEdit;
+use Tcl::pTk::TextEdit;
 
 plan tests => 1;
 

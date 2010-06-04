@@ -116,10 +116,10 @@ ok( join(", ", @bindings), '', "button2 bind return with no args");
 ok( join(", ", @bindings), '<Shift-Button-3>', "button1 bind return with ".ref($b)." single arg");
 #print "button2 bind return with ".ref($b)." single arg: ".join(", ", @bindings)."\n";
 
-ok( join(", ", $b2->bindtags), 'Tcl::pTk::Widget::Button, Button, .btn03, ., all', "button2 bindtags");
+ok( join(", ", $b2->bindtags), 'Tcl::pTk::Button, Button, .btn03, ., all', "button2 bindtags");
 
 # widget created with the _Button call should have correct perl/tk-compatible bindtags
-ok( join(", ", $b3->bindtags), 'Tcl::pTk::Widget::Button, Button, .btn04, ., all', "button2 bindtags");
+ok( join(", ", $b3->bindtags), 'Tcl::pTk::Button, Button, .btn04, ., all', "button2 bindtags");
 
 #print "b3 bindings = ".join(", ", $b3->bindtags())."\n";
 my $classBinding = $b2->bind(ref($b2), '<Shift-3>');
@@ -151,7 +151,7 @@ $TOP->after(1000, sub{
 $TOP->after(2000,
         sub{
                 ok( join(", ", $mouseX, $mouseY), '50, 60', "Binding Ev Substitution");
-                ok( ref($eventSource), 'Tcl::pTk::Widget::Button', "Class Binding Event Source");
+                ok( ref($eventSource), 'Tcl::pTk::Button', "Class Binding Event Source");
 
                 $TOP->destroy;
         });

@@ -38,7 +38,7 @@ my @choice2 = $be->get( qw/0 end/);
 ok(@choice2, 4, "get returns list context");
 
 # Do some ttkBrowseEntry-specific calls. These should work if hijack and
-#  facelift has replaced Tk::BrowseEntry with a Tcl::pTk::Widget::ttkBrowseEntry
+#  facelift has replaced Tk::BrowseEntry with a Tcl::pTk::ttkBrowseEntry
 $be->set('two');
 my $choice = $be->choiceget();
 ok($choice, 'two', "ttkBrowseEntry subsitution check");

@@ -1,10 +1,10 @@
-package Tcl::pTk::Widget::Adjuster;
+package Tcl::pTk::Adjuster;
 
 ##### Implementation of Tk::Adjuster in Tcl::pTk ###########
 ## This code is incomplete for Tcl::pTk (because GeometryRequest method isn't supported)
 ##   Try to convert existing Tk::Adjuster apps to use Tk::Panedwindow, which is better supported
 
-use base  qw(Tcl::pTk::Widget::Frame);
+use base  qw(Tcl::pTk::Frame);
 
 # We cannot do this :
 
@@ -17,10 +17,10 @@ use base  qw(Tcl::pTk::Widget::Frame);
 
 Construct Tcl::pTk::Widget qw(Adjuster);
 
-{package Tcl::pTk::Widget::Adjuster::Item;
+{package Tcl::pTk::Adjuster::Item;
 
 use strict;
-use base  qw(Tcl::pTk::Widget::Frame);
+use base  qw(Tcl::pTk::Frame);
 
 sub ClassInit
 {
@@ -177,8 +177,8 @@ sub Populate
 {
  my ($w,$args) = @_;
  $w->SUPER::Populate($args);
- $w->{'sep'} = Tcl::pTk::Widget::Adjuster::Item->new($w,-bd => 1, -relief => 'sunken');
- $w->{'but'} = Tcl::pTk::Widget::Adjuster::Item->new($w,-bd => 1, -width => 8, -height => 8, -relief => 'raised');
+ $w->{'sep'} = Tcl::pTk::Adjuster::Item->new($w,-bd => 1, -relief => 'sunken');
+ $w->{'but'} = Tcl::pTk::Adjuster::Item->new($w,-bd => 1, -width => 8, -height => 8, -relief => 'raised');
 
  # Need to explicitly set frame width to 0 for Win32
  my $l = $w->{'lin'} = $w->toplevel->Frame(-bd => 0);

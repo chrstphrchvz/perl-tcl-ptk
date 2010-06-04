@@ -115,29 +115,29 @@ $translateList = {
 #       use base(qw/ Tk::Frame /);
 #       Construct Tk::Widget 'SlideSwitch'
 #     The aliases below will essentially translate to code to mean:
-#       use base(qw/ Tcl::pTk::Widget::Frame /);
+#       use base(qw/ Tcl::pTk::Frame /);
 #       Construct Tcl::pTk::Widget 'SlideSwitch'
 #       
 $packageAliases = {
-        'Tk::Frame' => 'Tcl::pTk::Widget::Frame',
-        'Tk::Toplevel' => 'Tcl::pTk::Widget::Toplevel',
-        'Tk::MainWindow' => 'Tcl::pTk::Widget::MainWindow',
+        'Tk::Frame' => 'Tcl::pTk::Frame',
+        'Tk::Toplevel' => 'Tcl::pTk::Toplevel',
+        'Tk::MainWindow' => 'Tcl::pTk::MainWindow',
         'Tk::Widget'=> 'Tcl::pTk::Widget',
         'Tk::Derived'=> 'Tcl::pTk::Derived',
-        'Tk::DropSite'    =>  'Tcl::pTk::Widget::DropSite',
-        'Tk::Canvas'    =>  'Tcl::pTk::Widget::Canvas',
-        'Tk::Menu'=> 'Tcl::pTk::Widget::Menu',
-        'Tk::TextUndo'=> 'Tcl::pTk::Widget::TextUndo',
-        'Tk::Text'=> 'Tcl::pTk::Widget::Text',
-        'Tk::Tree'=> 'Tcl::pTk::Widget::Tree',
-        'Tk::Clipboard'=> 'Tcl::pTk::Widget::Clipboard',
+        'Tk::DropSite'    =>  'Tcl::pTk::DropSite',
+        'Tk::Canvas'    =>  'Tcl::pTk::Canvas',
+        'Tk::Menu'=> 'Tcl::pTk::Menu',
+        'Tk::TextUndo'=> 'Tcl::pTk::TextUndo',
+        'Tk::Text'=> 'Tcl::pTk::Text',
+        'Tk::Tree'=> 'Tcl::pTk::Tree',
+        'Tk::Clipboard'=> 'Tcl::pTk::Clipboard',
         'Tk::Configure'=> 'Tcl::pTk::Configure',
-        'Tk::BrowseEntry'=> 'Tcl::pTk::Widget::BrowseEntry',
+        'Tk::BrowseEntry'=> 'Tcl::pTk::BrowseEntry',
         'Tk::Callback'=> 'Tcl::pTk::Callback',
-        'Tk::TableMatrix'=> 'Tcl::pTk::Widget::TableMatrix',
-        'Tk::Table'=> 'Tcl::pTk::Widget::Table',
-        'Tk::TableMatrix::Spreadsheet'=> 'Tcl::pTk::Widget::TableMatrix::Spreadsheet',
-        'Tk::TableMatrix::SpreadsheetHideRows'=> 'Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows',
+        'Tk::TableMatrix'=> 'Tcl::pTk::TableMatrix',
+        'Tk::Table'=> 'Tcl::pTk::Table',
+        'Tk::TableMatrix::Spreadsheet'=> 'Tcl::pTk::TableMatrix::Spreadsheet',
+        'Tk::TableMatrix::SpreadsheetHideRows'=> 'Tcl::pTk::TableMatrix::SpreadsheetHideRows',
 };
   
 ######### End of Package Globals ###########
