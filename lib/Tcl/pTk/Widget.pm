@@ -28,6 +28,7 @@ use Tcl::pTk::Submethods(
                     'pack'  => [qw(configure forget info propagate slaves)],
                     'place'  => [qw(configure forget info  slaves)],
                     'font'  => [qw(actual configure create delete families measure metrics names )],
+                    'form'  => [qw(check configure forget grid info slaves)],
                   );
 
 
@@ -855,26 +856,27 @@ sub bindtags{
 }
 
 
+sub form
+{
 
-
-sub form {
-    my $self = shift;
-    my $int = $self->interp;
-    $int->pkg_require("Tix");
-    my @arg = @_;
-    for (@arg) {
-	if (ref && ref eq 'ARRAY') {
-	    $_ = join ' ', map {
-		  (ref && (ref =~ /^Tcl::pTk::Widget\b/))?
-		    $_->path  # in this case there is form geometry relative
-		              # to widget; substitute its path
-		  :$_} @$_;
-	    s/^& /&/;
-	}
-    }
-    $self->call("tixForm",$self,@arg);
-    $self;
+ my $w = shift;
+ my $int = $w->interp;
+ $int->pkg_require("Tix");
+ if (@_ && $_[0] =~ /^(?:configure|check|forget|grid|info|slaves)$/x)
+  {
+   my $subcommand = shift;
+   $w->call('tixForm', $subcommand, $w, @_);
+  }
+ else
+  {
+   # Two things going on here:
+   # 1. Add configure on the front so that we can drop leading '-'
+   $w->call('tixForm', $w, @_);
+   # 2. Return the widget rather than nothing
+   return $w;
+  }
 }
+
 
 # TODO -- these methods could be AUTOLOADed
 sub focus {

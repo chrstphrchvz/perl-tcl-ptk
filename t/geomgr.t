@@ -4,9 +4,11 @@ BEGIN { $|=1; $^W=1; }
 use strict;
 use Test;
 
-BEGIN { plan tests => 19-4 }; # implement formInfo, formForget?
+BEGIN { plan tests => 20 }; # implement formInfo, formForget?
 
 use Tcl::pTk qw(:perlTk);
+
+$Tcl::pTk::DEBUG = 1;
 
 my $mw = MainWindow->new;
 eval { $mw->geometry('+10+10'); };  # This works for mwm and interactivePlacement
@@ -27,7 +29,6 @@ ok( defined($ws));
     for my $mgr ( qw/grid pack form/ )  # 'place' needs args so ignored here
        {
          print "testing manager: $mgr ...\n";
-         next if $mgr eq 'form'; # TODO ? implement formInfo, formForget?
 
          $method = $mgr;
          eval { $b->$method(); };
