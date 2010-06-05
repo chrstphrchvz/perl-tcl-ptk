@@ -1,12 +1,11 @@
 # trace2.pl
 
-$Tcl::pTk::Widget::TraceText::VERSION = '1.0';
+$Tcl::pTk::TraceText::VERSION = '1.0';
 
-package Tcl::pTk::Widget::TraceText;
+package Tcl::pTk::TraceText;
 
 use Tcl::pTk;
-#use Tk::widgets qw/ Trace /;
-use base qw/ Tcl::pTk::Derived Tcl::pTk::Widget::Text /;
+use base qw/ Tcl::pTk::Derived Tcl::pTk::Text /;
 use strict;
 
 Construct Tcl::pTk::Widget 'TraceText';
@@ -91,7 +90,6 @@ sub insert {
 package main;
 
 use Tcl::pTk (qw/ :perlTk/);
-#use Tk::widgets qw/ Trace /;
 use vars qw / $TOP /;
 use strict;
 
@@ -130,7 +128,7 @@ __END__
 
 =head1 NAME
 
-Tcl::pTk::Widget::TraceText - Text contents defined by a traced variable.
+Tcl::pTk::TraceText - Text contents defined by a traced variable.
 
 =for pm Tk/TraceText.pm
 

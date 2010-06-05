@@ -20,8 +20,8 @@
 require 5.002;
 use strict;
 use Tcl::pTk (qw/ :perlTk /);
-use Tcl::pTk::Widget::Dialog;
-use Tcl::pTk::Widget::LabEntry;
+use Tcl::pTk::Dialog;
+use Tcl::pTk::LabEntry;
 eval {require "plop.fnc";};	# user supplied math functions
 
 # Predeclare global subroutines and variables.

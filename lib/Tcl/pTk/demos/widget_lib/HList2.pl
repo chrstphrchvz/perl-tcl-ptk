@@ -13,8 +13,8 @@
 # WWW:  http://user.cs.tu-berlin.de/~eserte/
 #
 
-use Tcl::pTk::Widget::HList;
-use Tcl::pTk::Widget::ItemStyle;
+use Tcl::pTk::HList;
+use Tcl::pTk::ItemStyle;
 
 sub HList2 {
     my($demo) = @_;

@@ -2,11 +2,10 @@
 
 $Tcl::pTk::SlideSwitch::VERSION = '1.1';
 
-package Tcl::pTk::Widget::SlideSwitch;
+package Tcl::pTk::SlideSwitch;
 
 use Tcl::pTk;
-#use Tk::widgets qw/Label Scale/;
-use base qw/Tcl::pTk::Widget::Frame/;
+use base qw/Tcl::pTk::Frame/;
 use strict;
 
 Construct Tcl::pTk::Widget 'SlideSwitch';

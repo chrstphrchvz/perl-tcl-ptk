@@ -1,6 +1,6 @@
 # Gedi master advanced text editor.
 
-use Tcl::pTk::Widget::TextEdit;
+use Tcl::pTk::TextEdit;
 
 use vars qw/$TOP/;
 

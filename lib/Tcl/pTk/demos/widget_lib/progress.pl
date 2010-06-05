@@ -2,7 +2,7 @@
 
 use strict;
 use Tcl::pTk (qw/:perlTk/);
-use Tcl::pTk::Widget::ProgressBar;
+use Tcl::pTk::ProgressBar;
 #use Tk::Scale;
 
 my $mw = MainWindow->new;

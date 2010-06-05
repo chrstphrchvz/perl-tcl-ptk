@@ -1,6 +1,6 @@
 # BrowseEntry, entry with listbox to select list values.
 
-use Tcl::pTk::Widget::BrowseEntry;
+use Tcl::pTk::BrowseEntry;
 
 my $month = "January";
 
