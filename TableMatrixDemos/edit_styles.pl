@@ -10,7 +10,7 @@
 ##  tables.
 
 use Tcl::pTk (qw/ :perlTk /);
-use Tcl::pTk::Widget::TableMatrix::Spreadsheet;
+use Tcl::pTk::TableMatrix::Spreadsheet;
 
 $| = 1; # Pipes hot
 main();
@@ -118,7 +118,7 @@ sub main
 	});
 	
 	# replace std b1-release
-	$t->bind('Tcl::pTk::Widget::TableMatrix' => '<ButtonRelease-1>', \&set_style_state);
+	$t->bind('Tcl::pTk::TableMatrix' => '<ButtonRelease-1>', \&set_style_state);
 	
 	# inititialize the array, titles, and celltags
 	for (my $r = 0; $r < $rows; $r++)

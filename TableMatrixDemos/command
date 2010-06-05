@@ -3,12 +3,12 @@
 ## This demo shows the use of the table widget's -command options
 ##
 ## jeff.hobbs@acm.org
-##  Converted to perl/tk by John Cerney
+##  Converted to tcl-ptk by John Cerney
 
 
-use Tk;
+use Tcl::pTk (qw/ :perlTk /);
 
-use Tk::TableMatrix;
+use Tcl::pTk::TableMatrix;
 
 my ($rows,$cols) = (10,10); # number of rows/cols
 my $top = MainWindow->new;
@@ -125,4 +125,4 @@ $activeEntry->pack( -expand => 1, -fill => 'both');
 $t->pack(-expand => 1, -fill => 'both');
 
 
-Tk::MainLoop;
+MainLoop;

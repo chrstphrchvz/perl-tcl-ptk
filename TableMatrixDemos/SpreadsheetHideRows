@@ -1,4 +1,4 @@
-# Example of Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows widget:
+# Example of Tcl::pTk::TableMatrix::SpreadsheetHideRows widget:
 #   Table display with hidden detail data
 #
 # This example displays made-up average temperature data
@@ -10,7 +10,7 @@
 
 use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::pTk::Widget::TableMatrix::SpreadsheetHideRows;
+use Tcl::pTk::TableMatrix::SpreadsheetHideRows;
 
 my $top = MainWindow->new;
 

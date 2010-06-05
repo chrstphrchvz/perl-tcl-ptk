@@ -7,7 +7,7 @@
 
 use Tcl::pTk (qw/ :perlTk /);
 
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;

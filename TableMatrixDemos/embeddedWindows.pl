@@ -8,9 +8,9 @@
 ###    tables
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 
-use Tcl::pTk::Widget::BrowseEntry;
+use Tcl::pTk::BrowseEntry;
 
 use Data::Dumper qw( DumperX);
 my $top = MainWindow->new;

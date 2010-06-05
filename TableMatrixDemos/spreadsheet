@@ -8,8 +8,8 @@
 
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::TableMatrix;
-use Tcl::pTk::Widget::BrowseEntry;
+use Tcl::pTk::TableMatrix;
+use Tcl::pTk::BrowseEntry;
 
 $| = 1;
 

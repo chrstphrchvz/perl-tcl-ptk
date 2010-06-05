@@ -4,7 +4,7 @@
 #   Should display with one row hightlighted red and a cell in the row left-justified
 
 use Tcl::pTk qw/:perlTk/;
-use Tcl::pTk::Widget::TableMatrix;
+use Tcl::pTk::TableMatrix;
 
 use strict;
 
