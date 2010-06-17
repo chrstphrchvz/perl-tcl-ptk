@@ -75,7 +75,7 @@ sub Delegates
 ######### new method copied from Tk::Widget #####
 sub new
 {
- local $SIG{'__DIE__'} = \&Carp::croak;
+ local $SIG{'__DIE__'} = \&Carp::croak unless defined($SIG{'__DIE__'}); # Use croak as a die handler, unless already is one defined.
  my $package = shift;
  my $parent  = shift;
   
