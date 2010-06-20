@@ -77,6 +77,10 @@ array of strings specifying the choices.
 
 This option is provided for compatibility with BrowseEntry, but is ignored.
 
+=item B<-label*>
+
+Any options that start with 'label' (e.g. -labelBackground, -labelFont) are provided for compatibility with BrowseEntry, but are ignored.
+
 =item B<-listcmd>
 
 Specifies the function to call when the button next to the entry
@@ -174,7 +178,17 @@ sub Populate {
         $label->pack(@$lpack);
     }
     
-    
+    # Setup label options that will be ignored  (setup to just be passive), because they don't
+    #  exists in the subsituted tile widget
+    my @ignoreOptions = ( qw/ 
+    -label -labelActivebackground -labelActiveforeground -labelAnchor -labelBackground
+    -labelBitmap -labelBorderwidth -labelCompound -labelCursor -labelDisabledforeground
+    -labelFont -labelForeground -labelHeight -labelHighlightbackground -labelHighlightcolor 
+    -labelHighlightthickness -labelImage -labelJustify -labelPack -labelPadx -labelPady 
+    -labelRelief -labelState -labelTakefocus -labelUnderline -labelVariable -labelWidth -labelWraplength 
+    /);
+    my %ignoreConfigSpecs = map( ($_ => [ "PASSIVE", $_, $_, undef ]), @ignoreOptions);
+
     my $cb = $cw->ttkCombobox();
     $cb->pack( -side => 'right', -fill => 'x', -expand => 1); 
     $cw->Advertise('combobox' => $cb);
@@ -199,8 +213,7 @@ sub Populate {
                       
                       -command     => '-browsecmd',
                       -options     => '-choices',
-                      -label       => [qw/PASSIVE  label       Label/,       undef],
-                      -labelPack   => [qw/PASSIVE  labelPack   LabelPack/,   undef],
+		      %ignoreConfigSpecs, 
                       
     );
     
@@ -322,6 +335,13 @@ sub choiceget{
         my $w = shift;
         my $sb = $w->Subwidget('combobox');
         $sb->get(@_);
+}
+
+# Wrapper for labelpack. This is provided for compatibility with perl/tk, but doesn't nothing
+#
+sub labelPack{
+        my $w = shift;
+
 }
 
 1;

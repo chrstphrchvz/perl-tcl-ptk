@@ -23,6 +23,10 @@ my @choices = (1..50);
 my $ttkoption;
 my $cb = $top->ttkBrowseEntry(-variable => \$ttkoption, -choices => 
    \@choices, 
+
+   # For testing, add BrowseEntry compatibility options that will be ignored
+   -labelForeground=>'blue',        -labelBackground=>'white',
+
   #-height => 20
   #-width => 2
   );
@@ -32,6 +36,10 @@ $cb->pack(-side => 'top'); #, -fill => 'x', -expand => 1);
 my $cb2 = $top->ttkBrowseEntry(-variable => \$ttkoption, -choices => 
    \@choices, 
    -label => "Label:",
+
+   # For testing, add BrowseEntry compatibility options that will be ignored
+   -labelForeground=>'blue',        -labelBackground=>'white',
+
   #-height => 20
   #-width => 2
   );
