@@ -3,6 +3,7 @@
 
 use Tcl::pTk (qw/ :perlTk/);
 use Tcl::pTk::LabEntry;
+use Tcl::pTk::TkFacelift;
 use Test;
 use strict;
 
@@ -24,14 +25,11 @@ my $LabEntry = $top->LabEntry(
 $LabEntry->pack(-side => 'top', -pady => 2, -anchor => 'w', -fill => 'x', -expand => 1);
 
 
-# Update text by updating variable
-$top->after(1000, sub{ $entry = "More Data Here"});
-
-$top->after(2000,sub{$top->destroy});
+$top->after(100,sub{$top->destroy}) unless(@ARGV); # go away, unless something on command line (debug mode)
 
 MainLoop;
 
 
-ok(1, 1, "LabEntry Widget Creation");
+ok(1, 1, "LabEntry Facelift Widget Creation");
 
 

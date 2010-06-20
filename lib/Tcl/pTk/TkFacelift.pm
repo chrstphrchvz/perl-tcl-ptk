@@ -516,6 +516,10 @@ sub Populate {
     #  They don't do anything in this widget
     $cw->ConfigSpecs(
         %ignoreConfigSpecs,
+	# Set default values for -justify and -anchor. This is needed for facelifted LabEntry to 
+	#  work with -labelJustify, etc options
+        -justify => ['SELF', 'justify', 'Justify', 'center'],
+        -anchor  => ['SELF', 'justify', 'Justify', 'center'],
         'DEFAULT' => ['SELF']
     );
 

@@ -128,12 +128,15 @@ sub labelPack
     }
    elsif (defined($val) && !defined ($w))
     {
-     # Using Direct call to Tcl::pTk::Label rather than a plain 'Label' to avoid delegation
+     # Using Direct call to the label class rather than a plain 'Label' call to avoid delegation
      #   of the 'Label' method to the default entry widget. We want the Label created here to be 
      #   a child of the LabEntry frame, and not the Entry subwidget.
-     $w = $cw->Tcl::pTk::Label(-textvariable => $cw->labelVariable);
+     my $labelclass = ref($cw->Label); # Create a dummy label to get the current labelclass
+                                       #  (might be different if running under facelift
+     $w = $labelclass->new($cw, -textvariable => $cw->labelVariable);
      $cw->Advertise('label' => $w);
-     $cw->ConfigDelegate('label',qw(-text -textvariable));
+     $cw->ConfigDelegate('label',qw(-text -textvariable -class)); # -class needed for facelifted LabeEntry
+
     }
    if (defined($val) && defined($w))
     {
