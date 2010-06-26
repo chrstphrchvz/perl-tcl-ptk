@@ -374,6 +374,9 @@ sub createTclBindRef{
                         [sub{
                                 my $eventPath = shift;
                                 # Map eventsource Path to an actual widget
+				if( !defined( $creatingWidget->interp ) ){
+					Carp::confess "$creatingWidget has no interp!!";
+				}
                                 my $widgets = $creatingWidget->interp->widgets();
                                 $widgets = $widgets->{RPATH};
                                 my $eventSource = $widgets->{$eventPath};
