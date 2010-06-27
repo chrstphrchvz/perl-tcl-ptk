@@ -715,7 +715,6 @@ my $tkinterp = undef;		# this gets defined when "new" is done
     PATH => {},
     RPATH => {},
     DATA => {},
-    MWID => {},
 );
 # few shortcuts for %W to be faster
 $Wint = $W{INT};
@@ -749,11 +748,14 @@ sub new {
     my $mwid = $i->invoke('winfo','id','.');
     $W{PATH}->{$mwid} = '.';
     $W{INT}->{$mwid} = $i;
-    $W{MWID}->{'.'} = $mwid;
     $W{mainwindow}->{"$i"} = bless({ winID => $mwid }, 'Tcl::pTk::MainWindow');
+
+    # When mainwindow goes away, delete entry from the $W{mainwindow} global hash:
     $i->call('trace', 'add', 'command', '.', 'delete',
-	 sub { for (keys %W) {$W{$_}->{$mwid} = undef; }});
+	 sub { delete $W{mainwindow}{"$i"} }
+    );
     $i->ResetResult();
+
     $Tcl::pTk::TK_VERSION = $i->GetVar("tk_version");
     # Only do this for DEBUG() ?
     $Tk::VERSION = $Tcl::pTk::TK_VERSION;
@@ -825,8 +827,8 @@ sub MainLoop {
     # This could optionally be implemented with 'vwait' on a specially
     # named variable that gets set when '.' is destroyed.
     my $int = (ref $_[0]?shift:$tkinterp);
-    my $mwid = $W{MWID}->{'.'};
-    while (defined $Wpath->{$mwid}) {
+    my $mainwindow = $W{mainwindow};  
+    while ( %$mainwindow ) {  # Keep calling DoOneEvent until all mainwindows go away
 	$int->DoOneEvent(0);
     }
 }
