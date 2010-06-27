@@ -711,10 +711,10 @@ my $tkinterp = undef;		# this gets defined when "new" is done
 # Tcl::pTk will maintain PATH (Tk widget pathname) and INT (Tcl interp)
 # and the user can create other info.
 %W = (
-    INT => {},
-    PATH => {},
-    RPATH => {},
-    DATA => {},
+    INT => {},   # Hash of mainwindowID or pathname => Tcl::pTk Interpreter Reference
+    PATH => {},  # Hash of pathname  => pathname (or mainwindow id)
+    RPATH => {}, # Hash of pathname  => widget reference
+    DATA => {},  # Hash of widget data (used by the widget_data methods)
 );
 # few shortcuts for %W to be faster
 $Wint = $W{INT};
