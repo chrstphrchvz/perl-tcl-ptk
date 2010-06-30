@@ -44,7 +44,7 @@ $Tcl::pTk::library = Tk->findINC('.') unless (defined($Tcl::pTk::library) && -d 
 
 # Global vars used by this package
 
-our ( %W, $Wint, $Wpath, $Wdata, $DEBUG );
+our ( %W, $Wint, $Wpath, $Wdata, $DEBUG, $inMainLoop );
 
 
 # For debugging, we use Sub::Name to name anonymous subs, this makes tracing the program
@@ -826,10 +826,13 @@ sub MainLoop {
     # Tk_GetNumMainWindows C API.
     # This could optionally be implemented with 'vwait' on a specially
     # named variable that gets set when '.' is destroyed.
-    my $int = (ref $_[0]?shift:$tkinterp);
-    my $mainwindow = $W{mainwindow};  
-    while ( %$mainwindow ) {  # Keep calling DoOneEvent until all mainwindows go away
-	$int->DoOneEvent(0);
+    unless ($inMainLoop){     # Don't recursivly enter into a mainloop
+        local $inMainLoop = 1;
+    	my $int = (ref $_[0]?shift:$tkinterp);
+    	my $mainwindow = $W{mainwindow};  
+    	while ( %$mainwindow ) {  # Keep calling DoOneEvent until all mainwindows go away
+		$int->DoOneEvent(0);
+    	}
     }
 }
 

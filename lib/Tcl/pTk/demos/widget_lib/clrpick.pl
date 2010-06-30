@@ -25,7 +25,7 @@ sub clrpick {
 
 sub setColor {
     my($top, $button, $name, $options) = @_;
-    my $initialColor = $button->cget($name);
+    my $initialColor = $button->cget($name) || 'grey'; # Default color needed for running under facelift
     my $color = $button->chooseColor(-title => "Choose a $name color",
 				     -initialcolor => $initialColor);
     setColor_helper $top, $options, $color if defined $color;
