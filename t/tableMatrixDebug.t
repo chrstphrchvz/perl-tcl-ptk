@@ -6,7 +6,7 @@
 ##  Converted to perl/tk by John Cerney
 
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::TableMatrix;
 use Test;
 

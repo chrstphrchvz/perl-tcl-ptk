@@ -3,7 +3,7 @@
 # Check that Table widget works with facelift
 
 use Test;
-use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk;
 use Tcl::pTk::Table();
 use Tcl::pTk::TkFacelift;
 

@@ -8,7 +8,7 @@
 #    version (8.5.1-8.5.5) ), that reports incorrect font sizes for the "TkDefaultFont" and the 
 #      "-*-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*" ( and similar) fonts on Linux (Ubuntu 8.04 LTS)
 
-use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk;
 #use Tk;
 #use Tk::Font;
 

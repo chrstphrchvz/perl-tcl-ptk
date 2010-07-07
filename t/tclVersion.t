@@ -1,7 +1,7 @@
 
 use strict;
 use Test;
-use Tcl::pTk qw/:perlTk /; 
+use Tcl::pTk; 
 
 # Test to see if the tclVersion and tclPatchlevel methods work
 

@@ -5,7 +5,7 @@
 # This test skips if BWidget tcl package not available.
 #   
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::Pane;
 #use Tk;
 #use Tk::Pane;

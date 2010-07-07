@@ -1,6 +1,6 @@
 # Notebook, selectable pages.
 
-use Tcl::pTk qw( :perlTk);
+use Tcl::pTk;
 use Tcl::pTk::DialogBox;
 
 use Test;

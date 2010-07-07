@@ -1,6 +1,6 @@
 #!/usr/local/bin/perl -w
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 use Test;
 plan tests => 5;

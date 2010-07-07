@@ -5,7 +5,7 @@
 #   performance issues.
 #   
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::TableMatrix;
 use Test;
 

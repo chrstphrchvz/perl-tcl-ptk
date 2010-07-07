@@ -4,7 +4,7 @@ use strict;
 use Tcl;
 use Exporter ('import');
 use Scalar::Util (qw /blessed/); # Used only for it's blessed function
-use vars qw(@EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
+use vars qw(@EXPORT @EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
 
 # Wait till we have 100 things to delete before we do cleanup
 $cleanup_queue_maxsize = 50;
@@ -62,7 +62,7 @@ $Tcl::pTk::VERSION = '0.97';
 sub WIDGET_CLEANUP() {1}
 
 $Tcl::pTk::DEBUG ||= 0;
-sub DEBUG() {0}
+
 sub _DEBUG {
     # Allow for optional debug level and message to be passed in.
     # If level is passed in, return true only if debugging is at
@@ -76,12 +76,6 @@ sub _DEBUG {
     return ($Tcl::pTk::DEBUG >= $lvl);
 }
 
-if (DEBUG()) {
-    # The gestapo throws warnings whenever Perl/Tk modules are requested.
-    # It also hijacks such requests and returns an empty module in its
-    # place.
-    unshift @INC, \&tk_gestapo;
-}
 
 =head1 NAME
 
@@ -91,7 +85,7 @@ Tcl::pTk - Interface to Tcl/Tk with Perl/Tk compatible sytax
 
 B<Perl/Tk Compatible Syntax:>
 
-    use Tcl::pTk (':perlTk');
+    use Tcl::pTk;
 
     my $mw = MainWindow->new();
     my $lab = $mw->Label(-text => "Hello world")->pack;
@@ -143,7 +137,7 @@ for a simple example.
 =item *
 
 All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the "Use Tk;"
-to "Use Tcl::pTk (qw/ :perlTk /)" at the top of the file. See the I<widgetTclTk> demo script included in the source distribution to run the demos.
+to "Use Tcl::pTk" at the top of the file. See the I<widgetTclTk> demo script included in the source distribution to run the demos.
 
 =item *
 
@@ -188,7 +182,7 @@ my the call to the C<MainWindow> (or C<tkinit>) methods, but can also be created
 B<Example showing perl/Tk compatible syntax:>
 For perl/tk syntax, the interpreter is created for you when you create the mainwindow.
 
-   use Tcl::pTk qw/:perlTk/;
+   use Tcl::pTk;
 
    my $mw = MainWindow->new(); # Create Tcl::pTk interpreter and returns mainwindow widget
    my $int = $mw->interp;      # Get the intepreter that was created in the MainWindow call
@@ -691,15 +685,17 @@ See http://www.perl.com/perl/misc/Artistic.html
 
 =cut
 
-my @misc = qw(MainLoop after destroy focus grab lower option place raise
+my @misc = qw( after destroy focus grab lower option place raise
               image font
 	      selection tk grid tkwait update winfo wm);
-my @perlTk = qw(MainWindow MainLoop DoOneEvent tkinit update Ev Exists);
+my @perlTk = qw( MainWindow MainLoop DoOneEvent tkinit update Ev Exists);
 
 # Flags for supplying to DoOneEvent
 my @eventFlags = qw(DONT_WAIT WINDOW_EVENTS  FILE_EVENTS
                                   TIMER_EVENTS IDLE_EVENTS ALL_EVENTS);
-@EXPORT_OK = (@misc, @perlTk, @eventFlags );
+
+@EXPORT    = (@perlTk, @eventFlags);
+@EXPORT_OK = (@misc );
 %EXPORT_TAGS = (widgets => [], misc => \@misc, perlTk => \@perlTk,
                 eventtypes => [@eventFlags],
                 );
@@ -1106,9 +1102,6 @@ sub Exists {
     }
     return eval{$tkinterp->icall('winfo','exists',$wid)};
 }
-# do this only when tk_gestapo on?
-# In normal case Tcl::pTk::Exists should be used.
-#*{Tk::Exists} = \&Tcl::pTk::Exists;
 
 sub widgets {
     \%W;
@@ -1153,43 +1146,7 @@ sub need_tk {
     return 1;
 }
 
-sub tk_gestapo {
-    # When placed first on the INC path, this will allow us to hijack
-    # any requests for 'use Tk' and any Tk::* modules and replace them
-    # with our own stuff.
-    my ($coderef, $module) = @_;  # $coderef is to myself
-    return undef unless $module =~ m!^Tk(/|\.pm$)!;
 
-    my ($package, $callerfile, $callerline) = caller;
-    
-
-    my $fakefile;
-    open(my $fh, '<', \$fakefile) || die "oops";
-
-    $module =~ s!/!::!g;
-    $module =~ s/\.pm$//;
-
-    # Make Version if importing Tk (needed for some scripts to work right)
-    my $versionText = "\n";
-    if( $module eq 'Tk' ){
-            $versionText = '$Tk::VERSION = 805.001;'."\n";
-            
-            # Redefine common Tk subs/variables to Tcl::pTk equivalents
-            no warnings;
-            *Tk::findINC = \&Tcl::pTk::findINC;
-            
-    }
-
-
-    $fakefile = <<EOS;
-package $module;
-$versionText
-warn "### $callerfile:$callerline not really loading $module ###";
-sub foo { 1; }
-1;
-EOS
-    return $fh;
-}
 
 # subroutine findINC copied from perlTk/Tk.pm
 sub findINC {
@@ -1226,7 +1183,7 @@ sub AUTOLOAD {
     my $method0;
     for ($method) {
 	s/^(Tcl::pTk::)//
-	    or die "weird inheritance ($method)";
+	    or Carp::confess "weird inheritance ($method)";
 	$package = $1;
         $method0 = $method;
 	s/(?<!_)__(?!_)/::/g;

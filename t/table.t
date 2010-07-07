@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl -w
 
 use Test;
-use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk;
 use Tcl::pTk::Table();
 
 

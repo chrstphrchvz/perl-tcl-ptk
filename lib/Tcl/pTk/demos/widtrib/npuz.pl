@@ -18,7 +18,7 @@
 # the same terms as Perl itself.
 
 require 5.002;
-use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk;
 use Tcl::pTk::Dialog;
 use strict;
 use subs qw(beep create_puz create_ui puz_fini move_piece new_puz randomly xy);

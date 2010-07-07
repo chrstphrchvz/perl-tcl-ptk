@@ -2,7 +2,7 @@
 #   mainloop would exit, even though the first mainwindow was still present.
 
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Test;
 
 plan tests=>2;

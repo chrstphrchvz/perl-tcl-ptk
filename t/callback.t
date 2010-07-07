@@ -1,6 +1,6 @@
 use Test::More tests => 15;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::Callback;
 use Data::Dumper;
  

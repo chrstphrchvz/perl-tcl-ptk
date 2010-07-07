@@ -1,6 +1,6 @@
 # Test of the tablematrix spreadsheet widget
 
-use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk;
 use Test;
 
 use Tcl::pTk::TableMatrix::Spreadsheet;

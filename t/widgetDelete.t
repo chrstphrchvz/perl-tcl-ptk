@@ -5,7 +5,7 @@
 use Test;
 plan tests => 1;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 my $destroyed;
 

@@ -5,7 +5,7 @@
 # (reading the output of an external command into a text widget)
 # no luxuries (like scrollbars)
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use IO::File;
 
 use Test;

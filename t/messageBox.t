@@ -3,7 +3,7 @@
 #use Tk::Dialog;
 
 use strict;
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Test;
 
 $Tcl::pTk::DEBUG = 1;

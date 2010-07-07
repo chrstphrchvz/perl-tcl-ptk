@@ -209,7 +209,6 @@ my %pure_perl_tk = (); # hash to keep track of pure-perl widgets
 ############################## End Widget Mapping Structures ############################
 
 
-sub Tcl::pTk::Widget::DEBUG() {0}
 
 use overload
     # Stringified widgets will return the pathname
@@ -1276,7 +1275,7 @@ sub Getimage {
     # Try built-in bitmaps from Tix
     #$images->{$name} = $self->Pixmap( -id => $name );
     #return $images->{$name};
-    Tcl::pTk::_DEBUG(1, "Getimage: MISSING IMAGE $name\n") if DEBUG();
+    Tcl::pTk::_DEBUG(1, "Getimage: MISSING IMAGE $name\n") if $Tcl::pTk::DEBUG;
     return;
 }
 
@@ -1414,6 +1413,7 @@ sub InitClass
  my ($package,$parent) = @_;
  croak "Unexpected type of parent $parent" unless(ref $parent);
  croak "$parent is not a widget" unless($parent->IsWidget);
+
  my $mw = $parent->MainWindow;
  my $hash = $mw->TkHash('_ClassInit_');
  unless (exists $hash->{$package})

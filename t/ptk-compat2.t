@@ -2,7 +2,7 @@
 
 # Script to check for popup menu creation using the menubutton  methods
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 use Test;
 plan tests => 4;

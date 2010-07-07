@@ -6,7 +6,7 @@ use Test;
 
 BEGIN { plan tests => 20 }; # implement formInfo, formForget?
 
-use Tcl::pTk qw(:perlTk);
+use Tcl::pTk;
 
 $Tcl::pTk::DEBUG = 1;
 

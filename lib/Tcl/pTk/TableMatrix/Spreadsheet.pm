@@ -5,7 +5,7 @@ Tcl::pTk::TableMatrix::Spreadsheet - Table Display with Spreadsheet-like binding
 
 =head1 SYNOPSIS
 
-  use Tcl::pTk ( qw/ :perlTk /);
+  use Tcl::pTk;
   use Tcl::pTk::TableMatrix::Spreadsheet;
 
 

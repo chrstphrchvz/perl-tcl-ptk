@@ -4,7 +4,7 @@
 #  Cloned menus have '#' in the path name.
 
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Test;
 
 plan test => 6;

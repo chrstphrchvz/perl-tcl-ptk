@@ -7,7 +7,7 @@
 
 
 use strict;
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::Tree;
 use Test;
 

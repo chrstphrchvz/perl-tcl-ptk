@@ -43,7 +43,7 @@ sub Populate {
 
 package main;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Test;
 
 plan tests => 1;

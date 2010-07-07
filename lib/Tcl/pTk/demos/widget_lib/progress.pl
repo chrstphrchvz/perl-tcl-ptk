@@ -1,7 +1,7 @@
 # ProgressBar - display various progress bars.
 
 use strict;
-use Tcl::pTk (qw/:perlTk/);
+use Tcl::pTk;
 use Tcl::pTk::ProgressBar;
 #use Tk::Scale;
 

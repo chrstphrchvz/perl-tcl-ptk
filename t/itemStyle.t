@@ -3,7 +3,7 @@
 #use Tk;
 #use Tk::HList;
 #use Tk::ItemStyle;
-use Tcl::pTk qw(:perlTk);
+use Tcl::pTk;
 use Tcl::pTk::ItemStyle;
 use Test;
 plan tests => 1;

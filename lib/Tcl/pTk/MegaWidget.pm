@@ -32,6 +32,23 @@ sub Construct
  *{$base.'::Is'.$name}  = \&False;
  *{$class.'::Is'.$name} = \&True;
 
+ # Check for Tcl::pTk::MainWindow being aliased into the current $class namespace
+ #  If it is, get rid of it. 
+ #  (Having a "use Tcl::pTk" in the megawidget source code can cause the MainWindow
+ #    sub to be aliased into the megawidget's namespace, which can cause problems if you
+ #     try to call $megawidget->MainWindow. This will end up calling Tcl::pTk::MainWindow, 
+ #     instead of the inherited Tcl::pTk::Widget::MainWindow )
+ my $mainWindowTclpTk = *Tcl::pTk::MainWindow{CODE}; # Get the code ref for Tcl::pTk::MainWindow
+
+ my $classStash = \%{$class."::"};
+ if( defined( $classStash->{MainWindow} ) ){ # See if MainWindow has been defined in $class
+    #print "   $class"."::MainWindow is defined\n";
+    my $classMainWindow = *{$class."::MainWindow"}{CODE};
+    if( defined( $classMainWindow ) and $classMainWindow eq $mainWindowTclpTk ){
+       # Get rid of MainWindow symbol in the $class namespace
+       undef *{$class."::MainWindow"};
+    }
+ }
  
  # DelegateFor  trickyness is to allow Frames and other derived things
  # to force creation in a delegate e.g. a ScrlText with embeded windows

@@ -4,7 +4,7 @@
 #    Tcl/pTk/Widget/Text.pm
 
 #use Tk;
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 use Test;
 plan tests => 12;

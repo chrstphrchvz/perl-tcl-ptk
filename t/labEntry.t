@@ -1,7 +1,7 @@
 # slide.pl
 
 
-use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk;
 use Tcl::pTk::LabEntry;
 use Test;
 use strict;

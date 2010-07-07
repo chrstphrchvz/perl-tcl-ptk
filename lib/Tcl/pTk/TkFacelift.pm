@@ -40,7 +40,7 @@ widgets, instead of the old widgets.
         
 For Example, this code snippet would create a top-level window, and a Label and Button widget 
  
- use Tcl::pTk (qw/ :perlTk /);
+ use Tcl::pTk;
  my $mw     = MainWindow->new();
  my $label  = $mw->Label();
  my $button = $mw->Button();
@@ -48,7 +48,7 @@ For Example, this code snippet would create a top-level window, and a Label and 
 Now, with the addition of the C<use Tcl::pTk::TkFacelift> package, the I<Label> and <Button> creation-methods
 get over-ridden to build "Tile" widgets.
         
- use Tcl::pTk (qw/ :perlTk /);
+ use Tcl::pTk;
  use Tcl::pTk::TkFacelift;
  my $mw     = MainWindow->new();
  my $label  = $mw->Label();

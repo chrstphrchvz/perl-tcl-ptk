@@ -24,7 +24,7 @@ Construct Tcl::pTk::Widget 'Browse2';
 
 package main;
 
-use Tcl::pTk qw/ :perlTk/;
+use Tcl::pTk;
 
 use Tcl::pTk::TkFacelift;
 

@@ -96,7 +96,7 @@ sub rlabel {
 
 package main;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 # use Tk;
 
 

@@ -3,7 +3,7 @@
 #use Tk;
 #use Tk::TextEdit;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 use Test;
 use Tcl::pTk::TextEdit;

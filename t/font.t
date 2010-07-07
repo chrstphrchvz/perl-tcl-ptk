@@ -4,7 +4,7 @@
 BEGIN { $|=1; $^W=1; }
 use strict;
 use Test;
-use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk;
 
 use Tcl::pTk::Font;
 

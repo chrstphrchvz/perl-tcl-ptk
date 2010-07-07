@@ -1,6 +1,6 @@
 # Form, window management by Tix->form.
 
-use Tcl::pTk qw(:perlTk);
+use Tcl::pTk;
 
 my $Main = MainWindow->new();
 

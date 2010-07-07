@@ -89,7 +89,7 @@ sub insert {
 
 package main;
 
-use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk;
 use vars qw / $TOP /;
 use strict;
 

@@ -9,7 +9,7 @@ use Test::More;
 plan tests => 21;
 
 
-use Tcl::pTk qw(:perlTk);
+use Tcl::pTk;
 use_ok("Tcl::pTk::BrowseEntry");
 
 my $mw;

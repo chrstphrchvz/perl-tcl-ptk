@@ -5,7 +5,7 @@
 #    For the small geometry, the scrollbars should be present.
 #    For the large geometry, the scrollbars should be  removed
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 use Test;
 plan tests => 4;

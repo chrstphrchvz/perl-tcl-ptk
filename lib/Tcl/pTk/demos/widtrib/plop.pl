@@ -19,7 +19,7 @@
 
 require 5.002;
 use strict;
-use Tcl::pTk (qw/ :perlTk /);
+use Tcl::pTk;
 use Tcl::pTk::Dialog;
 use Tcl::pTk::LabEntry;
 eval {require "plop.fnc";};	# user supplied math functions

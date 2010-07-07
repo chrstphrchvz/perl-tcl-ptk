@@ -1,7 +1,7 @@
 #use Test::More (tests => 6);
 use Test;
 BEGIN {plan tests=>8}
-use Tcl::pTk qw(:perlTk);
+use Tcl::pTk;
 my $mw = MainWindow->new;
 $mw->update;
 my $start = time;

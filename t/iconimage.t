@@ -1,6 +1,6 @@
 # Test of iconimage method. This method is implemented in Tcl as the iconphoto method,
 #  which only exists is Tcl/pTk > 8.5
-use Tcl::pTk (qw/:perlTk/);
+use Tcl::pTk;
 
 use Test;
 plan tests => 1;

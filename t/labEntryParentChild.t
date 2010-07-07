@@ -2,7 +2,7 @@
 #  megawidget (the LabEntry widget)
 
 
-use Tcl::pTk qw/ :perlTk/;
+use Tcl::pTk;
 use Tcl::pTk::BrowseEntry;
 #use Tk;
 #use Tk::BrowseEntry;

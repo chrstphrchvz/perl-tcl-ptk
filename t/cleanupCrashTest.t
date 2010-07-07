@@ -3,7 +3,7 @@
 # Simple example that crashes Tcl when run, before the cleanup mods of Tcl::pTk made on 3/26/09
 #
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 use Test;
 
 plan test => 1;

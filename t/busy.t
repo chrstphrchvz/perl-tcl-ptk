@@ -1,6 +1,6 @@
 # Test of Busy / UnBusy operation
 use strict;
-use Tcl::pTk qw / :perlTk/;
+use Tcl::pTk;
 #use Tk;
 use Test;
 plan tests => 1;

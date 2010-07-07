@@ -11,7 +11,7 @@ BEGIN
    plan test => 8;
   };
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 my $mw;
 eval {$mw = MainWindow->new();};

@@ -1,6 +1,6 @@
 # Check of OnDestroy operation
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 #use Tk;
 
 use Test;

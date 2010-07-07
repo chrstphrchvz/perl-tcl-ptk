@@ -92,7 +92,7 @@ sub rlabel {
 
 package main;
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 
 my $TOP = MainWindow->new();

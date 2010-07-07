@@ -2,7 +2,7 @@
 #
 #
 
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 #require Tcl::pTk::Menu;
 #require Tcl::pTk::Menu::Item;
 #use Tk;

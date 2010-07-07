@@ -1,7 +1,7 @@
 BEGIN { $^W = 1; $| = 1;}
 use strict;
 use Test;
-use Tcl::pTk qw/:perlTk/;
+use Tcl::pTk;
 
 
 # This test case checks for a particular bug (fixed 4/9/09) where loading a image using Getimage would cause

@@ -4,7 +4,7 @@ Tcl::pTk::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobox
 
 =head1 SYNOPSIS
 
- use Tcl::pTk qw/ :perlTk/;
+ use Tcl::pTk;
  use Tcl::pTk::ttkBrowseEntry;
 
  $b = $frame->ttkBrowseEntry(-label => "Label", -variable => \$var, 

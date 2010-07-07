@@ -76,7 +76,7 @@ package main;
 
 use vars qw / $TOP /;
 use strict;
-use Tcl::pTk (qw/:perlTk/);
+use Tcl::pTk;
 
 sub slide {
 

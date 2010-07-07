@@ -4,7 +4,7 @@
 #use Tk::DragDrop;
 #use Tk::DropSite;
 
-use Tcl::pTk (qw/ :perlTk/);
+use Tcl::pTk;
 use Tcl::pTk::DragDrop;
 use Tcl::pTk::DropSite;
 
