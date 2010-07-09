@@ -672,7 +672,7 @@ versions.
 
 =item Gisle Aas, gisle _a_ activestate . com, 14 Apr 2004.
 
-=item John Cerney, j-cerney1 _a_ raytheon . com, 29 Sep 2009.
+=item John Cerney, john.cerney _a_ gmail . com, 29 Sep 2009.
 
 =back
 
