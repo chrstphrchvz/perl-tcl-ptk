@@ -68,6 +68,14 @@ my $imageRefresh = $MW->Photo('imageRefresh', -format => 'GIF',
     2tICU0gXBQA7'
     );
 
+my $imageNew = $MW->Photo('imageNew', -format => 'GIF',
+            -data => '    R0lGODlhHgAOALMPALMAANyIiOu7u8dEROaqqvru7sxVVeGZmbgREfXd3b0iItZ3
+    d8IzM9FmZvDMzP///yH5BAEAAA8ALAAAAAAeAA4AAASa8MlJq7046827WVOCHEkw
+    nANhUgJlEBIABJIwL3K+4IcUALCHjfbItYZDSgJgkBiYPmBMAUAkkLPKs/BAyLgM
+    wAQwOAAY2ByCaw4QAFQSoDEePJ6DmU1xInYZTw5nOEFFdgVUelkVDTIMd3AKFGQ1
+    MgI2AwEmQW8APZ0gdRONAks5nhIFVVxdAAkUAS2pAVwFl7ITB4UqHb0XEQA7'
+    );
+
 # The code below creates the main window, consisting of a menu bar
 # and a text widget that explains how to use the program, plus lists
 # all of the demos as hypertext items.
@@ -176,12 +184,14 @@ demos 'Labels, buttons, checkbuttons, and radiobuttons', (
     'image1'       => 'Two labels displaying images',
     'image2'       => 'A simple user interface for viewing images',
     'labelframe'   => 'Labelled frames',
+    'ttkbut'        => '*The simple Themed Tk widgets',
 );
 
-demos 'Listboxes', (
+demos 'Listboxes and Trees', (
     'states'       => 'The 50 states',
     'colors'       => 'Change widget\'s color scheme',
     'sayings'      => 'A collection of famous and infamous sayings',
+    'mclist'      => '*A multi-column list of countries',
 );
 
 demos 'Entries and Spin-boxes', (
@@ -363,8 +373,17 @@ sub demos {
     $T->insert('end', "\n", '', "$title\n", 'title');
 
     for (my $n = 0; $n <= $#demos; $n += 2) {
-	$T->insert('end', $n / 2 + 1 . '. ' . $demos[$n + 1] . ".\n",
-		   ['demo', 'demo-' . $demos[$n]]);
+        my $desc = $demos[$n+1];
+        my $script = $demos[$n];
+        my $new = 0;
+        $new = 1 if( $desc =~ s/^\*// ); # Add "New" if desc starts with a '*'
+                
+	$T->insert('end', $n / 2 + 1 . '. ' . $desc,
+		   ['demo', 'demo-' . $script]);
+	if( $new ){
+	        $T->imageCreate('end', -image => 'imageNew', -padx => 5);
+	}
+	$T->insert('end', " \n");
     }
 
 } # end demos
