@@ -194,11 +194,12 @@ demos 'Listboxes and Trees', (
     'mclist'      => '*A multi-column list of countries',
 );
 
-demos 'Entries and Spin-boxes', (
+demos 'Entries, Spin-boxes and Combo-boxes', (
     'entry1'       => 'Entries without scrollbars',
     'entry2'       => 'Entries with scrollbars',
     'entry3'       => 'Validated entries and password fields',
     'spin'         => 'Spin-boxes',
+    'combo'        => '*Combo-boxes',
     'form'         => 'Simple Rolodex-like form',
 );
 
