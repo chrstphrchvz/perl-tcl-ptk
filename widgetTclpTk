@@ -231,6 +231,7 @@ demos 'Scales and Progress Bars', (
 demos 'Paned Windows', (
     'paned1'       => 'Horizontal paned window',
     'paned2'       => 'Vertical paned window',
+    'ttkpane'      => '*Themed nested panes',
 );
 
 demos 'Photos and Images', (
