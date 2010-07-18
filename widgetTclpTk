@@ -222,9 +222,10 @@ demos 'Canvases', (
     'transtile'    => 'Tiles and transparent images',
 );
 
-demos 'Scales', (
+demos 'Scales and Progress Bars', (
     'hscale'       => 'Horizontal scale',
     'vscale'       => 'Vertical scale',
+    'ttkprogressbar' => '*Progress bar',
 );
 
 demos 'Paned Windows', (
