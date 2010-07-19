@@ -228,10 +228,11 @@ demos 'Scales and Progress Bars', (
     'ttkprogressbar' => '*Progress bar',
 );
 
-demos 'Paned Windows', (
+demos 'Paned Windows and Notebooks', (
     'paned1'       => 'Horizontal paned window',
     'paned2'       => 'Vertical paned window',
     'ttkpane'      => '*Themed nested panes',
+    'ttknote'      => '*Themed notebook',
 );
 
 demos 'Photos and Images', (
