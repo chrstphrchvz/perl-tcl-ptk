@@ -244,6 +244,7 @@ demos 'Menus', (
     'menus'        => 'Menus and cascades (sub-menus)',
     'menus2'       => 'As above, but using Perl/Tk -menuitems',
     'menbut'       => 'Menubuttons',
+    'ttkmenu'      => '*Themed menu buttons',
 );
 
 demos 'Common Dialogs', (
