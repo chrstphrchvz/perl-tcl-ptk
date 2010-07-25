@@ -1,6 +1,6 @@
 # Benchmark of creating a lot of lines on a canvas
 
-use Tcl::Tk (qw/ :perlTk /);
+use Tcl::pTk;
 
 $MW = MainWindow->new;
 
