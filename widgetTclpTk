@@ -240,11 +240,12 @@ demos 'Photos and Images', (
     'photo2'       => 'Alpha channel compositing',
 );
 
-demos 'Menus', (
+demos 'Menus and Toolbars', (
     'menus'        => 'Menus and cascades (sub-menus)',
     'menus2'       => 'As above, but using Perl/Tk -menuitems',
     'menbut'       => 'Menubuttons',
     'ttkmenu'      => '*Themed menu buttons',
+    'toolbar'      => '*Themed toolbar',
 );
 
 demos 'Common Dialogs', (

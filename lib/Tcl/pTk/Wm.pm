@@ -19,7 +19,7 @@ Direct Tcl::pTk::Submethods ('wm' => [qw(aspect attributes capture client colorm
                        iconbitmap iconify  iconphoto iconmask iconname
                        iconwindow maxsize minsize overrideredirect positionfrom
                         release resizable sizefrom state title transient
-                       withdraw wrapper)]);
+                       withdraw wrapper )]);
 
 sub SetBindtags
 {
@@ -268,6 +268,57 @@ sub _protocol_helper{
 
 }
 
+############################################################################################
+
+=head2 manage
+
+This implements the Wm manage method, which is new for Tcl/Tk 8.5
+
+This simply calls the Tcl/Tk 'wm manage' command, and then re-blesses the widget
+to be a toplevel widget, so other toplevel and Wm methods will work on it.
+        
+B<Usage:>
+
+   my $toplevel = $widget->Tcl::pTk::Wm::manage();
+
+
+=cut
+
+sub manage
+{
+        my $widget = shift;
+        $widget->call('wm', 'manage', $widget);
+        
+        bless($widget, 'Tcl::pTk::Toplevel');
+        
+        return $widget;
+}
+
+#######################################################################
+
+=head2 forget
+
+This implements the Wm manage forget, which is new for Tcl/Tk 8.5
+
+This simply calls the Tcl/Tk 'wm forget' command, and then re-blesses the widget
+to be a frame widget.
+
+B<Usage:>
+
+   my $toplevel = $toplevel->forget();
+
+
+=cut
+
+sub forget
+{
+        my $widget = shift;
+        $widget->call('wm', 'forget', $widget);
+        
+        bless($widget, 'Tcl::pTk::Frame');
+        
+        return $widget;
+}
 
 
 1;
