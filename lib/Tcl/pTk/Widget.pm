@@ -877,12 +877,13 @@ sub form
 }
 
 
-# TODO -- these methods could be AUTOLOADed
+# TODO -- this method could be AUTOLOADed
 sub focus {
     my $self = shift;
     my $wp = $self->path;
     $self->call('focus',$wp,@_);
 }
+
 sub destroy {
     my $self = shift;
     my $int = $self->interp;
@@ -903,7 +904,7 @@ sub destroy {
     }
 }
 
-# for compatibility (TODO -- more methods could be AUTOLOADed)
+# for compatibility 
 sub GeometryRequest {
     my $self = shift;
     my $wp = $self->path;

@@ -740,7 +740,7 @@ sub new {
     $i->SetVar("tcl_interactive", 0, Tcl::GLOBAL_ONLY);
     $i->SUPER::Init();
     $i->pkg_require('Tk', $i->GetVar('tcl_version'));
-    # $i->update; # WinCE helper. TODO - remove from RELEASE
+
     my $mwid = $i->invoke('winfo','id','.');
     $W{PATH}->{$mwid} = '.';
     $W{INT}->{$mwid} = $i;
