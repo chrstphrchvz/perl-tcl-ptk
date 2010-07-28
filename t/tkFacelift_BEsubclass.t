@@ -1,4 +1,4 @@
-# This is a empty subclass test of the BrowseEntry widget with TkFacelift
+# This is a empty subclass test of the BrowseEntry widget with Facelift
 
 
 use Test;
@@ -26,7 +26,7 @@ package main;
 
 use Tcl::pTk;
 
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 
 $| = 1;
 

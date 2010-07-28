@@ -4,7 +4,7 @@
 #  Simple use of Tcl::pTk::TkHijack and TkFacelift with a subclassed Frame
 
 use Tcl::pTk::TkHijack;
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 
 use Tk;
 

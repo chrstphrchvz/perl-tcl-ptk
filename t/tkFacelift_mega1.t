@@ -6,7 +6,7 @@
 #   to make it work with Tcl::pTk
 
 use Tcl::pTk::TkHijack;
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 use Test;
 plan tests => 1;
 

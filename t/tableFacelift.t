@@ -5,7 +5,7 @@
 use Test;
 use Tcl::pTk;
 use Tcl::pTk::Table();
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 
 
 

@@ -3,7 +3,7 @@
 
 use Tcl::pTk;
 use Tcl::pTk::LabEntry;
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 use Test;
 use strict;
 

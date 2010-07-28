@@ -154,7 +154,7 @@ upgrades to Tcl/Tk shouldn't require much coding changes (if any) in L<Tcl::pTk>
 
 =item *
 
-L<Tcl::pTk::TkFacelift> package supplied, which provides a quick way of using the new better-looking Tile/ttk widgets in existing code.
+L<Tcl::pTk::Facelift> package supplied, which provides a quick way of using the new better-looking Tile/ttk widgets in existing code.
 
 =item *
 

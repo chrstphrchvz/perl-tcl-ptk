@@ -2,29 +2,29 @@ use Tcl::pTk;
 use Tcl::pTk::BrowseEntry;
 use Tcl::pTk::ttkBrowseEntry;
 
-package Tcl::pTk::TkFacelift;
+package Tcl::pTk::Facelift;
 
 =head1 NAME
 
-Tcl::pTk::TkFacelift -  Update the look of older Tk scripts using the new tile widgets
+Tcl::pTk::Facelift -  Update the look of older Tk scripts using the new tile widgets
 
 
 =head1 SYNOPSIS
 
         # Run a existing tcl/tk script 'tcltkscript.pl' with an updated look
-        perl -MTcl::pTk::TkFacelift tcltkscript.pl
+        perl -MTcl::pTk::Facelift tcltkscript.pl
         
-        # Alternatively, you can just put 'use Tcl::pTk::TkFacelift' at the
+        # Alternatively, you can just put 'use Tcl::pTk::Facelift' at the
         #  top of the 'tcltkscript.pl' file and just run it like normal
 
         # You can also do this in combination with Tcl::pTk::TkHijack to run
         #  an existing perl/tk script using Tcl::pTk and with an updated look
         #  
-        perl -MTcl::pTk::TkHijack -MTcl::pTk::TkFacelift tkscript.pl
+        perl -MTcl::pTk::TkHijack -MTcl::pTk::Facelift tkscript.pl
 
 =head1 DESCRIPTION
 
-I<Tcl::pTk::TkFacelift> is an experimental module that gives existing tcl/tk scripts an updated look by subsituting
+I<Tcl::pTk::Facelift> is an experimental module that gives existing tcl/tk scripts an updated look by subsituting
 some the widgets (button, entry, label, etc) with their new "Tile" widget equivalents.
         
 Note that this replacement/subsitution is not complete. The new "Tile" widgets aren't 100% compatible with the
@@ -45,11 +45,11 @@ For Example, this code snippet would create a top-level window, and a Label and 
  my $label  = $mw->Label();
  my $button = $mw->Button();
  
-Now, with the addition of the C<use Tcl::pTk::TkFacelift> package, the I<Label> and <Button> creation-methods
+Now, with the addition of the C<use Tcl::pTk::Facelift> package, the I<Label> and <Button> creation-methods
 get over-ridden to build "Tile" widgets.
         
  use Tcl::pTk;
- use Tcl::pTk::TkFacelift;
+ use Tcl::pTk::Facelift;
  my $mw     = MainWindow->new();
  my $label  = $mw->Label();
  my $button = $mw->Button();
@@ -65,8 +65,8 @@ a appearance options (e.g. -bg, -fg, etc) option, but they will be ignored.
 
 =head1 Examples
 
-There are some examples of using TkFacelift (along with TkHijack) with a simple perl/tk script, and a perl/tk mega-widget. See
-C<t/tkFacelift_simple.t> and C<t/tkFacelift_mega.t> in the source distribution.
+There are some examples of using Facelift (along with TkHijack) with a simple perl/tk script, and a perl/tk mega-widget. See
+C<t/Facelift_simple.t> and C<t/Facelift_mega.t> in the source distribution.
 
 =head1 LIMITATIONS
 
@@ -602,7 +602,7 @@ sub Tcl::pTk::BrowseEntry{
         return $obj;
 }
 
-################ New Tcl::pTk::Widget::Contruct Method used for TkFacelift #########
+################ New Tcl::pTk::Widget::Contruct Method used for Facelift #########
 ##
 ##  This has the same function as Tcl::pTk::Widget::Construct defined in MegaWidget.pm
 ##   but also has code to alter the inheritance of derived widgets so that they are

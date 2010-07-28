@@ -6,7 +6,7 @@ plan tests => 2;
 use strict;
 
 use Tcl::pTk::TkHijack;
-use Tcl::pTk::TkFacelift;
+use Tcl::pTk::Facelift;
 
 ############# Empty subclass test ####################
 
