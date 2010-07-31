@@ -1,17 +1,15 @@
 NAME
-    Tcl::Tk extension module for Perl5
+    Tcl::pTk - Interface to Tcl/Tk with Perl/Tk compatible sytax
 
 DESCRIPTION
     
-    The Tcl::Tk extension (not to be confused with the "native" perl5
-    Perl/Tk extension) provides a raw but complete interface to the whole
-    of Tk via the Tcl extension.
-
-    Have incomplete but quite much support for perlTk syntax (i.e. you can use
-    perlTk syntax to use create Tcl/Tk GUI from perl), and existing Tcl/Tk GUI
-    could be embedded to Perl without extra coding, including pure-Tcl widgets
-    and any widgets that exist in you current Tcl/Tk.
-
+    The Tcl::pTk extension (not to be confused with the "native" perl5
+    Perl/Tk extension) provides a complete interface to the whole
+    of Tk via the Tcl extension. It has full perl/tk compatible syntax for 
+    running existing perl/tk scripts, as well as direct-tcl syntax for using any other Tcl/Tk features.
+            
+    See the POD documentation for more details.
+    
 Build in the usual way for a perl extension:
 
 1. Tweak Makefile.PL is necessary only if your Tcl or Tk include files could
@@ -28,13 +26,6 @@ Makefile.PL to reflect your paths, and then invoke as
   perl -MCross=[your-cross-name] Makefile.PL
 Please see into Makefile.PL for more details on that.
 
-AUTHOR
-    Malcolm Beattie	mbeattie@sable.ox.ac.uk
-
-MAINTAINERS
-    Vadim Konovalov	vkonovalov@peterstar.ru
-    Jeff Hobbs
-    Gisle Aas
 
 LICENSE
     This program is free software; you can redistribute it and/or modify
@@ -51,6 +42,4 @@ LICENSE
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See either
     the GNU General Public License or the Artistic License for more details.
 
-	      Copyright (c) 1994-1997  Malcolm Beattie
-			All rights reserved.
     
