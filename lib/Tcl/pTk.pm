@@ -112,14 +112,14 @@ Or B<Tcl::pTk Synax with direct access to Tcl:>
 
 =head1 DESCRIPTION
 
-C<Tcl::pTk> interfaces perl with the Tk library within an existing Tcl/Tk
+C<Tcl::pTk> interfaces perl to an existing Tcl/Tk
 installation on your computer. It has fully perl/tk (See L<Tk>) compatible syntax for running existing
 perl/tk scripts, as well as direct-tcl syntax for using any other Tcl/Tk features. 
 
-Using this module an interpreter object created, which
+Using this module an interpreter object is created, which
 then provides access to all the installed Tcl libraries (Tk, Tix,
 BWidgets, BLT, etc) and existing features (for example native-looking
-widgets using the C<tile> package).
+widgets using the C<Tile> package).
 
 B<Features>
 
@@ -137,7 +137,7 @@ for a simple example.
 =item *
 
 All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the "Use Tk;"
-to "Use Tcl::pTk" at the top of the file. See the I<widgetTclTk> demo script included in the source distribution to run the demos.
+to "Use Tcl::pTk" at the top of the file. See the I<widgetTclpTk> demo script included in the source distribution to run the demos.
 
 =item *
 
@@ -170,6 +170,37 @@ Extensive test suite.
 Compatible with Tcl/Tk 8.4+
 
 =back
+
+=head2 Examples
+
+There are many examples in the I<widgetTclpTk> script (This is very simlar to the I<widget> demo installed with
+perl/tk). After installing the L<Tcl::pTk> package, type I<widgetTclpTk> on the command line to run.
+
+The test cases in the I<t> directory of the source distribution also is a good source of code examples.
+
+=head1 Relation to the L<Tcl::Tk> Package
+
+This package (L<Tcl::pTk>) is similar (and much of the code is derived from) the L<Tcl::Tk> package, 
+maintained by Vadim Konovalov. However it differs from the L<Tcl::Tk> package in some important ways:
+
+=over 1
+
+=item * L<Tcl::pTk>
+
+Emphasis is on 100% compatibility with existing perl/tk syntax. 
+
+For developers with a perl/Tk background and an existing perl/Tk codebase to support. 
+For perl/Tk developers looking to take
+advantage of the look/feel updates in Tcl/Tk 8.5 and above.
+
+=item * L<Tcl::Tk>
+
+Emphasis is on a lightweight interface to Tcl/Tk with syntax similar to (but not exactly like) perl/tk. 
+
+For developers with some perl/Tk background, writing new code,
+but no existing perl/Tk codebase to support.
+
+=back 
 
 =head1 Basic Usage/Operation
 
@@ -217,7 +248,7 @@ act similarly to widgets).
 
 =item * 
 
-Perl/Tk compatible-syntax approach. i.e. C<$widget->method> syntax.
+Perl/Tk compatible-syntax approach. i.e. C<< $widget->method >> syntax.
 
 =item *
 
@@ -239,7 +270,7 @@ Tcl/Tk widgets is needed.
 
 In order to get better understanding on usage of Tcl/Tk widgets from within
 Perl, a bit of Tcl/Tk knowledge is needed, so we'll start from 2nd approach,
-with Tcl's Eval (C<< $int->Eval('...') >>) and then smoothly move to 1st,
+with Tcl's Eval (C<< $int->Eval('...') >>) and then smoothly move to first
 approach with perl/Tk syntax.
 
 =over
@@ -247,7 +278,7 @@ approach with perl/Tk syntax.
 =item * The Tcl Interpreter
 
 The Tcl interpreter is used to process Tcl/Tk widgets; within C<Tcl::pTk> you
-create it with C<new>, and, given any widget object, you can retreive it by
+create it with C<new>, and given any widget object, you can retreive it by the
 C<< $widget->interp >> method. ( Within pure Tcl/Tk the interpreter already exists,
 you don't need to create it explicitly. ) 
 
@@ -341,7 +372,7 @@ Examples of these types of widgets are Tree, TextEdit, TextUndo, ROText, and Dir
 
 =head1 A behind-the-scenes look at auto-wrapped widgets
 
-All Widgets in C<Tcl::pTk> are objects, and have an inheritance hierarchy that derives from the C<Tcl::pTk::Widget> 
+All widgets in C<Tcl::pTk> are objects, and have an inheritance hierarchy that derives from the C<Tcl::pTk::Widget> 
 parent class. Megawidgets and derived widgets are handled very similar (if not exactly) the same as in perl/tk.
 
 Auto-wrapped widgets (like the Entry, Button, Scrollbar, etc.) are handled differently. 
@@ -359,10 +390,10 @@ Here is an example of a Entry widget, a direct auto-wrapped widget:
   my $entry = $mw->Entry->pack;          # Create an entry widget and pack it
   $entry->insert('end', -text=>'text');  # Insert some text into the Entry
   my $entryText = $entry->get();         # Get the entry's text
-  
-Internally, the following mechanics comes into play.
+
+Internally, the following mechanics come into play:
 The I<Entry> method creates an I<Entry> widget (known as C<entry> in the Tcl/Tk environment). 
-When this creation method is invoked first time, a package 
+When this creation method is invoked the first time, a package 
 C<Tcl::pTk::Entry> is created, which sets up the class hierarchy for any
 further Entry widgets. The newly-created C<Tcl::pTk::Entry> class is be
 a direct subclass of C<Tcl::pTk::Widget>.
@@ -386,8 +417,8 @@ code added for compatibility with the perl/tk Text widget.
   $text->insert('end', -text=>'text');   # Insert some text into the Text
   @names = $text->markNames;             # Get a list of the marks set in the
                                          #  Text widget
-  
-Internally, following mechanics comes into play.
+
+Internally, following mechanics come into play:
 The I<Text> method creates an I<Text> widget (known as C<text> in Tcl/Tk environment). 
 Because a C<Tcl::pTk::Text> package already exists, a new package is not created
 at runtime like the case above. 
@@ -623,7 +654,8 @@ Tcl/Tk, so be sure you have that Tcl/Tk package installed.
 
 Note: The perl/tk-compatible B<Balloon> widget is also available for installing tool-tips on widgets
 and widget-elements.
-  
+
+
 =head1 Terminology
 
 In the documentation and comments for this package, I<perl/Tk>, I<Tcl/Tk>, I<Tcl::pTk>, I<Tcl.pm>, and I<Tcl> are used. These terms have the
