@@ -3,6 +3,8 @@
 
 package Tcl::pTk::Font;
 
+our ($VERSION) = ('0.8');
+
 require Tcl::pTk::Widget;
 use strict;
 use Carp;

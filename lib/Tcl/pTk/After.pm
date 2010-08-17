@@ -5,6 +5,9 @@
 # Modified for inclusion into Tcl::pTk 10/20/08
 
 package Tcl::pTk::After;
+
+our ($VERSION) = ('0.8');
+
 use Carp;
 
 sub _cancelAll

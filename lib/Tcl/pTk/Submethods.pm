@@ -1,5 +1,7 @@
 package Tcl::pTk::Submethods;
 
+our ($VERSION) = ('0.8');
+
 sub import
 {
  my $class = shift;

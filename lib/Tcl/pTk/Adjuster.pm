@@ -1,5 +1,7 @@
 package Tcl::pTk::Adjuster;
 
+our ($VERSION) = ('0.8');
+
 ##### Implementation of Tk::Adjuster in Tcl::pTk ###########
 ## This code is incomplete for Tcl::pTk (because GeometryRequest method isn't supported)
 ##   Try to convert existing Tk::Adjuster apps to use Tk::Panedwindow, which is better supported

@@ -10,6 +10,8 @@ package Tcl::pTk::Dialog;
 
 # Documentation after __END__
 
+our ($VERSION) = ('0.8');
+
 use Carp;
 use strict;
 use base qw(Tcl::pTk::DialogBox);

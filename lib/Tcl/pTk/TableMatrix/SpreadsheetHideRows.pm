@@ -1,3 +1,8 @@
+package Tcl::pTk::TableMatrix::SpreadsheetHideRows;
+
+
+our ($VERSION) = ('0.8');
+
 =head1 NAME
 
 Tcl::pTk::TableMatrix::SpreadsheetHideRows - Table Display with selectable hide/un-hide of rows
@@ -113,8 +118,6 @@ In addition the standard L<Tk::TableMatrix> widget method. The following methods
 
 =cut
 
-package Tcl::pTk::TableMatrix::SpreadsheetHideRows;
-
 use Carp;
 
 
@@ -124,7 +127,6 @@ use Tcl::pTk::Derived;
 
 use base qw/ Tcl::pTk::Derived Tcl::pTk::TableMatrix::Spreadsheet/;
 
-$VERSION = '1.23';
 
 
 Tcl::pTk::Widget->Construct("SpreadsheetHideRows");

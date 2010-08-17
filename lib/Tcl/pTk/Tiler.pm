@@ -3,6 +3,9 @@
 # modify it under the same terms as Perl itself.
 # An example of a geometry manager "widget" in perl
 package Tcl::pTk::Tiler;
+
+our ($VERSION) = ('0.8');
+
 require Tcl::pTk;
 require Tcl::pTk::Frame;
 

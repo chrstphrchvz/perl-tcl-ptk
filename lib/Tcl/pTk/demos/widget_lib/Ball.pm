@@ -17,8 +17,7 @@ package Ball;
 # Gurusamy Sarathy (gsar@engin.umich.edu)
 # Tidied up by SOL.
 
-use vars qw/$VERSION/;
-$VERSION = '4.004'; # $Id: //depot/Tkutf8/demos/demos/widget_lib/Ball.pm#4 $
+our ($VERSION) = ('0.8');
 
 use Tcl::pTk::Canvas;
 #use Tk::Widget;

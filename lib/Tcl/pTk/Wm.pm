@@ -6,6 +6,7 @@
 
 package Tcl::pTk::Wm;
 
+our ($VERSION) = ('0.8');
 
 use strict;
 

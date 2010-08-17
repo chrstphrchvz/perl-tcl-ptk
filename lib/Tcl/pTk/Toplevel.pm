@@ -1,5 +1,7 @@
 package Tcl::pTk::Toplevel;
 
+our ($VERSION) = ('0.8');
+
 # Simple Toplevel package.
 #  Split-out from the Tcl::pTk::Widget package for compatibility with
 #   'use base (Tcl::pTk::Toplevel)' statements used in perl/tk

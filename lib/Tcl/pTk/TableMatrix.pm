@@ -2,6 +2,8 @@
 
 package Tcl::pTk::TableMatrix;
 
+our ($VERSION) = ('0.8');
+
 ###########################################################
 # Emulation of the perl/tk Tablematrix widget using Tcl::pTk
 ###########################################################
@@ -405,9 +407,8 @@ sub validatecommand{
 ## Interactive cell resizing, affected by -resizeborders option
 ##
 use strict;
-use vars( '%tkPriv', '$VERSION');
+use vars( '%tkPriv');
 
-$VERSION = '1.23';
 
 
 

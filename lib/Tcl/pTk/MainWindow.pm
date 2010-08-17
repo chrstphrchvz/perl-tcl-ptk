@@ -1,5 +1,7 @@
 package Tcl::pTk::MainWindow;
 
+our ($VERSION) = ('0.8');
+
 use Tcl::pTk::Toplevel;
 
 @Tcl::pTk::MainWindow::ISA = (qw/ Tcl::pTk::Toplevel/);

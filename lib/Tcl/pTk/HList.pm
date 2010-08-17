@@ -2,6 +2,8 @@
 
 package Tcl::pTk::HList;
 
+our ($VERSION) = ('0.8');
+
 @Tcl::pTk::HList::ISA = (Tcl::pTk::Widget);
 
 use strict;

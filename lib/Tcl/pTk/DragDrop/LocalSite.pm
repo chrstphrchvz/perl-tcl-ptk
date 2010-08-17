@@ -1,4 +1,7 @@
 package Tcl::pTk::DragDrop::LocalSite;
+
+our ($VERSION) = ('0.8');
+
 use strict;
 
 use base qw(Tcl::pTk::DropSite);

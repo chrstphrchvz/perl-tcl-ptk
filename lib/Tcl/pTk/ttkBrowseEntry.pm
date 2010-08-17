@@ -1,3 +1,7 @@
+package Tcl::pTk::ttkBrowseEntry;
+
+our ($VERSION) = ('0.8');
+
 =head1 NAME 
 
 Tcl::pTk::ttkBrowseEntry - BrowseEntry compatible wrapper for ttkCombobox
@@ -140,7 +144,7 @@ Get the current selected choice. This directly maps to the I<get> method of the 
 
 =cut
 
-package Tcl::pTk::ttkBrowseEntry;
+
 
 use Tcl::pTk qw(Ev);
 use Carp;

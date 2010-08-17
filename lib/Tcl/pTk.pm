@@ -1,5 +1,7 @@
 package Tcl::pTk;
 
+our ($VERSION) = ('0.8');
+
 use strict;
 use Tcl;
 use Exporter ('import');
@@ -57,7 +59,7 @@ if($DEBUG){
 
 
 @Tcl::pTk::ISA = qw(Tcl);
-$Tcl::pTk::VERSION = '0.97';
+
 
 sub WIDGET_CLEANUP() {1}
 

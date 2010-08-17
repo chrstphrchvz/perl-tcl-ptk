@@ -3,6 +3,8 @@
 
 package Tcl::pTk::Menu::Item;
 
+our ($VERSION) = ('0.8');
+
 require Tcl::pTk::Menu;
 
 use Carp;

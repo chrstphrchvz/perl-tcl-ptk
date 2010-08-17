@@ -2,6 +2,8 @@
 
 package Tcl::pTk::Listbox;
 
+our ($VERSION) = ('0.8');
+
 @Tcl::pTk::Listbox::ISA = (Tcl::pTk::Widget);
 
 use strict;

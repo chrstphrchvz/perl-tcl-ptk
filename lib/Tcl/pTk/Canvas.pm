@@ -1,5 +1,7 @@
 package Tcl::pTk::Canvas;
 
+our ($VERSION) = ('0.8');
+
 # Simple Canvas package.
 #  This is here just so widgets can subclass from a canvas before actually creating a canvas
 # Also to provide some compatibility functions with perl/tk

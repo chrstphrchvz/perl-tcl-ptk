@@ -3,6 +3,8 @@
 
 package Tcl::pTk::Derived;
 
+our ($VERSION) = ('0.8');
+
 use Carp;
 
 use Tcl::pTk::Configure;

@@ -1,5 +1,7 @@
 package Tcl::pTk::Callback;
 
+our ($VERSION) = ('0.8');
+
 use strict;
 use warnings;
 use Carp;

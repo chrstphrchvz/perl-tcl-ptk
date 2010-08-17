@@ -4,6 +4,8 @@ use Tcl::pTk::ttkBrowseEntry;
 
 package Tcl::pTk::Facelift;
 
+our ($VERSION) = ('0.8');
+
 =head1 NAME
 
 Tcl::pTk::Facelift -  Update the look of older Tk scripts using the new tile widgets

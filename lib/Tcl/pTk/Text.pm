@@ -2,6 +2,9 @@ use strict;
 
 
 package Tcl::pTk::Text;
+
+our ($VERSION) = ('0.8');
+
 # borrowed from Tk/Text.pm without any modifications
 
 use base  qw(Tcl::pTk::Clipboard Tcl::pTk::Widget);

@@ -1,6 +1,6 @@
 package Tcl::pTk::Configure;
-use vars qw($VERSION);
-$VERSION = '4.008'; # $Id: //depot/Tkutf8/Tk/Configure.pm#8 $
+
+our ($VERSION) = ('0.8');
 
 use Carp;
 

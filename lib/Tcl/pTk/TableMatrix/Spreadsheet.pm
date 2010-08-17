@@ -1,3 +1,6 @@
+package Tcl::pTk::TableMatrix::Spreadsheet;
+
+our ($VERSION) = ('0.8');
 
 =head1 NAME
 
@@ -86,7 +89,6 @@ docs for additional information.
 
 
 
-package Tcl::pTk::TableMatrix::Spreadsheet;
 
 use Carp;
 
@@ -96,8 +98,6 @@ use Tcl::pTk::TableMatrix;
 use Tcl::pTk::Derived;
 
 use base qw/ Tcl::pTk::Derived Tcl::pTk::TableMatrix/;
-
-$VERSION = '1.23';
 
 
 Tcl::pTk::Widget->Construct("Spreadsheet");

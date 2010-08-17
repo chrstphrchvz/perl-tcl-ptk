@@ -6,6 +6,8 @@
 
 package Tcl::pTk::Widget;
 
+our ($VERSION) = ('0.8');
+
 use IO::Handle; 
 
 use Class::ISA;  # Used for finding the base class of a derived widget

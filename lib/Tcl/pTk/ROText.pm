@@ -6,6 +6,8 @@
 
 package Tcl::pTk::ROText;
 
+our ($VERSION) = ('0.8');
+
 use base  qw(Tcl::pTk::Derived Tcl::pTk::Text);
 
 Construct Tcl::pTk::Widget 'ROText';

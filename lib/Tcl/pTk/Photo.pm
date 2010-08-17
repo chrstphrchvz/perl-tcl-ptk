@@ -1,5 +1,6 @@
 package Tcl::pTk::Photo;
 
+our ($VERSION) = ('0.8');
 
 use Tcl::pTk;
 

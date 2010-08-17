@@ -2,8 +2,7 @@ package WidgetDemo;
 
 use 5.005_03;
 
-use vars qw($VERSION);
-$VERSION = sprintf '4.%03d', q$Revision: #11 $ =~ /\D(\d+)\s*$/;
+our ($VERSION) = ('0.8');
 
 use Tcl::pTk;
 use Carp;

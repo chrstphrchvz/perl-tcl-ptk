@@ -3,8 +3,7 @@
 
 package Tcl::pTk::Tie::Watch;
 
-use vars qw($VERSION);
-$VERSION = '4.006'; # $Id: //depot/Tkutf8/lib/Tie/Watch.pm#6 $
+our ($VERSION) = ('0.8');
 
 =head1 NAME
 

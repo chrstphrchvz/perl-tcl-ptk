@@ -7,8 +7,7 @@ package Tcl::pTk::Tree;
 #
 # Converted to Tcl::pTk  John Cerney
 
-use vars qw($VERSION);
-$VERSION = '4.005'; # $Id: //depot/Tkutf8/Tixish/Tree.pm#5 $
+our ($VERSION) = ('0.8');
 
 use Tcl::pTk ();
 use Tcl::pTk::Derived;

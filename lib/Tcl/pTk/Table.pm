@@ -5,6 +5,9 @@
 #
 
 package Tcl::pTk::Table;
+
+our ($VERSION) = ('0.8');
+
 use strict;
 
 use Tcl::pTk::TableMatrix;
