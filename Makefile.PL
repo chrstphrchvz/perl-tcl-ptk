@@ -51,7 +51,6 @@ WriteMakefile(
     NAME => "Tcl::pTk",
     VERSION_FROM => 'lib/Tcl/pTk.pm',
     EXE_FILES => \@SCRIPTS,
-    NO_META => 1,
     PREREQ_PM => {
 	Tcl => 0.90,
     },
