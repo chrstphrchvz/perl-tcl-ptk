@@ -20,6 +20,31 @@ Usage: perl Makefile.PL [--tclsh <path>] [<makemaker opts>...]
 
 EOT
 
+my %makeArgs = (
+    NAME => "Tcl::pTk",
+    VERSION_FROM => 'lib/Tcl/pTk.pm',
+    EXE_FILES => \@SCRIPTS,
+    META_MERGE => 
+	{ no_index => { directory => [ qw! benchmarks TableMatrixDemos lib/Tcl/pTk/demos ! ] },
+          keywords => [ qw/ Tk Tcl Tix GUI /],
+          license  => 'perl',
+        } ,
+    PREREQ_PM => {
+	Tcl => 0.90,
+    }
+);
+
+# Remove META_MERGE parameter for older versions of ExtUtils::MakeMaker
+my $MMversion = $ExtUtils::MakeMaker::VERSION;
+#print "VERSION = $MMversion\n";
+$MMversion =~ s/_\d+$//; # Get rid of underscores in the version for numeric compare
+delete $makeArgs{META_MERGE} if( $MMversion < 6.45 );
+
+WriteMakefile(
+%makeArgs
+);
+
+
 # Allow the tclsh prog to be provided by env var or arg
 if ($tclshArg) {
     $tclsh = $tclshArg;
@@ -47,26 +72,4 @@ Make sure that it is installed within your Tcl/Tk.
 EOS
 }
 
-my %makeArgs = (
-    NAME => "Tcl::pTk",
-    VERSION_FROM => 'lib/Tcl/pTk.pm',
-    EXE_FILES => \@SCRIPTS,
-    META_MERGE => 
-	{ no_index => { directory => [ qw! benchmarks TableMatrixDemos lib/Tcl/pTk/demos ! ] },
-          keywords => [ qw/ Tk Tcl Tix GUI /],
-          license  => 'perl',
-        } ,
-    PREREQ_PM => {
-	Tcl => 0.90,
-    }
-);
 
-# Remove META_MERGE parameter for older versions of ExtUtils::MakeMaker
-my $MMversion = $ExtUtils::MakeMaker::VERSION;
-#print "VERSION = $MMversion\n";
-$MMversion =~ s/_\d+$//; # Get rid of underscores in the version for numeric compare
-delete $makeArgs{META_MERGE} if( $MMversion < 6.45 );
-
-WriteMakefile(
-%makeArgs
-);

@@ -1,2 +1,2 @@
- - "event" mechanism should be different and easier to use
- - Tcl::Tk widgets could coexist with perlTk, to get most of two areas
+ - Update the Tcl::pTk::DragDrop to work with external apps.
+
