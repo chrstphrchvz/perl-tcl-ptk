@@ -4,7 +4,7 @@
 
 package Tcl::pTk::Frame;
 
-our ($VERSION) = ('0.8');
+our ($VERSION) = ('0.81');
 
 use base ('Tcl::pTk::Derived', 'Tcl::pTk::Widget');
 

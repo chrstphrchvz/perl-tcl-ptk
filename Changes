@@ -1,5 +1,11 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.81:  8/21/10
+
+ * Minor updates so the CPAN indexer won't index demo directories. 
+ * Changed order of execution in Makefile.PL so that CPAN testers will get the proper prereqs
+   before the test-for-tk script is run.
+
 
 Release 0.8:  8/18/10
 
