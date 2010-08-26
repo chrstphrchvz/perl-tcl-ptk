@@ -64,12 +64,6 @@ directory; Please check if you can feed 'package require Tk' to tclsh
 EOS
 }
 
-unless ($res =~ /^ok2/m) {
-  die <<EOS;
 
-Your Tk installation fails to find snit package.
-Make sure that it is installed within your Tcl/Tk.
-EOS
-}
 
 

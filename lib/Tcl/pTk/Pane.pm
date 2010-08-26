@@ -8,7 +8,7 @@ package Tcl::pTk::ScrollableFrame;
 
 package Tcl::pTk::Pane;
 
-our ($VERSION) = ('0.81');
+our ($VERSION) = ('0.82');
 
 use Tcl::pTk;
 use Tcl::pTk::Widget;

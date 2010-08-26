@@ -1,6 +1,6 @@
 package Tcl::pTk;
 
-our ($VERSION) = ('0.81');
+our ($VERSION) = ('0.82');
 
 use strict;
 use Tcl;
