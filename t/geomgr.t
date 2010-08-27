@@ -18,6 +18,10 @@ my $ws = $mw->windowingsystem;
 
 ok( defined($ws));
 
+# This will skip if Tix not present
+my $tixPresent = $mw->interp->pkg_require('Tix');
+
+
 ##
 ## More than simple tests
 ##
@@ -29,6 +33,13 @@ ok( defined($ws));
     for my $mgr ( qw/grid pack form/ )  # 'place' needs args so ignored here
        {
          print "testing manager: $mgr ...\n";
+         
+         if( ($mgr eq 'form') && !$tixPresent ){
+                 foreach (1..5){
+                         skip("Tix package not present. Not texting form mgr");
+                 }
+                 next;
+         }
 
          $method = $mgr;
          eval { $b->$method(); };

@@ -9,8 +9,6 @@ use Tcl::pTk::Facelift;
 use Tk;
 
 use Test;
-plan tests => 1;
-
 
 
 
@@ -33,6 +31,17 @@ package main;
 #@Tk::Frame2::ISA = ('Tcl::pTk::FramettkSubs');
 
 my $top = MainWindow->new( -title => "Hijack Test" );
+
+# This will skip if Tile widgets not available
+my $tclVersion = $top->tclVersion;
+unless( $tclVersion > 8.4 ){
+        plan tests => 1;
+        skip("Tile Tests on Tcl version < 8.5", 1);
+        exit;
+}
+ 
+plan tests => 1;
+
 
 my $frame0 = $top->Frame();
 

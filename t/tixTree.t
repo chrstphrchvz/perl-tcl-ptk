@@ -4,10 +4,19 @@ use strict;
 use Test;
 use Tcl::pTk;
 
-plan tests => 1;
 
 my $top = MainWindow->new( -title => "TixTree" );
 
+# This will skip if Tix not present
+my $retVal = $top->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan tests => 1;
 
 my $tree = $top->TixTree();
 

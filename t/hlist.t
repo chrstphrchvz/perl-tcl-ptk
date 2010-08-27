@@ -4,10 +4,20 @@ use Tcl::pTk;
 use Data::Dumper;
 use Test;
 
-plan tests => 5;
 
 $mw = MainWindow->new;
 $|=1;
+
+# This will skip if Tix not present
+my $retVal = $mw->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan tests => 5;
 
 my $hl = $mw->Scrolled('HList', -separator => '.', -width => 25,
 #my $hl = $mw->HList( -separator => '.', -width => 25,

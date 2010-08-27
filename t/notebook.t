@@ -5,7 +5,6 @@ use Tcl::pTk::DialogBox;
 
 use Test;
 
-plan test => 2;
 
 my $name = "Rajappa Iyer";
 my $email = "rsi\@netcom.com";
@@ -14,6 +13,18 @@ my $os = "Linux";
 use vars qw($top);
 
 $top = MainWindow->new;
+
+# This will skip if Tix not present
+my $retVal = $top->interp->pkg_require('Tix');
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan test => 2;
+
+
 my $notebook = donotebook();
 
 

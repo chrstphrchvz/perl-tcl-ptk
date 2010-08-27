@@ -7,11 +7,31 @@ use Tcl::pTk::Facelift;
 use Test;
 use strict;
 
-plan tests => 1;
 
 
 
 my $top = MainWindow->new();
+
+# This will skip if Tile widgets not available
+my $tclVersion = $top->tclVersion;
+unless( $tclVersion > 8.4 ){
+        plan tests => 1;
+        skip("Tile Tests on Tcl version < 8.5", 1);
+        exit;
+}
+ 
+# This will skip if Tix not present
+my $retVal = $top->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+       
+
+plan tests => 1;
 
 my $entry = "data here";
 

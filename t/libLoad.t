@@ -7,12 +7,22 @@ use Tcl::pTk;
 use Data::Dumper;
 use Test;
 
-plan tests => 1;
 
 #### Create a Mainwindow (and a interpreter) and create an Hlist ####
 ###   Creating an hlist will cause the tix library to load for this interp ###
 $mw = MainWindow->new;
 $|=1;
+
+# This will skip if Tix not present
+my $retVal = $mw->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan tests => 1;
 
 my $hl = $mw->HList( -separator => '.', -width => 25,
                         -drawbranch => 1,

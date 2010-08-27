@@ -58,11 +58,51 @@ my $res = join '', <TCLSH>;
 unless ($res =~ /^ok1/m) {
   die <<EOS;
 
-Your Tcl installation ($tclsh) fails to find Tk package.
+#####################  Error   ####################################
+Your Tcl installation ($tclsh) doesn't appear to include the Tk package.
 One of possible reasons is missing file 'pkgIndex.tcl' in ..../tk8.4/
 directory; Please check if you can feed 'package require Tk' to tclsh
 EOS
 }
+
+unless ($res =~ /^ok_Tix/m) {
+  warn <<EOS;
+
+##################### Warning ####################################
+Your Tcl/Tk installation does not appear to include the Tix package.
+Tix is needed for full compatibility with perl/tk.
+Build can continue, but some functionality will be missing.
+
+Information on Tix can be found at http://tix.sourceforge.net
+EOS
+}
+
+my ($TclVersion) = ($res =~ /TclVersion\s+(\S+)/ );
+
+if( $TclVersion < 8.4 ){
+  die <<EOS;
+
+##################### Error ####################################
+Your Tcl/Tk installation version is less than 8.4. This is not
+supported. Upgrade your Tcl/Tk installation.
+Tcl/Tk information can be found at http://www.tcl.tk/
+EOS
+
+}
+
+if( $TclVersion < 8.5 ){
+  warn <<EOS;
+
+##################### Warning ####################################
+You have an older Tcl/Tk installation (Version 8.4).
+Version 8.5 or higher is recommended for full functionality (including
+the new Tile Widget support).
+Build can continue, but some functionality will be missing.
+Tcl/Tk information can be found at http://www.tcl.tk/
+EOS
+
+}
+
 
 
 

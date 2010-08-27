@@ -6,9 +6,20 @@
 use Tcl::pTk;
 use Tcl::pTk::ItemStyle;
 use Test;
-plan tests => 1;
 
 $top = MainWindow->new;
+
+# This will skip if Tix not present
+my $retVal = $top->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan tests => 1;
+
 $redstyle  = $top->ItemStyle('text',
 			     -foreground => 'red',
 			     -font => '10x20',

@@ -8,7 +8,6 @@
 use Tcl::pTk::TkHijack;
 use Tcl::pTk::Facelift;
 use Test;
-plan tests => 1;
 
 
 package Tk::SlideSwitch;
@@ -87,7 +86,15 @@ package main;
 
 my $TOP = MainWindow->new();
 
+# This will skip if Tile widgets not available
+my $tclVersion = $TOP->tclVersion;
+unless( $tclVersion > 8.4 ){
+        plan tests => 1;
+        skip("Tile Tests on Tcl version < 8.5", 1);
+        exit;
+}
 
+plan tests => 1;
 
     my $mw = $TOP;
 

@@ -11,9 +11,19 @@ use Tk;
 use Tk::Tree;
 
 use Test;
-plan tests => 1;
 
 my $top = MainWindow->new( -title => "Hijack Test" );
+
+# This will skip if Tix not present
+my $retVal = $top->interp->pkg_require('Tix');
+
+unless( $retVal){
+	plan tests => 1;
+        skip("Tix Tcl package not available", 1);
+        exit;
+}
+
+plan tests => 1;
 
 #my $tree = $top->Scrolled( qw/Tree -separator \ -exportselection 1 
 #                           -scrollbars osoe / );

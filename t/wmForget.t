@@ -4,7 +4,6 @@ use Tcl::pTk;
 
 use Test;
 
-plan test => 3;
 
 
 my $TOP = MainWindow->new;
@@ -14,9 +13,12 @@ my $version = $TOP->tclVersion;
 
 # Skip if Tcl/pTk version is < 8.5
 if( $version < 8.5 ){
+        plan test => 1;
         skip("Wm manage only works for Tcl >= 8.5", 1);
         exit;
 }
+
+plan test => 3;
 
 my $f = $TOP->Frame->pack(-fill => 'both',
                           -expand => 1,

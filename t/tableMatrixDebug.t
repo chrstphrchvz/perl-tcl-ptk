@@ -10,7 +10,6 @@ use Tcl::pTk;
 use Tcl::pTk::TableMatrix;
 use Test;
 
-plan test => 2;
 
 my ($rows,$cols) = (25,20); # number of rows/cols
 my $top = MainWindow->new;
@@ -19,9 +18,13 @@ my $top = MainWindow->new;
 my $retVal = $top->interp->pkg_require('Tktable');
 
 unless( $retVal){
+	plan tests => 1;
         skip("Tktable Tcl package not available", 1);
         exit;
 }
+
+plan test => 2;
+
 
 # Sub to fill the array variable
 sub fill{
