@@ -10,6 +10,8 @@ use Tcl::pTk;
 my $mw  = MainWindow->new();
 $mw->geometry('+100+100');
 
+# This will skip if Tix not present
+my $imagePresent = $mw->interp->pkg_require('Img');
 
 
 plan tests => 7;
@@ -37,7 +39,9 @@ ok(ref($names[0]) =~ /Photo/i); # Check for image name being a image object
 
 my @types = $mw->imageTypes;
 #print "imageTypes = ".join(", ", @types)."\n";
-ok(join(", ", sort @types), 'Bitmap, Photo, Pixmap', "Unexpected imageTypes");
+my @expectedTypes = (qw/ Bitmap Photo Pixmap/);
+pop @expectedTypes unless( $imagePresent ); # Pixmap won't be there if Img package not there
+ok(join(", ", sort @types), join(", ", sort @expectedTypes), "Unexpected imageTypes");
 
 # Delete the image after a second
 $mw->after(1000, sub{ $image->delete });
