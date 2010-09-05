@@ -1,5 +1,9 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.83:  9/5/10
+
+ * Minor updates to be more compatible with Tcl 8.4 installation (although Tcl 8.5 is preferred)
+
 Release 0.82:  8/25/10
 
  * Minor updates to remove the requirement for the tcl package snit. This is not needed anymore. 

@@ -1,6 +1,6 @@
 package Tcl::pTk::TableMatrix::Spreadsheet;
 
-our ($VERSION) = ('0.82');
+our ($VERSION) = ('0.83');
 
 =head1 NAME
 
