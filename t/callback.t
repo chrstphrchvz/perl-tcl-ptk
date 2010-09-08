@@ -1,4 +1,4 @@
-use Test::More tests => 15;
+use Test::More tests => 16;
 
 use Tcl::pTk;
 use Tcl::pTk::Callback;
@@ -102,7 +102,10 @@ is( Data::Dumper::Dumper( [@retVal] ),
         "['Lots Args = ., arg1, XXX, YYY, arg4',0,1,2,3,4,5,6,7,8,9,10]",
         "createTclBindRef output");
 
-# 
+# Fall-thru test of creating a callback that is already a callback
+$callback = Tcl::pTk::Callback->new(\&lots);
+$callback = Tcl::pTk::Callback->new($callback);
+is(ref($callback), 'Tcl::pTk::Callback', "Callback fallthru"); 
 
 
 ################# Test Object for checking method calls ######################################
