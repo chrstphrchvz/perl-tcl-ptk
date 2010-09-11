@@ -251,7 +251,7 @@ sub ClassInit{
                     my $active = eval { $w->index('active'); }; 
                     if( $active  && $active ne '0,0' ){
                             my $posn = $w->icursor;
-                            $w->icursor($posn - 1);
+                            $w->icursor($posn + 1);
                     }
                     else{
                             # Not editing a cell, just move the selected cell around
