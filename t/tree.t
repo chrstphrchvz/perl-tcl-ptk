@@ -23,7 +23,7 @@ unless( $retVal){
         exit;
 }
 
-plan tests => 2;
+plan tests => 3;
 
 
 $| = 1; # Pipes hot
@@ -42,6 +42,9 @@ foreach my $d (@directories) {
     $tree->add( $d,  -text => $text, -image => $tree->Getimage("folder") );
 }
 
+# Add a window type
+$tree->add("C:\\Windows\\System\\WindowType", -itemtype => 'window', -window => $tree->Label(-text => "WindowType", -bg => 'white'));
+
 $tree->configure( -command => sub { print "@_\n" } );
 
 
@@ -53,6 +56,10 @@ my $ind = $tree->cget(-indicatorcmd);
 ok(ref($ind), "Tcl::pTk::Callback", "-indicatormcd returns callback");
 
 ok(1, 1, "Tree Widget Creation");
+
+# Get the window back and make sure it is a widget type
+my $window = $tree->entrycget("C:\\Windows\\System\\WindowType", -window);
+ok(ref($window), "Tcl::pTk::Label", "entrycget -window returns widget");
  
 $top->after(1000,sub{$top->destroy});
 

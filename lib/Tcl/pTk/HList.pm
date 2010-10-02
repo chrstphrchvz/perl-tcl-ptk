@@ -166,7 +166,7 @@ sub info{
 }
 
  
-# Overriden version of info that handles getting -data storage
+# Overriden version of info that handles getting -data storage and -window itemtypes
 sub entrycget{
         my $self   = shift;
         my $item   = shift;
@@ -175,6 +175,10 @@ sub entrycget{
         if( $option eq '-data'){
                 my $HListdata = $self->{_HListdata} || {};
                 return $HListdata->{$item};
+        }
+        if( $option eq '-window'){
+                my $window = $self->SUPER::entrycget($item, $option);
+                return $self->interp->widget($window);
         }
         
         return $self->SUPER::entrycget($item, $option, @_);
