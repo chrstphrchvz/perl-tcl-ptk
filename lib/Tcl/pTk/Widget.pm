@@ -18,6 +18,7 @@ use Tcl::pTk::Trace;
 use Tcl::pTk::Frame;
 use Tcl::pTk::HList;
 use Tcl::pTk::Text;
+use Tcl::pTk::Entry;
 use Tcl::pTk::Photo;
 use Tcl::pTk::Bitmap;
 use Tcl::pTk::XEvent;  # Limited XEvent support

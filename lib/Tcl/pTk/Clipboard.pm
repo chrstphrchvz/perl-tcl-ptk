@@ -39,6 +39,7 @@ sub clipboardCopy
   {
    $w->clipboardSet('--',$val);
   }
+  print "Copied $val\n";
  return $val;
 }
 
