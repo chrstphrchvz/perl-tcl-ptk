@@ -142,18 +142,26 @@ ok($button1Pressed, 1, "Button 1 pressed");
 ok($button2Pressed, 1, "Button 1 pressed");
 
 # Generate some events for testing
-$TOP->after(1000, sub{
-                $TOP->eventGenerate('<2>', -x => 50, -y => 60); # For checking x/y substitution
-                $b2->eventGenerate('<Shift-3>'); # For checking event source for class binding
+$TOP->update();
+$TOP->idletasks();
+
+$TOP->eventGenerate('<2>', -x => 50, -y => 60); # For checking x/y substitution
+
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
 }
-);
 
-$TOP->after(2000,
-        sub{
-                ok( join(", ", $mouseX, $mouseY), '50, 60', "Binding Ev Substitution");
-                ok( ref($eventSource), 'Tcl::pTk::Button', "Class Binding Event Source");
+$b2->eventGenerate('<Shift-3>'); # For checking event source for class binding
 
-                $TOP->destroy;
-        });
-MainLoop;
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
+}
+
+ok( join(", ", $mouseX, $mouseY), '50, 60', "Binding Ev Substitution");
+ok( ref($eventSource), 'Tcl::pTk::Button', "Class Binding Event Source");
+
 

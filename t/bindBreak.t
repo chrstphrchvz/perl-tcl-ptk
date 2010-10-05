@@ -60,14 +60,20 @@ $b->bind( ref($b),
 Tcl::pTk::break();
 
 # Generate some events for testing
-$TOP->after(1000, sub{
-                $b->eventGenerate('<3>'); # For checking event source for class binding
+
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
 }
-);
+$b->eventGenerate('<3>'); # For checking event source for class binding
 
-$TOP->after(2000, sub{ $TOP->destroy});
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
+}
 
-MainLoop;
 
 ok( $classBinding, 1, "Class binding fired");
 ok( $indivBinding, 0, "Indiv binding should not fire");

@@ -1,5 +1,9 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.84:  10/5/10
+
+ * Bug-fix Release
+
 Release 0.83:  9/5/10
 
  * Minor updates to be more compatible with Tcl 8.4 installation (although Tcl 8.5 is preferred)

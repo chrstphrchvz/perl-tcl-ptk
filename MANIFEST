@@ -133,6 +133,7 @@ lib/Tcl/pTk/DragDrop/LocalDrop.pm
 lib/Tcl/pTk/DragDrop/LocalSite.pm
 lib/Tcl/pTk/DragDrop/Rect.pm
 lib/Tcl/pTk/DropSite.pm
+lib/Tcl/pTk/Entry.pm
 lib/Tcl/pTk/Facelift.pm
 lib/Tcl/pTk/Font.pm
 lib/Tcl/pTk/Frame.pm
@@ -278,6 +279,7 @@ t/emptyMenuButtonSubclass.t
 t/emptyMenuSubclass.t
 t/emptySubclass.t
 t/entry.t
+t/entryPaste.t
 t/entryValidate.t
 t/fileevent.t
 t/fileevent2.t

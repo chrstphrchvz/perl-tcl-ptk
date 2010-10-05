@@ -1,6 +1,6 @@
 package Tcl::pTk::ProgressBar;
 
-our ($VERSION) = ('0.83');
+our ($VERSION) = ('0.84');
 
 use Tcl::pTk;
 use Tcl::pTk::Canvas;

@@ -3,7 +3,7 @@
 
 package Tcl::pTk::Derived;
 
-our ($VERSION) = ('0.83');
+our ($VERSION) = ('0.84');
 
 use Carp;
 

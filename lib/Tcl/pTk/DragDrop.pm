@@ -2,7 +2,7 @@ package Tcl::pTk::DragDrop;
 require Tcl::pTk::DragDrop::Common;
 require Tcl::pTk::Toplevel;
 
-our ($VERSION) = ('0.83');
+our ($VERSION) = ('0.84');
 
 use base  qw(Tcl::pTk::DragDrop::Common Tcl::pTk::Toplevel);
 

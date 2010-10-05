@@ -58,36 +58,50 @@ $canvas->CanvasFocus; # make the canvas have the focus, so that the delete key w
 #$canvas->focus;
 
                 
-
-$TOP->after(1000, sub{
-                
-                # Fire a delete event for the whole canvas and check variables
-                $canvas->eventGenerate('<Delete>');
-                ok($deletePressed,     1, "Delete Key Check");
-                ok($textDeletePressed, 0, "Delete Key Check");
-                
-                # Now focus on the textID and fire off another delete event
-                ($deletePressed, $textDeletePressed) = (0, 0);
-                $canvas->focus($textID);
-                $canvas->CanvasFocus();
-                
-
-                $canvas->eventGenerate('<Delete>');
-                ok($deletePressed,     1, "Delete Key Check");
-                ok($textDeletePressed, 1, "Delete Key Check");
-                
-                # Check return of focus
-                my $focusID = $canvas->focus();
-                ok($focusID, $textID, "Focus Return Check");
-                
-                $focusID = $canvas->focus('');
-                ok($focusID, undef, "Focus Return Check 2");
- 
-                $TOP->destroy;
-               
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
 }
-);
-MainLoop;
+
+                
+# Fire a delete event for the whole canvas and check variables
+$canvas->eventGenerate('<Delete>');
+
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
+}
+
+
+ok($deletePressed,     1, "Delete Key Check");
+ok($textDeletePressed, 0, "Delete Key Check");
+
+# Now focus on the textID and fire off another delete event
+($deletePressed, $textDeletePressed) = (0, 0);
+$canvas->focus($textID);
+$canvas->CanvasFocus();
+
+
+$canvas->eventGenerate('<Delete>');
+
+# This seems to be required for the events to be reliabily registered for this test case outside of a MainLoop
+foreach (1..10){
+        $TOP->update();
+        $TOP->idletasks();
+}
+
+ok($deletePressed,     1, "Delete Key Check");
+ok($textDeletePressed, 1, "Delete Key Check");
+
+# Check return of focus
+my $focusID = $canvas->focus();
+ok($focusID, $textID, "Focus Return Check");
+
+$focusID = $canvas->focus('');
+ok($focusID, undef, "Focus Return Check 2");
+ 
 
 
 
