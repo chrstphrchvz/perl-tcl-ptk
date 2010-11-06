@@ -23,7 +23,7 @@ unless( $retVal){
         exit;
 }
 
-plan tests => 3;
+plan tests => 4;
 
 
 $| = 1; # Pipes hot
@@ -60,6 +60,10 @@ ok(1, 1, "Tree Widget Creation");
 # Get the window back and make sure it is a widget type
 my $window = $tree->entrycget("C:\\Windows\\System\\WindowType", -window);
 ok(ref($window), "Tcl::pTk::Label", "entrycget -window returns widget");
+
+# Check that a image widget is returned
+my $image = $tree->entrycget("C:\\Windows\\System", -image);
+ok(ref($image), "Tcl::pTk::Photo", "entrycget image returns photo object");
  
 $top->after(1000,sub{$top->destroy});
 

@@ -124,11 +124,20 @@ sub delete{
         elsif( $option eq 'entry'){
                 my $entry = $_[0];
                 delete $HListdata->{$entry};
+
+               # Find child keys of entry
+                $entry = quotemeta($entry); # get ready to use entry in regexp
+                $separator = quotemeta($separator); # get ready to use $separator in regexp
+                my @deleteKeys = grep /$entry$separator.+/, keys %$HListdata;
+                delete @$HListdata{@deleteKeys};
+ 
         }
         elsif( $option eq 'offsprings'){
                 my $entry = $_[0];
                 
                 # Find child keys of entry
+                $entry = quotemeta($entry); # get ready to use entry in regexp
+                $separator = quotemeta($separator); # get ready to use $separator in regexp
                 my @deleteKeys = grep /$entry$separator.+/, keys %$HListdata;
                 delete @$HListdata{@deleteKeys};
         }
@@ -142,12 +151,13 @@ sub delete{
                 pop @entryComponents;
                 my $parent = join($separator, @entryComponents);
                 
+                $parent = quotemeta($parent); # get ready to use parent in regexp
+                $separator = quotemeta($separator); # get ready to use $separator in regexp
                 my @deleteKeys = grep $_ ne $entry && /$parent$separator.+/, keys %$HListdata;
                 delete @$HListdata{@deleteKeys};
         }
         
         
-        #$self->SUPER::delete($option, @_);
         $self->SUPER::delete($option, @_);
 }
  
@@ -180,6 +190,19 @@ sub entrycget{
                 my $window = $self->SUPER::entrycget($item, $option);
                 return $self->interp->widget($window);
         }
+	if( $option eq '-image'){
+                my $name = $self->SUPER::entrycget($item, $option);
+                if( $name){
+                    # Turn image into an object;
+                    my $type = $self->call('image', 'type', $name);
+                    $type = ucfirst($type);
+                    my $package = "Tcl::pTk::$type";
+                    my $obj = $self->interp->declare_widget($name, $package);
+                    return $obj;
+            	}
+		return $name;
+         }
+
         
         return $self->SUPER::entrycget($item, $option, @_);
 }
