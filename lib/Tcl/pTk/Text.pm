@@ -3,7 +3,7 @@ use strict;
 
 package Tcl::pTk::Text;
 
-our ($VERSION) = ('0.84');
+our ($VERSION) = ('0.85');
 
 # borrowed from Tk/Text.pm without any modifications
 

@@ -6,7 +6,7 @@
 
 package Tcl::pTk::Table;
 
-our ($VERSION) = ('0.84');
+our ($VERSION) = ('0.85');
 
 use strict;
 

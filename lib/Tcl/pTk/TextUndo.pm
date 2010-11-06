@@ -5,7 +5,7 @@
 # modify it under the same terms as Perl itself.
 package Tcl::pTk::TextUndo;
 
-our ($VERSION) = ('0.84');
+our ($VERSION) = ('0.85');
 
 $DoDebug = 0;
 
