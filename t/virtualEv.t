@@ -28,7 +28,8 @@ $TOP->bind('<<pTkRules>>',
 
 my @eventInfo = $TOP->eventInfo();
 #print "eventInfo = ".join(", ", sort @eventInfo)."\n";
-ok(join(", ", sort @eventInfo), '<<Copy>>, <<Cut>>, <<Paste>>, <<PasteSelection>>, <<PrevWindow>>, <<Redo>>, <<Undo>>, <<pTkRules>>');
+my @match = grep /pTkRules/, @eventInfo; # Look for a match of ptkRules coming back
+ok(join(", ", sort @match), '<<pTkRules>>');
 
 @eventInfo = $TOP->eventInfo('<<pTkRules>>');
 #print "eventInfo = ".join(", ", @eventInfo)."\n";

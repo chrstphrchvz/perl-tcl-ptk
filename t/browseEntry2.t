@@ -6,7 +6,7 @@
 use Test::More;
 
 
-plan tests => 21;
+plan tests => 22;
 
 
 use Tcl::pTk;
@@ -46,8 +46,13 @@ ok($listbox->isa('Tcl::pTk::Listbox'), "listbox subwidget");
 
 $listbox->selectionSet(0);
 $listbox->idletasks;
+
+is( $listbox->curselection, 0, "Listbox proper selection");
+
+# These coords will be invalid, because the listbox is not visible,
+#   Just exercising the bbox 
 my($x, $y) = $listbox->bbox($listbox->curselection);
-$be->LbChoose($x, $y);
+$be->LbChoose(0, 0);
 is(@browsecmd, 2, "-browsecmd");
 ok($browsecmd[0]->isa('Tcl::pTk::BrowseEntry'),
    "1st argument in -browsecmd");
