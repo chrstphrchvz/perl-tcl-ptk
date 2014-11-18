@@ -395,13 +395,11 @@ sub cget {
     #   for compatibility with perlTk
     if( defined($option) and $option eq '-font' ){
             my $name = $self->call($self->path, 'cget', '-font');
-            if( $name){
-                    # Turn font name into an object
-                    #  (We don't create a font object here, because the font already exists)
-                    my $obj = bless {name => $name, interp => $self->interp}, 'Tcl::pTk::Font';
-                    return $obj;
-            }
-            return $name;
+            $name = 'TkDefaultFont' unless defined($name); # Set default Tk font name, if none returned
+            # Turn font name into an object
+            #  (We don't create a font object here, because the font already exists)
+            my $obj = bless {name => $name, interp => $self->interp}, 'Tcl::pTk::Font';
+            return $obj;
     }
     
     return $self->call($self->path, 'cget', @args);
