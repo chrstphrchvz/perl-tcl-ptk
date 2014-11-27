@@ -33,7 +33,23 @@ sub submit
  my $t       = $obj->[2];
  my $method  = $obj->[3];
  delete($w->{_After_}{$id}) if (defined $id);
- $id  = $w->interp->Tcl::pTk::after($t,sub{$obj->$method});
+ Tcl::_current_refs_widget($w->path);  # Make sure TCL associates the callback with the proper widget
+
+ # Special handling for 'repeat' so that a new command isn't created in TCL-land for each repeat instance
+ #  Here we create a subref in Tcl-land the first time repeat event is preformed, then reuse it for each instance of the repeat. 
+ if( $method eq 'repeat'){
+         if( !defined($obj->[5] ) ){  # Obj->[5] is the reused subref for repeats
+                 my $repeatSubRef = sub{$obj->$method};
+                 $obj->[5] = $repeatSubRef;
+         }
+         
+         # Schedule the repeat event with the reused subref
+         $id = $w->interp->call('after', $t, $obj->[5]);
+ }
+ else{
+         $id  = $w->interp->Tcl::pTk::after($t,sub{$obj->$method});
+ }
+ 
  unless (exists $w->{_After_})
   {
    $w->{_After_} = {};
@@ -51,6 +67,7 @@ sub DESTROY
  $obj->cancel;
  undef $obj->[0];
  undef $obj->[4];
+ undef $obj->[5];
 }
 
 sub new
