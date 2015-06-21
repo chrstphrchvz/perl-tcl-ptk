@@ -799,6 +799,10 @@ sub new {
 	$i->CreateCommand("::perl::w_cleanup", \&widget_cleanup);
     }
     $tkinterp = $i;
+    
+    # Create background error handling method that is similar to the way perltk does it
+    $tkinterp->CreateCommand('bgerror', \&Tcl::pTk::bgerror);
+
     return $i;
 }
 
@@ -1347,5 +1351,49 @@ sub SELECT_BG{
         }
 }
 
+# Background error routine that calls Tcl::pTk::Error, similar to perltk calling Tk::Error
+#  Upon Tcl interp creation, this routine is created in Tcl (called the special name bgerror) so that this Tcl::pTk:;bgerror
+#   will be called for background errors
+sub bgerror{
+                my ($what,$obj, $sub, $message) =  @_; 
+
+                # Note: what is undefined, $obj is the current interp, sub is the name of the Tcl error handler (e.g. bgerror)
+                #
+                #print "what = $what, obj = $obj, sub = $sub, message = $message\n";
+                # Variables for creating a "sanitized" stack trace
+                #  (i.e. stack trace that won't include a lot of Tcl::pTk internal info)
+
+                
+                my $mw;  # Mainwindow of the current interpreter
+                $mw = $obj->mainwindow if( ref( $obj ));
+                
+                
+                my ($stackMessage, $shortLocation, $errorInfo);
+                local $Carp::Internal{'Tcl::pTk::Callback'} = 1;
+                local $Carp::Internal{'Tcl::pTk::Widget'} = 1;
+                local $Carp::Internal{'Tcl'} = 1;
+                $stackMessage = Carp::longmess();
+                $shortLocation = Carp::shortmess();
+                $errorInfo = $obj->Eval('set ::errorInfo');
+
+                # For compatibility with perl/tk, build the error message and stack info as an array
+                my @stack = ("Stack Trace:", split(/\n/, $stackMessage) );
+                my $errorMess = $errorInfo . "\n\n Error Started$shortLocation\n";
+                $mw->Tcl::pTk::Error( $errorMess, @stack); # Call Tcl::pTk::Error like Tk::Error would get called
+}
+
+## This is an adaptation (but very similar) of the standard Tk::Error sub in Tk.pm
+#    This routine is called by bgerror, similar to the way Tk:Error in called with perltk when a background error occurs
+sub Tcl::pTk::Error{
+ my $w = shift;
+ my $error = shift;
+ if (Exists($w))
+  {
+   my $grab = $w->grabCurrent();
+   $grab->Unbusy if (defined $grab);
+  }
+ chomp($error);
+ warn "Tcl::pTk::Error: $error\n " . join("\n ",@_)."\n";
+}
 
 1;

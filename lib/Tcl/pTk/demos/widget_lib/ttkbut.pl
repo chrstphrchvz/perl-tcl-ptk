@@ -36,7 +36,7 @@ sub ttkbut {
 		
 
 	# Make the check-button frame
-	my $checkFrame = $bigFrame->ttkLabelframe(-text => 'Checkbuttons')->pack();
+	my $checkFrame = $bigFrame->ttkLabelframe(-text => 'Checkbuttons');
 
 	my $enabled = 1;
 	my ($cheese, $tomato, $basil, $oregano);
@@ -51,7 +51,7 @@ sub ttkbut {
 
 
 	## Set up the radiobutton group
-	my $radioFrame = $bigFrame->ttkLabelframe(-text => 'RadioButtons')->pack();
+	my $radioFrame = $bigFrame->ttkLabelframe(-text => 'RadioButtons');
 	my $happiness = 'great';
 	$radioFrame->ttkRadiobutton(-text => "Great", -variable =>  \$happyness,  -value => 'great')->pack( -fill => 'x', -pady => 2);
 	$radioFrame->ttkRadiobutton(-text => "Good" , -variable =>  \$happyness,  -value => 'good')->pack( -fill => 'x', -pady => 2);
