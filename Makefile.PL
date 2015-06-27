@@ -31,6 +31,7 @@ my %makeArgs = (
         } ,
     PREREQ_PM => {
 	Tcl => 0.90,
+	'CLASS::ISA' => 0.36,
     }
 );
 
