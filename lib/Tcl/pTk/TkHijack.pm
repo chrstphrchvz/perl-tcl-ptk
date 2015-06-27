@@ -53,6 +53,7 @@ our($debug, $translateList, $packageAliases, $aliasesMade);
 
 unshift @INC, \&TkHijack;
 
+
 ######### Package Globals ####    
 $debug = 1;
 
@@ -108,6 +109,7 @@ $translateList = {
         'Tk/TableMatrix.pm'     => 'Tcl/pTk/TableMatrix.pm',
         'Tk/TableMatrix/Spreadsheet.pm'     => 'Tcl/pTk/TableMatrix/Spreadsheet.pm',
         'Tk/TableMatrix/SpreadsheetHideRows.pm'     => 'Tcl/pTk/TableMatrix/SpreadsheetHideRows.pm',
+        'Tk/ErrorDialog.pm'     => 'Tcl/pTk/ErrorDialog.pm',
 };
 
 

@@ -1,20 +1,21 @@
-# Test to check error reporting for a background error
+# Test to check error reporting for a background error (with TkHijack Active)
 #   that occurs due to a undefined sub in a megawidget
+
 use Test;
 BEGIN {plan tests=>4};
 
+use Tcl::pTk::TkHijack;
 
-package Tcl::pTk::SlideSwitch;
-use Tcl::pTk;
-$Tcl::pTk::DEBUG = 0;
-use Tcl::pTk::MegaWidget;
-use Tcl::pTk::TextUndo;
-use base qw/Tcl::pTk::Frame/;
+
+package Tk::SlideSwitch;
+use Tk;
+use Tk::TextUndo;
+use base qw/Tk::Frame/;
 
 
 use strict;
 
-Construct Tcl::pTk::Widget 'SlideSwitch';
+Construct Tk::Widget 'SlideSwitch';
 #Construct Tk::Widget 'SlideSwitch';
 
 sub Populate {
@@ -90,7 +91,7 @@ sub rlabel {
 
 package main;
 
-use Tcl::pTk;
+use Tk;
 
 # Setup to redirect stderr to file, so we can check it.
 # Save existing StdErr
@@ -138,10 +139,8 @@ close INFILE;
 # Check error messages for key components
 ok( $errMessages =~ /Undefined subroutine\s+\&main\:\:bogus/);
 ok( $errMessages =~ /command executed by scale/);
-ok( $errMessages =~ /Error Started at t\/bgerror2.t line 123/);
-ok( $errMessages =~ / Undefined subroutine \&main::bogus called at t\/bgerror2.t line 112/);
-
+ok( $errMessages =~ /Error Started at t\/tkHijack_bgerror2.t line 124/);
+ok( $errMessages =~ / Undefined subroutine \&main::bogus called at t\/tkHijack_bgerror2.t line 113/);
 
 unlink 'serr.out';
-
 

@@ -1227,6 +1227,17 @@ sub AUTOLOAD {
 	#   Autoloading the Error routine keeps from getting subroutine redefined warnings
 	#   when the user supplies their own Error routine or Tcl::pTk::ErrorDialog is used.
     if( $method =~ /Tcl::pTk::Error/ ){
+        if( defined( $Tcl::pTk::TkHijack::translateList ) ){
+                #print "TkHijack is loaded\n";
+                # If TkHijack is loaded and the user has define their own
+                #    Tk::Error, call that:
+                if( defined(&Tk::Error)){
+                        #print "Tk::Error has been defined\n";
+                        *Tcl::pTk::Error = \&Tk::Error;
+                        return $int->Tcl::pTk::Error(@_);
+   
+                }
+        }
         $AutoLoader::AUTOLOAD = $method;
         unshift @_, $int; # Put arg back on stack like AUTOLOAD expects it
         goto &AutoLoader::AUTOLOAD;
