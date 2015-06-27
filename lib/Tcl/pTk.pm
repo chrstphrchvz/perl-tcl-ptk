@@ -6,6 +6,7 @@ use strict;
 use Tcl;
 use Exporter ('import');
 use Scalar::Util (qw /blessed/); # Used only for it's blessed function
+use AutoLoader; # Used for autoloading the Error routine
 use vars qw(@EXPORT @EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
 
 # Wait till we have 100 things to delete before we do cleanup
@@ -1218,6 +1219,20 @@ sub Declare {
 sub AUTOLOAD {
     my $int = shift;
     my ($method,$package) = $Tcl::pTk::AUTOLOAD;
+    
+    # If this is the Tcl::pTk::Error routine, 
+    #   Call the standard Autoloader::AUTOLOAD to
+    #   load our Error routine that has been autosplit to a separate file
+    #   (i.e. appears after the _END_). 
+	#   Autoloading the Error routine keeps from getting subroutine redefined warnings
+	#   when the user supplies their own Error routine or Tcl::pTk::ErrorDialog is used.
+    if( $method =~ /Tcl::pTk::Error/ ){
+        $AutoLoader::AUTOLOAD = $method;
+        unshift @_, $int; # Put arg back on stack like AUTOLOAD expects it
+        goto &AutoLoader::AUTOLOAD;
+    }
+    
+    # Normal handling follows
     my $method0;
     for ($method) {
 	s/^(Tcl::pTk::)//
@@ -1382,9 +1397,18 @@ sub bgerror{
                 $mw->Tcl::pTk::Error( $errorMess, @stack); # Call Tcl::pTk::Error like Tk::Error would get called
 }
 
+1;
+
+__END__
+
+#  Tcl::pTk::Error is split out using the AutoSplit utility by MakeMaker (hence positioning
+#  after the END above)
+# Autoloading the Error routine this way keeps from getting subroutine redefined warnings
+#   when the user supplies their own Error routine or Tcl::pTk::ErrorDialog is used.
+
 ## This is an adaptation (but very similar) of the standard Tk::Error sub in Tk.pm
 #    This routine is called by bgerror, similar to the way Tk:Error in called with perltk when a background error occurs
-sub Tcl::pTk::Error{
+sub Error{
  my $w = shift;
  my $error = shift;
  if (Exists($w))
@@ -1397,3 +1421,4 @@ sub Tcl::pTk::Error{
 }
 
 1;
+
