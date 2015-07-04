@@ -1,5 +1,13 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.90:  7/4/15
+
+ * Updates to work with Tcl/Tk 8.6.
+ * Added background error handling (including a ErrorDialog.pm file like perl/tk) that is
+   more compatible with the way perl/tk does it.
+ * Fixed bug where a repeat call would create a TCL-command in TCL-land for each repeated event. 
+   Changed to reuse the Tcl-command. Added test case (repeatSubReuse.t)
+           
 Release 0.85:  11/5/10
 
  * Bug-fix Release. Tweaks to HList to support returning photo objects

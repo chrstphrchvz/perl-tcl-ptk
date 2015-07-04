@@ -4,7 +4,7 @@ use Tcl::pTk::ttkBrowseEntry;
 
 package Tcl::pTk::Facelift;
 
-our ($VERSION) = ('0.85');
+our ($VERSION) = ('0.90');
 
 =head1 NAME
 

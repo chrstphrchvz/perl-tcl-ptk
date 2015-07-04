@@ -134,6 +134,7 @@ lib/Tcl/pTk/DragDrop/LocalSite.pm
 lib/Tcl/pTk/DragDrop/Rect.pm
 lib/Tcl/pTk/DropSite.pm
 lib/Tcl/pTk/Entry.pm
+lib/Tcl/pTk/ErrorDialog.pm
 lib/Tcl/pTk/Facelift.pm
 lib/Tcl/pTk/Font.pm
 lib/Tcl/pTk/Frame.pm
@@ -256,6 +257,9 @@ t/afterDestroy.t
 t/afterIdle.t
 t/balloon.t
 t/balloon2.t
+t/bgerror1.t
+t/bgerror2.t
+t/bgerror3.t
 t/bind.t
 t/bindBreak.t
 t/bitmapSubClass.t
@@ -322,6 +326,7 @@ t/protocol.t
 t/ptk-compat.t
 t/ptk-compat2.t
 t/repeat.t
+t/repeatSubReuse.t
 t/scrolled.t
 t/scrolledOptional.t
 t/selection.t
@@ -342,6 +347,7 @@ t/textEdit.t
 t/textRO.t
 t/textSubwidget.t
 t/textUndo.t
+t/tileLabelFont.t
 t/tileTree.t
 t/tileWidget.t
 t/tixTree.t
@@ -353,6 +359,9 @@ t/tkFacelift_frameSubclass.t
 t/tkFacelift_mega1.t
 t/tkFacelift_simple.t
 t/tkHijack_BEsubclass.t
+t/tkHijack_bgerror1.t
+t/tkHijack_bgerror2.t
+t/tkHijack_bgerror3.t
 t/tkHijack_mega1.t
 t/tkHijack_simple.t
 t/tkHijack_spreadsheet.t

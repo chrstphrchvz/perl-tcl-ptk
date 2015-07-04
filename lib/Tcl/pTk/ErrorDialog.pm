@@ -1,5 +1,6 @@
 package Tcl::pTk::ErrorDialog;
 
+our ($VERSION) = ('0.90');
 
 use Tcl::pTk ();
 require Tcl::pTk::Dialog;
