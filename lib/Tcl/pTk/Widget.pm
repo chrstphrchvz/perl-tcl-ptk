@@ -2094,8 +2094,8 @@ sub _busy
 sub Unbusy
 {
  my ($w) = @_;
- $w->update;
  $w->grabRelease if Tcl::pTk::Exists($w);
+ $w->update;
  my $old = delete $w->{'Busy'};
  if (defined $old)
   {

@@ -132,8 +132,8 @@ sub Popup
  else
   {
    my $sc = ($w->parent) ? $w->parent->toplevel : $w;
-   $rx = -$sc->vrootx;
-   $ry = -$sc->vrooty;
+   $rx = 0;
+   $ry = 0;
    $rw = $w->screenwidth;
    $rh = $w->screenheight;
   }
