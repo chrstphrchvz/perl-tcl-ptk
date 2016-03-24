@@ -1,6 +1,7 @@
 use Tcl::pTk;
 use Tcl::pTk::BrowseEntry;
 use Tcl::pTk::ttkBrowseEntry;
+use Tcl::pTk::ttkTixNoteBook;
 
 package Tcl::pTk::Facelift;
 
@@ -604,6 +605,43 @@ sub Tcl::pTk::BrowseEntry{
         return $obj;
 }
 
+############# Substitution Package for oldwidget "NoteBook" to tile widget "ttkTixNoteBook" ####################
+
+package Tcl::pTk::NoteBookttkSubs;
+
+
+@Tcl::pTk::NoteBookttkSubs::ISA = (qw / Tcl::pTk::Derived Tcl::pTk::ttkTixNoteBook/);
+
+{
+        local $^W = 0; # To avoid subroutine redefined warning messages
+        Construct Tcl::pTk::Widget 'NoteBook';
+}
+
+
+# If we are being used in conjunction with TkHijack, we don't need a mapping for Tk::NoteBook
+if( defined $Tcl::pTk::TkHijack::translateList){
+        #print STDERR "undoing translatelist\n";
+        $Tcl::pTk::TkHijack::translateList->{'Tk/NoteBook.pm'}    =  '';
+}
+
+
+
+# Alias the entire NoteBook namespace to ttkTixNoteBook, so NoteBook subclasses widgets
+#   work correctly
+*Tcl::pTk::NoteBook:: = *Tcl::pTk::ttkTixNoteBook::;
+
+# Redefine the NoteBook Mapping if TkHijack loaded, so NoteBook subclasses will still work
+*Tk::NoteBook:: = *Tcl::pTk::NoteBook:: if( defined $Tcl::pTk::TkHijack::packageAliases );
+
+
+# Wrapper sub so mega-widgets still work with the facelift
+sub Tcl::pTk::NoteBook{
+        my $self = shift;
+        my $obj = $self->Tcl::pTk::ttkTixNoteBook(@_);
+        bless $obj, "Tcl::pTk::NoteBookttkSubs";
+        return $obj;
+}
+
 ################ New Tcl::pTk::Widget::Contruct Method used for Facelift #########
 ##
 ##  This has the same function as Tcl::pTk::Widget::Construct defined in MegaWidget.pm
@@ -631,6 +669,8 @@ sub Tcl::pTk::BrowseEntry{
                 'Tcl::pTk::Label'       => 'Tcl::pTk::LabelbuttonttkSubs', # For normal Tcl::pTk widgets
                 'Tk::BrowseEntry'              => 'Tcl::pTk::BrowseEntry', # For Hijack Tk Widgets
                 'Tcl::pTk::BrowseEntry' => 'Tcl::pTk::BrowseEntryttkSubs', # For normal Tcl::pTk widgets
+                'Tk::NoteBook'              => 'Tcl::pTk::NoteBook',       # For Hijack Tk Widgets
+                'Tcl::pTk::NoteBook'    => 'Tcl::pTk::NoteBookttkSubs',    # For normal Tcl::pTk widgets
                 );
         
         # Save the existing Construct method. We will chain to that at the end of our routine 
