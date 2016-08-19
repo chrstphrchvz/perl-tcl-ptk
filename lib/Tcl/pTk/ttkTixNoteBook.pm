@@ -220,7 +220,7 @@ sub Populate {
     my %ignoreConfigSpecs = map( ($_ => [ "PASSIVE", $_, $_, undef ]), @ignoreOptions);
 
     my $nb = $cw->ttkNotebook();
-    $nb->pack( -side => 'right', -fill => 'x', -expand => 1); 
+    $nb->pack( -side => 'right', -fill => 'both', -expand => 1); 
     $cw->Advertise('ttkNotebook' => $nb);
 
     # Create lookup of widget to tab name
