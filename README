@@ -21,11 +21,17 @@ script.
    make
    make install
 
-In rare case when you do cross-compiling for WinCE, you need to edit
-Makefile.PL to reflect your paths, and then invoke as
-  perl -MCross=[your-cross-name] Makefile.PL
-Please see into Makefile.PL for more details on that.
+Note on Crashing Linux Platforms due to the Tcl package
 
+You may get Core Dumps when trying to run on Linux. This is often due to a problem with the
+base Tcl perl package that Tcl::pTk dependes on. This Tcl package can build fine and pass tests,
+but when run outside of the build/test environment, it crashes. You can test this by doing
+a 'perl -MTcl' on the command line. If this simple script causes a core dump, then you need
+to go back and install the Tcl perl package with the --nousestubs option. For example:
+
+  perl Makefile.PL --nousestubs --library=-ltcl8.6 --include=-Itcl-core/include
+  make test
+  make install
 
 LICENSE
     This program is free software; you can redistribute it and/or modify

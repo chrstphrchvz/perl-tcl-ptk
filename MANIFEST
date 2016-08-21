@@ -243,6 +243,7 @@ lib/Tcl/pTk/Toplevel.pm
 lib/Tcl/pTk/Trace.pm
 lib/Tcl/pTk/Tree.pm
 lib/Tcl/pTk/ttkBrowseEntry.pm
+lib/Tcl/pTk/ttkTixNoteBook.pm
 lib/Tcl/pTk/Widget.pm
 lib/Tcl/pTk/widgets.pm
 lib/Tcl/pTk/Wm.pm
