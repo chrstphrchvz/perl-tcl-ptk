@@ -1,5 +1,16 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.92:  8/21/16
+
+ * Updated to work with Tcl.pm versions > 1.02. Tcl.pm versions > 1.02 broke compatibility
+     with Tcl::pTk, so the Tcl 1.02 interface was moved to Tcl/pTk.pm 
+ * Added new ttkTixNotebook widget, which emulates the interface of the Tk Notebook widget.
+   Updated Facelift.pm to use this new widget, instead of the old tix NoteBook widget.
+ * Fix to Wm.pm to handle an rare condition where if Busy is called when a canvas is opened
+   in another window, the new window will popup under the existing window, not on top as expected.
+ * Fix for a problem with the dialog box widget that would pop up off the screen if running from
+   two displays. Added a test case for this condition.
+           
 Release 0.90:  7/4/15
 
  * Updates to work with Tcl/Tk 8.6.
