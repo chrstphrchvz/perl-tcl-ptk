@@ -47,7 +47,14 @@ $Tcl::pTk::library = Tk->findINC('.') unless (defined($Tcl::pTk::library) && -d 
 
 # Global vars used by this package
 
-our ( %W, $Wint, $Wpath, $Wdata, $DEBUG, $inMainLoop );
+our ( %W, $Wint, $Wpath, $Wdata, $DEBUG, $inMainLoop, %widget_refs, $current_widget );
+$current_widget = '';
+# %widget_refs is an array to hold refs that were created when working with widgets
+
+# %anon_refs keeps track of anonymous subroutines that were created with
+# "CreateCommand" method during process of transformation of arguments for
+# "call" and other stuff such as scalar refs and so on.
+our ( %anon_refs );
 
 
 # For debugging, we use Sub::Name to name anonymous subs, this makes tracing the program
@@ -768,7 +775,7 @@ sub new {
     } else {
 	$display = $ENV{DISPLAY} || '';
     }
-    my $i = new Tcl;
+    my $i = Tcl::_new();
     bless $i, $class;
     $i->SetVar2("env", "DISPLAY", $display, Tcl::GLOBAL_ONLY);
     $i->SetVar("argv", [@argv], Tcl::GLOBAL_ONLY);
@@ -1032,7 +1039,7 @@ sub widget_deletion_watcher {
 }
 
 ###############################################
-#  Overriden delet_ref
+#  Overriden delete_ref
 #  Instead of immediately deleting a scalar or code ref in Tcl-land,
 #   queue the ref to be deleted in an after-idle call.
 #   This is done, rather than deleting immediately, because an immediate delete
@@ -1065,7 +1072,7 @@ sub widget_cleanup {
     foreach my $rname(@deleteList){
             #print  "Widget_Cleanup deleting $rname\n";
 
-            $int->SUPER::delete_ref($rname);
+            $int->_delete_ref($rname);
     }
     
     # Zero-out cleanup_refs
@@ -1407,6 +1414,226 @@ sub bgerror{
                 my $errorMess = $errorInfo . "\n\n Error Started$shortLocation\n";
                 $mw->Tcl::pTk::Error( $errorMess, @stack); # Call Tcl::pTk::Error like Tk::Error would get called
 }
+
+#############################################################################################
+# Methods in Tcl.pm version 1.02 that are now implemented here
+#   Tcl.pm versions > 1.02 broke compatibility with Tcl::pTk, so we implement our
+#   own functions here that previously were provided with Tcl.pm <= 1.02
+#############################################################################################
+###############################################
+#  Overriden delete_widget_refs
+#  This is implemented in Tcl::pTk.pm because for versions of Tcl.pm > 1.02,
+#  this method is not supported, so we implement it ourselves here.
+sub delete_widget_refs {
+    my $interp = shift;
+    my $wpath = shift;
+    for (keys %{$widget_refs{$wpath}}) {
+	#print STDERR "del:$wpath($_)\n";
+	delete $widget_refs{$wpath}->{$_};
+	$interp->delete_ref($_);
+    }
+}
+
+# Original delete_ref from Tcl.pm 1.02
+sub _delete_ref {
+    my $interp = shift;
+    my $rname = shift;
+    my $ref = delete $anon_refs{$rname};
+    if (ref($ref) eq 'CODE') {
+	$interp->DeleteCommand($rname);
+    }
+    else {
+	$interp->UnsetVar($rname); #TODO: will this delete variable in Tcl?
+	untie $$ref;
+    }
+    return $ref;
+}
+###############################################
+#  Overriden _current_refs_widget
+#  This is implemented in Tcl::pTk.pm because for versions of Tcl.pm > 1.02,
+#  this method is not supported, so we implement it ourselves here.
+sub _current_refs_widget {$current_widget=shift}
+
+# create_tcl_sub will create TCL sub that will invoke perl anonymous sub
+# If $events variable is specified then special processing will be
+# performed to provide needed '%' variables.
+# If $tclname is specified then procedure will have namely that name,
+# otherwise it will have machine-readable name.
+# Returns tcl script suitable for using in tcl events.
+sub create_tcl_sub {
+    my ($interp,$sub,$events,$tclname) = @_;
+    unless ($tclname) {
+	# stringify sub, becomes "CODE(0x######)" in ::perl namespace
+	$tclname = "::perl::$sub";
+    }
+    unless (exists $anon_refs{$tclname}) {
+	$anon_refs{$tclname} = $sub;
+	$interp->CreateCommand($tclname, $sub, undef, undef, 1);
+    }
+    if ($events) {
+	# Add any %-substitutions to callback
+	$tclname = "$tclname " . join(' ', @{$events});
+    }
+    return $tclname;
+}
+############################################################################
+sub return_ref {
+    my $interp = shift;
+    my $rname = shift;
+    return $anon_refs{$rname};
+}
+
+# Subroutine "call" preprocess the arguments for special cases
+# and then calls "icall" (implemented in Tcl.xs), which invokes
+# the command in Tcl.
+sub call {
+    my $interp = shift;
+    my @args = @_;
+
+    # Process arguments looking for special cases
+    for (my $argcnt=0; $argcnt<=$#args; $argcnt++) {
+	my $arg = $args[$argcnt];
+	my $ref = ref($arg);
+	next unless $ref;
+	if ($ref eq 'CODE') {
+	    # We have been passed something like \&subroutine
+	    # Create a proc in Tcl that invokes this subroutine (no args)
+	    $args[$argcnt] = $interp->create_tcl_sub($arg);
+	    $widget_refs{$current_widget}->{$args[$argcnt]}++;
+	}
+	elsif ($ref =~ /^Tcl::Tk::Widget\b/) {
+	    # We have been passed a widget reference.
+	    # Convert to its Tk pathname (eg, .top1.fr1.btn2)
+	    $args[$argcnt] = $arg->path;
+	    $current_widget = $args[$argcnt] if $argcnt==0;
+	}
+	elsif ($ref eq 'SCALAR') {
+	    # We have been passed something like \$scalar
+	    # Create a tied variable between Tcl and Perl.
+
+	    # stringify scalar ref, create in ::perl namespace on Tcl side
+	    # This will be SCALAR(0xXXXXXX) - leave it to become part of a
+	    # Tcl array.
+	    my $nm = "::perl::$arg";
+	    #$nm =~ s/\W/_/g; # remove () from stringified name
+	    unless (exists $anon_refs{$nm}) {
+		$widget_refs{$current_widget}->{$nm}++;
+		$anon_refs{$nm} = $arg;
+		my $s = $$arg;
+		tie $$arg, 'Tcl::Var', $interp, $nm;
+		$s = '' unless defined $s;
+		$$arg = $s;
+	    }
+	    $args[$argcnt] = $nm; # ... and substitute its name
+	}
+	elsif ($ref eq 'HASH') {
+	    # We have been passed something like \%hash
+	    # Create a tied variable between Tcl and Perl.
+
+	    # stringify hash ref, create in ::perl namespace on Tcl side
+	    # This will be HASH(0xXXXXXX) - leave it to become part of a
+	    # Tcl array.
+	    my $nm = $arg;
+	    $nm =~ s/\W/_/g; # remove () from stringified name
+	    $nm = "::perl::$nm";
+	    unless (exists $anon_refs{$nm}) {
+		$widget_refs{$current_widget}->{$nm}++;
+		$anon_refs{$nm} = $arg;
+		my %s = %$arg;
+		tie %$arg, 'Tcl::Var', $interp, $nm;
+		%$arg = %s;
+	    }
+	    $args[$argcnt] = $nm; # ... and substitute its name
+	}
+	elsif ($ref eq 'ARRAY' && ref($arg->[0]) eq 'CODE') {
+	    # We have been passed something like [\&subroutine, $arg1, ...]
+	    # Create a proc in Tcl that invokes this subroutine with args
+	    my $events;
+	    # Look for Tcl::Ev objects as the first arg - these must be
+	    # passed through for Tcl to evaluate.  Used primarily for %-subs
+	    # This could check for any arg ref being Tcl::Ev obj, but it
+	    # currently doesn't.
+	    if ($#$arg >= 1 && ref($arg->[1]) eq 'Tcl::Ev') {
+		$events = splice(@$arg, 1, 1);
+	    }
+	    $args[$argcnt] =
+		$interp->create_tcl_sub(sub {
+		    $arg->[0]->(@_, @$arg[1..$#$arg]);
+		}, $events);
+	}
+	elsif ($ref eq 'ARRAY' && ref($arg->[0]) =~ /^Tcl::Tk::Widget\b/) {
+	    # We have been passed [$Tcl_Tk_widget, 'method name', ...]
+	    # Create a proc in Tcl that invokes said method with args
+	    my $events;
+	    # Look for Tcl::Ev objects as the first arg - these must be
+	    # passed through for Tcl to evaluate.  Used primarily for %-subs
+	    # This could check for any arg ref being Tcl::Ev obj, but it
+	    # currently doesn't.
+	    if ($#$arg >= 1 && ref($arg->[1]) eq 'Tcl::Ev') {
+		$events = splice(@$arg, 1, 1);
+	    }
+	    my $wid = $arg->[0];
+	    my $method_name = $arg->[1];
+	    $args[$argcnt] =
+		$interp->create_tcl_sub(sub {
+		    $wid->$method_name(@$arg[2..$#$arg]);
+		}, $events);
+	}
+	elsif (ref($arg) eq 'REF' and ref($$arg) eq 'SCALAR') {
+	    # this is a very special shortcut: if we see construct like \\"xy"
+	    # then place proper Tcl::Ev(...) for easier access
+	    my $events = [map {"%$_"} split '', $$$arg];
+	    if (ref($args[$argcnt+1]) eq 'ARRAY' && 
+		ref($args[$argcnt+1]->[0]) eq 'CODE') {
+		$arg = $args[$argcnt+1];
+		$args[$argcnt] =
+		    $interp->create_tcl_sub(sub {
+			$arg->[0]->(@_, @$arg[1..$#$arg]);
+		    }, $events);
+	    }
+	    elsif (ref($args[$argcnt+1]) eq 'CODE') {
+		$args[$argcnt] = $interp->create_tcl_sub($args[$argcnt+1],$events);
+	    }
+	    else {
+		warn "not CODE/ARRAY expected after description of event fields";
+	    }
+	    splice @args, $argcnt+1, 1;
+	}
+    }
+    # Done with special var processing.  The only processing that icall
+    # will do with the args is efficient conversion of SV to Tcl_Obj.
+    # A SvIV will become a Tcl_IntObj, ARRAY refs will become Tcl_ListObjs,
+    # and so on.  The return result from icall will do the opposite,
+    # converting a Tcl_Obj to an SV.
+    if (!$Tcl::STACK_TRACE) {
+	return $interp->icall(@args);
+    }
+    elsif (wantarray) {
+	my @res;
+	eval { @res = $interp->icall(@args); };
+	if ($@) {
+	    require Carp;
+	    Carp::confess ("Tcl error '$@' while invoking array result call:\n" .
+		"\t\"@args\"");
+	}
+	return @res;
+    } else {
+	my $res;
+	eval { $res = $interp->icall(@args); };
+	if ($@) {
+	    require Carp;
+	    Carp::confess ("Tcl error '$@' while invoking scalar result call:\n" .
+		"\t\"@args\"");
+	}
+	return $res;
+    }
+}
+
+#############################################################################################
+# End of Re-implementation of Methods in Tcl.pm version 1.02 
+#############################################################################################
+
+
 
 1;
 

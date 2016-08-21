@@ -33,7 +33,7 @@ sub submit
  my $t       = $obj->[2];
  my $method  = $obj->[3];
  delete($w->{_After_}{$id}) if (defined $id);
- Tcl::_current_refs_widget($w->path);  # Make sure TCL associates the callback with the proper widget
+ Tcl::pTk::_current_refs_widget($w->path);  # Make sure TCL associates the callback with the proper widget
 
  # Special handling for 'repeat' so that a new command isn't created in TCL-land for each repeat instance
  #  Here we create a subref in Tcl-land the first time repeat event is preformed, then reuse it for each instance of the repeat. 

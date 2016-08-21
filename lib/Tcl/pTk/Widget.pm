@@ -1172,9 +1172,9 @@ sub afterCancel
 sub afterIdle
 {
  my $w = shift;
- # Set the Tcl.pm package variable $current_widget so that any
+ # Set the Tcl::pTk package variable $current_widget so that any
  #   sub-ref gets assigned to the proper widget in Tcl.pm
- Tcl::_current_refs_widget($w->path);
+ Tcl::pTk::_current_refs_widget($w->path);
  return Tcl::pTk::After->new($w,'idle','once',@_);
 }
 
@@ -1196,9 +1196,9 @@ sub after
    if ($t ne 'cancel')
     {
      require Tcl::pTk::After;
-     # Set the Tcl.pm package variable $current_widget so that any
+     # Set the Tcl::pTk package variable $current_widget so that any
      #   sub-ref gets assigned to the proper widget in Tcl.pm
-     Tcl::_current_refs_widget($w->path);
+     Tcl::pTk::_current_refs_widget($w->path);
      return Tcl::pTk::After->new($w,$t,'once',@_)
     }
    while (@_)
@@ -1209,9 +1209,9 @@ sub after
   }
  else
   {
-    # Set the Tcl.pm package variable $current_widget so that any
+    # Set the Tcl::pTk package variable $current_widget so that any
     #   sub-ref gets assigned to the proper widget in Tcl.pm
-    Tcl::_current_refs_widget($w->path);
+    Tcl::pTk::_current_refs_widget($w->path);
    $w->Tcl::pTk::after($t);
   }
 }
@@ -1305,7 +1305,7 @@ sub w_uniq {
     # Ensure that we don't end up with '..btn01' as a widget name
     $wp = '' if $wp eq '.';
     $gwcnt++;
-    Tcl::_current_refs_widget("$wp.$type$gwcnt");
+    Tcl::pTk::_current_refs_widget("$wp.$type$gwcnt");
     return "$wp.$type$gwcnt";
 }
 
