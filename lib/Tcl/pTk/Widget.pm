@@ -2427,7 +2427,7 @@ sub MouseWheelBind
 	    ?  [ sub { $_[0]->yview('scroll',-($_[1]),'units') }, Tcl::pTk::Ev("D")]
 	    :  [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
 
- if ($Tcl::pTk::platform eq 'unix')
+ if ($mw->windowingsystem eq 'x11')
   {
    # Support for mousewheels on Linux/Unix commonly comes through mapping
    # the wheel to the extended buttons.  If you have a mousewheel, find
