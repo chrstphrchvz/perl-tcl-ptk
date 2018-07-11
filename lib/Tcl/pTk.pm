@@ -558,7 +558,7 @@ This means
 
  my $tab = $mw->BLTNoteBook;
 
-will create blt::tabnotebook widget. Effectively, this is equavalent to the following
+will create blt::tabnotebook widget. Effectively, this is equivalent to the following
 Tcl/Tk code:
 
   package require BLT # but invoked only once
@@ -868,7 +868,7 @@ sub MainLoop {
     # Tk_GetNumMainWindows C API.
     # This could optionally be implemented with 'vwait' on a specially
     # named variable that gets set when '.' is destroyed.
-    unless ($inMainLoop){     # Don't recursivly enter into a mainloop
+    unless ($inMainLoop){     # Don't recursively enter into a mainloop
         local $inMainLoop = 1;
     	my $int = (ref $_[0]?shift:$tkinterp);
     	my $mainwindow = $W{mainwindow};  
@@ -995,7 +995,7 @@ sub create_widget{
 #
 # declare_widget, method of interpreter object
 # args:
-#   - a path of existing Tcl/Tk widget to declare its existance in Tcl::pTk
+#   - a path of existing Tcl/Tk widget to declare its existence in Tcl::pTk
 #   - (optionally) package name where this widget will be declared, default
 #     is 'Tcl::pTk::Widget', but could be 'Tcl::pTk::somewidget'
 sub declare_widget {
@@ -1222,7 +1222,7 @@ sub Declare {
 
 #
 # AUTOLOAD method for Tcl::pTk interpreter object, which will bring into
-# existance interpreter methods
+# existence interpreter methods
 sub AUTOLOAD {
     my $int = shift;
     my ($method,$package) = $Tcl::pTk::AUTOLOAD;
@@ -1385,7 +1385,7 @@ sub SELECT_BG{
 }
 
 # Background error routine that calls Tcl::pTk::Error, similar to perltk calling Tk::Error
-#  Upon Tcl interp creation, this routine is created in Tcl (called the special name bgerror) so that this Tcl::pTk:;bgerror
+#  Upon Tcl interp creation, this routine is created in Tcl (called the special name bgerror) so that this Tcl::pTk:::bgerror
 #   will be called for background errors
 sub bgerror{
                 my ($what,$obj, $sub, $message) =  @_; 
@@ -1645,7 +1645,7 @@ __END__
 #   when the user supplies their own Error routine or Tcl::pTk::ErrorDialog is used.
 
 ## This is an adaptation (but very similar) of the standard Tk::Error sub in Tk.pm
-#    This routine is called by bgerror, similar to the way Tk:Error in called with perltk when a background error occurs
+#    This routine is called by bgerror, similar to the way Tk::Error in called with perltk when a background error occurs
 sub Error{
  my $w = shift;
  my $error = shift;
