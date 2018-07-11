@@ -965,7 +965,7 @@ sub focusForce
 {
     my $self = shift;
     my $wp = $self->path;
-    my $val = $self->call('focus','-force', $self->path);
+    my $val = $self->call('focus','-force',$wp);
 
     return $val;
   
