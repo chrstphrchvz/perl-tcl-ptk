@@ -3,6 +3,8 @@ use strict;
 
 package Tcl::pTk::Text;
 
+use Text::Tabs;
+
 our ($VERSION) = ('0.92');
 
 # borrowed from Tk/Text.pm without any modifications
