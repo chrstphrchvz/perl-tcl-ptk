@@ -2423,7 +2423,9 @@ sub MouseWheelBind
  # events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
-	       [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
+    $mw->windowingsystem eq 'aqua'
+	    ?  [ sub { $_[0]->yview('scroll',-($_[1]),'units') }, Tcl::pTk::Ev("D")]
+	    :  [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
 
  if ($Tcl::pTk::platform eq 'unix')
   {
