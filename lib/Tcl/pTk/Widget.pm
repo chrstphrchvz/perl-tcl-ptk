@@ -971,6 +971,12 @@ sub focusForce
   
 }
 
+sub focusFollowsMouse {
+    my $self = shift;
+    my $interp = $self->interp;
+    $interp->icall('tk_focusFollowsMouse');
+}
+
 sub grabRelease {
     my $self = shift;
     my $wp = $self->path;
