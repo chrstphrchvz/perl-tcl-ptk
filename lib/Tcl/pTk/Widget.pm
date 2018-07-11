@@ -327,7 +327,7 @@ sub call{
 
     local $^W = 0; # Turn warnings off temporarily so we don't get 'use of undef value' messages    
     
-    # Translate any emtpy strings to undefs, for compatibility with perltk
+    # Translate any empty strings to undefs, for compatibility with perltk
     if( wantarray ){ 
             my @retvals =  $interp->$callMethod(@args);
             return map defined($_) && !ref($_) && ($_ eq '') ? undef : $_, @retvals;
@@ -808,7 +808,7 @@ sub bind {
                 } 
             }");
     }
-    else{  # tclsubName is emtpy, must be resetting an existing binding
+    else{  # tclsubName is empty, must be resetting an existing binding
         if( defined($tag)){ # tag version of bind
                 $self->interp->call("bind",$tag, $sequence, $cbRef);
 
