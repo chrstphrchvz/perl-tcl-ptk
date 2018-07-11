@@ -1912,7 +1912,7 @@ sub setAutoWidgetISAs{
  
                 
 # here we create Widget package, used for both standard cases like
-# 'Button', 'Label', and so on, and for all other widgets like Baloon
+# 'Button', 'Label', and so on, and for all other widgets like Balloon
 # returns 1 if actually package created, i.e. called first time
 # TODO : document better and provide as public way of doing things?
 my %created_w_packages; # (may be look in global stash %:: ?)
