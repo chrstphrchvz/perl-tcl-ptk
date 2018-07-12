@@ -146,8 +146,8 @@ for a simple example.
 
 =item *
 
-All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the "Use Tk;"
-to "Use Tcl::pTk" at the top of the file. See the I<widgetTclpTk> demo script included in the source distribution to run the demos.
+All the perl/tk widget demos work with minimal changes. Typically the only changes needed are just changing the C<use Tk;>
+to C<use Tcl::pTk;> at the top of the file. See the I<widgetTclpTk> demo script included in the source distribution to run the demos.
 
 =item *
 
@@ -218,7 +218,7 @@ but no existing perl/Tk codebase to support.
 
 Before you start using widgets, an interpreter (at least one) should be
 created, which will manage all things in Tcl. Creating an interpreter is created automatically
-my the call to the C<MainWindow> (or C<tkinit>) methods, but can also be created explicitly.
+by the call to the C<MainWindow> (or C<tkinit>) methods, but can also be created explicitly.
 
 B<Example showing perl/Tk compatible syntax:>
 For perl/tk syntax, the interpreter is created for you when you create the mainwindow.
@@ -298,7 +298,7 @@ The Widget path is a string starting with a dot and consisting of several
 names separated by dots. These names are individual widget-names that comprise
 a widget's hierarchy. As an example, if there exists a frame with a path
 C<.fram>, and you want to create a button on it and name it C<butt>, then
-you should specify name C<.fram.butt>. Widget paths are also refered in
+you should specify name C<.fram.butt>. Widget paths are also referred in
 other miscellaneous widget operations, like geometry management.
 
 At any time a widget's path can be retreived with C<< $widget->path; >>
@@ -359,7 +359,7 @@ C<Tcl::pTk> Widgets fall into the following basic categories, based on how they 
 =item Direct auto-wrapped widgets
 
 These types of widgets (for example the Entry, Button, Scrollbar, and Label widgets) have no special code written for them
-in C<Tcl::pTk>. Their creation and method calls (e.g. C<$button->configure(-text => 'ButtonText')> ) are handled
+in C<Tcl::pTk>. Their creation and method calls (e.g. C<< $button->configure(-text => 'ButtonText') >>) are handled
 by the wrapping code in the base Tcl::pTk::Widget package.
 
 =item Auto-wrapped widgets, with compatibility code
@@ -412,7 +412,7 @@ The second code line above calls the C<insert> method of the C<$entry> object.
 When invoked first time, a method (i.e. subref) C<insert> is 
 created in package C<Tcl::pTk::Entry>, which will end-up calling
 calling the C<invoke> method on the Tcl/Tk interpreter (i.e. 
-C<$entry->interp()->invoke($entry, 'insert', -text, 'text')
+C<< $entry->interp()->invoke($entry, 'insert', -text, 'text') >>).
 
 The first time C<insert> is called, the C<insert> method does not exist, so AUTOLOAD
 comes into play and creates the method. The second time C<insert> is called, the already-created
@@ -438,9 +438,9 @@ C<Tcl::pTk::Text>. This C<insert> method is already defined in the C<Tcl::pTk::T
 so it is called directly. 
 
 The third code line above calls the C<markNames> method on the C<$text> object. This method
-is not defined in the C<Tcl::pTk::Text> package, so the first time when C<makrNames> is called, 
+is not defined in the C<Tcl::pTk::Text> package, so the first time when C<markNames> is called, 
 AUTOLOAD in the L<Tcl::pTk> package comes into play and creates the method. 
-The second time C<makkNames> is called, the already-created
+The second time C<markNames> is called, the already-created
 method is called directly (i.e. not created again), thus saving execution time.
 
 =back
@@ -495,8 +495,8 @@ C<.path method submeth subsubmeth parameter1 parameter2> I<....>
 If you are sure that preprocessing of C<@parameters> in a method call aren't required
 (i.e. no parameters are Perl references to scalars, subroutines or arrays), then
 the preprocessing step described above can be skipped by calling the method with
-an underscore C<_> prepended to the name. (e.g call C<$text->_markNames()>, instead of
-C<$text->markNames()>). Calling the method this way means you are using an internal
+an underscore C<_> prepended to the name. (e.g call C<< $text->_markNames() >>, instead of
+C<< $text->markNames() >>). Calling the method this way means you are using an internal
 method that executes faster, but normally you should use a "public" (i.e. non-underscore) method, which includes all preprocessing.
 
 Example:
@@ -604,8 +604,8 @@ invoke it in C<Tcl::pTk> like
 The C<$widget> variable in C<Tcl::pTk> is like the I<pathName> in the Tcl/Tk docs.
 
 Sometimes the Tcl/Tk method-name consists of two words (verb1 verb2). In this
-case there are two equivalent ways to invoke it, C< $widget->verb1('verb2',...); > or
-C< $widget->verb1Verb2(...)>; 
+case there are two equivalent ways to invoke it, C<< $widget->verb1('verb2',...); >> or
+C<< $widget->verb1Verb2(...); >>. 
 
 Widget options are used just like they are shown in the Tcl/Tk docs. There is no special translation needed
 for the widget options described in the Tcl/Tk docs for use in C<Tcl::pTk>.
