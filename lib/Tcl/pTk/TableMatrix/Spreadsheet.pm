@@ -210,7 +210,7 @@ sub ClassInit{
 		
 	);
 	
-	# Button2 release pastes from PRIMARY (control v pastes from clipboard
+	# Button2 release pastes from PRIMARY (control v pastes from clipboard)
 	 $mw->bind($class,'<ButtonRelease-2>',
 		  [sub
 		   {
