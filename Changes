@@ -1,5 +1,27 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.93:  2018-07-13
+
+ * Add missing module `Sub::Name` to PREREQ_PM (RT #116432)
+ * Replace corrupted teapot.ppm, mark as binary (RT #125421)
+ * Add focusFollowsMouse support (RT #125057)
+ * Adjust scrolling units on macOS aqua (RT #125048)
+ * Only use buttons 4 and 5 for scrolling on X11 (i.e. not macOS aqua)
+ * Use previously-unused variable $wp in Tcl::pTk::Widget::focusForce
+ * Add missing `use Text::Tabs;` to top of Text.pm (RT #125460)
+ * Remove "Copied $val\n" print debugging statement (RT #125442)
+ * Use empty string instead of `undef` to clear $status_bar
+   in menus2.pl demo to prevent warning (RT #125826)
+ * Keep textRO.t running if command line arg present (for debugging)
+ * Bind mouse buttons 2 and 3 appropriately on macOS aqua
+   since they are the opposite of what X11 and Windows use
+   (RT #125050, #125460)
+ * Use `catch` in test-for-tk.tcl to prevent skipping tests for packages
+ * Support newer Perl/Tk FindNext() $direction syntax (RT #125532)
+   by adapting the relevant Perl/Tk commit (the existing text2.t was
+   renamed to text2-old.t, and the new text2.t was copied)
+ * Various spelling and POD formatting fixes
+
 Release 0.92:  2016-08-21
 
  * Updated to work with Tcl.pm versions > 1.02. Tcl.pm versions > 1.02 broke compatibility
