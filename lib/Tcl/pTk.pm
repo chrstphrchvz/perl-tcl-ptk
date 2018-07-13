@@ -716,6 +716,8 @@ versions.
 
 =item John Cerney, john.cerney _a_ gmail . com, 29 Sep 2009.
 
+=item Christopher A. Chavez, chrischavez _a_ gmx . us, May 2018.
+
 =back
 
 =head1 COPYRIGHT
