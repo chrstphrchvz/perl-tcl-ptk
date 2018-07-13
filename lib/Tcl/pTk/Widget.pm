@@ -778,7 +778,7 @@ sub bind {
 		}, $events);
     }
     else{
-            $tclsubName = ''; # Must be resetting a binding (i.e. supplying the empty string
+            $tclsubName = ''; # Must be resetting a binding (i.e. supplying the empty string)
     }
 
     # If this is just a widget binding (i.e. not a class binding), 
