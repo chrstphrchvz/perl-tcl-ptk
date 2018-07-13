@@ -111,7 +111,7 @@ my $binding = $realWidget->bind(ref($realWidget),'<3>');
 ok(ref($binding), 'Tcl::pTk::Callback', "Inherited <3> binding from the text widget");
 
 
-$top->after(1000,sub{$top->destroy});
+$top->after(1000,sub{$top->destroy}) unless(@ARGV); # Quit after a second, unless something on the command line (i.e. debugging)
 MainLoop;
 
 sub insertwtag {
