@@ -28,7 +28,12 @@ sub ClassInit
 {
  my ($class,$mw) = @_;
  $class->SUPER::ClassInit($mw, 'Text'); # Call with optional 'Text' Tag
- $mw->bind($class, '<3>', ['PostPopupMenu', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y')]  ); # right-click menu
+ # right-click menu
+ $mw->bind(
+   $class,
+   $mw->windowingsystem eq 'aqua' ? '<2>' : '<3>',
+   ['PostPopupMenu', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y')],
+  );
  
  # We use the 'Text' tag for the bindings below, because we are adding to the tcl text-widget
  #  bindings, which are under the 'Text' bindtag.
