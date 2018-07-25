@@ -23,11 +23,11 @@ EOT
 my %makeArgs = (
     NAME => "Tcl::pTk",
     VERSION_FROM => 'lib/Tcl/pTk.pm',
+    LICENSE => 'perl',
     EXE_FILES => \@SCRIPTS,
     META_MERGE => 
 	{ no_index => { directory => [ qw! benchmarks TableMatrixDemos lib/Tcl/pTk/demos ! ] },
           keywords => [ qw/ Tk Tcl Tix GUI /],
-          license  => 'perl',
         } ,
     PREREQ_PM => {
 	Tcl => 0.90,
