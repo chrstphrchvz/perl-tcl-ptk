@@ -89,7 +89,7 @@ sub _DEBUG {
 
 =head1 NAME
 
-Tcl::pTk - Interface to Tcl/Tk with Perl/Tk compatible sytax
+Tcl::pTk - Interface to Tcl/Tk with Perl/Tk compatible syntax
 
 =head1 SYNOPSIS
 
