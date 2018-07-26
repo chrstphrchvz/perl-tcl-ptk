@@ -186,21 +186,29 @@ sub mkmb {
     my $mb = $mb0->Menubutton(
         -text       => $mb_label,
 	-underline  => $mb_label_underline,
-	-background => 'DarkGreen',
-        -foreground => 'Yellow',
     );
+    if ($mb0->windowingsystem ne 'aqua') {
+	    $mb->configure(
+            -background => 'DarkGreen',
+            -foreground => 'Yellow',
+        );
+    }
     my($menu) = $mb->Menu(-tearoff => 0);        
     $mb->configure(-menu => $menu);
 
     my $mb_list;
     foreach $mb_list (@{$mb_list_ref}) {
-        $mb->command(
+        my $command_entry = $mb->command(
             -label      => $mb_list->[0],
             -command    => $mb_list->[1] ,
             -underline  => $mb_list->[2],
-            -background => 'DarkGreen',
-            -foreground => 'White',
         );
+        if ($mb0->windowingsystem ne 'aqua') {
+            $command_entry->configure(
+                -background => 'DarkGreen',
+                -foreground => 'White',
+            );
+        }
     }
     $mb->pack(-side => 'left');
     $TOP->bind($mb, '<Enter>' => sub {ClearMsg; ShowMsg($mb_msg)});
