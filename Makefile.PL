@@ -23,7 +23,7 @@ EOT
 my %makeArgs = (
     NAME => "Tcl::pTk",
     VERSION_FROM => 'lib/Tcl/pTk.pm',
-    LICENSE => 'perl',
+    LICENSE => 'perl_5',
     EXE_FILES => \@SCRIPTS,
     META_MERGE => {
         "meta-spec" => { version => 2 },
