@@ -104,4 +104,5 @@ ok($focusID, undef, "Focus Return Check 2");
  
 
 
+MainLoop if(@ARGV);
 
