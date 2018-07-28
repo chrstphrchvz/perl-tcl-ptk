@@ -1659,7 +1659,7 @@ sub _addcascade {
     #$int->call("$mnu",'add','cascade', %args);
     $mnu->Cascade(%args);
 }
-# internal helper sub to process perlTk's -menuitmes option
+# internal helper sub to process perlTk's -menuitems option
 sub _process_menuitems {
     my $self = shift;
     my ($int,$mnu,$mis) = @_;
