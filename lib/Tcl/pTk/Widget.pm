@@ -1773,7 +1773,7 @@ sub Scrolled
 # end-of-scrolled
 # ----------------------------------------------------------------------------
 
-# MainWindow method, For pTk compatiblity. Returns the main-window for any widget
+# MainWindow method, For pTk compatibility. Returns the main-window for any widget
 sub MainWindow{
     my $self = shift;
     my $interp = $self->interp;

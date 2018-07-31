@@ -1341,7 +1341,7 @@ sub break
  
 }
 
-# Wrappers for the Event Flag subs in Tcl (for compatiblity with perl/tk code
+# Wrappers for the Event Flag subs in Tcl (for compatibility with perl/tk code)
 sub DONT_WAIT{ Tcl::DONT_WAIT()};        
 sub WINDOW_EVENTS{ Tcl::WINDOW_EVENTS()};        
 sub FILE_EVENTS{ Tcl::FILE_EVENTS()};        
@@ -1349,7 +1349,7 @@ sub TIMER_EVENTS{ Tcl::TIMER_EVENTS()};
 sub IDLE_EVENTS{ Tcl::IDLE_EVENTS()};        
 sub ALL_EVENTS{ Tcl::ALL_EVENTS()};        
 
-# Wrappers for the Tk color functions (for compatibility with perl/tk
+# Wrappers for the Tk color functions (for compatibility with perl/tk)
 sub NORMAL_BG{
         if($^O eq 'cygwin' || $^O =~ /win32/ ){
                 return 'systembuttonface';
