@@ -293,7 +293,7 @@ sub IndicesLookGood
  ##########################
  return 1 if ($start_column == $end_column);
 
- # otherwise its bad
+ # otherwise it's bad
  return 0;
 }
 

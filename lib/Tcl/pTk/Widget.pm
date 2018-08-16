@@ -24,7 +24,7 @@ use Tcl::pTk::Bitmap;
 use Tcl::pTk::XEvent;  # Limited XEvent support
 use Tcl::pTk::Font;
 
-use Scalar::Util (qw /blessed/); # Used only for it's blessed function
+use Scalar::Util (qw /blessed/); # Used only for its blessed function
 
 # Setup camel-case commands for pack, and the font commands
 use Tcl::pTk::Submethods(
@@ -492,7 +492,7 @@ sub configure {
 }
 
 
-# returns (and optionally creates) data hash assotiated with widget
+# returns (and optionally creates) data hash associated with widget
 sub widget_data {
     my $self = shift;
     return ($Tcl::pTk::Wdata->{$self->path} || ($Tcl::pTk::Wdata->{$self->path}={}));
@@ -1074,7 +1074,7 @@ sub chooseColor {
 #
 # Arguments:
 # color - Name of starting color.
-# perecent - Integer telling how much to brighten or darken as a
+# percent - Integer telling how much to brighten or darken as a
 # percent: 50 means darken by 50%, 110 means brighten
 # by 10%.
 sub Darken {

@@ -5,7 +5,7 @@ our ($VERSION) = ('0.94');
 use strict;
 use Tcl;
 use Exporter ('import');
-use Scalar::Util (qw /blessed/); # Used only for it's blessed function
+use Scalar::Util (qw /blessed/); # Used only for its blessed function
 use AutoLoader; # Used for autoloading the Error routine
 use vars qw(@EXPORT @EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
 
@@ -288,7 +288,7 @@ approach with perl/Tk syntax.
 =item * The Tcl Interpreter
 
 The Tcl interpreter is used to process Tcl/Tk widgets; within C<Tcl::pTk> you
-create it with C<new>, and given any widget object, you can retreive it by the
+create it with C<new>, and given any widget object, you can retrieve it by the
 C<< $widget->interp >> method. ( Within pure Tcl/Tk the interpreter already exists,
 you don't need to create it explicitly. ) 
 
@@ -301,7 +301,7 @@ C<.fram>, and you want to create a button on it and name it C<butt>, then
 you should specify name C<.fram.butt>. Widget paths are also referred in
 other miscellaneous widget operations, like geometry management.
 
-At any time a widget's path can be retreived with C<< $widget->path; >>
+At any time a widget's path can be retrieved with C<< $widget->path; >>
 within C<Tcl::pTk>.
 
 =item * The Widget Path as a Tcl/Tk command
@@ -320,7 +320,7 @@ if C<$button> corresponds to C<.fr.b> widget.
 The C<use Tcl::pTk;> statement not only creates the C<Tcl::pTk> package, but also creates the
 C<Tcl::pTk::Widget> package, which is responsible for widgets. Each widget ( an object
 blessed to C<Tcl::pTk::Widget>, or any of its subclasses )
-behaves in such a way that its method will result in calling it's path on the
+behaves in such a way that its method will result in calling its path on the
 interpreter.
 
 =head3 Perl/Tk syntax
@@ -614,7 +614,7 @@ for the widget options described in the Tcl/Tk docs for use in C<Tcl::pTk>.
 
 =head2 C<< $int->widget( path, widget-type ) >>
 
-When widgets are created in C<Tcl::pTk> they are stored internally and can and can be retreived
+When widgets are created in C<Tcl::pTk> they are stored internally and can be retrieved
 by the C<widget()> method, which takes widget path as first parameter, and optionally
 the widget type (such as Button, or Text etc.). For Example:
 

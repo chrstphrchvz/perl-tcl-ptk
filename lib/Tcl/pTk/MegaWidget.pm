@@ -141,7 +141,7 @@ sub basicWidget{
         my $package = shift;
         my $containerWidget = shift;
   
-        # Widget is a "basic" widget if it's container widget is the same as its
+        # Widget is a "basic" widget if its container widget is the same as its
         #   package name like so
         return 1 if( "Tcl::pTk::$containerWidget" eq $package);
         return 0;
