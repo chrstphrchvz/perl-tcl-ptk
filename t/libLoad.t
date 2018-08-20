@@ -1,8 +1,7 @@
-#!/usr/local/bin/nperl -w
-
 # This test checks to see if loading a library (in this case 'tix') happens for
 #   different tcl interpreters.
 
+use warnings;
 use Tcl::pTk;
 use Data::Dumper;
 use Test;

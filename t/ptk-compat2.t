@@ -1,7 +1,6 @@
-#!/usr/local/bin/perl -w
-
 # Script to check for popup menu creation using the menubutton  methods
 
+use warnings;
 use Tcl::pTk;
 
 use Test;

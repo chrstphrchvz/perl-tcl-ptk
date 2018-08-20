@@ -1,5 +1,4 @@
-#!/usr/local/bin/perl -w
-
+use warnings;
 #use Tk;
 #use Tk::HList;
 #use Tk::ItemStyle;

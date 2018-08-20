@@ -1,5 +1,4 @@
-#!/usr/local/bin/nperl -w
-
+use warnings;
 use Tcl::pTk;
 use Data::Dumper;
 use Test;

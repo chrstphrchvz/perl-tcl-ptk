@@ -1,7 +1,6 @@
-#!/usr/local/bin/perl -w
-
 # Test Case that checks for widgets getting destroyed if WIDGET_CLEANUP active)
 #   
+use warnings;
 use Test;
 plan tests => 1;
 

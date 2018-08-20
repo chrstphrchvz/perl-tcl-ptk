@@ -1,10 +1,9 @@
-#!/usr/local/bin/perl -w
-
 # Test case for the 'optional' scrollbars options of 'Scrolled'.
 #  This creates a scrolled widget with small geometry, then a large geometry.
 #    For the small geometry, the scrollbars should be present.
 #    For the large geometry, the scrollbars should be  removed
 
+use warnings;
 use Tcl::pTk;
 
 use Test;

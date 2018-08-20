@@ -1,5 +1,4 @@
-#!/usr/local/bin/perl -w
-
+use warnings;
 use Test;
 use Tcl::pTk;
 use Tcl::pTk::Table();

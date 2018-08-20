@@ -1,5 +1,4 @@
-#!perl -w
-
+use warnings;
 use strict;
 use Getopt::Long qw(GetOptions);
 use ExtUtils::MakeMaker;

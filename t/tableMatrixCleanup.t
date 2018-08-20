@@ -1,10 +1,9 @@
-#!/usr/local/bin/perl -w
-
 # Tablematrix prototype support in Tcl/pTk
 #   This includes the Variable Tracing that works with large arrays, without causing
 #   performance issues.
 #   
 
+use warnings;
 use Tcl::pTk;
 use Tcl::pTk::TableMatrix;
 use Test;
