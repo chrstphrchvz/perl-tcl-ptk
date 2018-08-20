@@ -68,8 +68,7 @@ if ($tclshArg) {
 }
 
 if ($test_for_tk) {
-    open TCLSH, "$tclsh test-for-tk.tcl|";
-    my $res = join '', <TCLSH>;
+    my $res = `$tclsh test-for-tk.tcl`;
 
     unless ($res =~ /^ok1/m) {
         die <<EOS;
