@@ -13,7 +13,7 @@ open(my $stderr, '>', 'serr.out');
 *STDERR = $stderr;
 
 # Setup label with a scroll command that is not defined
-#   This will create a backgound error.
+#   This will create a background error.
 my $lb = $mw->Listbox->pack;
 $lb->configure(-yscrollcommand =>  \&bogus);
 $lb->insert(qw/0 foo/);
