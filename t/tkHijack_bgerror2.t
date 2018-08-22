@@ -109,10 +109,9 @@ my $TOP = MainWindow->new();
         -bg          => 'gray',
         -orient      => 'horizontal',
         -command     => sub {
-                                print "Switch value is '".join("', '", @_)."'\n";
-                                 main::bogus(); # Call undefined routine to trigger error
-
-                            },
+            print "Switch value is '".join("', '", @_)."'\n";
+            main::bogus(); # Call undefined routine to trigger error
+        },
         -llabel      => [-text => 'OFF', -foreground => 'blue'],
         -rlabel      => [-text => 'ON',  -foreground => 'blue'],
         -troughcolor => 'tan',
