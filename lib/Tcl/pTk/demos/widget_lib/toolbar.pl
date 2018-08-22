@@ -15,10 +15,10 @@ sub toolbar{
 
         
         if( $TOP->windowingsystem ne 'aqua'){
-              $label = $TOP->ttkLabel(-wraplength => '4i', -text => " This is a demonstration of how to do a toolbar that is styled correctly and which can be torn off. The buttons are configured to be \u201Ctoolbar style\u201D buttons by telling them that they are to use the Toolbutton style. At the left end of the toolbar is a simple marker that the cursor changes to a movement icon over; drag that away from the toolbar to tear off the whole toolbar into a separate toplevel widget. When the dragged-off toolbar is no longer needed, just close it like any normal toplevel and it will reattach to the window it was torn off from.");
+              $label = $TOP->ttkLabel(-wraplength => '4i', -text => " This is a demonstration of how to do a toolbar that is styled correctly and which can be torn off. The buttons are configured to be \x{201C}toolbar style\x{201D} buttons by telling them that they are to use the Toolbutton style. At the left end of the toolbar is a simple marker that the cursor changes to a movement icon over; drag that away from the toolbar to tear off the whole toolbar into a separate toplevel widget. When the dragged-off toolbar is no longer needed, just close it like any normal toplevel and it will reattach to the window it was torn off from.");
         }
         else{
-              $label = $TOP->ttkLabel(-wraplength => '4i', -text => "This is a demonstration of how to do a toolbar that is styled correctly. The buttons are configured to be \u201Ctoolbar style\u201D buttons by telling them that they are to use the Toolbutton style.");
+              $label = $TOP->ttkLabel(-wraplength => '4i', -text => "This is a demonstration of how to do a toolbar that is styled correctly. The buttons are configured to be \x{201C}toolbar style\x{201D} buttons by telling them that they are to use the Toolbutton style.");
         }
         
         ## Set up the toolbar hull
