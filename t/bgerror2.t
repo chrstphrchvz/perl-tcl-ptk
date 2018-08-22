@@ -122,6 +122,11 @@ my $TOP = MainWindow->new();
     )->pack(qw/-side left -expand 1/);
 
 
+$mw->after(1000,
+    sub {
+        $sl->{sl}->set(1); # toggle SlideSwitch
+    },
+);
 $mw->after(2000, [$mw, 'destroy']) unless (@ARGV); # Persist if any args supplied, for debugging
 
 $ok3_line = __LINE__ + 1; # Line to look for in error output
