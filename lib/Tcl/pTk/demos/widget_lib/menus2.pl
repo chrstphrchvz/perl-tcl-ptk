@@ -1,5 +1,8 @@
 # menus2.pl
 
+use warnings;
+use strict;
+
 use subs qw/menus_error2/;
 use vars qw/$TOP/;
 
@@ -193,7 +196,7 @@ sub menus2 {
 	pack(qw/-padx 2 -pady 2 -expand yes -fill both/);
     $menubar->bind('<<MenuSelect>>' => sub {
 	$status_bar = '';
-	$status_bar = $_[0]->entrycget('active', -label);
+	$status_bar = $_[0]->entrycget('active', -label) || '';
 	$TOP->idletasks;
     });
 
