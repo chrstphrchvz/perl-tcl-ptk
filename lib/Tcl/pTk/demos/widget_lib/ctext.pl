@@ -1,5 +1,8 @@
 # ctext.pl
 
+use warnings;
+use strict;
+
 use subs qw/ctext_bs ctext_configure ctext_enter ctext_move ctext_press/;
 use vars qw/$TOP/;
 

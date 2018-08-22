@@ -1,5 +1,8 @@
 # Demo of tile combo box widgets
 
+use warnings;
+use strict;
+
 use vars qw/$TOP/;
 
 sub combo {
