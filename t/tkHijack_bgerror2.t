@@ -93,6 +93,10 @@ package main;
 
 use Tk;
 
+# Filename and line numbers to look for in expected errors
+my $ok_file = quotemeta(__FILE__);
+my ($ok3_line, $ok4_line);
+
 # Setup to redirect stderr to file, so we can check it.
 # Save existing StdErr
 *OLD_STDERR = *STDERR;
@@ -110,6 +114,7 @@ my $TOP = MainWindow->new();
         -orient      => 'horizontal',
         -command     => sub {
             print "Switch value is '".join("', '", @_)."'\n";
+            $ok4_line = __LINE__ + 1; # Line to look for in error output
             main::bogus(); # Call undefined routine to trigger error
         },
         -llabel      => [-text => 'OFF', -foreground => 'blue'],
@@ -120,6 +125,7 @@ my $TOP = MainWindow->new();
 
 $mw->after(2000, [$mw, 'destroy']) unless (@ARGV); # Persist if any args supplied, for debugging
 
+$ok3_line = __LINE__ + 1; # Line to look for in error output
 MainLoop;
     
 # Redirect stderr back
@@ -138,8 +144,8 @@ close INFILE;
 # Check error messages for key components
 ok( $errMessages =~ /Undefined subroutine\s+\&main\:\:bogus/);
 ok( $errMessages =~ /command executed by scale/);
-ok( $errMessages =~ /Error Started at t\/tkHijack_bgerror2.t line 124/);
-ok( $errMessages =~ / Undefined subroutine \&main::bogus called at t\/tkHijack_bgerror2.t line 113/);
+ok( $errMessages =~ /Error Started at $ok_file line $ok3_line/);
+ok( $errMessages =~ / Undefined subroutine \&main::bogus called at $ok_file line $ok4_line/);
 
 unlink 'serr.out';
 
