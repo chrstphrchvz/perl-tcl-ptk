@@ -108,6 +108,7 @@ sub changeFont{
         my $widget = shift;
         my $txt = shift;
         my $combo = shift;
-        $txt->configure(-font => $combo->get . " 10");
+        my $new_font = $combo->get;
+        $txt->configure(-font => qq/"$new_font" 10/);
 }
 
