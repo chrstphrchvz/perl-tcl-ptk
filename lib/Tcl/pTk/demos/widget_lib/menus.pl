@@ -1,5 +1,8 @@
 # menus.pl
 
+use warnings;
+use strict;
+
 use subs qw/menus_error/;
 use vars qw/$TOP/;
 
