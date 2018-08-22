@@ -118,7 +118,7 @@ my $TOP = MainWindow->new();
     )->pack(qw/-side left -expand 1/);
 
 
-$mw->after(2000, [$mw, 'destroy']);
+$mw->after(2000, [$mw, 'destroy']) unless (@ARGV); # Persist if any args supplied, for debugging
 
 MainLoop;
     
