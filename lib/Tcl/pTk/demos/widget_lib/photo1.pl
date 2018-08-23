@@ -1,5 +1,8 @@
 # photo1.pl
 
+use warnings;
+use strict;
+
 use vars qw/$TOP/;
 
 sub photo1 {
