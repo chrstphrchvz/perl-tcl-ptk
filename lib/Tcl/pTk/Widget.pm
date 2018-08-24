@@ -2417,9 +2417,9 @@ sub MouseWheelBind
 {
  my($mw,$class) = @_;
 
- # The MouseWheel will typically only fire on Windows. However, one
- # could use the "event generate" command to produce MouseWheel
- # events on other platforms.
+ # The MouseWheel will typically only fire on Windows and macOS.
+ # However, one could use the "event generate" command to produce
+ # MouseWheel events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
     $mw->windowingsystem eq 'aqua'
