@@ -2,6 +2,7 @@
 #
 # Chris Dean <ctdean@cogit.com>
 
+use warnings;
 use strict;
 use Tcl::pTk::BrowseEntry;
 
