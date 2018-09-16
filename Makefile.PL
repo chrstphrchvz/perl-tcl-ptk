@@ -3,6 +3,13 @@ use strict;
 use Getopt::Long qw(GetOptions);
 use ExtUtils::MakeMaker;
 
+sub _die ($) {
+    # CPAN smokers report FAIL if Makefile.PL dies, it should exit with status 0
+    my $err = shift;
+    warn $err;
+    exit 0;
+}
+
 ## The executable scripts to be installed
 my @SCRIPTS   = qw( widgetTclpTk
                );
@@ -70,7 +77,7 @@ if ($test_for_tk) {
     my $res = `$tclsh test-for-tk.tcl`;
 
     unless ($res =~ /^ok1/m) {
-        die <<EOS;
+        _die <<EOS;
 
 #####################  Error   ####################################
 Your Tcl installation ($tclsh) doesn't appear to include the Tk package.
@@ -94,7 +101,7 @@ EOS
     my ($TclVersion) = ($res =~ /TclVersion\s+(\S+)/ );
 
     if( $TclVersion < 8.4 ){
-        die <<EOS;
+        _die <<EOS;
 
 ##################### Error ####################################
 Your Tcl/Tk installation version is less than 8.4. This is not
@@ -117,8 +124,4 @@ EOS
 
     }
 }
-
-
-
-
 
