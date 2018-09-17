@@ -832,10 +832,7 @@ sub MainWindow {
     my $interp = Tcl::pTk->new(@_);
 
     # Load Tile Widgets, if the tcl version is > 8.5
-    my $patchlevel = $interp->icall('info', 'patchlevel');
-    my (@patchElems) = split('\.', $patchlevel);
-    my $versionNumber = $patchElems[0] + $patchElems[1]/1000 + $patchElems[2]/100e3; # convert version to number
-    if( $versionNumber >= 8.005 ){
+    if( $Tcl::pTk::TK_VERSION ge '8.5' ){
             require Tcl::pTk::Tile;
             Tcl::pTk::Tile::_declareTileWidgets($interp);
     }
