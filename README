@@ -32,5 +32,5 @@ You can see some explanations on these parameters with
 
    perl Makefile.PL --help
 
-See License, Authors sections in Tcl/Tk.pm, or with 'perldoc Tcl::Tk' - once it
+See License, Authors sections in Tcl/pTk.pm, or with 'perldoc Tcl::pTk' - once it
 is installed - to have acknowledged on this type of information.
