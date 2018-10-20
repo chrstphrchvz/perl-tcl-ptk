@@ -23,12 +23,16 @@ if ($^O eq 'freebsd') {$tclsh.='8.4'}
 
 GetOptions("tclsh=s", \$tclshArg,
     "test-for-tk!", \$test_for_tk,
-	  )
-    || die <<EOT;
+    "help!",   \ my $help,
+) || usage();
+usage() if $help;
+sub usage {
+    _die <<EOT;
 
 Usage: perl Makefile.PL [--tclsh <path>] [--no-test-for-tk] [<makemaker opts>...]
 
 EOT
+}
 
 my %makeArgs = (
     NAME => "Tcl::pTk",
