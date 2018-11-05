@@ -502,7 +502,7 @@ sub widget_data {
 sub tooltip {
     my $self = shift;
     my $ttext = shift;
-    $self->interp->packageRequire('tooltip');
+    $self->interp->pkg_require('tooltip');
     $self->call("tooltip::tooltip",$self,$ttext);
     $self;
 }
