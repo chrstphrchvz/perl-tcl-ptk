@@ -1,7 +1,8 @@
 # Tcl-Tk Font test
 #  Adapted from the font.t test case in the perl/tk distribution
 
-BEGIN { $|=1; $^W=1; }
+BEGIN { $|=1; }
+use warnings;
 use strict;
 use Test;
 use Tcl::pTk;

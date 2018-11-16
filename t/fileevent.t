@@ -18,7 +18,7 @@ my $closed = 0;  # Flag = 1 when fileevent pipe from the child process closes
  
 my $mw = MainWindow->new(-title => "fileevent Test");
 
-my $command = "perl -w t/fileeventSubProcesses";
+my $command = "perl t/fileeventSubProcesses";
 
 my $lineFromFile; # Last line read from the file 
 

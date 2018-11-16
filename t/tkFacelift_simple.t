@@ -3,6 +3,7 @@
 #   to make it work with Tcl::pTk
 
 use warnings;
+use strict;
 use Tcl::pTk::TkHijack;
 use Tcl::pTk::Facelift;
 
