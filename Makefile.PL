@@ -102,6 +102,16 @@ Information on Tix can be found at http://tix.sourceforge.net
 EOS
     }
 
+    unless ($res =~ /^ok3/m) {
+        warn <<EOS;
+
+##################### Warning ####################################
+Your Tk installation fails to find 'tklib' package.
+This package is recommended. Be informed on this and better have this package
+installed within your Tcl/Tk.
+EOS
+    }
+
     my ($TclVersion) = ($res =~ /TclVersion\s+(\S+)/ );
 
     if( $TclVersion < 8.4 ){
