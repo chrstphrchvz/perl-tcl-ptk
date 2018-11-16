@@ -135,7 +135,7 @@ sub menu
    require Tcl::pTk::Menu;
    $w->ColorOptions(\%args);
    my $name = $self->cget('-label');
-   warn "Had to (re-)reate menu for $name";
+   warn "Had to (re-)create menu for $name";
    $menu = $w->Menu(Name => $name, %args);
    $self->configure('-menu'=>$menu);
   }
