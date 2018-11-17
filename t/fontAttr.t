@@ -8,6 +8,9 @@
 #    version (8.5.1-8.5.5) ), that reports incorrect font sizes for the "TkDefaultFont" and the 
 #      "-*-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*" ( and similar) fonts on Linux (Ubuntu 8.04 LTS)
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 #use Tk;
 #use Tk::Font;
@@ -39,7 +42,7 @@ foreach my $fontName(@fontNames){
         $TOP->Label(-text => "------Font: $fontName -------")->pack();
         
         
-        $label1 = $TOP->Label(-text => "This text should be the same size for this font", -font => $fontName)->pack();
+        my $label1 = $TOP->Label(-text => "This text should be the same size for this font", -font => $fontName)->pack();
         my $font = $label1->cget(-font);
         # print "Label1'  font = '$font\n";
         my %attributes = $label1->cget(-font)->actual(); # Attributes using $font->actual
