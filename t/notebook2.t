@@ -1,10 +1,13 @@
 # Notebook, selectable pages.
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 
 use Test;
 
-$top = MainWindow->new;
+my $top = MainWindow->new;
 
 # This will skip if Tix not present
 my $retVal = $top->interp->pkg_require('Tix');
