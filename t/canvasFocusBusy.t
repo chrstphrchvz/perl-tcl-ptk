@@ -1,3 +1,6 @@
+use warnings;
+use strict;
+
 use Test;
 
 BEGIN{ plan tests => 1}
@@ -25,7 +28,7 @@ $button->configure(        -command =>  sub {
                $button->Busy;
                 my $toplevel = $window->Toplevel();
 
-		$c = $toplevel->Canvas( );
+		my $c = $toplevel->Canvas( );
 		$c->CanvasFocus;
 
 		$c->pack(-expand => 1, -fill => 'both');
