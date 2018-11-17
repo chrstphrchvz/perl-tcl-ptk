@@ -1,4 +1,5 @@
 use warnings;
+use strict;
 use Tcl::pTk;
 use Tcl::pTk::ROText;
 #use Tk;
@@ -76,7 +77,7 @@ You can also bind commands to tags. Like press the right mouse button for menu "
 $t->tagBind(
     "underline",
     $t->windowingsystem ne 'aqua' ? '<3>' : '<2>',
-    [sub { shift; shift->Post(@_)},$m,Ev(X),Ev(Y)],
+    [sub { shift; shift->Post(@_)},$m,Ev('x'),Ev('y')],
 );
 
 
@@ -143,7 +144,7 @@ $top->after(1000,sub{$top->destroy}) unless(@ARGV); # Quit after a second, unles
 MainLoop;
 
 sub insertwtag {
-  local($w,$text,$tag) = @_;
+  my ($w,$text,$tag) = @_;
   my $start = $w->index("insert");
   #print "start=$start\n";
   $w->insert("insert",$text);
