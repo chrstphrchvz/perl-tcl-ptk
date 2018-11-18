@@ -1,6 +1,7 @@
 # Script to check for popup menu creation using the menubutton  methods
 
 use warnings;
+use strict;
 use Tcl::pTk;
 
 use Test;

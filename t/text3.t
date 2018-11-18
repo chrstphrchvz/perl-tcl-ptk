@@ -2,6 +2,7 @@
 #    Tcl/pTk/Widget/Text.pm
 
 use warnings;
+use strict;
 #use Tk;
 use Tcl::pTk;
 

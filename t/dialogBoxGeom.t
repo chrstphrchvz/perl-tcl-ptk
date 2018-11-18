@@ -4,10 +4,12 @@
 #   however it actually makes a very large X screen value and places the dialog well off the 
 #   right of the screen.
 
+use warnings;
+use strict;
+
 #use Tk;
 #use Tk::Dialog;
 
-use strict;
 use Tcl::pTk;
 use Test;
 

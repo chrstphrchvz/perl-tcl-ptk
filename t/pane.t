@@ -4,6 +4,7 @@
 #   
 
 use warnings;
+use strict;
 use Tcl::pTk;
 use Tcl::pTk::Pane;
 #use Tk;

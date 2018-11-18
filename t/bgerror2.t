@@ -1,5 +1,7 @@
 # Test to check error reporting for a background error
 #   that occurs due to a undefined sub in a megawidget
+use warnings;
+use strict;
 use Test;
 BEGIN {plan tests=>4};
 
@@ -11,8 +13,6 @@ use Tcl::pTk::MegaWidget;
 use Tcl::pTk::TextUndo;
 use base qw/Tcl::pTk::Frame/;
 
-
-use strict;
 
 Construct Tcl::pTk::Widget 'SlideSwitch';
 #Construct Tk::Widget 'SlideSwitch';

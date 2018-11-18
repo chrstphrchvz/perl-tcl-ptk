@@ -1,5 +1,7 @@
 # Test to check error reporting for a background error
 #   that occurs due to a undefined sub 
+use warnings;
+use strict;
 use Test;
 BEGIN {plan tests=>3}
 use Tcl::pTk;

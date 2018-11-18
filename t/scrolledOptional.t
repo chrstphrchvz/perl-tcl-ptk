@@ -4,6 +4,7 @@
 #    For the large geometry, the scrollbars should be  removed
 
 use warnings;
+use strict;
 use Tcl::pTk;
 
 use Test;

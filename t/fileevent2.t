@@ -5,6 +5,9 @@
 # (reading the output of an external command into a text widget)
 # no luxuries (like scrollbars)
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 use IO::File;
 

@@ -1,5 +1,8 @@
 # Test of the tablematrix spreadsheet widget
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 use Test;
 

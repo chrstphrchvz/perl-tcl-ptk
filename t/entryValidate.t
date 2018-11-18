@@ -1,5 +1,5 @@
 # entry1.pl
-
+use warnings;
 use strict;
 use Test;
 use Tcl::pTk;

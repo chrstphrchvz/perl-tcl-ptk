@@ -1,6 +1,8 @@
 # Test to check error reporting for a background error (with TkHijack Active)
 #   that occurs due to a undefined sub in a megawidget
 
+use warnings;
+use strict;
 use Test;
 BEGIN {plan tests=>4};
 
@@ -12,8 +14,6 @@ use Tk;
 use Tk::TextUndo;
 use base qw/Tk::Frame/;
 
-
-use strict;
 
 Construct Tk::Widget 'SlideSwitch';
 #Construct Tk::Widget 'SlideSwitch';

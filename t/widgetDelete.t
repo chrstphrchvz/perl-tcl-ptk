@@ -1,6 +1,7 @@
 # Test Case that checks for widgets getting destroyed if WIDGET_CLEANUP active)
 #   
 use warnings;
+use strict;
 use Test;
 plan tests => 1;
 

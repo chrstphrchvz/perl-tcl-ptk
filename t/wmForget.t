@@ -1,5 +1,8 @@
 # Test of the new Tk 8.5 wm manage and wm forget
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 
 use Test;

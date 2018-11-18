@@ -1,5 +1,6 @@
 # Notebook, selectable pages.
 
+use warnings;
 use strict;
 use Test;
 

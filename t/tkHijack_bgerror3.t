@@ -1,5 +1,7 @@
 # Test to check error reporting for a background error (with Tk::Error active)
 #   that occurs due to a undefined sub with a user defined Tk::Error supplied
+use warnings;
+use strict;
 use Test;
 BEGIN {plan tests=>1}
 use Tcl::pTk::TkHijack;
