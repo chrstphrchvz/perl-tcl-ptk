@@ -1,5 +1,8 @@
 # floor.pl
 
+use warnings;
+use strict;
+
 use Tcl::pTk::Trace;
 use subs qw/floor_bg1 floor_bg2 floor_bg3 floor_display floor_fg1 floor_fg2
 	    floor_fg3 floor_room_changed/;
