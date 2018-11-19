@@ -838,7 +838,7 @@ sub MainWindow {
     my $interp = Tcl::pTk->new(@_);
 
     # Load Tile Widgets, if the tcl version is >= 8.5
-    if( $Tcl::pTk::TK_VERSION ge '8.5' ){
+    if( $interp->Eval('package vsatisfies [package provide Tk] 8.5') ){
             require Tcl::pTk::Tile;
             Tcl::pTk::Tile::_declareTileWidgets($interp);
     }
