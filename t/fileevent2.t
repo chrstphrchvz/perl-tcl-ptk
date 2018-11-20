@@ -16,7 +16,7 @@ plan tests => 1;
 
 my $mw = MainWindow->new(-title => "fileevent Test");
 
-my $command = "perl t/fileeventSubProcesses";
+my $command = qq("$^X" t/fileeventSubProcesses);
 
 my $lineFromFile; # Last line read from the file 
 
