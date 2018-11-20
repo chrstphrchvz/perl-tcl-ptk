@@ -103,7 +103,7 @@ foreach my $key (sort keys %expect)
   skip($skip_times, lc $val, lc $expected,"Value of $key");
  }
 
-# Subfonts test removed (not supprted in tcl::tk)
+# Subfonts test removed (not supported in tcl::tk)
 # my @subfonts = $mw->fontSubfonts($lf);
 # foreach my $sf (@subfonts)
 #  {
