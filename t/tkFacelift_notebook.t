@@ -136,7 +136,7 @@ ok( join(",", @pages), 'pref', "delete method check");
 
 $top->after(2000, 
         sub{
-                my $itab = $n->add("imageTab", -image => $n->Getimage("Folder"));
+                my $itab = $n->add("imageTab", -image => $n->Getimage("folder"));
                 $itab->LabEntry(-label => "FolderName:             ",
                      -labelPack => [-side => "left", -anchor => "w"],
                      -width => 20,
