@@ -89,7 +89,10 @@ $focus = $n->info('active');
 #print "pages ".join(",", @pages)."\n";
 ok( $focus, 'address', "info(active) method check");
 
-my $identify = $n->identify(10,10);
+my $identify = $top->windowingsystem ne 'aqua'
+  ? $n->identify(10,10)
+  : $n->identify(230,20) # tabs are centered on macOS aqua
+;
 #print "pages ".join(",", @pages)."\n";
 ok( $identify, 'address', "identify method check");
 
