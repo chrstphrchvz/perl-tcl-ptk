@@ -12,7 +12,12 @@ use Tcl::pTk;
 use IO::File;
 
 use Test;
-plan tests => 1;
+my %theplan = (tests => 1);
+if ($^O eq 'darwin') {
+        print "# fileevent is not working on macOS, see RT #125662\n";
+        $theplan{'todo'} = [1];
+}
+plan %theplan;
 
 my $mw = MainWindow->new(-title => "fileevent Test");
 

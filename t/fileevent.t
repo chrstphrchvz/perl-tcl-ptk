@@ -11,7 +11,12 @@ use Tcl::pTk;
 use IO::File;
 
 use Test;
-plan tests => 2;
+my %theplan = (tests => 2);
+if ($^O eq 'darwin') {
+        print "# fileevent is not working on macOS, see RT #125662\n";
+        $theplan{'todo'} = [1, 2];
+}
+plan %theplan;
 
 my $closed = 0;  # Flag = 1 when fileevent pipe from the child process closes
                  #  We check to see if this happens on non-windows platforms. 
