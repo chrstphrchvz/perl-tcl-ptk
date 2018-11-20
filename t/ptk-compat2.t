@@ -12,7 +12,8 @@ my $top = MainWindow->new;
 #$top->option('add','*Text.background'=>'white');
 
 
-my $m = $top->Menu();
+my $m = $top->Menu(-type => 'menubar');
+$top->configure(-menu => $m);
 
 my $mb = $m->Menubutton(qw/-text File -underline 0 -tearoff 0 -menuitems/ =>
   [
