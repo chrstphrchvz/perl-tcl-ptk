@@ -17,20 +17,31 @@ my @SCRIPTS   = qw( widgetTclpTk
 # Allow bypassing with --no-test-for-tk
 my $test_for_tk = 1;
 
-my $tclshArg;
-my $tclsh = "tclsh";
-if ($^O eq 'freebsd') {$tclsh.='8.4'}
+my $tclsh_default = 'tclsh';
+# for FreeBSD users, try to guess their name for tclsh; see ticket 6086
+if ($^O eq 'freebsd') {
+    for my $ver (qw(8.9 8.8 8.7 8.6 8.5 8.4 8.3 8.2 8.1 8.0)) {
+       system "which tclsh$ver >/dev/null 2>&1";
+       if ($? == 0) {
+	    $tclsh_default = "tclsh$ver"; # ok will use that as default
+	    last;
+	}
+    }
+}
 
-GetOptions("tclsh=s", \$tclshArg,
-    "test-for-tk!", \$test_for_tk,
+GetOptions(
+    "tclsh=s", \(my $tclsh=$tclsh_default),
     "help!",   \ my $help,
+    "test-for-tk!", \$test_for_tk,
 ) || usage();
 usage() if $help;
 sub usage {
-    _die <<EOT;
+    _die <<'EOT';
 
 Usage: perl Makefile.PL [--tclsh <path>] [--no-test-for-tk] [<makemaker opts>...]
 
+--tclsh option is mostly for FreeBSD users, who have tclsh8.6 or alike;
+however default autodetection should be fine with freebsd as well.
 EOT
 }
 
@@ -70,12 +81,6 @@ WriteMakefile(
 );
 
 
-# Allow the tclsh prog to be provided by env var or arg
-if ($tclshArg) {
-    $tclsh = $tclshArg;
-} elsif (defined($ENV{'TCLSH_PROG'})) {
-    $tclsh = $ENV{'TCLSH_PROG'};
-}
 
 if ($test_for_tk) {
     my $res = `$tclsh test-for-tk.tcl`;
