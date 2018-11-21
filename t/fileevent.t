@@ -12,8 +12,8 @@ use IO::File;
 
 use Test;
 my %theplan = (tests => 2);
-if ($^O eq 'darwin') {
-        print "# fileevent is not working on macOS, see RT #125662\n";
+if ($^O =~ m/darwin|dragonfly|freebsd|netbsd|openbsd/) {
+        print "# fileevent is not working on BSD and macOS, see RT #125662\n";
         $theplan{'todo'} = [1, 2];
 }
 plan %theplan;
