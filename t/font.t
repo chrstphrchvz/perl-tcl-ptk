@@ -9,7 +9,11 @@ use Tcl::pTk;
 
 use Tcl::pTk::Font;
 
-BEGIN { plan tests => 13 };
+BEGIN {
+  print "# Test 11 (check -size from fontActual()) has had\n"
+      . "# platform-dependent failures. See RT #119754\n";
+  plan tests => 13, todo => [11];
+};
 
 my $mw = MainWindow->new;
 $mw->geometry("+10+10");
@@ -97,6 +101,9 @@ foreach my $key (sort keys %expect)
   my $val = $mw->fontActual($lf,$key);
   my $expected = $expect{$key};
   # Size of 9 is ok
+  # ^ CAC says: why is that, other than that's what
+  #   e.g. Windows/X11 tend to output? Does that mean
+  #   size of 12 is similarly ok on macOS aqua?
   if( $key eq '-size' && $val == 9){
     $expected = 9;
   }
