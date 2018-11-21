@@ -4,7 +4,7 @@
 #  If the attributes are correct, then a label displayed with the original font and the new font should have the same
 #   appearance.
 #
-#  This test was put in-place to check some code in Tcl::pTk::Font that works around a but in Tcl/tk (at least in
+#  This test was put in-place to check some code in Tcl::pTk::Font that works around a bug in Tcl/tk (at least in
 #    version (8.5.1-8.5.5) ), that reports incorrect font sizes for the "TkDefaultFont" and the 
 #      "-*-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*" ( and similar) fonts on Linux (Ubuntu 8.04 LTS)
 
