@@ -41,7 +41,7 @@ foreach my $leaf('Tk.xbm','Xcamel.gif')
     my $f = lc("t/test.$kind");
     my $p = $f;
     push(@files,$f);
-    print "$kind - $f\n";
+    print "# $kind - $f\n";
     eval { $src->write($f, -format => "$kind") };
     ok($@,''," write $@");
     ok($p,$f,"File name corrupted");
