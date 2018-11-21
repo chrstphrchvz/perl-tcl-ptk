@@ -9,7 +9,7 @@ my %images = (
     'Tk.xbm' => 'xbm',
     'Xcamel.gif' => 'gif'
 );
-my $image_count = scalar %images;
+my $image_count = keys %images;
 
 # Formats supported by Tk 8.4-8.5 without extensions
 my %kind_is_supported = (
@@ -22,7 +22,7 @@ my %kind_is_supported = (
     'xbm'  => 0,
     'xpm'  => 0,
 );
-my $kind_count = scalar %kind_is_supported;
+my $kind_count = keys %kind_is_supported;
 
 plan tests => ($image_count*($kind_count * 5 + 1) + 2);
 
