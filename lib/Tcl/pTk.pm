@@ -885,11 +885,6 @@ sub MainLoop {
 
 # timeofday function for compatibility with Tk::timeofday
 sub timeofday {
-    # This perl-based mainloop differs from Tk_MainLoop in that it
-    # relies on the traced deletion of '.' instead of using the
-    # Tk_GetNumMainWindows C API.
-    # This could optionally be implemented with 'vwait' on a specially
-    # named variable that gets set when '.' is destroyed.
     my $int = (ref $_[0]?shift:$tkinterp);
     my $t = $int->invoke("clock", "microseconds");
     $t = $t/1e6;
