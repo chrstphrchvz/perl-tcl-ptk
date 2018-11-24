@@ -16,22 +16,26 @@ my $top = MainWindow->new;
 $top->geometry('20x20');
 
 
-my $t = $top->Scrolled('Text',"-relief" => "raised", -scrollbars => 'osoe',
-                     "-bd" => "2",
-                     "-setgrid" => "true", -wrap => 'none');
+my $t = $top->Scrolled('Text',
+    -relief => 'raised',
+    -scrollbars => 'osoe',
+    -bd => 2,
+    -setgrid => 'true',
+    -wrap => 'none',
+);
 
-$t->insert("0.0", "This window is a text widget.  It displays one or more
+$t->insert('0.0', 'This window is a text widget.  It displays one or more
 lines of text and allows you to edit the text.  Here is a summary of the
-things you can do to a text widget:");
+things you can do to a text widget:');
 
-$t->insert(end => "
+$t->insert(end => q{
 
 1. Insert text. Press the left mouse button to set the insertion cursor, then
 type text.  What you type will be added to the widget.  You can backspace
 over what you've typed using either the backspace key, the delete key,
 or Control+h.
 
-2. Resize the window.  This widget has been configured with the \"setGrid\"
+2. Resize the window.  This widget has been configured with the "setGrid"
 option on, so that if you resize the window it will always resize to an
 even number of characters high and wide.  Also, if you make the window
 narrow you can see that long lines automatically wrap around onto
@@ -56,23 +60,24 @@ or from any other window or application, select what you want, click
 the left mouse button to set the insertion cursor, then type Control+v to copy the
 selection to the point of the insertion cursor.
 
-You can also bind commands to tags. Like press the right mouse button for menu ");
+You can also bind commands to tags. Like press the right mouse button for menu }
+);
 
-$t->pack(-expand => 1, "-fill"   => "both");
+$t->pack(-expand => 1, -fill => 'both');
 
 
 $top->after(1000, sub{
-                ok($t->{packysb}, 1, "y scroll bar present");
-                ok($t->{packxsb}, 1, "x scroll bar present");
+    ok($t->{packysb}, 1, 'y scroll bar present');
+    ok($t->{packxsb}, 1, 'x scroll bar present');
 });
 
 $top->after(1500, sub{
-                $top->geometry('80x40');
+    $top->geometry('80x40');
 });
 
 $top->after(2000, sub{
-                ok($t->{packysb}, 0, "y scroll bar auto-removed");
-                ok($t->{packxsb}, 0, "x scroll bar auto-removed");
+    ok($t->{packysb}, 0, 'y scroll bar auto-removed');
+    ok($t->{packxsb}, 0, 'x scroll bar auto-removed');
 });
 
 $top->after(2500,sub{$top->destroy});
