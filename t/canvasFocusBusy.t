@@ -42,6 +42,8 @@ $button->configure(        -command =>  sub {
         }
         );
 
+$window->focusForce; # workaround for Tk Aqua 8.5.9
+
 # Invoke the button to start the test case
 $window->after(1000, sub{
                 $button->invoke();

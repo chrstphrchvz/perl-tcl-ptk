@@ -66,7 +66,8 @@ foreach (1..10){
         $TOP->idletasks();
 }
 
-                
+$canvas->focusForce; # workaround for Tk Aqua 8.5.9
+
 # Fire a delete event for the whole canvas and check variables
 $canvas->eventGenerate('<Delete>');
 
