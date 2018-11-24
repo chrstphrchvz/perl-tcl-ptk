@@ -72,7 +72,11 @@ $top->after(1000, sub{
 });
 
 $top->after(1500, sub{
-    $top->geometry('80x40');
+    #$top->geometry('80x40');
+    # Setting an exact number of columns might leave a few pixels
+    # left over, so add an extra column. The point is to get the
+    # scrollbars to disappear.
+    $top->geometry('81x40');
 });
 
 $top->after(2000, sub{
