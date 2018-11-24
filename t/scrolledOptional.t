@@ -80,7 +80,7 @@ $top->after(2000, sub{
     ok($t->{packxsb}, 0, 'x scroll bar auto-removed');
 });
 
-$top->after(2500,sub{$top->destroy});
+$top->after(2500,sub{$top->destroy}) unless (@ARGV);
 
 MainLoop;
 
