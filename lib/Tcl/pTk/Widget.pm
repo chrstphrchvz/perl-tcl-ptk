@@ -1881,7 +1881,7 @@ sub declareAutoWidget{
 
                          # Delegate sub created in Tcl::pTk::Widget namespace
                          # DelegateFor  trickyness is to allow Frames and other derived things
-                         # to force creation in a delegate e.g. a ScrlText with embeded windows
+                         # to force creation in a delegate e.g. a ScrlText with embedded windows
                          # need those windows to be children of the Text to get clipping right
                          # and not of the Frame which contains the Text and the scrollbars.
                          my $class = "Tcl::pTk::$widgetname";
