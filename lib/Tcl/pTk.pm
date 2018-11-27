@@ -819,6 +819,28 @@ sub new {
     # Create background error handling method that is similar to the way perltk does it
     $tkinterp->CreateCommand('bgerror', \&Tcl::pTk::bgerror);
 
+    # RT #127120: Middle-click paste workaround
+    # for older Tcl/Tk versions on macOS aqua
+    if ($i->Eval('tk windowingsystem') eq 'aqua') {
+        my $tcl_version = $i->GetVar('tcl_version');
+        # Check for affected versions of Tk
+        if (
+            ($tcl_version eq '8.4')
+            or (
+                ($tcl_version eq '8.5')
+                and ($i->Eval('package vcompare $tk_patchLevel 8.5.16') == -1)
+            ) or (
+                ($tcl_version eq '8.6')
+                and ($i->Eval('package vcompare $tk_patchLevel 8.6.1') == -1)
+            )
+        ) {
+            # Remove the wrong binding (right button)
+            $i->Eval('event delete <<PasteSelection>> <ButtonRelease-2>');
+            # Replace it with the correct binding (middle button)
+            $i->Eval('event delete <<PasteSelection>> <ButtonRelease-3>');
+        }
+    }
+
     return $i;
 }
 
