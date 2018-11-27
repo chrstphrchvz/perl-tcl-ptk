@@ -2444,7 +2444,7 @@ sub MouseWheelBind
   }
 }
 
-# Clipboard functions definded in perl/tk
+# Clipboard functions defined in perl/tk
 sub clipboardClear{
         my $self = shift;
         $self->call('clipboard', 'clear', @_);
@@ -2718,7 +2718,7 @@ sub AUTOLOAD {
     }
     #
     # 3.5) If the method is "containerName", find a base class of the $package that
-    #       is a mapped tcl-tk widget. This enables perl/tk subwidgets to be defind
+    #       is a mapped tcl-tk widget. This enables perl/tk subwidgets to be defined
     #       from tcl-tk widgets (for example Tcl::pTk::Tree, which is derived 
     #       from the tcl-tk widget HList)
     if( $method eq 'containerName'){
