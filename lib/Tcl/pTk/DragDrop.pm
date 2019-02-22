@@ -7,7 +7,7 @@ our ($VERSION) = ('0.94');
 use base  qw(Tcl::pTk::DragDrop::Common Tcl::pTk::Toplevel);
 
 
-my $useWmRelease = 0; # We dont' ever use wmRelease
+my $useWmRelease = 0; # We don't ever use wmRelease
 
 Construct Tcl::pTk::Widget 'DragDrop';
 
