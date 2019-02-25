@@ -42,7 +42,7 @@ use Tcl::pTk::Font;
 
 # Tcl::pTk::libary variable: Translation from perl/tk Tk.pm
 {($Tcl::pTk::library) = __FILE__ =~ /^(.*)\.pm$/;}
-$Tcl::pTk::library = Tk->findINC('.') unless (defined($Tcl::pTk::library) && -d $Tcl::pTk::library);
+$Tcl::pTk::library = Tcl::pTk->findINC('.') unless (defined($Tcl::pTk::library) && -d $Tcl::pTk::library);
 
 
 # Global vars used by this package
