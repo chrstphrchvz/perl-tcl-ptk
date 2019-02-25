@@ -6,7 +6,7 @@
 
 package Tcl::pTk::Widget;
 
-our ($VERSION) = ('0.94');
+our ($VERSION) = ('0.95');
 
 use IO::Handle; 
 
