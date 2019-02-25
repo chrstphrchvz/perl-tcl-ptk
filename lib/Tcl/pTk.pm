@@ -837,7 +837,7 @@ sub new {
             # Remove the wrong binding (right button)
             $i->Eval('event delete <<PasteSelection>> <ButtonRelease-2>');
             # Replace it with the correct binding (middle button)
-            $i->Eval('event delete <<PasteSelection>> <ButtonRelease-3>');
+            $i->Eval('event add <<PasteSelection>> <ButtonRelease-3>');
         }
     }
 
