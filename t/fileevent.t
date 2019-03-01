@@ -50,7 +50,7 @@ ok($lineFromFile, 'Sleep 5', "fileevent");
 
 # Check for pipe closed non-win32
 skip(
-   $^O !~ m/MSWin/ ? 0 : "Fileevent Pipe Close Test Skipped if MSWin",    # whether to skip
+   $^O ne 'MSWin32' ? 0 : "Fileevent Pipe Close Test Skipped if MSWin",    # whether to skip
    $closed, 1, "Fileevent Pipe Closed Test"  # arguments just like for ok(...)
  );
 

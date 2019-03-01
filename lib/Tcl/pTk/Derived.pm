@@ -343,7 +343,7 @@ sub ConfigDefault
   Tcl::pTk::catch { $cw->Tcl::pTk::Widget::cget('-background') };
    my (@bg) = $@ ? ('PASSIVE') : ('SELF');
    push(@bg,'CHILDREN') if $child;
-   my $NORMAL_BG = $^O =~ /win32/i ? "SystemButtonFace" : '#d9d9d9'; # normal background for different platforms
+   my $NORMAL_BG = $^O eq 'MSWin32' ? "SystemButtonFace" : '#d9d9d9'; # normal background for different platforms
    $specs->{'-background'} = [\@bg,'background','Background',$NORMAL_BG];
   }
  unless (exists($specs->{'-foreground'}))

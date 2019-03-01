@@ -2143,7 +2143,7 @@ sub fileevent{
         $cb = Tcl::pTk::Callback->new($cb);
         
         # Include ioctl defaults for non-windows
-        unless( $^O =~ /mswin32/i){
+        unless( $^O eq 'MSWin32'){
                 no warnings;
                 local $^W = 0; # get rid of warning messages with ioctl.ph on unix
                 require 'sys/ioctl.ph';
@@ -2173,7 +2173,7 @@ sub _FE_helper{
    my $size;
    my $handleEOF;
    # Windows version of checking if io handle is readable
-   if( $^O =~ /mswin32/i){
+   if( $^O eq 'MSWin32'){
    
            # See how big the hande is, if non-zero, read it
            $size = -s $handle;

@@ -38,7 +38,7 @@ sub actual{
         # sense
         my $interp = $self->interp;
         my $sizeDefined = grep(/-size/, @args);
-        if( $^O !~ /mswin/i && (!scalar(@_) || $sizeDefined) ){
+        if( $^O ne 'MSWin32' && (!scalar(@_) || $sizeDefined) ){
                 
                 # Get attributes and create our own font with it
                 my %attributes = $interp->call('font', 'actual', $self);
