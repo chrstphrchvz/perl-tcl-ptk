@@ -24,6 +24,9 @@ BEGIN{
   }
 };
 
+# Variable to hold error if fileevent is unavailable
+# (e.g. no sys/ioctl.ph available)
+our ( $_FE_unavailable );
 
 use Tcl::pTk::Widget;
 use Tcl::pTk::MainWindow;

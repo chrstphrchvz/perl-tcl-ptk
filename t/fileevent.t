@@ -11,11 +11,17 @@ use Tcl::pTk;
 use IO::File;
 
 use Test;
+my %theplan = (tests => 2);
 if ($^O =~ m/darwin|dragonfly|freebsd|netbsd|openbsd/) {
-        print "1..0 # Skipped: fileevent is not working on BSD and macOS, see RT #125662\n";
+        print "# fileevent is not working on BSD and macOS, see RT #125662\n";
+        $theplan{'todo'} = [1, 2];
+}
+if ($Tcl::pTk::_FE_unavailable) {
+        print "1..0 # Skipped: fileevent is unavailable, reason:\n"
+            . "# $Tcl::pTk::_FE_unavailable\n";
         exit;
 }
-plan tests => 2;
+plan %theplan;
 
 my $closed = 0;  # Flag = 1 when fileevent pipe from the child process closes
                  #  We check to see if this happens on non-windows platforms. 

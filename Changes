@@ -10,6 +10,9 @@ Release 0.96:  2019-mm-dd
    whether due to Tk not being installed (`can't find package Tk`)
    or no X is server available (`couldn't connect to display ""`);
    should address many of the FAIL reports for 0.95
+ * Skip fileevent tests if sys/ioctl.ph not available (RT #128627)
+ * Mark fileevent tests as TODO on BSD/macOS rather than
+   skipping immediately (RT #125662)
 
 Release 0.95:  2019-02-25
 
