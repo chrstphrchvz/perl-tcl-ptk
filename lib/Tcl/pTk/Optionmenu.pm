@@ -145,6 +145,3 @@ sub cget {
 1;
 
 __END__
-
-=cut
-

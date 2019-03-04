@@ -230,5 +230,3 @@ __END__
 #               (c) 1994-1995 Sun Microsystems, Inc.
 #  The license terms of the Tcl/Tk distrobution are in the file
 #  license.tcl.
-
-=cut
