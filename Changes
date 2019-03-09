@@ -1,5 +1,10 @@
 Summary of Changes to Tcl::pTk
 
+Release 0.97:  2019-mm-dd
+
+ * Fix POD errors (`=cut` outside POD block) reported by CPANTS
+   (contribution from Mohammad S Anwar)
+
 Release 0.96:  2019-03-03
 
  * For consistency, use the exact platform name strings when checking `$^O`,
