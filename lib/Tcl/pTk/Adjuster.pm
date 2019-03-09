@@ -462,4 +462,3 @@ sub slave_expand_off
 
 __END__
 
-#' emacs hilighting...
