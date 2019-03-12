@@ -4,6 +4,8 @@ Release 0.97:  2019-mm-dd
 
  * Fix POD errors (`=cut` outside POD block) reported by CPANTS
    (contribution from Mohammad S Anwar)
+ * Improve compliance with `use warnings` and `use strict`
+   - Fix errors/warnings in entry3 widget demo
 
 Release 0.96:  2019-03-03
 
