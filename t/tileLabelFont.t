@@ -8,9 +8,16 @@ use Tcl::pTk;
 
 use Test;
 
-plan tests => 3;
-
 my $TOP = MainWindow->new();
+
+my $tclVersion = $TOP->tclVersion;
+unless( $tclVersion > 8.4 ){
+        plan tests => 1;
+        skip("Tile Tests on Tcl version < 8.5", 1);
+        exit;
+}
+
+plan tests => 3;
 
 my $label = $TOP->ttkLabel(-text => "Hey Dude")->pack();
 
