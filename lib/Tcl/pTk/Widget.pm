@@ -2351,7 +2351,7 @@ sub SelectionHandle{
 
     }
     
-    # Callback not defined, must be reseting the selection handler
+    # Callback not defined, must be resetting the selection handler
     return $widget->interp->call('selection', 'handle', @_, $widget, $callback );
     
     
@@ -2364,7 +2364,7 @@ sub SelectionGet{
 }
 
 
-# Scrolling and mousewhile bind methods copied from Tk::Widget
+# Scrolling and mousewheel bind methods copied from Tk::Widget
 sub XscrollBind
 {
  my ($mw,$class) = @_;
