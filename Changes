@@ -7,6 +7,7 @@ Release 0.97:  2019-mm-dd
  * Improve compliance with `use warnings` and `use strict`
    - Fix errors/warnings in entry3 widget demo
  * Add missing Tile availability check to tileLabelFont.t (RT #128813)
+ * photo.t: proceed with remaining test cases after errors (RT #128803)
 
 Release 0.96:  2019-03-03
 

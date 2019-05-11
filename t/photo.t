@@ -103,7 +103,6 @@ foreach my $leaf (sort keys %images) {
                 $mw->Label(-text  => $kind)->grid(-row => $row, -column => $col);
                 $mw->Label(-background => 'white', -image => $new)->grid(-row => $row+1, -column => $col++);
                 $mw->update;
-                my $width = $new->cget(-height);
             }
         }
         $row += 2;
