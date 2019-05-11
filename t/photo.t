@@ -110,8 +110,8 @@ foreach my $leaf (sort keys %images) {
     }
 }
 
-$mw->after(1000,sub{$mw->destroy});
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);
 
 foreach (@files)
  {
