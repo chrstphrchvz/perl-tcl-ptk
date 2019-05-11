@@ -108,5 +108,5 @@ ok($mw eq $mainwindow);
 #   This should not crash
 my $menu = $mw->Menu(-tearoff => '');
 
-$mw->after(3000,sub{$mw->destroy});
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);

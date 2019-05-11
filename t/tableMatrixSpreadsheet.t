@@ -68,10 +68,7 @@ ok(scalar(@selection) , 2, 'Get Return array size');
 ok(!defined($selection[0]) , 1, 'Get Return first entry undef');
 ok(!defined($selection[1]) , 1, 'Get Return second entry undef');
 
-$top->after(1000,sub{$top->destroy}) unless(@ARGV); # auto-quit unless commands supplied (for debugging)
+$top->idletasks;
+MainLoop if (@ARGV); # auto-quit unless commands supplied (for debugging)
 
 ok(1, 1, "Spreadsheet Widget Creation");
-
-
-
-MainLoop;

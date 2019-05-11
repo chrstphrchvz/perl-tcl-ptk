@@ -45,7 +45,8 @@ my $t = $top->Scrolled('Spreadsheet', -rows => 21, -cols => 11,
 			     #  -state => 'disabled'
                     );
 $t->pack(-expand => 1, -fill => 'both');
-$top->after(1000,sub{$top->destroy}) unless(@ARGV); # auto-quit unless commands supplied (for debugging)
-MainLoop;
+
+$top->idletasks;
+MainLoop if (@ARGV); # auto-quit unless commands supplied (for debugging)
 
 ok(1,1,"Hijack Test");

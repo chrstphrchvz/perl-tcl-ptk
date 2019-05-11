@@ -101,8 +101,8 @@ ok($mw->cget('-cursor'), 'star');
 my $mainwindow = $mw->MainWindow();
 ok($mw eq $mainwindow);
 
-$mw->after(3000,sub{$mw->destroy});
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);
 
 
 BEGIN{

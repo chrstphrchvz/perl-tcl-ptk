@@ -16,8 +16,6 @@ use Tcl::pTk;
 
 my $int = new Tcl::pTk;
 
-my $delay = shift || 1;
-
 my $mw = $int->mainwindow;
 
 my $t = $mw->Text()->pack(-fill => "both", -expand => 1);
@@ -44,6 +42,5 @@ uni: \0\1\2\3\4\5\6\a\b\t
 
 EOT
 
-$int->after($delay * 1000, sub { $mw->destroy });
-
-$int->MainLoop;
+$mw->idletasks;
+$int->MainLoop if (@ARGV);

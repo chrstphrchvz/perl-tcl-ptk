@@ -23,8 +23,6 @@ my $TOP = MainWindow->new();
     my $selectPresent = $e2->selectionPresent;
     ok($selectPresent, 0, "camelCase call check");
     
-$TOP->after(1000,sub{$TOP->destroy});
-
 ok(1, 1, "Entry Widget Creation");
 
 # Check to see if the textvariable is returned properly as a scalar reference
@@ -39,4 +37,5 @@ my $t = Tcl::pTk::timeofday;
 print "# timeofday: $t\n";
 ok(1, 1, "timeofday check");
 
-MainLoop;
+$TOP->idletasks;
+(@ARGV) ? MainLoop : $TOP->destroy;

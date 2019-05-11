@@ -135,8 +135,8 @@ $t->tag(
     },
 );
 
-$top->after(1000,sub{$top->destroy}) unless(@ARGV); # Quit after a second, unless something on the command line (i.e. debugging)
-MainLoop;
+$top->idletasks;
+(@ARGV) ? MainLoop : $top->destroy; # Quit unless something on the command line (i.e. debugging)
 
 ok($destroyText, 'OnDestroyBinding', "OnDestroy and <Destroy> event order");
 
