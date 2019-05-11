@@ -108,6 +108,9 @@ ok(Tcl::pTk::Exists($be2), "BrowseEntry creation");
     is((scalar grep { $_->isa("Tcl::pTk::Label")    } @children), 0, "Has no Label");
 }
 
+# Prevent bgerror due to destroying window too early
+$mw->idletasks;
+
 MainLoop if (@ARGV);
 
 1;
