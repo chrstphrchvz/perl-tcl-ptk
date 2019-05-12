@@ -37,9 +37,8 @@ $tree->autosetmode();
 
 $tree->pack();
 
-$top->after(1000,sub{$top->destroy});
-
-MainLoop;
+$top->idletasks;
+MainLoop if (@ARGV);
 
 ok(1, 1, "TixTree Widget Creation");
 

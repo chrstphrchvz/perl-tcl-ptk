@@ -27,8 +27,8 @@ $lb->insert(qw/0 foo/);
 $lb->update;
 $ok3_line = __LINE__ - 1; # Line to look for in error output
 
-$mw->after(2000, [$mw, 'destroy']);
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);
 
 # Redirect stderr back
 *STDERR = *OLD_STDERR;

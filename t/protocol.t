@@ -49,9 +49,8 @@ my $deleteVar = 0;
 
 $TOP->protocol(WM_DELETE_WINDOW => sub{ $deleteVar = 1; $TOP->destroy});
 
-$TOP->after(2000, sub{ $TOP->WmDeleteWindow });
-
-MainLoop;
+$TOP->idletasks;
+(@ARGV) ? MainLoop : $TOP->WmDeleteWindow; # Q: is this right?
 
 ok( $deleteVar, 1, "WmDeleteWindow method");
 

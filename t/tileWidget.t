@@ -67,8 +67,7 @@ $radioFrame->ttkRadiobutton(-text => "Awful", -variable =>  \$happiness,  -value
 $buttonFrame->grid($checkFrame, $radioFrame, qw/-sticky nwe  -pady 2 -padx 3/);
 $bigFrame->gridColumnconfigure([0,1,2],  -weight => 1,  -uniform =>  'yes');
 
-$TOP->after(2000, sub{ $TOP->destroy }) unless (@ARGV); # Persist if any args supplied, for debugging
-
-MainLoop;
+$TOP->idletasks;
+MainLoop if (@ARGV); # Persist if any args supplied, for debugging
 
 ok(1);

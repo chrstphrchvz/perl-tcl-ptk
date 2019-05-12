@@ -34,5 +34,5 @@ $mw->configure(-title=>'new title',-cursor=>'star');
 ok($mw->cget('-title'), 'new title');
 ok($mw->cget('-cursor'), 'star');
 
-$mw->after(3000,sub{$mw->destroy});
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);

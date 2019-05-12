@@ -19,8 +19,8 @@ $lb->configure(-yscrollcommand =>  \&bogus);
 $lb->insert(qw/0 foo/);
 $lb->update;
 
-$mw->after(2000, [$mw, 'destroy']);
-MainLoop;
+$mw->idletasks;
+MainLoop if (@ARGV);
 
 ok( $errorMess =~ /Got An Error/);
 

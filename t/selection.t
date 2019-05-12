@@ -23,8 +23,6 @@ lines of text and allows you to edit the text.";
 $t->insert("0.0",$text);
 
 
-#$top->after(1000,sub{$top->destroy});
-
 $t->selectAll();
 
 my $sel = $t->SelectionGet;
@@ -85,6 +83,5 @@ $t->SelectionHandle( -selection => 'CLIPBOARD',
 $sel = $t->SelectionGet(-selection => 'CLIPBOARD');
 ok( $sel, "Selection Handle Return", "Selection Returns the right value");
 
-#MainLoop;
-
-
+$top->idletasks;
+MainLoop if (@ARGV);

@@ -52,9 +52,8 @@ $be->set('two');
 my $choice = $be->choiceget();
 ok($choice, 'two', "ttkBrowseEntry substitution check");
 
-$top->after(1000,sub{$top->destroy});
-
-MainLoop;
+$top->idletasks;
+MainLoop if (@ARGV);
 
 #print "Option = $option\n" if (defined($option));
 

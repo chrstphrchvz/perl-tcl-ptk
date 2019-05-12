@@ -82,10 +82,10 @@ my ($row,$col) = $t->Posn($saveWidget);
 #print "Row/Col = $row/$col\n";
 ok("$row/$col", "3/4", "Posn Method Test");
 
-$mw->after(1000, sub{ $t->clear() })  unless(@ARGV); # for debugging, don't clear if args on the command line
-$mw->after(1500, sub{ $mw->destroy }) unless(@ARGV); # for debugging, don't exit if args on the command line
-
-MainLoop;
+$mw->idletasks;
+$t->clear unless (@ARGV); # for debugging, don't clear if args on the command line
+$mw->idletasks;
+MainLoop if (@ARGV); # for debugging, don't exit if args on the command line
 
 ok(1);
 

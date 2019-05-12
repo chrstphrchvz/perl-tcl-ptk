@@ -32,9 +32,9 @@ print "label Parent = ".$labelParent->PathName()."\n" if($debug);
 ok($labelParent, $realLB, "Unexpected parent of label");
 
 
-$TOP->after(1000,sub{$TOP->destroy});
+$TOP->idletasks;
 
 ok(1, 1, "Scrolled Widget Creation");
 
 
-MainLoop();
+MainLoop if $debug;

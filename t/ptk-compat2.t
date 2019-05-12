@@ -53,7 +53,6 @@ ok(join(", ", @types), 'command, command', 'Types of menuitem is cascade');
 #$m->Post(100,100); # Posting can't be done for the automated test, because it requires clicking the menu
                     #  to get things to continue.
 
-$top->after(1000,sub{
-        $top->destroy});
-MainLoop;
+$top->idletasks;
+MainLoop if (@ARGV);
 

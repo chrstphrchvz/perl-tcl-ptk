@@ -117,8 +117,5 @@ my @bindtags = $sl->bindtags;
 ok(join(", ", @bindtags), 'SlideSwitch, .f02, ., all', "Slide Megawidget BindTags");
 
 #print "bindtags = '".join("', '", @bindtags)."'\n";
-$TOP->after(1000,sub{$TOP->destroy});
-MainLoop;
-    
-
-
+$TOP->idletasks;
+MainLoop if (@ARGV);

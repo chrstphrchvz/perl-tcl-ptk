@@ -111,9 +111,8 @@ plan tests => 1;
     print "Slideswitch path = ".$sl->PathName."\n";
     print "Slideswitch class = ".$sl->class."\n";
     
-    $TOP->after(1000,sub{$TOP->destroy});
-
-Tk::MainLoop;
+$TOP->idletasks;
+MainLoop if (@ARGV);
 
 ok(1);
 

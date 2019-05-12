@@ -123,8 +123,5 @@ ok($class, 'SlideSwitch', "SlideSwitch Classname Check");
     
 ok(1,1, "Slide Megawidget");
 
-$TOP->after(1000,sub{$TOP->destroy});
-MainLoop;
-    
-
-
+$TOP->idletasks;
+MainLoop if (@ARGV);

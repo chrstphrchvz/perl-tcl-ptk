@@ -25,9 +25,8 @@ $menubar->OnDestroy(
                 $DestroyCalled = 1;
                 });
 
-$top->after(1000,sub{$top->destroy});
-
-MainLoop;
+$top->idletasks;
+(@ARGV) ? MainLoop : $top->destroy;
 
 ok($DestroyCalled, 1, 'Destroy Callback not called');
 
