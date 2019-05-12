@@ -6,6 +6,49 @@ use strict;
 use subs qw/menus_error/;
 use vars qw/$TOP/;
 
+#sub Tcl::TRACE_SHOWCODE(){1}
+#$Tcl::pTk::DEBUG = 1;
+use Data::Dump qw(dump);
+use Hook::LexWrap;
+
+sub Eval_pre {
+    print STDERR "\nEval(".dump(@_).")"
+        ."\nat @{[caller]}\n"
+}
+sub Eval_post {
+    my $res = $_[-1];
+    print STDERR "Result of Eval() = ".
+        (ref($res) eq 'ARRAY'
+            ? dump(@$res)
+            : $res)
+        ."\n"
+}
+sub invoke_pre {
+    print STDERR "\ninvoke(".dump(@_).")"
+        ."\nat @{[caller]}\n"
+}
+sub invoke_post {
+    my $res = $_[-1];
+    print STDERR "Result of invoke() = ".
+        (ref($res) eq 'ARRAY'
+            ? dump(@$res)
+            : $res)
+        ."\n"
+}
+sub icall_pre {
+    print STDERR "\nicall(".dump(@_).")"
+        ."\nat @{[caller]}\n"
+}
+sub icall_post {
+    my $res = $_[-1];
+    print STDERR "Result of icall() = ".
+        (ref($res) eq 'ARRAY'
+            ? dump(@$res)
+            : $res)
+        ."\n"
+}
+
+
 sub menus {
 
     # This demonstration script creates a window with a bunch of menus
@@ -40,32 +83,12 @@ sub menus {
     } else {
 	$modifier = 'Meta';
     }
- 
-    my $f = $menubar->cascade(-label => '~File', -tearoff => 0);
-    $f->command(-label => 'Open ...',    -command => [\&menus_error, 'Open'],
-	        -image => $toplevel->Getimage("openfile"), -compound => "left");
-    $f->command(-label => 'New',         -command => [\&menus_error, 'New'],
-	        -image => $toplevel->Getimage("file"), -compound => "left");
-    $f->command(-label => 'Save',        -command => [\&menus_error, 'Save']);
-    $f->command(-label => 'Save As ...', -command => [\&menus_error, 'Save As']);
-    $f->separator;
-    $f->command(-label => 'Setup ...',   -command => [\&menus_error, 'Setup']);
-    $f->command(-label => 'Print ...',   -command => [\&menus_error, 'Print']);
-    $f->separator;
-    $f->command(-label => 'Quit',        -command => [$TOP => 'bell']);
 
-    my $b = $menubar->cascade(-label => '~Basic', -tearoff => 0);
-    $b->command(-label => 'Long entry that does nothing');
+    my $lexical_Eval = wrap 'Tcl::Eval', pre => \&Eval_pre, post => \&Eval_post;
+    my $lexical_invoke = wrap 'Tcl::invoke', pre => \&invoke_pre, post => \&invoke_post;
+    my $lexical_icall = wrap 'Tcl::icall', pre => \&icall_pre, post => \&icall_post;
+
     my $label;
-    foreach $label (qw/A B C D E F/) {
-	$b->command(
-             -label => "Print letter \"$label\"",
-             -underline => 14,
-	     -accelerator => "$modifier+$label",
-             -command => sub {print "$label\n"},
-        );
-	$TOP->bind("<$modifier-${label}>" => sub {print "$label\n"});
-    }
     my $c = $menubar->cascade(-label => '~Cascades', -tearoff => 0);
     $c->command(
         -label       => 'Print hello',
@@ -131,55 +154,7 @@ sub menus {
     my $rc_menu = $rc->cget(-menu);
     $rc_menu->invoke(1);
     $rc_menu->invoke(7);
-
-    my $i = $menubar->cascade(-label => '~Icons', -tearoff => 0);
-    $i->command(
-        -bitmap => '@'.Tcl::pTk->findINC('demos/images/pattern'),
-	-command => sub {
-	    $TOP->messageBox(
-			     -title => 'Bitmap Menu Entry', 
-			     -message => 'The menu entry you invoked displays a bitmap rather than a text string.  Other than this, it is just like any other menu entry.', 
-			     -type => 'ok'),
-	    },
-	-hidemargin => 1,
-    );
-    foreach $label (qw/info questhead error/) {
-	$i->command(
-            -bitmap  => $label,
-            -command => sub {print "You invoked the \"$label\" bitmap\n"},
-            -hidemargin => 1,
-        );
-    }
-    $i->cget(-menu)->entryconfigure(2, -columnbreak => 1);
-
-    my $m = $menubar->cascade(-label => '~More', -tearoff => 0);
-    foreach $label ('An entry', 'Another entry', 'Does nothing',
-		    'Does almost nothing', 'Make life meaningful') {
-	$m->command(
-            -label   => $label,
-	    -command => sub {print "You invoked \"$label\"\n"},
-        );
-    }
-
-    my $k = $menubar->cascade(-label => 'C~olors');
-    foreach $label (qw/red orange yellow green blue/) {
-	$k->command(
-            -label      => $label,
-            -background => $label,
-	    -command => sub {print "You invoked \"$label\"\n"},
-        );
-    }
-
-    my $status_bar;
-    $TOP->Label(
-        qw/-relief sunken -borderwidth 1 -anchor w/,
-        -font => 'Helvetica 10', -textvariable => \$status_bar)->
-	pack(qw/-padx 2 -pady 2 -expand yes -fill both/);
-    $menubar->bind('<<MenuSelect>>' => sub {
-        my $entry = shift;
-        $status_bar = $entry->entrycget('active', -label) || '';
-        $TOP->idletasks;
-    });
+    
 
 } # end menus
 
