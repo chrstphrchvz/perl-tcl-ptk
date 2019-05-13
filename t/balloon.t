@@ -10,7 +10,7 @@ use Tcl::pTk;
 
 use Test;
 
-plan test => 2;
+plan test => 4;
 
 my $TOP = MainWindow->new;
 
@@ -27,13 +27,17 @@ ok($class, 'Balloon', "Balloon Classname Check");
  
  
 $bln->attach($b, -msg => "Popup help");
+$TOP->update;
+ok($bln->state, 'withdrawn', 'Balloon withdrawn');
 
-$TOP->after(1000, sub{
-                $b->eventGenerate('<Motion>', -x => 10, -y => 10);
-}
-);
-$TOP->after(3000, [ $TOP, 'destroy']);
+$b->eventGenerate('<Motion>', -x => 10, -y => 10);
+$TOP->update;
+
+ok($bln->state , 'withdrawn', 'Balloon not yet visible');
+
+$TOP->after(500, sub {
+    ok($bln->state, 'normal', 'Balloon now visible');
+    $TOP->destroy unless (@ARGV);
+});
 
 MainLoop;
-
-ok(1);
