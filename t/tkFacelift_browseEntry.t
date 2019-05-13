@@ -60,7 +60,7 @@ ok(@choice2, 4, "get returns list context");
 #  facelift has replaced Tk::BrowseEntry with a Tcl::pTk::ttkBrowseEntry
 $be->set('two');
 my $choice = $be->choiceget();
-ok($choice, 'two', "ttkBrowseEntry subsitution check");
+ok($choice, 'two', "ttkBrowseEntry substitution check");
 
 $top->after(1000,sub{$top->destroy});
 

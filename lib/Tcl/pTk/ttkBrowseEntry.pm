@@ -183,7 +183,7 @@ sub Populate {
     }
     
     # Setup label options that will be ignored  (setup to just be passive), because they don't
-    #  exists in the subsituted tile widget
+    #  exists in the substituted tile widget
     my @ignoreOptions = ( qw/ 
     -label -labelActivebackground -labelActiveforeground -labelAnchor -labelBackground
     -labelBitmap -labelBorderwidth -labelCompound -labelCursor -labelDisabledforeground

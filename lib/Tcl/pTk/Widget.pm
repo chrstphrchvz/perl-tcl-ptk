@@ -2181,7 +2181,7 @@ sub _FE_helper{
    # Windows version of checking if io handle is readable
    if( $^O eq 'MSWin32'){
    
-           # See how big the hande is, if non-zero, read it
+           # See how big the handle is, if non-zero, read it
            $size = -s $handle;
            #print "size = $size\n";
    }
@@ -2224,7 +2224,7 @@ sub _FE_helper{
 }
 
 #######
-# Inteface to the tk_setPalette command
+# Interface to the tk_setPalette command
 sub setPalette{
         my $self = shift;
         my @args = @_;
@@ -2232,7 +2232,7 @@ sub setPalette{
         return $self->call('tk_setPalette', @args);
 }  
 
-# Inteface to the tk_bisque command
+# Interface to the tk_bisque command
 sub bisque{
         my $self = shift;
         my @args = @_;
