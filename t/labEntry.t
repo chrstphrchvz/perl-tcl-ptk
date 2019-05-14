@@ -26,11 +26,11 @@ $LabEntry->pack(-side => 'top', -pady => 2, -anchor => 'w', -fill => 'x', -expan
 
 
 # Update text by updating variable
-$top->after(1000, sub{ $entry = "More Data Here"});
+$top->update;
+$entry = "More Data Here";
+$top->update;
 
-$top->after(2000,sub{$top->destroy});
-
-MainLoop;
+MainLoop if (@ARGV);
 
 
 ok(1, 1, "LabEntry Widget Creation");

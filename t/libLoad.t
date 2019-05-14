@@ -45,9 +45,8 @@ foreach my $item (@list)
    }
  }
 
-$mw->after(1000, sub{ $mw->destroy});
-
-MainLoop;
+$mw->update;
+(@ARGV) ? MainLoop : $mw->destroy;
 
 #### Create another Mainwindow (and a interpreter) and create an Hlist ####
 ###   Creating an hlist will cause the tix library to load for this interp ###
@@ -77,8 +76,7 @@ foreach my $item (@list)
    }
  }
 
-$mw->after(1000, sub{ $mw->destroy});
-
-MainLoop;
+$mw->update;
+(@ARGV) ? MainLoop : $mw->destroy;
 
 ok(1);  # If we got this far, the test passed

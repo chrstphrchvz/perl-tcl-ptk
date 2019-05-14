@@ -27,13 +27,13 @@ my $label = $top->Label(-text => "Mainwindow")->pack();
                 sub{ $toplevel->destroy;
                      })->pack;	
         
-        $toplevel->after(1000, 
+        $toplevel->after(250, 
                 sub{ $toplevel->destroy;
                 ok( $destroyed, 1, "Buttons Properly Destroyed");
+                $top->destroy unless (@ARGV);
                 }); # delete after 1 second
 
 }
-$top->after(2000, sub{ $top->destroy});
 
 
 MainLoop;

@@ -87,23 +87,16 @@ $n->delete('address');
 #print "pages ".join(",", @pages)."\n";
 ok( join(",", @pages), 'pref', "delete method check");
 
-$top->after(2000, 
-        sub{
-                my $itab = $n->add("imageTab", -image => $n->Getimage("folder"));
-                $itab->LabEntry(-label => "FolderName:             ",
-                     -labelPack => [-side => "left", -anchor => "w"],
-                     -width => 20,
-                     )->pack(-side => "top", -anchor => "nw");
-                     ok(1);
-        }
-        );
+$top->idletasks;
+
+my $itab = $n->add("imageTab", -image => $n->Getimage("folder"));
+$itab->LabEntry(
+    -label => "FolderName:             ",
+    -labelPack => [-side => "left", -anchor => "w"],
+    -width => 20,
+)->pack(-side => "top", -anchor => "nw");
+ok(1);
                     
 
-$top->after(3000,
-        sub{
-               $top->destroy;
-        });
-
-MainLoop;
-
-
+$top->idletasks;
+MainLoop if (@ARGV);

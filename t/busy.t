@@ -13,14 +13,14 @@ $mw->Label(-text => "Label2")->pack;
 $mw->Button(-text => "Label3")->pack;
 $mw->Entry(-text => "Label4")->pack;
 
-$mw->after(1000, sub{ $mw->Busy() });
+$mw->update;
+$mw->Busy;
+$mw->update;
+$mw->update;
+$mw->Unbusy;
 
-$mw->after(4000, sub{ $mw->Unbusy() });
-
-$mw->after( 7000, sub{ $mw->destroy}); # close everything
-
-
-MainLoop;
+$mw->update;
+MainLoop if (@ARGV);
 			
 ok(1, 1, "Busy");
 
