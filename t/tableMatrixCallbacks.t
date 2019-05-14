@@ -97,49 +97,36 @@ $t->configure(
 					}
 		);
 
-
-
-
-# Setup test for browsecmd callback
-$top->after(1000, sub{
-                $t->activate('2,2');
-                ok($prevIndex, '',    "browsecmd previndex 1");
-                ok($currentIndex, '2,2', "browsecmd currentIndex 1");
-});
-
-# Setup test for other callbacks
-$top->after(2000, sub{
-                $t->activate('2,3');
-                ok($prevIndex, '2,2',    "browsecmd previndex 2");
-                ok($currentIndex, '2,3', "browsecmd currentIndex 2");
-
-                # Check to see if CmdRow and CmdCol are defined
-                ok(defined($CmdRow), 1, '-command row arg defined');
-                ok(defined($CmdCol), 1, '-command col arg defined');
-                
-                # check selectioncommand callback
-                $t->selection('set',  '2,2',   '3,5');
-                my $seltext = $t->GetSelection(); # clear out current selection
-                ok($seltext, $selection, "selectioncommand selected text");
-                ok($NumRows, 2, "selectioncommand NumRows");
-                ok($NumCols, 4, "selectioncommand NumCols");
-                ok($noCells, 8, "selectioncommand NoCells");
-
-
-});
-
-
-
 $t->pack();
 
 
-$top->after(3000, sub{
-                $top->destroy;
-}) unless(@ARGV); # if args supplied, don't exit right away (for debugging)
- 
+$top->idletasks;
 
-MainLoop;
+# Setup test for browsecmd callback
+
+$t->activate('2,2');
+ok($prevIndex, '',    "browsecmd previndex 1");
+ok($currentIndex, '2,2', "browsecmd currentIndex 1");
+
+# Setup test for other callbacks
+
+$t->activate('2,3');
+ok($prevIndex, '2,2',    "browsecmd previndex 2");
+ok($currentIndex, '2,3', "browsecmd currentIndex 2");
+
+# Check to see if CmdRow and CmdCol are defined
+ok(defined($CmdRow), 1, '-command row arg defined');
+ok(defined($CmdCol), 1, '-command col arg defined');
+
+# check selectioncommand callback
+$t->selection('set',  '2,2',   '3,5');
+my $seltext = $t->GetSelection(); # clear out current selection
+ok($seltext, $selection, "selectioncommand selected text");
+ok($NumRows, 2, "selectioncommand NumRows");
+ok($NumCols, 4, "selectioncommand NumCols");
+ok($noCells, 8, "selectioncommand NoCells");
 
 
-        
 
+$top->idletasks;
+MainLoop if (@ARGV); # if args supplied, don't exit right away (for debugging)

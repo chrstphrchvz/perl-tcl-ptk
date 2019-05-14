@@ -35,14 +35,10 @@ ok(ref($callback), 'Tcl::pTk::Callback', "No Arg Configure Callback Return Check
 $b->configure(-command => $callback);
 
 
-$TOP->after(1000, sub{
-                $b->invoke();
-                $TOP->destroy();
-                }
-);
-
-
-MainLoop;
+$b->invoke();
 
 ok($buttonPressed, 1, "Callback properly reset ");
 
+
+$TOP->idletasks;
+MainLoop if (@ARGV);

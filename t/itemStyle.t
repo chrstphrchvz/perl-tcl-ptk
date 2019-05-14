@@ -36,20 +36,13 @@ my $hl = $top->HList->pack(-expand=> 'y', -fill => 'both');
 $hl->add(0, -itemtype => 'text', -text => 'Changed from Green to Cyan', -style => $redstyle);
 $hl->add(1, -itemtype => 'text', -text => 'blue', -style => $bluestyle);
 
+$top->idletasks;
+$redstyle->configure(-background => 'cyan');
+$top->idletasks;
+$hl->entryconfigure(0, -text => 'Changed to Cyan');
 
-#$redstyle->configure(-background => 'cyan');
-$top->after(2000, [ configure => $redstyle, -background => 'cyan' ]);
-$top->after(3000, sub{
-                $hl->entryconfigure(0, -text => 'Changed to Cyan');
-}
-);
-
-$top->after(4000, sub{
-                $top->destroy;
-}
-);
-
-MainLoop;
+$top->idletasks;
+MainLoop if (@ARGV);
 
 ok(1);
 

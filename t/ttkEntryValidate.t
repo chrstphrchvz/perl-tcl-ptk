@@ -39,20 +39,16 @@ my $e1 = $TOP->ttkEntry(
 $TOP->focusForce; # workaround for Tk Aqua 8.5.9
 
 # Generate some events for testing
-$TOP->after(1000, sub{
-                $e1->eventGenerate('<1>'); # 
-                $e1->eventGenerate('<Key-a>'); # 
-}        );
+$TOP->update;
 
-$TOP->after(2000, sub{
-                $TOP->destroy;
-}        );
-
-MainLoop;
+$e1->eventGenerate('<1>'); # 
+$e1->eventGenerate('<Key-a>'); # 
+$TOP->update;
 
 ok($index, -1, "Validate Command index problem");
 ok($type, -1, "Validate Command type problem");
 ok($invalid, 1, "Validate -invalidcommand problem");
 
-
+$TOP->idletasks;
+MainLoop if (@ARGV);
 

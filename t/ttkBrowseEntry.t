@@ -103,54 +103,50 @@ ok(scalar(@choices3), 40, "Get value return 3");
 #                 print "Variable is $ttkoption\n";
 #                 });
 
-# Check browsecmd operation
-$top->after(1000, 
-        sub{
-        # Check browsecmd by sending virtual events
-        my $selection;
-        $cb->configure(-browsecmd => 
-               [ sub{ 
-                        my ($extraArg, $w, $value) = @_;
-                        #print "browsecmd args ".join(", ", @_)."\n";
-                        $selection = $value;
-                        
-                        ok($extraArg, 'extraArg', "browsecmd arg order check");
-                        
-                }, 'extraArg']
-                );
-        
-        $cb->set(3); # Make a selection
-        # generate event that would happen if we actually made the selection in the GUI
-        $cb->Subwidget('combobox')->eventGenerate('<<ComboboxSelected>>');
-
-        # check for browsecmd being called
-        ok($selection, 3, "browsecmd check");
-
-        $selection = undef;
-        
-        # Now check browse2cmd
-        $cb->configure(-browsecmd => undef);
-        
-
-        $cb->configure(-browse2cmd => 
-                sub{ 
-                        my ($w, $value) = @_;
-                        #print STDERR "browse2cmd args ".join(", ", @_)."\n";
-                        $selection = $value;
-                        
-                });
+# Check browsecmd by sending virtual events
+my $selection;
+$cb->configure(-browsecmd => 
+        [ sub{ 
+                my ($extraArg, $w, $value) = @_;
+                #print "browsecmd args ".join(", ", @_)."\n";
+                $selection = $value;
                 
-        $cb->set(21); # Make a selection
-        # generate event that would happen if we actually made the selection in the GUI
-        $cb->Subwidget('combobox')->eventGenerate('<<ComboboxSelected>>');
+                ok($extraArg, 'extraArg', "browsecmd arg order check");
+                
+        }, 'extraArg']
+        );
 
-        ok($selection, 20, "browse2cmd check");
+$cb->set(3); # Make a selection
+# generate event that would happen if we actually made the selection in the GUI
+$cb->Subwidget('combobox')->eventGenerate('<<ComboboxSelected>>');
+
+# check for browsecmd being called
+ok($selection, 3, "browsecmd check");
+
+$selection = undef;
+
+# Now check browse2cmd
+$cb->configure(-browsecmd => undef);
+
+
+$cb->configure(-browse2cmd => 
+        sub{ 
+                my ($w, $value) = @_;
+                #print STDERR "browse2cmd args ".join(", ", @_)."\n";
+                $selection = $value;
+                
         });
+        
+$cb->set(21); # Make a selection
+# generate event that would happen if we actually made the selection in the GUI
+$cb->Subwidget('combobox')->eventGenerate('<<ComboboxSelected>>');
+
+ok($selection, 20, "browse2cmd check");
 
 
 
-$top->after(2000, sub{ $top->destroy() }) unless (@ARGV); # for debugging, don't go away if something on the command line
-MainLoop;
+$top->idletasks;
+MainLoop if (@ARGV); # for debugging, don't go away if something on the command line
 
 #print "options = $ttkoption\n";
 

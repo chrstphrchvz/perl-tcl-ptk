@@ -75,16 +75,13 @@ sub popup {
 } 
 
 # Release and capture the entry widget
-$TOP->after(1000, sub{ 
-                        popup();
-                        $TOP->update;
-                        $TOP->after(200); # wait 200mS
-                        popup()
-});
+$TOP->update;
+popup();
+$TOP->update;
+popup();
 
 
-$TOP->after(2000, sub{ $TOP->destroy }) unless (@ARGV); # Persist if any args supplied, for debugging
-
-MainLoop;
+$TOP->update;
+MainLoop if (@ARGV); # Persist if any args supplied, for debugging
 
 ok(1);
