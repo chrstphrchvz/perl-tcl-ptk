@@ -800,7 +800,7 @@ sub bind {
                 set catchVal [catch {$tclsubName} retVal]
                 #puts \"catchVal = \$catchVal retval = \$retVal\"
                 if {\$catchVal != 0} {
-                        if { \$retVal != \"_TK_BREAK_\\n\" } { # BREAK returns are not errors
+                        if { \$retVal ne \"_TK_BREAK_\\n\" } { # BREAK returns are not errors
                                 return -code error \$retVal
                         } else {
                                 break
