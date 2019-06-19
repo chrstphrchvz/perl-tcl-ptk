@@ -10,6 +10,12 @@ Release 0.97:  2019-mm-dd
  * photo.t: proceed with remaining test cases after errors (RT #128803)
  * Prevent `unknown color name` errors (e.g. when using `x11` rather than
    `aqua` on macOS) by checking the windowingsystem rather than `$^O`
+ * Attempt to fix RT #125049, #129505: in order for menu entries to be legible
+   when using the dark menu bar or dark mode on recent macOS versions, do not
+   set hardcoded default colors on derived widgets. This change also makes
+   UI appearance of other derived widgets more consistent with the defaults
+   chosen by Aqua for non-derived widgets, especially when using Tk 8.6.10
+   or later with dark mode enabled.
  * Test reports (e.g. from CPAN testers) were displaying some tests as "ok"
    but were actually completely skipped (using `skip()` or `ok()`).
    These tests are now shown as skipped along with the reason it was skipped

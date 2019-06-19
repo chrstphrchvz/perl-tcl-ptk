@@ -343,14 +343,14 @@ sub ConfigDefault
   Tcl::pTk::catch { $cw->Tcl::pTk::Widget::cget('-background') };
    my (@bg) = $@ ? ('PASSIVE') : ('SELF');
    push(@bg,'CHILDREN') if $child;
-   $specs->{'-background'} = [\@bg,'background','Background',Tcl::pTk::NORMAL_BG()];
+   $specs->{'-background'} = [\@bg,'background','Background',undef];
   }
  unless (exists($specs->{'-foreground'}))
   {
    Tcl::pTk::catch { $cw->Tcl::pTk::Widget::cget('-foreground') };
    my (@fg) = $@ ? ('PASSIVE') : ('SELF');
    push(@fg,'CHILDREN') if $child;
-   $specs->{'-foreground'} = [\@fg,'foreground','Foreground','BLACK'];
+   $specs->{'-foreground'} = [\@fg,'foreground','Foreground',undef];
   }
  $cw->ConfigAlias(-fg => '-foreground', -bg => '-background');
 
