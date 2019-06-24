@@ -1,5 +1,10 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.01_01:  2019-06-24
+
+ * Makefile.PL: fix some of the issues reported by CPANTS
+   - Specify minimum Perl version for ExtUtils::MakeMaker
+
 Release 1.01:  2019-06-23
 
  * More adjustments for macOS Aqua dark mode (Tk 8.6.10 or later)
