@@ -116,7 +116,10 @@ my %makeArgs = (
     EXE_FILES => \@SCRIPTS,
     META_MERGE => {
         "meta-spec" => { version => 2 },
-        no_index => { directory => [ qw! benchmarks TableMatrixDemos lib/Tcl/pTk/demos ! ] },
+        no_index => {
+            directory => [ qw! benchmarks TableMatrixDemos lib/Tcl/pTk/demos ! ],
+            'package' => [ 'MainWindow' ],
+        },
         keywords => [ qw/ Tk Tcl Tix GUI /],
         resources => {
             repository => {
