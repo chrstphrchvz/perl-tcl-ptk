@@ -1,6 +1,6 @@
 package Tcl::pTk::Menu;
 
-our ($VERSION) = ('1.01');
+our ($VERSION) = ('1.01_01');
 
 # Simple Menu package.
 #  This file is needed to provide the proper inheritance of Menu to 
