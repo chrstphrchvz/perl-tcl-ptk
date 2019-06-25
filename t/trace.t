@@ -13,6 +13,8 @@ my $TOP = MainWindow->new();
 my $perlscalar;
 my $updateSubVar;
 
+$DB::single = 1;
+
 my $e1 = $TOP->Entry( -textvariable => \$perlscalar)->pack();
 
 $TOP->traceVariable( \$perlscalar, 'wr' => \&update_sub );
@@ -20,12 +22,16 @@ $TOP->traceVariable( \$perlscalar, 'wr' => \&update_sub );
 # Testing of reading the perl variable (should trigger a read from Tcl)
 $TOP->after(1000, sub{ $e1->insert("end", "new value")});
 
+
 $TOP->after(2000, 
         sub{ 
-                ok( $perlscalar,   "new value", "variable tie from tcl to perl");
-                ok( $updateSubVar, "new value", "variable tie from tcl to perl");
+                print "before: $updateSubVar\n";
+                #print $TOP->interp->Eval('trace vinfo '.$);
+                print "read: $perlscalar\n";
+                print "after: $updateSubVar\n";
         
         });
+=pod
 
 
 $TOP->after(3000, sub{ $perlscalar = "new value2"});
@@ -43,6 +49,8 @@ $TOP->after(5000, sub{
         $TOP->destroy;
 });
 
+=cut
+
 MainLoop();
 
 #print "perlscalar = $perlscalar\n";
@@ -55,7 +63,7 @@ MainLoop();
 sub update_sub {
      my( $index, $value, $op, @args ) = @_;
      
-     #print "Op = $op, update values = $value\n";
+     print "Op = $op, update values = $value\n";
      $updateSubVar = $value;
      return $value;
 }

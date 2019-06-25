@@ -23,7 +23,15 @@ my $TOP = MainWindow->new();
     my $selectPresent = $e2->selectionPresent;
     ok($selectPresent, 0, "camelCase call check");
     
-$TOP->after(1000,sub{$TOP->destroy});
+$TOP->traceVariable(\$textVar, 'w' => [
+    sub {
+        my( $index, $value, $op, @args ) = @_;
+        return if $op eq 'u';
+        print "$value\n";
+        return $value;
+    },
+]);
+$TOP->after(1000,sub{$TOP->destroy}) unless (@ARGV);
 
 ok(1, 1, "Entry Widget Creation");
 

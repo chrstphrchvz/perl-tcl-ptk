@@ -95,6 +95,7 @@ sub floor {
 	[sub {
 	    my($index, $value, $op, $floor_items, $cinfo) = @_;
 	    return if $op eq 'u';
+	    print "$value\n";
 	    &floor_room_changed($c->Subwidget('canvas'), $floor_items, $cinfo);
 	    $value;             # always return variable's new value
 	}, \%floor_items, \%cinfo],
