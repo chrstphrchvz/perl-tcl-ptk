@@ -1730,6 +1730,7 @@ sub NoteBook {
 #      This is copied from Tk::Widget.pm
 sub Scrolled
 {
+    $DB::single=1;
  my ($parent,$kind,%args) = @_;
  $kind = 'Pane' if $kind eq 'Frame';
  # Find args that are Frame create time args
@@ -2424,14 +2425,47 @@ sub MouseWheelBind
 {
  my($mw,$class) = @_;
 
+ # RT #129007/#129008:
+ # check if widgets support xview/yview before binding
+$DB::single = 1; 
+ my $can_xview = 0;
+ eval {my @x = $class->xview};
+ $can_xview = 1 unless $@;
+
+ my $can_yview = 0;
+ eval {my @y = $class->yview};
+ $can_yview = 1 unless $@;
+
  # The MouseWheel will typically only fire on Windows and macOS.
  # However, one could use the "event generate" command to produce
  # MouseWheel events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
     $mw->windowingsystem eq 'aqua'
-	    ?  [ sub { $_[0]->yview('scroll',-($_[1]),'units') }, Tcl::pTk::Ev("D")]
-	    :  [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
+	  ? [
+            sub {
+                unless ($_[2]) {
+                    $_[0]->yview('scroll',-($_[1]),'units') if $can_yview;
+                } else {
+                    $_[0]->xview('scroll',-($_[1]),'units') if $can_xview;
+                }
+            },
+            Tcl::pTk::Ev('D'),
+            Tcl::pTk::Ev('s'),
+        ]
+	  : [
+            sub {
+                print "$_[1] $_[2] $can_xview $can_yview\n";
+                unless ($_[2]) {
+                    $_[0]->yview('scroll',-int(($_[1]/120)),'units') if $can_yview;
+                } else {
+                    $_[0]->xview('scroll',-int(($_[1]/120)),'units') if $can_xview;
+                }
+            },
+            Tcl::pTk::Ev('D'),
+            Tcl::pTk::Ev('s'),
+        ]
+);
 
  if ($mw->windowingsystem eq 'x11')
   {
@@ -2445,6 +2479,14 @@ sub MouseWheelBind
 		   });
    $mw->bind($class, '<5>',
 		 sub { $_[0]->yview('scroll', 3, 'units')
+			   unless $Tk::strictMotif;
+		   });
+   $mw->bind($class, '<6>',
+		 sub { $_[0]->xview('scroll', -3, 'units')
+			   unless $Tk::strictMotif;
+		   });
+   $mw->bind($class, '<7>',
+		 sub { $_[0]->xview('scroll', 3, 'units')
 			   unless $Tk::strictMotif;
 		   });
   }
