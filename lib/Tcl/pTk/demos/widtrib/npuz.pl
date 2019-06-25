@@ -120,20 +120,22 @@ sub create_ui {
 
     # Create the menubar.
 
-    my $mf = $MW->Frame(-bg => 'blue')->grid(-sticky => 'ew');
-    $mf->gridColumnconfigure(1, -weight => 1);
+    my $mb = $MW->Menu(-bg => 'blue');
+    $MW->configure(-menu => $mb);
 
-    my $mbf = $mf->Menubutton(-text => 'File', -relief => 'raised');
+    my $mbf = $mb->cascade(-label => 'File');
+    $mbf->cget(-menu)->configure(-relief => 'raised');
     $mbf->command(-label => 'New Puzzle', -command => \&new_puz);
     $mbf->separator;
     $mbf->command(-label => 'Quit', -command => [$MW => 'bell']);
 
-    my $mbp = $mf->Menubutton(-text => 'Prefs', -relief => 'raised');
+    my $mbp = $mb->cascade(-label => 'Prefs');
+    $mbp->cget(-menu)->configure(-relief => 'raised');
     my $pieces = 'Pieces';
     $mbp->cascade(-label => $pieces);
     my $mbpm = $mbp->cget(-menu);
     my $mbpmp = $mbpm->Menu;
-    $mbp->entryconfigure($pieces, -menu => $mbpmp);
+    $mbp->cget(-menu)->entryconfigure($pieces, -menu => $mbpmp);
     foreach (@LEVELS) {
 	$mbpmp->radiobutton(-label    => $_,
 			    -variable => \$PIECES,
@@ -142,7 +144,8 @@ sub create_ui {
 			    );
     }
 
-    my $mbq = $mf->Menubutton(-text => 'Help', -relief => 'raised');
+    my $mbq = $mb->cascade(-label => 'Help');
+    $mbq->cget(-menu)->configure(-relief => 'raised');
     my $about = $MW->Dialog(-text => <<"END"
 npuz Version 1.0\n
 Select \"File/New Puzzle\", then click around the red \"space\" to rearrange the pieces and solve the puzzle!\n\nThis program is described in the Perl/Tk column from Volume 1, Issue 4 of The Perl Journal (http://tpj.com/tpj), and is included in the Perl/Tk distribution with permission.
@@ -150,10 +153,6 @@ END
     );
     $about->configure(-wraplength => '6i');
     $mbq->command(-label => 'About', -command => [$about => 'Show']);
-
-    $mbf->grid(-row => 0, -column => 0, -sticky => 'w');
-    $mbp->grid(-row => 0, -column => 1, -sticky => 'w');
-    $mbq->grid(-row => 0, -column => 2, -sticky => 'e');
 
 } # end create_ui
 
