@@ -13,7 +13,7 @@ use base  qw(Tcl::pTk::Frame);
 # Construct Tk::Widget 'packAdjust';
 
 # because if managed object is Derived (e.g. a Scrolled) then our 'new'
-# will be delegated and hierachy gets turned inside-out
+# will be delegated and hierarchy gets turned inside-out
 # So packAdjust is autoloaded in Widget.pm
 
 
