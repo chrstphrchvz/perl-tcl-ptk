@@ -977,6 +977,23 @@ sub focusFollowsMouse {
     $interp->icall('tk_focusFollowsMouse');
 }
 
+# Perl/Tk-compatible focusNext and focusPrev
+# These set focus, rather than only get which widget to focus to (as in Tcl/Tk)
+
+sub focusNext {
+    my $self = shift;
+    my $interp = $self->interp;
+    my $wp = $self->path;
+    $interp->Eval("focus [tk_focusNext $wp]");
+}
+
+sub focusPrev {
+    my $self = shift;
+    my $interp = $self->interp;
+    my $wp = $self->path;
+    $interp->Eval("focus [tk_focusPrev $wp]");
+}
+
 sub grabRelease {
     my $self = shift;
     my $wp = $self->path;
