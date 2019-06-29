@@ -1,6 +1,6 @@
 package Tcl::pTk::Submethods;
 
-our ($VERSION) = ('1.01_01');
+our ($VERSION) = ('1.02');
 
 sub import
 {

@@ -4,7 +4,7 @@
 package Tcl::pTk::Clipboard;
 use strict;
 
-our ($VERSION) = ('1.01_01');
+our ($VERSION) = ('1.02');
 
 use Tcl::pTk;
 
