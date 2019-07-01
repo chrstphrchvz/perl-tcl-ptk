@@ -1064,7 +1064,7 @@ sub widget_deletion_watcher {
 }
 
 ###############################################
-#  Overriden delete_ref
+#  Overridden delete_ref
 #  Instead of immediately deleting a scalar or code ref in Tcl-land,
 #   queue the ref to be deleted in an after-idle call.
 #   This is done, rather than deleting immediately, because an immediate delete
@@ -1449,7 +1449,7 @@ sub bgerror{
 #   own functions here that previously were provided with Tcl.pm <= 1.02
 #############################################################################################
 ###############################################
-#  Overriden delete_widget_refs
+#  Overridden delete_widget_refs
 #  This is implemented in Tcl::pTk.pm because for versions of Tcl.pm > 1.02,
 #  this method is not supported, so we implement it ourselves here.
 sub delete_widget_refs {
@@ -1477,7 +1477,7 @@ sub _delete_ref {
     return $ref;
 }
 ###############################################
-#  Overriden _current_refs_widget
+#  Overridden _current_refs_widget
 #  This is implemented in Tcl::pTk.pm because for versions of Tcl.pm > 1.02,
 #  this method is not supported, so we implement it ourselves here.
 sub _current_refs_widget {$current_widget=shift}
