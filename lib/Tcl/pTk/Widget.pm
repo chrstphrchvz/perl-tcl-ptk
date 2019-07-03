@@ -2608,7 +2608,7 @@ sub FileMenuItems
 
 ##########################################################################################
 
-# Autoload fo Tcl::pTk::Widget
+# Autoload for Tcl::pTk::Widget
 sub AUTOLOAD {
     my $w = shift;
     my ($method,$package,$wtype) = ($Tcl::pTk::Widget::AUTOLOAD,undef,undef);
