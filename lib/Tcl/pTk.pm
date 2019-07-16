@@ -1199,26 +1199,6 @@ sub pkg_require {
     return $preloaded_tk{$id};
 }
 
-sub need_tk {
-    # DEPRECATED: Use pkg_require and call instead.
-    my $int = shift;
-    my $pkg = shift;
-    my $cmd = shift || '';
-    warn "DEPRECATED CALL: need_tk($pkg, $cmd), use pkg_require\n";
-    if ($pkg eq 'ptk-Table') {
-        require Tcl::pTk::Table;
-    }
-    else {
-	# Only require the actual package once
-	my $ver = $int->pkg_require($pkg);
-	return 0 if !defined($ver);
-	$int->Eval($cmd) if $cmd;
-    }
-    return 1;
-}
-
-
-
 # subroutine findINC copied from perlTk/Tk.pm
 sub findINC {
     my $file = join('/',@_);                 # Normal location
