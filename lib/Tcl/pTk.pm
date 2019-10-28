@@ -822,6 +822,11 @@ sub new {
     # Create background error handling method that is similar to the way perltk does it
     $tkinterp->CreateCommand('bgerror', \&Tcl::pTk::bgerror);
 
+    # correct $platform: if we're on 'cygwin' but tcl/tk is on 'unix', then platform is 'unix':
+    if($^O eq 'cygwin' && $i->GetVar2('tcl_platform','platform') eq 'unix') {
+        $platform = 'unix';
+    }
+
     # RT #127120: Middle-click paste workaround
     # for older Tcl/Tk versions on macOS aqua
     if ($i->Eval('tk windowingsystem') eq 'aqua') {
