@@ -250,7 +250,7 @@ B<Perl/Tk compatible syntax:>
 
 B<Tcl::pTk Syntax:>
 
-  $inst->MainLoop;
+  $int->MainLoop;
 
 =head2 Creating and using widgets
 
