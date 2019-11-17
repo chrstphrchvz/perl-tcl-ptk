@@ -17,6 +17,8 @@ BEGIN{
  if($^O eq 'cygwin')
   {
    $platform = 'MSWin32'
+   # could still be set to 'unix' once Tcl is loaded
+   # depending on $::tcl_platform(platform)
   }
  else
   {
