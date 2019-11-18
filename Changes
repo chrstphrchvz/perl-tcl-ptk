@@ -3,6 +3,8 @@ Summary of Changes to Tcl::pTk
 Release 1.xx:
 
  * Remove need_tk (deprecated; was removed from Tcl::Tk 1.03 in 2011)
+ * $Tcl::pTk::platform should be 'unix' when using X11 Tk in Cygwin
+   (contribution from Vadim Konovalov)
 
 Release 1.02:  2019-06-29
 
