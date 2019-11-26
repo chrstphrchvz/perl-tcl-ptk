@@ -12,9 +12,9 @@ use vars qw($top);
 
 my $top = MainWindow->new();
 
-my $tclVersion = $top->tclVersion;
-unless( $tclVersion > 8.4 ){
-    print "1..0 # Skipped: Tile Tests on Tcl version < 8.5\n";
+# This will skip if Tile widgets not available
+unless ($Tcl::pTk::_Tile_available) {
+    print "1..0 # Skipped: Tile unavailable\n";
     exit;
 }
 

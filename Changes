@@ -2,6 +2,10 @@ Summary of Changes to Tcl::pTk
 
 Release 1.xx:
 
+ * Add internal variable `$Tcl::pTk::_Tile_available` to indicate whether
+   Tile/Ttk is available; check this variable rather than checking the
+   Tcl/Tk version everywhere. Tile/Ttk should also now work on Tk 8.4
+   if the Tile package is installed.
  * Remove need_tk (deprecated; was removed from Tcl::Tk 1.03 in 2011)
  * $Tcl::pTk::platform should be 'unix' when using X11 Tk in Cygwin
    (contribution from Vadim Konovalov)

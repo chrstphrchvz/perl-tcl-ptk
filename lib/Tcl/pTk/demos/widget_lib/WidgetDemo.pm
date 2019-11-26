@@ -28,13 +28,8 @@ sub Populate {
 	-geometry_manager => 'pack',
     );
     
-    # Use tile Buttons, if tcl version is >= 8.5
-    my $buttonWidget = 'Button';
-    $buttonWidget = 'ttkButton' if( $self->tclVersion() >= 8.5);
-    
-
-    
-    
+    # Use Tile Buttons if available
+    my $buttonWidget = $pTk::Tcl::_Tile_available ? 'ttkButton' : 'Button';
     
     my $name = $arg_defaults{-name};
     $arg_defaults{-title} = "$name Demonstration",

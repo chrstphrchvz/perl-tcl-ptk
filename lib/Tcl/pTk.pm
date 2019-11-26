@@ -70,6 +70,8 @@ if($DEBUG){
         import Sub::Name;
 }
 
+# Variable to indicate whether Tile/Ttk widgets are available
+our ( $_Tile_available ) = ( 0 );
 
 @Tcl::pTk::ISA = qw(Tcl);
 
@@ -869,10 +871,18 @@ sub tkinit {
 sub MainWindow {
     my $interp = Tcl::pTk->new(@_);
 
-    # Load Tile Widgets, if the tcl version is >= 8.5
-    if( $interp->Eval('package vsatisfies [package provide Tk] 8.5') ){
+    # Load Tile Widgets, if using Tcl/Tk 8.5 or higher,
+    # or using Tcl/Tk 8.4 and the Tile package is present
+    if (
+        $interp->Eval('package vsatisfies [package provide Tk] 8.5')
+        or (
+            ($interp->GetVar('tk_version') eq '8.4')
+            and $interp->pkg_require('tile')
+        )
+    ) {
             require Tcl::pTk::Tile;
             Tcl::pTk::Tile::_declareTileWidgets($interp);
+            $_Tile_available = 1;
     }
     
     # Load palette commands, so $interp->invoke can be used with them later, for speed.
