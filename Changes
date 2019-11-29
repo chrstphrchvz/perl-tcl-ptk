@@ -2,6 +2,7 @@ Summary of Changes to Tcl::pTk
 
 Release 1.xx:
 
+ * Mark focusMethods.t as TODO due to unresolved failures (RT #131091)
  * Add internal variable `$Tcl::pTk::_Tile_available` to indicate whether
    Tile/Ttk is available; check this variable rather than checking the
    Tcl/Tk version everywhere. Tile/Ttk should also now work on Tk 8.4
