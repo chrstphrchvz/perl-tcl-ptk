@@ -101,7 +101,7 @@ Release 0.95:  2019-02-25
    - Improve error shown if "package require Tk" fails (RT #127552)
    - Makefile.PL:
      - exit with status 0 if Tk 8.4+ is not present
-       (UNKNOWN reports will no loner be generated)
+       (UNKNOWN reports will no longer be generated)
      - warn if tklib is not present
      - Find tclsh8.x command more easily on FreeBSD
      - TCLSH_PROG environment variable is no longer used to specify tclsh
