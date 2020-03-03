@@ -2,7 +2,7 @@
 
 Interface to `Tcl/Tk` with `Perl/Tk` compatible syntax
 
-# Description
+## Description
     
 The `Tcl::pTk` extension (not to be confused with the "native" perl5
 `Perl/Tk` extension) provides a complete interface to the whole
@@ -11,7 +11,7 @@ running existing `perl/tk` scripts, as well as direct-tcl syntax for using any o
     
 See the POD documentation for more details.
     
-# Install
+## Install
 
 Build in the usual way for a perl extension:
 
@@ -32,7 +32,7 @@ out supported parameters to `Makefile.PL`:
 
        perl Makefile.PL --help
 
-# License
+## License
 
 See License, Authors sections in `Tcl/pTk.pm`, or with `perldoc Tcl::pTk` - once it
 is installed - to have acknowledged on this type of information.
