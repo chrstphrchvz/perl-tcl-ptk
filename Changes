@@ -1,6 +1,6 @@
 Summary of Changes to Tcl::pTk
 
-Release 1.xx:
+Release 1.03:  2020-03-02
 
  * Mark focusMethods.t as TODO due to unresolved failures (RT #131091)
  * Add internal variable `$Tcl::pTk::_Tile_available` to indicate whether
