@@ -1,4 +1,4 @@
-# This is a empty subclass test of the BrowseEntry widget with TkHikack and TkFacelift
+# This is a empty subclass test of the BrowseEntry widget with TkHijack and TkFacelift
 
 use warnings;
 use strict;
