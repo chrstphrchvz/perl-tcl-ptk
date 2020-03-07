@@ -5,6 +5,8 @@ Release 1.xx:  2020-mm-dd
  * configureReturn.t:
    - fix check for skipping Tix widget tests
      (was skipping some tests even with Tix present)
+   - Workaround for RT #128804: manually destroy $mw at end of test
+     to avoid segmentation fault (observed on CentOS 6.10)
 
 Release 1.04:  2020-03-07
 

@@ -46,4 +46,5 @@ foreach my $widgetName (@widgets){
                 ok( 0, 1,   "$widgetName configure doesn't return 2D Array");
         }
 }
- 
+
+$mw->destroy;
