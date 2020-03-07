@@ -1,6 +1,6 @@
 package Tcl::pTk::XEvent;
 
-our ($VERSION) = ('1.04_02');
+our ($VERSION) = ('1.04_03');
 
 use strict;
 use warnings;

@@ -5,7 +5,7 @@ package Tcl::pTk::Text;
 
 use Text::Tabs;
 
-our ($VERSION) = ('1.04_02');
+our ($VERSION) = ('1.04_03');
 
 # borrowed from Tk/Text.pm without any modifications
 

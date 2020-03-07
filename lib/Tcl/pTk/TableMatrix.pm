@@ -2,7 +2,7 @@
 
 package Tcl::pTk::TableMatrix;
 
-our ($VERSION) = ('1.04_02');
+our ($VERSION) = ('1.04_03');
 
 ###########################################################
 # Emulation of the perl/tk Tablematrix widget using Tcl::pTk

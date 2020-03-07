@@ -1,6 +1,6 @@
 package Tcl::pTk::ttkBrowseEntry;
 
-our ($VERSION) = ('1.04_02');
+our ($VERSION) = ('1.04_03');
 
 =head1 NAME 
 
