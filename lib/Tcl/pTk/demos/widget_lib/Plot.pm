@@ -9,7 +9,7 @@ package Plot;
 #
 # Advertised Plot widgets:  canvas, entry, PostScript_button, view_button.
 
-our ($VERSION) = ('1.04');
+our ($VERSION) = ('1.04_01');
 
 require 5.005_03;
 
