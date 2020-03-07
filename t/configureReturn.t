@@ -25,8 +25,8 @@ foreach my $widgetName (@widgets){
         
         # Check to see if we need to skip Tix widgets
         $skip = 0; # Need to skip 
-        if( $widgetName eq 'HList' or $widgetName eq 'NoteBook' or $widgetName eq 'TList' && !$tixFound ){
-                $skip = "$widgetName needs the Tixpackage which is not installed";
+        if( $widgetName =~ m/^(HList|NoteBook|TList)$/ and not $tixFound ){
+                $skip = "$widgetName: Tix package unavailable";
         }
  
         if( $skip ){

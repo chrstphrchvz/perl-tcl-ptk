@@ -1,5 +1,11 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.xx:  2020-mm-dd
+
+ * configureReturn.t:
+   - fix check for skipping Tix widget tests
+     (was skipping some tests even with Tix present)
+
 Release 1.04:  2020-03-07
 
  * Replaced README with improved markdown README.md;
