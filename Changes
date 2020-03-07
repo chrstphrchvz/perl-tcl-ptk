@@ -1,5 +1,11 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.04:  2020-03-07
+
+ * Replaced README with improved markdown README.md;
+   documentation fixes (contributions from Vadim Konovalov)
+ * Update MANIFEST (README.md was missing from 1.03)
+
 Release 1.03:  2020-03-02
 
  * Mark focusMethods.t as TODO due to unresolved failures (RT #131091)
