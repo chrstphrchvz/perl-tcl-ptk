@@ -1,5 +1,9 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.04_02:  2020-03-07
+
+ * Add tests in repository but missing from MANIFEST and distribution
+
 Release 1.04_01:  2020-03-07
 
  * configureReturn.t:
