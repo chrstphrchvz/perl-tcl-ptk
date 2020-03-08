@@ -54,7 +54,7 @@ sub MoveToplevelWindow
 
 # Implementation of the perl/tk 'iconimage' method. 
 # This is translated to an 'iconphoto' call, which is only available
-#  in more recent (> 8.5) tk's
+#  in more recent (>= 8.5) tk's
 sub iconimage{
  my ($w, $photo) = @_;
  $w->interp->icall('wm', 'iconphoto', $w->path, $photo);
