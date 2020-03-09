@@ -383,6 +383,7 @@ t/virtualEv.t
 t/widgetDelete.t
 t/widgetName.t
 t/wmForget.t
+t/wmStackorder.t
 t/Xcamel.gif
 t/xevent.t
 t/zzPhoto.t

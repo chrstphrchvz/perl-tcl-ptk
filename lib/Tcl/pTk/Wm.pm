@@ -19,7 +19,7 @@ Direct Tcl::pTk::Submethods ('wm' => [qw(aspect attributes capture client colorm
                        deiconify focusmodel frame geometry group
                        iconbitmap iconify  iconphoto iconmask iconname
                        iconwindow maxsize minsize overrideredirect positionfrom
-                        release resizable sizefrom state title transient
+                        release resizable sizefrom stackorder state title transient
                        withdraw wrapper )]);
 
 sub SetBindtags
