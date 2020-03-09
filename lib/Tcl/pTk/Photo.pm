@@ -2,6 +2,9 @@ package Tcl::pTk::Photo;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 
 use base  qw(Tcl::pTk::Image);

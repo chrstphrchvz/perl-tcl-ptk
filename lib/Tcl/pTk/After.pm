@@ -8,6 +8,9 @@ package Tcl::pTk::After;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 use Carp;
 
 sub _cancelAll

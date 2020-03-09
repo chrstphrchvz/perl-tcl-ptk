@@ -6,6 +6,9 @@ package Tcl::pTk::Tiler;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 require Tcl::pTk;
 require Tcl::pTk::Frame;
 

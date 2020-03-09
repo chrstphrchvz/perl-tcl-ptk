@@ -2,11 +2,13 @@ package Tcl::pTk::ProgressBar;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 use Tcl::pTk::Canvas;
 #use Tk::Trace;
 use Carp;
-use strict;
 
 use base qw(Tcl::pTk::Derived Tcl::pTk::Canvas);
 

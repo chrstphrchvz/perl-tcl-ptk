@@ -9,6 +9,9 @@ package Tcl::pTk::Optionmenu;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 use Tcl::pTk;
 require Tcl::pTk::Menubutton;
 require Tcl::pTk::Menu;
@@ -16,8 +19,6 @@ use Carp;
 
 
 use base  qw(Tcl::pTk::Derived Tcl::pTk::Menubutton);
-
-use strict;
 
 Construct Tcl::pTk::Widget 'Optionmenu';
 

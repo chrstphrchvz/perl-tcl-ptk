@@ -2,6 +2,9 @@ package Tcl::pTk::ErrorDialog;
 
 our ($VERSION) = ('1.05');
 
+use warnings;
+use strict;
+
 use Tcl::pTk ();
 require Tcl::pTk::Dialog;
 use base qw(Tcl::pTk::Toplevel);
@@ -12,8 +15,6 @@ use vars ( qw/ $ED_OBJECT /);
 # Currently TkPerl background errors are sent to stdout/stderr; use this
 # module if you want them in a window.  You can also "roll your own" by
 # supplying the routine Tcl::pTk::Error.
-
-use strict;
 
 Construct Tcl::pTk::Widget 'ErrorDialog';
 
