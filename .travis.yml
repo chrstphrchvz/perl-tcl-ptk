@@ -8,8 +8,8 @@ install:
 # TkTable in recent Ubuntu/Debian currently causes
 # invalid free() on program exit when used from Perl/Tcl.pm.
 # See https://www.mail-archive.com/tcltk@perl.org/msg00817.html
-#   - sudo apt-get -y install tklib libtk-img tix tk-table
-    - sudo apt-get -y install tklib libtk-img tix
+#   - sudo apt-get -y install bwidget tklib libtk-img tix tk-table
+    - sudo apt-get -y install bwidget tklib libtk-img tix
     - xvfb-run -a cpanm --verbose --notest --installdeps .
 
 script:
