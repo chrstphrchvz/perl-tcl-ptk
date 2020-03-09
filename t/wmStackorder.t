@@ -28,4 +28,5 @@ is($mw->stackorder('isabove', $t), 1, '[wm stackorder $mw isabove $t] == 1');
 is($mw->stackorder('isbelow', $t), 0, '[wm stackorder $mw isbelow $t] == 0');
 is_deeply([$mw->stackorder], [$t->PathName, $mw->PathName], '[wm stackorder $mw] eq "$t $mw"');
 
-MainLoop if (@ARGV);
+$mw->idletasks;
+(@ARGV) ? MainLoop : $mw->destroy;

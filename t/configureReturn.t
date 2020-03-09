@@ -47,4 +47,4 @@ foreach my $widgetName (@widgets){
         }
 }
 
-$mw->destroy;
+(@ARGV) ? MainLoop : $mw->destroy;
