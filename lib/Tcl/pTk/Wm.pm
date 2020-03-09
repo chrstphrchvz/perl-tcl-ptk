@@ -8,6 +8,7 @@ package Tcl::pTk::Wm;
 
 our ($VERSION) = ('1.04_03');
 
+use warnings;
 use strict;
 
 use base qw( Tcl::pTk::Derived );
