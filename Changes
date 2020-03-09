@@ -3,6 +3,8 @@ Summary of Changes to Tcl::pTk
 Release 1.xx:  2020-mm-dd
 
  * Support $toplevel->stackorder method (as used with Perl/Tk)
+ * Experimental workaround for regression in Tcl/Tk 8.6.10
+   which causes an error when using facelifted LabEntry widgets
 
 Release 1.04_03:  2020-03-07
 
