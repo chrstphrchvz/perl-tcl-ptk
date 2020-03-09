@@ -523,7 +523,7 @@ sub Populate {
 	#  work with -labelJustify, etc options
         -justify => ['SELF', 'justify', 'Justify', 'center'],
         -anchor  => ['SELF', 'justify', 'Justify', 'center'],
-        'DEFAULT' => ['SELF']
+        'DEFAULT' => ['SELF'],
     );
 
 
