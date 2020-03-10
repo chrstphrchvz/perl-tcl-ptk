@@ -1,6 +1,6 @@
 package Tcl::pTk::ttkTixNoteBook;
 
-our ($VERSION) = ('1.06');
+our ($VERSION) = ('1.06_01');
 
 =head1 NAME 
 

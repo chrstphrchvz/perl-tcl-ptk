@@ -1,6 +1,6 @@
 package Tcl::pTk::Menubutton;
 
-our ($VERSION) = ('1.06');
+our ($VERSION) = ('1.06_01');
 
 use warnings;
 use strict;

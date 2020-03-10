@@ -3,7 +3,7 @@
 
 package Tcl::pTk::Font;
 
-our ($VERSION) = ('1.06');
+our ($VERSION) = ('1.06_01');
 
 require Tcl::pTk::Widget;
 use strict;
