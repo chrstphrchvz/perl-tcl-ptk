@@ -54,7 +54,7 @@ $id = $tk->repeat(
                            # print "Number of commands = ".scalar(@commands)."\n"; 
                            $afterCommands = scalar(@commands);
                            $tk->destroy;
-                           $top->after(1000, [$top, 'destroy']);
+                           $top->after(100, [$top, 'destroy']);
 
                    }
            }
