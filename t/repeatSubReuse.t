@@ -28,7 +28,7 @@ my $id;
 
 my @commands;
 
-# Number of '::perl::CODE*' sub-refs that are created in TCL-land at the begining of the script,
+# Number of '::perl::CODE*' sub-refs that are created in TCL-land at the beginning of the script,
 #  after running a lot of repeat commands, and after widget destruction
 my ($initialCommands, $afterCommands);
 
