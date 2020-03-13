@@ -334,6 +334,7 @@ t/ptk-compat.t
 t/ptk-compat2.t
 t/repeat.t
 t/repeatSubReuse.t
+t/rt125058.t
 t/scrolled.t
 t/scrolledOptional.t
 t/selection.t
