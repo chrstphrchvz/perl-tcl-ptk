@@ -1,5 +1,9 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.07:  2020-03-13
+
+ * Allow '.' in Cascade labels (RT #125058)
+
 Release 1.06_01:  2020-03-12
 
  * ttkTixNoteBook (RT #132075):

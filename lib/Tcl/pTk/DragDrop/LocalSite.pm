@@ -1,6 +1,6 @@
 package Tcl::pTk::DragDrop::LocalSite;
 
-our ($VERSION) = ('1.06_01');
+our ($VERSION) = ('1.07');
 
 use strict;
 
