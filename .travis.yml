@@ -10,6 +10,9 @@ install:
 # See https://www.mail-archive.com/tcltk@perl.org/msg00817.html
 #   - sudo apt-get -y install bwidget tklib libtk-img tix tk-table
     - sudo apt-get -y install bwidget tklib libtk-img tix
+# Install Tcl.pm without stubs for potentially better debugging
+# (also requires specifying where tcl.h is)
+    - cpanm --verbose --notest Tcl --configure-args="--nousestubs -INC=-I/usr/include/tcl8.6"
     - xvfb-run -a cpanm --verbose --notest --installdeps .
 
 script:
