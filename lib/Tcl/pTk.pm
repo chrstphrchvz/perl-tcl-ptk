@@ -7,6 +7,7 @@ use Tcl;
 use Exporter ('import');
 use Scalar::Util (qw /blessed/); # Used only for its blessed function
 use AutoLoader; # Used for autoloading the Error routine
+use Time::HiRes; # Used for emulating timeofday()
 use vars qw(@EXPORT @EXPORT_OK %EXPORT_TAGS $platform @cleanup_refs $cleanup_queue_maxsize $cleanupPending);
 
 # Wait till we have 100 things to delete before we do cleanup
@@ -920,12 +921,7 @@ sub MainLoop {
 }
 
 # timeofday function for compatibility with Tk::timeofday
-sub timeofday {
-    my $int = (ref $_[0]?shift:$tkinterp);
-    my $t = $int->invoke("clock", "microseconds");
-    $t = $t/1e6;
-}
-
+*Tcl::pTk::timeofday = \&Time::HiRes::time;
 
 # DoOneEvent for compatibility with perl/tk
 sub DoOneEvent{
