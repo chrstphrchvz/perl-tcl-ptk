@@ -200,6 +200,10 @@ sub Tcl::pTk::ttkTreeview::item {
     my $self = shift;
     $self->call($self->path, 'item', @_);
 }
+sub Tcl::pTk::ttkTreeview::tag {
+    my $self = shift;
+    $self->call($self->path, 'tag', @_);
+}
 
 1;
 
