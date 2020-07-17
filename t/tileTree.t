@@ -16,7 +16,7 @@ unless ($Tcl::pTk::_Tile_available) {
     plan skip_all => 'Tile unavailable';
 }
 
-plan tests => 5;
+plan tests => 6;
 
 my $msg = $TOP->ttkLabel( -text => 
         "Ttk is the new Tk themed widget set. One of the widgets it includes is a tree widget, which can be configured to display multiple columns of informational data without displaying the tree itself. This is a simple way to build a listbox that has multiple columns. Clicking on the heading for a column will sort the data by that column. You can also change the width of the columns by dragging the boundary between them.",
@@ -113,6 +113,13 @@ is_deeply($get_selected_IDs, $set_selected_IDs,
 my $get_values = [$tree->item($IDs[14], '-values')];
 is_deeply($get_values, ['United States', 'Washington, D.C.', 'USD'],
     'item -values command should return values of item as Perl list (not Tcl list)');
+
+# Test tag command
+my $set_tagged_IDs = [@IDs[5..6], $IDs[8], $IDs[11]];
+$tree->tag('add', 'Europe', $set_tagged_IDs);
+my $get_tagged_IDs = [$tree->tag('has', 'Europe')];
+is_deeply($get_tagged_IDs, $set_tagged_IDs,
+    'tag has command should return tagged items as Perl list (not Tcl list)');
 
 $TOP->idletasks;
 (@ARGV) ? MainLoop : $TOP->destroy; # Persist if any args supplied, for debugging
