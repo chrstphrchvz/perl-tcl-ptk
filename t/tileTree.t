@@ -85,11 +85,9 @@ while(@data){
                      
 }
 
-$TOP->after(1000, sub{ $TOP->destroy }) unless (@ARGV); # Persist if any args supplied, for debugging
+$TOP->idletasks;
+(@ARGV) ? MainLoop : $TOP->destroy; # Persist if any args supplied, for debugging
 
-
- MainLoop;
- 
 ok(1);
  
 ## Code to do the sorting of the tree contents when clicked on
