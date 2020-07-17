@@ -16,7 +16,7 @@ unless ($Tcl::pTk::_Tile_available) {
     plan skip_all => 'Tile unavailable';
 }
 
-plan tests => 3;
+plan tests => 5;
 
 my $msg = $TOP->ttkLabel( -text => 
         "Ttk is the new Tk themed widget set. One of the widgets it includes is a tree widget, which can be configured to display multiple columns of informational data without displaying the tree itself. This is a simple way to build a listbox that has multiple columns. Clicking on the heading for a column will sort the data by that column. You can also change the width of the columns by dragging the boundary between them.",
@@ -89,7 +89,18 @@ while(@data){
 
 is(scalar(@IDs), 15, 'Obtain IDs for each inserted item');
 
-$tree->see($IDs[14]); # make last item visible
+# Test bbox command
+# make sure last item is invisible
+$tree->see($IDs[0]);
+$TOP->update;
+is($tree->bbox($IDs[14]), undef,
+    'bbox command should return undef for invisible item');
+# now make sure last item is visible
+$tree->see($IDs[14]);
+$TOP->update;
+my $tree_bbox = [$tree->bbox($IDs[14])];
+is(scalar(@$tree_bbox), 4,
+    'bbox command should return list for visible item');
 
 # Test selection command
 my $set_selected_IDs = [$IDs[10], @IDs[13..14]];
