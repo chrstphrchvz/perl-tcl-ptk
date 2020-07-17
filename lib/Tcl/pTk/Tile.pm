@@ -182,12 +182,12 @@ sub _setupMapping {
 	}
 }
 
-###### Special cases to get ttkTreeview children method to work ###
-### If this isn't here, the inherited Tcl::pTk::Widget::children will get called, which is not what we 
-### want
-sub Tcl::pTk::ttkTreeview::children{
-        my $self = shift;
-        $self->call($self->path, "children", @_);
+###### Special cases to get ttkTreeview methods to work ###
+
+# Avoid using Tcl::pTk::Widget::children
+sub Tcl::pTk::ttkTreeview::children {
+    my $self = shift;
+    $self->call($self->path, 'children', @_);
 }
 
 1;
