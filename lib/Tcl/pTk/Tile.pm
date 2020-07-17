@@ -190,5 +190,16 @@ sub Tcl::pTk::ttkTreeview::children {
     $self->call($self->path, 'children', @_);
 }
 
+# Ensure Perl list (not Tcl list) is returned
+# https://github.com/chrstphrchvz/perl-tcl-ptk/issues/7
+sub Tcl::pTk::ttkTreeview::selection {
+    my $self = shift;
+    $self->call($self->path, 'selection', @_);
+}
+sub Tcl::pTk::ttkTreeview::item {
+    my $self = shift;
+    $self->call($self->path, 'item', @_);
+}
+
 1;
 
