@@ -5,19 +5,18 @@ use strict;
 
 use Tcl::pTk;
 
-use Test;
+use Test::More;
 
 
 my $TOP = MainWindow->new;
 
 # This will skip if Tile widgets not available
 unless ($Tcl::pTk::_Tile_available) {
-    print "1..0 # Skipped: Tile unavailable\n";
     $TOP->destroy;
-    exit;
+    plan skip_all => 'Tile unavailable';
 }
 
-plan test => 1;
+plan tests => 3;
 
 my $msg = $TOP->ttkLabel( -text => 
         "Ttk is the new Tk themed widget set. One of the widgets it includes is a tree widget, which can be configured to display multiple columns of informational data without displaying the tree itself. This is a simple way to build a listbox that has multiple columns. Clicking on the heading for a column will sort the data by that column. You can also change the width of the columns by dragging the boundary between them.",
@@ -63,13 +62,13 @@ foreach my $col (qw/ country capital currency /){
         $tree->column($col, -width, $len+10);
 }
 
-
+my @IDs;
 while(@data){
         my $country  = shift @data;
         my $capital  = shift @data;
         my $currency = shift @data;
         
-        $tree->insert('', 'end', -values => [$country, $capital, $currency]);
+        push @IDs, $tree->insert('', 'end', -values => [$country, $capital, $currency]);
         
         # Auto-set length of field based on data init
         my %rowLookup; # Hash for quick lookup
@@ -85,11 +84,28 @@ while(@data){
                      
 }
 
+# New tests added in response to
+# https://github.com/chrstphrchvz/perl-tcl-ptk/issues/7
+
+is(scalar(@IDs), 15, 'Obtain IDs for each inserted item');
+
+$tree->see($IDs[14]); # make last item visible
+
+# Test selection command
+my $set_selected_IDs = [$IDs[10], @IDs[13..14]];
+$tree->selection('set', $set_selected_IDs);
+my $get_selected_IDs = [$tree->selection()];
+is_deeply($get_selected_IDs, $set_selected_IDs,
+    'selection command should return selected items as Perl list (not Tcl list)');
+
+# Test item -values command
+my $get_values = [$tree->item($IDs[14], '-values')];
+is_deeply($get_values, ['United States', 'Washington, D.C.', 'USD'],
+    'item -values command should return values of item as Perl list (not Tcl list)');
+
 $TOP->idletasks;
 (@ARGV) ? MainLoop : $TOP->destroy; # Persist if any args supplied, for debugging
 
-ok(1);
- 
 ## Code to do the sorting of the tree contents when clicked on
 sub SortBy{
         my ($tree, $col, $direction) = @_;
