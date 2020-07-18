@@ -94,32 +94,32 @@ is(scalar(@IDs), 15, 'Obtain IDs for each inserted item');
 $tree->see($IDs[0]);
 $TOP->update;
 is($tree->bbox($IDs[14]), undef,
-    'bbox command should return undef for invisible item');
+    '`bbox` command should return undef for invisible item');
 # now make sure last item is visible
 $tree->see($IDs[14]);
 $TOP->update;
 my $tree_bbox = [$tree->bbox($IDs[14])];
 is(scalar(@$tree_bbox), 4,
-    'bbox command should return list for visible item');
+    '`bbox` command should return list for visible item');
 
 # Test selection command
 my $set_selected_IDs = [$IDs[10], @IDs[13..14]];
 $tree->selection('set', $set_selected_IDs);
 my $get_selected_IDs = [$tree->selection()];
 is_deeply($get_selected_IDs, $set_selected_IDs,
-    'selection command should return selected items as Perl list (not Tcl list)');
+    '`selection` command should return selected items as Perl list (not Tcl list)');
 
 # Test item -values command
 my $get_values = [$tree->item($IDs[14], '-values')];
 is_deeply($get_values, ['United States', 'Washington, D.C.', 'USD'],
-    'item -values command should return values of item as Perl list (not Tcl list)');
+    '`item -values` command should return values of item as Perl list (not Tcl list)');
 
 # Test tag command
 my $set_tagged_IDs = [@IDs[5..6], $IDs[8], $IDs[11]];
 $tree->tag('add', 'Europe', $set_tagged_IDs);
 my $get_tagged_IDs = [$tree->tag('has', 'Europe')];
 is_deeply($get_tagged_IDs, $set_tagged_IDs,
-    'tag has command should return tagged items as Perl list (not Tcl list)');
+    '`tag has` command should return tagged items as Perl list (not Tcl list)');
 
 $TOP->idletasks;
 (@ARGV) ? MainLoop : $TOP->destroy; # Persist if any args supplied, for debugging
