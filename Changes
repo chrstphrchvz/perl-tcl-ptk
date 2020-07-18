@@ -1,5 +1,10 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.08_01:  2020-07-18
+
+ * Make Time::HiRes dependency explicit: it is a core module, but is not
+   installed by default on some distributions, e.g. CentOS 6.
+
 Release 1.08:  2020-07-17
 
  * Improved support for ttk::treeview `item`, `selection`, and `tag` commands
