@@ -73,6 +73,9 @@ if($DEBUG){
 
 # Variable to indicate whether Tile/Ttk widgets are available
 our ( $_Tile_available );
+# Variable to indicate whether Tcl/Tk 8.5.9 or later, or Tile 0.8.4.0
+# for Tcl/Tk 8.4, is available; needed by certain features
+our ( $_Tile_ge_0840 );
 
 @Tcl::pTk::ISA = qw(Tcl);
 
@@ -876,6 +879,11 @@ sub MainWindow {
     # (included in Tcl/Tk 8.5+, or as an extension for Tcl/Tk 8.4)
     $Tcl::pTk::_Tile_available = $interp->pkg_require('tile');
     if ($Tcl::pTk::_Tile_available) {
+        # Certain features require Tcl/Tk 8.5.9 or later,
+        # or Tile 0.8.4.0 for Tcl/Tk 8.4
+        $Tcl::pTk::_Tile_ge_0840 = ($interp->Eval(
+            "package vcompare $Tcl::pTk::_Tile_available 0.8.4.0"
+        ) != -1);
         require Tcl::pTk::Tile;
         Tcl::pTk::Tile::_declareTileWidgets($interp);
     }

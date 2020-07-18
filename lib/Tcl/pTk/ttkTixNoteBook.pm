@@ -408,8 +408,7 @@ sub raised{
 # Tcl/Tk 8.5.9 or later, or Tile 0.8.4.0 for Tcl/Tk 8.4
 # https://rt.cpan.org/Ticket/Display.html?id=132075
 sub _identify_unavailable {
-    my $cw = shift;
-    return $cw->interp->Eval("package vcompare $Tcl::pTk::_Tile_available 0.8.4.0") == -1;
+    return not $Tcl::pTk::_Tile_ge_0840;
 }
 
 #----------------------------------------------

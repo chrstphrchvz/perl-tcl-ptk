@@ -2,6 +2,9 @@ Summary of Changes to Tcl::pTk
 
 Release 1.08_01:  2020-07-18
 
+ * Add internal variable $Tcl::pTk::_Tile_ge_0840 to indicate whether Tile/Ttk
+   version is 0.8.4.0 or later, which is needed by certain features.
+   Use this variable to address new test failures in tileTree.t on CentOS 6.
  * Make Time::HiRes dependency explicit: it is a core module, but is not
    installed by default on some distributions, e.g. CentOS 6.
 

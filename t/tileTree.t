@@ -115,11 +115,16 @@ is_deeply($get_values, ['United States', 'Washington, D.C.', 'USD'],
     '`item -values` command should return values of item as Perl list (not Tcl list)');
 
 # Test tag command
-my $set_tagged_IDs = [@IDs[5..6], $IDs[8], $IDs[11]];
-$tree->tag('add', 'Europe', $set_tagged_IDs);
-my $get_tagged_IDs = [$tree->tag('has', 'Europe')];
-is_deeply($get_tagged_IDs, $set_tagged_IDs,
-    '`tag has` command should return tagged items as Perl list (not Tcl list)');
+SKIP: {
+    skip '`tag add` and `tag has` require Tcl/Tk 8.5.9 or later, '
+       . 'or Tile 0.8.4.0 for Tcl/Tk 8.4',
+        1 unless $Tcl::pTk::_Tile_ge_0840;
+    my $set_tagged_IDs = [@IDs[5..6], $IDs[8], $IDs[11]];
+    $tree->tag('add', 'Europe', $set_tagged_IDs);
+    my $get_tagged_IDs = [$tree->tag('has', 'Europe')];
+    is_deeply($get_tagged_IDs, $set_tagged_IDs,
+        '`tag has` command should return tagged items as Perl list (not Tcl list)');
+}
 
 $TOP->idletasks;
 (@ARGV) ? MainLoop : $TOP->destroy; # Persist if any args supplied, for debugging
