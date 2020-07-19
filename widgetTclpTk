@@ -162,6 +162,11 @@ if ($MW->depth  == 1) {
     $T->tagConfigure(qw/hot -relief raised -borderwidth 1 -foreground red/);
     $T->tagConfigure(qw/visited -lmargin1 1c -lmargin2 1c -foreground/ =>
 	    '#303080');
+    if ($MW->windowingsystem eq 'aqua' and $MW->interp->Eval(
+	    'package vcompare $tk_patchLevel 8.6.11') != -1) {
+	$T->tagConfigure('demo', -foreground => 'systemLinkColor');
+	$T->tagConfigure('visited', -foreground => 'purple');
+    }
 }
 $T->tagConfigure('bold', -font => 'Helvetica 12 bold');
 
