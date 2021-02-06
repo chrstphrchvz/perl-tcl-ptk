@@ -128,6 +128,9 @@ my %makeArgs = (
                 url => 'https://github.com/chrstphrchvz/perl-tcl-ptk.git',
                 web => 'https://github.com/chrstphrchvz/perl-tcl-ptk',
             },
+            bugtracker => {
+                web => 'https://github.com/chrstphrchvz/perl-tcl-ptk/issues',
+            },
             MailingList => 'mailto:tcltk@perl.org',
         },
     },
