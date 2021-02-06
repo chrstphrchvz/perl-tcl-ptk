@@ -132,10 +132,10 @@ my %makeArgs = (
         },
     },
     PREREQ_PM => {
-	Tcl => 0.90,
-	'Class::ISA' => 0.36,
-	'Sub::Name' => 0.05,
-	'Time::HiRes' => 0,
+        'Tcl' => '0.90',
+        'Class::ISA' => '0.36',
+        'Sub::Name' => '0.05',
+        'Time::HiRes' => 0,
     }
 );
 
