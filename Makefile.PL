@@ -3,10 +3,15 @@ use strict;
 use Getopt::Long qw(GetOptions);
 use ExtUtils::MakeMaker;
 
+my $i;
+my $tk_patchLevel;
+
 sub _die ($) {
     # CPAN smokers report FAIL if Makefile.PL dies, it should exit with status 0
     my $err = shift;
     warn $err;
+    # Cleanly exit Tcl/Tk if it was loaded
+    $i->Eval('destroy .') if ($tk_patchLevel);
     exit 0;
 }
 
@@ -17,95 +22,146 @@ my @SCRIPTS   = qw( widgetTclpTk
 # Allow bypassing with --no-test-for-tk
 my $test_for_tk = 1;
 
-my $tclsh_default = 'tclsh';
-# for FreeBSD users, try to guess their name for tclsh; see ticket 6086
-if ($^O eq 'freebsd') {
-    for my $ver (qw(8.9 8.8 8.7 8.6 8.5 8.4 8.3 8.2 8.1 8.0)) {
-       system "which tclsh$ver >/dev/null 2>&1";
-       if ($? == 0) {
-	    $tclsh_default = "tclsh$ver"; # ok will use that as default
-	    last;
-	}
-    }
-}
 
 GetOptions(
-    "tclsh=s", \(my $tclsh=$tclsh_default),
     "help!",   \ my $help,
     "test-for-tk!", \$test_for_tk,
 ) || usage();
 usage() if $help;
 sub usage {
     _die <<'EOT';
-
-Usage: perl Makefile.PL [--tclsh <path>] [--no-test-for-tk] [<makemaker opts>...]
-
---tclsh option is mostly for FreeBSD users, who have tclsh8.6 or alike;
-however default autodetection should be fine with freebsd as well.
+Usage: perl Makefile.PL [--no-test-for-tk] [<makemaker opts>...]
 EOT
 }
 
 
+# Unless --no-test-for-tk was specified, check the Tcl/Tk installation
+# using Tcl.pm (which is how Tcl::pTk will use Tcl/Tk; better than
+# looking/asking for a tclsh command not necessarily from the same
+# Tcl/Tk installation used by Tcl.pm)
 if ($test_for_tk) {
-    my $res = `$tclsh test-for-tk.tcl`;
 
-    unless ($res =~ /^ok1/m) {
-        _die <<EOS;
-
-#####################  Error   ####################################
-Your Tcl installation ($tclsh) doesn't appear to include the Tk package.
-One of possible reasons is missing file 'pkgIndex.tcl' in ..../tk8.4/
-directory; Please check if you can feed 'package require Tk' to tclsh
+    # Load Tcl via Tcl.pm
+    eval {
+        require Tcl;
+        1;
+    };
+    if ($@) {
+        _die <<"EOS"
+Error: couldn't load Tcl.pm for Tcl/Tk check (use --no-test-for-tk to skip), reason: $@
 EOS
     }
+    $i = new Tcl;
+    $i->Init;
+    print STDERR "Tcl.pm $Tcl::VERSION\n";
+    printf STDERR "Tcl %s\n", $i->GetVar('tcl_patchLevel');
 
-    unless ($res =~ /^ok_Tix/m) {
+    # Check for Tcl/Tk
+    eval {
+        $tk_patchLevel = $i->Eval('package require Tk');
+        1;
+    };
+    if ($@) {
+        _die <<"EOS";
+Error: couldn't load Tcl/Tk (use --no-test-for-tk to skip), reason: $@
+EOS
+    }
+    unless ($i->Eval('package vsatisfies $tk_version 8.4')) {
+        _die <<"EOS";
+Error: Tcl/Tk $tk_patchLevel detected; Tcl/Tk 8.4 or later is required (Tcl/Tk 8.5 or later is recommended for full functionality)
+EOS
+    }
+    unless ($i->Eval('package vsatisfies $tk_version 8.5')) {
+        warn <<"EOS";
+Warning: Tcl/Tk $tk_patchLevel detected; Tcl/Tk 8.5 or later is recommended for full functionality
+EOS
+    } else {
+        printf STDERR "Tcl/Tk %s\n", $i->GetVar('tk_patchLevel');
+    }
+
+    # Check for recommended Tcl/Tk packages
+
+    my $tile_version = '';
+    eval {
+        $tile_version = $i->Eval('package require tile');
+        1;
+    };
+    if ($@) {
+        warn <<'EOS';
+Warning: Tile package not detected; Tcl/Tk 8.5.9 or Tile 0.8.4.0 for Tcl/Tk 8.4 is recommended
+EOS
+    }
+    if ($i->Eval("package vcompare $tile_version 0.8.4.0") == -1) {
+        warn <<"EOS";
+Warning: Tile $tile_version detected; Tcl/Tk 8.5.9 or Tile 0.8.4.0 for Tcl/Tk 8.4 is recommended
+EOS
+    } else {
+        print STDERR "Tile $tile_version\n";
+    }
+
+    my $tix_version = '';
+    eval {
+        $tix_version = $i->Eval('package require Tix');
+        1;
+    };
+    if ($@) {
+        warn <<'EOS';
+Warning: Tix package not detected; Tix is needed for full compatibility with Perl/Tk (information at http://tix.sourceforge.net)
+EOS
+    } else {
+        print STDERR "Tix $tix_version\n";
+    }
+
+    my $tooltip_version = '';
+    eval {
+        $tooltip_version = $i->Eval('package require tooltip');
+        1;
+    };
+    if ($@) {
         warn <<EOS;
-
-##################### Warning ####################################
-Your Tcl/Tk installation does not appear to include the Tix package.
-Tix is needed for full compatibility with perl/tk.
-Build can continue, but some functionality will be missing.
-
-Information on Tix can be found at http://tix.sourceforge.net
+Warning: tklib not detected; tklib is recommended for full functionality
 EOS
+    } else {
+        print STDERR "tklib detected\n"
+                   . "tooltip $tooltip_version\n";
     }
 
-    unless ($res =~ /^ok3/m) {
-        warn <<EOS;
+    # Check for optional Tcl/Tk packages
 
-##################### Warning ####################################
-Your Tk installation fails to find 'tklib' package.
-This package is recommended. Be informed on this and better have this package
-installed within your Tcl/Tk.
-EOS
+    my $img_version = 'N/A';
+    eval {
+        $img_version = $i->Eval('package require Img');
+        1;
+    };
+    print STDERR "Img $img_version\n";
+
+    my $bwidget_version = 'N/A';
+    eval {
+        $bwidget_version = $i->Eval('package require BWidget');
+        1;
+    };
+    print STDERR "BWidget $bwidget_version\n";
+
+    my $treectrl_version = 'N/A';
+    eval {
+        $treectrl_version = $i->Eval('package require treectrl');
+        1;
+    };
+    print STDERR "TkTreeCtrl $treectrl_version\n";
+
+    # Loading Tktable can cause crash when exiting; skip check for now
+    # https://rt.cpan.org/Ticket/Display.html?id=132278
+    if (0) {
+    my $tktable_version = 'N/A';
+    eval {
+        $tktable_version = $i->Eval('package require Tktable');
+        1;
+    };
+    print STDERR "Tktable $tktable_version\n";
     }
 
-    my ($TclVersion) = ($res =~ /TclVersion\s+(\S+)/ );
-
-    if( $TclVersion < 8.4 ){
-        _die <<EOS;
-
-##################### Error ####################################
-Your Tcl/Tk installation version is less than 8.4. This is not
-supported. Upgrade your Tcl/Tk installation.
-Tcl/Tk information can be found at http://www.tcl.tk/
-EOS
-
-    }
-
-    if( $TclVersion < 8.5 ){
-        warn <<EOS;
-
-##################### Warning ####################################
-You have an older Tcl/Tk installation (Version 8.4).
-Version 8.5 or higher is recommended for full functionality (including
-the new Tile Widget support).
-Build can continue, but some functionality will be missing.
-Tcl/Tk information can be found at http://www.tcl.tk/
-EOS
-
-    }
+    # Cleanly exit Tcl/Tk if it was loaded
+    $i->Eval('destroy .') if ($tk_patchLevel);
 }
 
 my %makeArgs = (
