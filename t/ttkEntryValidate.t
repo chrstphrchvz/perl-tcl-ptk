@@ -44,10 +44,7 @@ $TOP->after(1000, sub{
                 $e1->eventGenerate('<Key-a>'); # 
 }        );
 
-$TOP->after(2000, sub{
-                $TOP->destroy;
-}        );
-
+$TOP->after(2000, sub {$TOP->destroy}) unless (@ARGV);
 MainLoop;
 
 ok($index, -1, "Validate Command index problem");
