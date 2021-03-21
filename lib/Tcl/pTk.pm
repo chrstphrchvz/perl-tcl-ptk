@@ -946,23 +946,19 @@ sub after{
     my $callback = shift;
     
     $ms = int($ms) if( $ms =~ /\d/ ); # Make into an integer to keep tk from complaining
-    
-    if( defined($callback)){
-            # Turn into callback, if not one already
-            unless( blessed($callback) and $callback->isa('Tcl::pTk::Callback')){
-                    $callback = Tcl::pTk::Callback->new($callback);
-            }
-            
-            my $sub = sub{ $callback->Call()};
-            #print "Tcl::pTk::after: setting after on $sub\n";
-            my $ret = $int->call('after', $ms, $sub );
-            return $int->declare_widget($ret);
+
+    # If no Callback defined, just do a sleep
+    return $int->call('after', $ms) unless defined($callback);
+
+    # Turn into callback, if not one already
+    unless( blessed($callback) and $callback->isa('Tcl::pTk::Callback')){
+        $callback = Tcl::pTk::Callback->new($callback);
     }
-    else{ # No Callback defined, just do a sleep
-            return $int->call('after', $ms );
-    }
-    
-    return($int->call('after', $ms));
+
+    my $sub = sub{ $callback->Call()};
+    #print "Tcl::pTk::after: setting after on $sub\n";
+    my $ret = $int->call('after', $ms, $sub );
+    return $int->declare_widget($ret);
 }
 
 
