@@ -1624,28 +1624,7 @@ sub call {
     # A SvIV will become a Tcl_IntObj, ARRAY refs will become Tcl_ListObjs,
     # and so on.  The return result from icall will do the opposite,
     # converting a Tcl_Obj to an SV.
-    if (!$Tcl::STACK_TRACE) {
-	return $interp->icall(@args);
-    }
-    elsif (wantarray) {
-	my @res;
-	eval { @res = $interp->icall(@args); };
-	if ($@) {
-	    require Carp;
-	    Carp::confess ("Tcl error '$@' while invoking array result call:\n" .
-		"\t\"@args\"");
-	}
-	return @res;
-    } else {
-	my $res;
-	eval { $res = $interp->icall(@args); };
-	if ($@) {
-	    require Carp;
-	    Carp::confess ("Tcl error '$@' while invoking scalar result call:\n" .
-		"\t\"@args\"");
-	}
-	return $res;
-    }
+    return $interp->icall(@args);
 }
 
 #############################################################################################
