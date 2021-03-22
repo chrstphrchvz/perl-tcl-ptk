@@ -336,7 +336,8 @@ interpreter.
 
 =head3 Perl/Tk syntax
 
-C<Tcl::pTk> fully supports perl/Tk widget syntax of the L<Tk> package, which has been used for many years. This means that any C<Tcl::pTk> widget
+C<Tcl::pTk> fully supports perl/Tk widget syntax of the L<Tk> package,
+which has been used for many years. This means that any C<Tcl::pTk> widget
 has a number of methods like C<Button>, C<Frame>, C<Text>, C<Canvas> and so
 on, and invoking those methods will create an appropriate child widget.
 C<Tcl::pTk> will generate an unique path-name for a newly created widget.
@@ -381,7 +382,8 @@ compatibile with the perl/Tk syntax. Examples of this type of widget are the Tex
 =item Megawidgets
 
 These are widgets that are composed of one-or-more other base widget types. Pure-perl megawidgets are supported in Tcl::pTk,
-just like they are in perl/Tk. Examples of these types of widgets are ProgressBar, LabEntry, BrowseEntry, and SlideSwitch (one of the test cases in the source distribution).
+just like they are in perl/Tk. Examples of these types of widgets are ProgressBar, LabEntry, BrowseEntry, and SlideSwitch
+(one of the test cases in the source distribution).
 
 =item Derived Widgets
 
@@ -596,8 +598,8 @@ You can also intermix the perl/tk and Tcl/Tk syntax like this:
 
 For the documentation of standard perl/tk widgets (like Button, Entry, Menu, etc), you can refer
 to the the perl/tk docs L<Tk> (We may move a copy of the perl/tk docs to Tcl::pTk in the future). For non-standard
-widgets (like the BLTNotebook widget example above) you have to use the Tcl docs on the widget for the widget documentation. (Most Tcl/Tk
-docs can be found at http://www.tcl.tk/ )
+widgets (like the BLTNotebook widget example above) you have to use the Tcl docs on the widget for the widget documentation.
+(Most Tcl/Tk docs can be found at http://www.tcl.tk/ )
 
 When reading Tcl/Tk widget documentation about widgets, you can apply the following guidelines to determine how
 to use the widget in C<Tcl::pTk> using perl/tk syntax.
@@ -679,8 +681,8 @@ and widget-elements.
 
 =head1 Terminology
 
-In the documentation and comments for this package, I<perl/Tk>, I<Tcl/Tk>, I<Tcl::pTk>, I<Tcl.pm>, and I<Tcl> are used. These terms have the
-following meanings in the context of this package.
+In the documentation and comments for this package, I<perl/Tk>, I<Tcl/Tk>, I<Tcl::pTk>, I<Tcl.pm>, and I<Tcl> are used.
+These terms have the following meanings in the context of this package.
 
 =over 1
 
