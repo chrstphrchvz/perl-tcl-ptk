@@ -1,8 +1,10 @@
 Summary of Changes to Tcl::pTk
 
-Release 1.08_02:  2021-mm-dd
+Release 1.08_02:  2021-04-04
 
  * Specify GitHub issues as bugtracker
+ * Avoid requiring sys/ioctl.ph for emulated fileevent
+   on BSD and macOS (RT #125662)
 
 Release 1.08_01:  2020-07-18
 

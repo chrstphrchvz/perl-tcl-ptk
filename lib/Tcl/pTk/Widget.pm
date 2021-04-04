@@ -8,6 +8,7 @@ package Tcl::pTk::Widget;
 
 our ($VERSION) = ('1.08_02');
 
+use Config;
 use IO::Handle; 
 
 use Class::ISA;  # Used for finding the base class of a derived widget
@@ -2134,7 +2135,21 @@ sub Unbusy
 #   TODO. Modify the Tcl package to support the Tcl's CreateFileHandler sub so we can implement
 #         fileevent similar to the way perl/tk and python's tkinter does it.
 
-if ( $^O ne 'MSWin32') {
+if (
+    $^O eq 'darwin' or
+    $^O eq 'dragonfly' or
+    $^O eq 'freebsd' or
+    $^O eq 'netbsd' or
+    $^O eq 'openbsd'
+) {
+    # FIONREAD has not changed on BSD OSes; try computing it
+    # rather than requiring sys/ioctl.ph (often unavailable)
+    # See https://rt.cpan.org/Ticket/Display.html?id=125662
+    *FIONREAD = sub {
+        # See <sys/filio.h> and <sys/ioccom.h>
+        return (0x40000000 | ($Config{'intsize'} << 16) | (ord('f') << 8) | 127);
+    };
+} elsif ( $^O ne 'MSWin32'){
     # Include ioctl defaults for non-Windows
     eval { require 'sys/ioctl.ph'; 1; } or do {
         # Store any error for later (e.g. sys/ioctl.ph unavailable)
