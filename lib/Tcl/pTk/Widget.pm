@@ -2134,12 +2134,12 @@ sub Unbusy
 #   TODO. Modify the Tcl package to support the Tcl's CreateFileHandler sub so we can implement
 #         fileevent similar to the way perl/tk and python's tkinter does it.
 
-# Include ioctl defaults for non-windows
-unless( $^O eq 'MSWin32'){
-    eval { require 'sys/ioctl.ph' };
-    # Store any error for later
-    # (e.g. no sys/ioctl.ph available)
-    $Tcl::pTk::_FE_unavailable = $@;
+if ( $^O ne 'MSWin32') {
+    # Include ioctl defaults for non-Windows
+    eval { require 'sys/ioctl.ph'; 1; } or do {
+        # Store any error for later (e.g. sys/ioctl.ph unavailable)
+        $Tcl::pTk::_FE_unavailable = $@ || 'unknown error';
+    };
 }
 
 sub fileevent{
