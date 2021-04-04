@@ -18,7 +18,9 @@ my $e1 = $TOP->Entry( -textvariable => \$perlscalar)->pack();
 $TOP->traceVariable( \$perlscalar, 'wr' => \&update_sub );
 
 # Testing of reading the perl variable (should trigger a read from Tcl)
-$TOP->after(1000, sub{ $e1->insert("end", "new value")});
+$TOP->after(1000, sub {
+        $e1->insert('end', 'new value');
+});
 
 $TOP->after(2000, 
         sub{ 
