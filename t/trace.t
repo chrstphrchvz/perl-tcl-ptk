@@ -40,7 +40,7 @@ $TOP->after(5000, sub{
         $TOP->traceVdelete(\$perlscalar);
         $e1->insert("end", "321");
         ok( $perlscalar,   "new value2321", "variable tie from tcl to perl after traceVdelete");
-        $TOP->destroy;
+        $TOP->destroy unless (@ARGV);
 });
 
 MainLoop();
