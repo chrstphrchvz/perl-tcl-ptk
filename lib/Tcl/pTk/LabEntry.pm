@@ -4,7 +4,7 @@
 
 package Tcl::pTk::LabEntry;
 
-our ($VERSION) = ('1.08_01');
+our ($VERSION) = ('1.08_02');
 
 use warnings;
 use strict;

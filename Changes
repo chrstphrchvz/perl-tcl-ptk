@@ -1,5 +1,9 @@
 Summary of Changes to Tcl::pTk
 
+Release 1.08_02:  2021-mm-dd
+
+ * Specify GitHub issues as bugtracker
+
 Release 1.08_01:  2020-07-18
 
  * Add internal variable $Tcl::pTk::_Tile_ge_0840 to indicate whether Tile/Ttk

@@ -1,6 +1,6 @@
 package Tcl::pTk::Tile;
 
-our ($VERSION) = ('1.08_01');
+our ($VERSION) = ('1.08_02');
 
 use strict;
 use warnings;
