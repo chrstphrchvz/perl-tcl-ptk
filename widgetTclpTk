@@ -99,14 +99,16 @@ eval {
     7vL4CGiRvvKPS8FAvq9Nr4ZkFadR2y6kggu1z4vlyIbBp6BugQ8JLEg4bTkD9eMZ
     QZ8hpJ3VvTtuvbWrY/ElvP/9R+Aj3603+iE3fkEAAAAASUVORK5CYII=},
     );
-};
-$imageNew = $MW->Photo('imageNew', -format => 'GIF', -data => q{
+    1;
+} or do {
+    $imageNew = $MW->Photo('imageNew', -format => 'GIF', -data => q{
     R0lGODlhHgAOALMPALMAANyIiOu7u8dEROaqqvru7sxVVeGZmbgREfXd3b0iItZ3
     d8IzM9FmZvDMzP///yH5BAEAAA8ALAAAAAAeAA4AAASa8MlJq7046827WVOCHEkw
     nANhUgJlEBIABJIwL3K+4IcUALCHjfbItYZDSgJgkBiYPmBMAUAkkLPKs/BAyLgM
     wAQwOAAY2ByCaw4QAFQSoDEePJ6DmU1xInYZTw5nOEFFdgVUelkVDTIMd3AKFGQ1
     MgI2AwEmQW8APZ0gdRONAks5nhIFVVxdAAkUAS2pAVwFl7ITB4UqHb0XEQA7},
-) if ($@);
+    );
+};
 
 # The code below creates the main window, consisting of a menu bar
 # and a text widget that explains how to use the program, plus lists
