@@ -5,7 +5,7 @@ use Tcl::pTk::ttkTixNoteBook;
 
 package Tcl::pTk::Facelift;
 
-our ($VERSION) = ('1.08_02');
+our ($VERSION) = ('1.08_03');
 
 =head1 NAME
 

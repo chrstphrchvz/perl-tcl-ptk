@@ -1,6 +1,6 @@
 package Tcl::pTk::Photo;
 
-our ($VERSION) = ('1.08_02');
+our ($VERSION) = ('1.08_03');
 
 use warnings;
 use strict;
