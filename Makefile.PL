@@ -139,7 +139,7 @@ my %makeArgs = (
         'Class::ISA' => '0.36',
         'Sub::Name' => '0.05',
         'Time::HiRes' => 0,
-    }
+    },
 );
 
 # Remove META_MERGE parameter for older versions of ExtUtils::MakeMaker
