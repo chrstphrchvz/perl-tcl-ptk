@@ -204,6 +204,10 @@ sub Tcl::pTk::ttkTreeview::tag {
     my $self = shift;
     $self->call($self->path, 'tag', @_);
 }
+sub Tcl::pTk::ttkTreeview::cellselection {
+    my $self = shift;
+    $self->call($self->path, 'cellselection', @_);
+}
 
 1;
 
