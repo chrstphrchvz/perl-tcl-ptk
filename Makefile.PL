@@ -140,6 +140,9 @@ my %makeArgs = (
         'Sub::Name' => '0.05',
         'Time::HiRes' => 0,
     },
+    TEST_REQUIRES => {
+        'Test::Deep' => 0,
+    },
 );
 
 # Remove META_MERGE parameter for older versions of ExtUtils::MakeMaker
@@ -148,6 +151,7 @@ my $MMversion = $ExtUtils::MakeMaker::VERSION;
 $MMversion =~ s/_\d+$//; # Get rid of underscores in the version for numeric compare
 delete $makeArgs{META_MERGE} if( $MMversion < 6.45 );
 delete $makeArgs{MIN_PERL_VERSION} if ( $MMversion < 6.48 );
+delete $makeArgs{TEST_REQUIRES} if ( $MMversion < 6.64 );
 
 WriteMakefile(
 %makeArgs

@@ -6,6 +6,7 @@ use strict;
 use Tcl::pTk;
 
 use Test::More;
+use Test::Deep;
 
 
 my $TOP = MainWindow->new;
@@ -16,7 +17,7 @@ unless ($Tcl::pTk::_Tile_available) {
     plan skip_all => 'Tile unavailable';
 }
 
-plan tests => 6;
+plan tests => 8;
 
 my $msg = $TOP->ttkLabel( -text => 
         "Ttk is the new Tk themed widget set. One of the widgets it includes is a tree widget, which can be configured to display multiple columns of informational data without displaying the tree itself. This is a simple way to build a listbox that has multiple columns. Clicking on the heading for a column will sort the data by that column. You can also change the width of the columns by dragging the boundary between them.",
@@ -124,6 +125,38 @@ SKIP: {
     my $get_tagged_IDs = [$tree->tag('has', 'Europe')];
     is_deeply($get_tagged_IDs, $set_tagged_IDs,
         '`tag has` command should return tagged items as Perl list (not Tcl list)');
+}
+
+# Test cellselection command
+SKIP: {
+    skip '`cellselection` requires Tcl/Tk 8.7 or later',
+        2 if $TOP->interp->Eval(sprintf('catch {%s cellselection}',
+                $tree->Subwidget('scrolled')->PathName));
+
+    # set using selection list
+    my $set_selected_cells = [
+        [$IDs[10], 'country'],
+        [$IDs[12], 'capital'],
+        [$IDs[14], 'currency'],
+    ];
+    $tree->cellselection('set', $set_selected_cells);
+    my $get_selected_cells = [$tree->cellselection()];
+    cmp_deeply($get_selected_cells, noclass($set_selected_cells),
+        '`cellselection` command should return selected items as Perl list (not Tcl list)'
+      . ' (set using selection list)');
+
+    # set using rectangular selection
+    $set_selected_cells = [
+        [$IDs[11], 'capital'],
+        [$IDs[11], 'currency'],
+        [$IDs[12], 'capital'],
+        [$IDs[12], 'currency'],
+    ];
+    $tree->cellselection('set', [$IDs[11], 'capital'], [$IDs[12], 'currency']);
+    $get_selected_cells = [$tree->cellselection()];
+    cmp_deeply($get_selected_cells, noclass($set_selected_cells),
+        '`cellselection` command should return selected items as Perl list (not Tcl list)'
+      . ' (set using rectangular selection)');
 }
 
 $TOP->idletasks;
