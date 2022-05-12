@@ -18,6 +18,9 @@ my $lb = $mw->Listbox->pack;
 $lb->configure(-yscrollcommand =>  \&bogus);
 $lb->insert(qw/0 foo/);
 $lb->update;
+# send <Expose> to workaround https://core.tcl-lang.org/tk/info/f16cdb6d04
+$lb->eventGenerate('<Expose>');
+$lb->update;
 
 $mw->after(2000, [$mw, 'destroy']);
 MainLoop;

@@ -23,7 +23,7 @@ open(my $stderr, '>', 'serr.out');
 my $lb = $mw->Listbox->pack;
 $lb->configure(-yscrollcommand =>  \&bogus);
 $lb->insert(qw/0 foo/);
-$lb->update;
+$lb->update; $lb->eventGenerate('<Expose>'); $lb->update; # send <Expose> to workaround https://core.tcl-lang.org/tk/info/f16cdb6d04
 $ok3_line = __LINE__ - 1; # Line to look for in error output
 
 $mw->after(2000, [$mw, 'destroy']);

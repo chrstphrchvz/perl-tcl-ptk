@@ -3,6 +3,8 @@ Summary of Changes to Tcl::pTk
 1.08_03  2021-mm-dd
 
  * Support ttk::treeview `cellselection` command (Tk 8.7 TIP 552)
+ * Workaround Tk Aqua bug f16cdb6d04 in bgerror1.t, tkHijack_bgerror1.t,
+   and tkHijack_bgerror3.t
 
 1.08_02  2021-04-04
 
