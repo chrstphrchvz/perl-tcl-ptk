@@ -15,12 +15,12 @@ my $top = MainWindow->new(-title => 'MessageBox Test');
 
 
 # We use a convoluted way of exiting here without interaction, because
-#  of different behavior on win32 vs linux
+#  of different behavior on win32 vs X11
 $top->after(1000, 
         sub{
-                if( $^O ne 'MSWin32' ){
+                if( $top->windowingsystem eq 'x11' ){
                         ok(1); 
-                        exit(); # No using $top->destroy here, because we get grab error messages on linux
+                        exit(); # No using $top->destroy here, because we get grab error messages on X11
                                 #  But if we use this on windows, we get crashes.
 
                 }
