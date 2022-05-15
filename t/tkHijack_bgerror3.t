@@ -25,7 +25,7 @@ $lb->update;
 $mw->after(2000, [$mw, 'destroy']);
 MainLoop;
 
-ok( $errorMess =~ /Got An Error/);
+ok( $errorMess, qr/Got An Error/);
 
 sub Tk::Error{
         

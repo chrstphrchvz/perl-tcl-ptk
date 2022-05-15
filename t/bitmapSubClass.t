@@ -37,7 +37,7 @@ ok($type, 'bitmap', 'Unexpected type');
 # Make sure image names returns a Photo object.
 my @names = $mw->imageNames();
 #print "Names = ".join(", ", @names)."\n";
-ok(ref($names[0]) =~ /Bitmap/i); # Check for image name being a image object
+ok(ref($names[0]), qr/Bitmap/i, 'Check for image name being a image object');
 
 my @types = $mw->imageTypes;
 #print "imageTypes = ".join(", ", @types)."\n";

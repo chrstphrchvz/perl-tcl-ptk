@@ -44,8 +44,8 @@ while( <INFILE> ){
 close INFILE;
 
 # Check error messages for key components
-ok( $errMessages =~ /Undefined subroutine\s+\&main\:\:bogus/);
-ok( $errMessages =~ /vertical scrolling command executed by listbox/);
-ok( $errMessages =~ /Error Started at $ok_file line $ok3_line/);
+ok( $errMessages, qr/Undefined subroutine\s+\&main\:\:bogus/);
+ok( $errMessages, qr/vertical scrolling command executed by listbox/);
+ok( $errMessages, qr/Error Started at $ok_file line $ok3_line/);
 
 unlink 'serr.out';
