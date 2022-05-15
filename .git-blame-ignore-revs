@@ -1,3 +1,5 @@
 # .git-blame-ignore-revs
+# Changed text files to be all unix ascii.
+9a355ad7a5b47e74958ebf486441eef24d9e483b
 # use Unix line endings (LF)
 afde262bccf0a27cba5a8dda3bfdc9ef259ea24c
