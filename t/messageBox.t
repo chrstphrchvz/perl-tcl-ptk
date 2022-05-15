@@ -13,6 +13,12 @@ plan tests => 1;
 
 my $top = MainWindow->new(-title => 'MessageBox Test');
 
+if ($top->windowingsystem eq 'aqua') {
+        skip('See https://github.com/chrstphrchvz/perl-tcl-ptk/issues/25');
+        $top->idletasks;
+        $top->destroy;
+        exit;
+}
 
 # We use a convoluted way of exiting here without interaction, because
 #  of different behavior on win32 vs X11
