@@ -19,10 +19,12 @@ my $top = MainWindow->new(-title => 'MessageBox Test');
 $top->after(1000, 
         sub{
                 if( $top->windowingsystem eq 'x11' ){
-                        ok(1); 
-                        exit(); # No using $top->destroy here, because we get grab error messages on X11
-                                #  But if we use this on windows, we get crashes.
-
+                        # No using $top->destroy here, because we get grab error messages on X11
+                        my $msgbox = $top->interp->widget(
+                                '.__tk__messagebox',  # implementation detail; see msgbox.tcl
+                                'Tcl::pTk::Toplevel',
+                        );
+                        $msgbox->destroy;
                 }
                 else{
                         $top->destroy(); # This works without errors on windows
