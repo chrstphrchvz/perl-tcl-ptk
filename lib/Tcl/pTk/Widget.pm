@@ -1110,6 +1110,14 @@ sub Darken {
     sprintf('#%02x%02x%02x',$red,$green,$blue);
 }
 
+sub Widget {
+    my $self = shift;
+    my $pathname = shift;
+    my $interp = $self->interp;
+    return $interp->mainwindow if $pathname eq '.';
+    return $interp->widget($pathname) if $interp->icall('winfo', 'exists', $pathname);
+    return undef;
+}
 sub PathName {
     my $wid = shift;
     return $wid->path;
