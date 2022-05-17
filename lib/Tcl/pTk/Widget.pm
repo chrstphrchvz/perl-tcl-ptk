@@ -1925,17 +1925,18 @@ sub declareAutoWidget{
 #    Input: Widget Name
 sub setAutoWidgetISAs{
     my $widgetname = shift;
+    my $widgetISA = "Tcl::pTk::${widgetname}::ISA";
 
     no strict 'refs'; # Allow us to refer to package ISAs variables by string
     
-    unless( @{"Tcl::pTk::${widgetname}::ISA"} ){ # only create ISA if it is empty (i.e. hasn't been set)
+    unless( @{$widgetISA} ){ # only create ISA if it is empty (i.e. hasn't been set)
             if( defined($ptk2tcltk_ISAs{$widgetname})){ # Use lookup table, if it is there 
                     my $ISAentry = $ptk2tcltk_ISAs{$widgetname};
-                    @{"Tcl::pTk::${widgetname}::ISA"} = @$ISAentry;
+                    @{$widgetISA} = @$ISAentry;
                     #print STDERR "Declaring autowidget $widgetname ".join(", ", @$ISAentry)."\n";
             }
             else{ # Not defined in table, use default
-                    @{"Tcl::pTk::${widgetname}::ISA"} = qw(Tcl::pTk::Widget);                    
+                    @{$widgetISA} = qw(Tcl::pTk::Widget);
                     #print STDERR "Declaring Default autowidget $widgetname Tcl::pTk::Widget\n";
             }
     }
