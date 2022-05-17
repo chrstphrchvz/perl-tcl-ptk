@@ -1666,7 +1666,7 @@ sub _addcascade {
     # Create submenu with predefined naming convention ($mnu.m+1), so we can return it
     #  if the menu method is called on the menu button
     my $entries = $mnu->index('end');
-    $entries = -1 if ($entries eq 'none');
+    $entries = -1 if (!defined($entries) or $entries eq 'none');
     $entries++;
     my $smnu = $int->widget($mnu->call('menu',"$mnu.m$entries"), "Tcl::pTk::Menu");
     #my $smnu = $mnu->Menu; # return unique widget id

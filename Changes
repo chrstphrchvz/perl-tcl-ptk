@@ -9,6 +9,7 @@ Summary of Changes to Tcl::pTk
    and tkHijack_bgerror1.t
  * Implement $w->Widget() method
  * Improve $w->imageNames() method; fix bitmapSubClass.t and photoSubClass.t
+ * Fix Tcl::pTk::Widget::_addcascade() for Tk 8.7
 
 1.08_02  2021-04-04
 
