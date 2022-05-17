@@ -23,7 +23,7 @@ sub new
  my $leaf = $package->Tk_image;
  my $obj = $int->declare_widget($widget->call('image','create', $leaf, @_),
          $package);
- return bless $obj,$package;
+ return $obj;
 }
 
 sub Install
