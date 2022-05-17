@@ -12,7 +12,7 @@ my $mw  = MainWindow->new();
 $mw->geometry('+100+100');
 
 # This will skip if Img not present
-my $imagePresent = $mw->interp->pkg_require('Img');
+my $imagePresent = defined($Tcl::pTk::VERSION) && $mw->interp->pkg_require('Img');
 
 
 plan tests => 7;
