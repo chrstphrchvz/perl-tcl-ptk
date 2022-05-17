@@ -10,7 +10,7 @@ use Scalar::Util qw/refaddr/;
 #use Tk;
 use Tcl::pTk;
 
-plan tests => 5;
+plan tests => 6, todo => [6];
 
 my $mw = MainWindow->new;
 $mw->idletasks;
@@ -24,5 +24,19 @@ ok(ref($e_ref), ref($e));
 ok(refaddr($e_ref), refaddr($e));
 
 ok($mw->Widget('.bogus'), undef);
+
+skip(!defined $Tcl::pTk::VERSION, sub {
+    my $result;
+    $mw->after(1000, sub {
+        # Manually-wrapped toplevel
+        my $msgbox = $mw->Widget(
+            '.__tk__messagebox', # implementation detail; see msgbox.tcl
+        );
+        $result = ref($msgbox);
+        $msgbox->destroy;
+    });
+    $mw->interp->Eval('::tk::MessageBox');
+    return $result;
+}, 'Tcl::pTk::Toplevel');
 
 (@ARGV) ? MainLoop : $mw->destroy;
