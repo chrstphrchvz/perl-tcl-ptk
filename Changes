@@ -8,6 +8,7 @@ Summary of Changes to Tcl::pTk
  * Workaround Tk Aqua bug fc5073a451 in mainloopMult.t, multMainWindow1.t,
    and tkHijack_bgerror1.t
  * Implement $w->Widget() method
+ * Improve $w->imageNames() method; fix bitmapSubClass.t and photoSubClass.t
 
 1.08_02  2021-04-04
 

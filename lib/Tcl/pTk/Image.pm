@@ -53,8 +53,8 @@ sub Tcl::pTk::Widget::imageNames
  foreach my $name(@names){
          my $type = $w->call('image', 'type', $name);
          $type = ucfirst($type);
-         my $package = "Tcl::pTk::Widget::$type";
-         my $obj = $w->interp->declare_widget($name, $package);
+         my $package = "Tcl::pTk::$type";
+         my $obj = $w->interp->widget($name, $package);
 
          push @imageObj, $obj;
  }
