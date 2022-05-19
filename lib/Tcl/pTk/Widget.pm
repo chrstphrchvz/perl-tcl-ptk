@@ -364,14 +364,14 @@ sub cget {
     if( defined($option) && !ref($option) && ( $option =~ /^-\w+/ )){
             if( $option =~ /command|cmd$/  ){ # Check the option for something like -command
         
-                    # Retreive callback from the configuration store of the widget
+                    # Retrieve callback from the configuration store of the widget
                     #   This is to be compatible with perltk's method of storing subrefs as callback objects
                     #     (as opposed to raw subrefs)
                     return $self->Tcl::pTk::Derived::_cget(@args);
             }
             if( $option =~ /variable$/) { # Check the option for something like -textvariable
-                    # Retreive scalar ref from the configuration store of the widget
-                    #   This is to be compatible with perltk way of being able to retreive the scalar
+                    # Retrieve scalar ref from the configuration store of the widget
+                    #   This is to be compatible with perltk way of being able to retrieve the scalar
                     #     -textvariable using a cget call.
                     return $self->Tcl::pTk::Derived::_cget(@args);
             }
@@ -1259,7 +1259,7 @@ sub repeat
 #################################################
 
 #
-# Getimage compatability routine
+# Getimage compatibility routine
 #
 
 my %image_formats =
