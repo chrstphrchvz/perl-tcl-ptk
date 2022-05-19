@@ -1,6 +1,6 @@
 package Tcl::pTk::Configure;
 
-our ($VERSION) = ('1.08_03');
+our ($VERSION) = ('1.09');
 
 use Carp;
 

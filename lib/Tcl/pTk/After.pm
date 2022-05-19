@@ -6,7 +6,7 @@
 
 package Tcl::pTk::After;
 
-our ($VERSION) = ('1.08_03');
+our ($VERSION) = ('1.09');
 
 use warnings;
 use strict;
