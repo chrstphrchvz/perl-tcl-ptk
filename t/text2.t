@@ -16,17 +16,7 @@ use warnings;
 use strict;
 use Tcl::pTk;
 
-BEGIN {
-    if (!eval q{
-	use Test::More;
-	1;
-    }) {
-	print "1..0 # skip no Test::More module\n";
-	exit;
-    }
-}
-
-plan tests => 6;
+use Test::More tests => 6;
 
 my $mw = MainWindow->new;
 $mw->geometry("+10+10");
