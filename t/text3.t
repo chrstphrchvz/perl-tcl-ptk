@@ -100,14 +100,4 @@ $t->deleteSelected();
 $contents = $t->Contents();
 ok( $contents, 'This is bogus, dude'."\n");
 
-# Quit after two seconds
-$top->after(2000,
-        sub{
-                
-                $top->destroy;
-        });
-
-
-MainLoop;
-
-
+(@ARGV) ? MainLoop : $top->destroy;
