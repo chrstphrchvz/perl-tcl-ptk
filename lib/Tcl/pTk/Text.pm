@@ -562,7 +562,7 @@ sub Contents
   }
  else
   {
-   return $w->get('1.0','end');
+   return $w->get('1.0','end -1c');
   }
 }
 
