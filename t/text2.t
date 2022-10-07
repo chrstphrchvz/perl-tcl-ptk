@@ -42,8 +42,7 @@ $mw->geometry("+10+10");
 }
 
 
-TODO: {
-    local $TODO = 'Contents() method not yet consistent with Perl/Tk';
+{
     my $t = $mw->Scrolled(qw(Text -width 20 -height 10))->pack;
     is $t->Contents, '', 'fresh Tcl::pTk::Text is empty';
     $t->Contents('newline-less');

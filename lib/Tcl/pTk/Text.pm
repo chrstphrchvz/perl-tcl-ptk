@@ -1077,6 +1077,11 @@ sub _expandModeFlag {
   return $mode;
 }
 
+sub get {
+    my $self = shift;
+    # Note that empty string is returned (as done by Perl/Tk) rather than undef.
+    return $self->interp->invoke($self->path, 'get', @_);
+}
 
 1;
 
