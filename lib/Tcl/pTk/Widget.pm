@@ -1070,6 +1070,42 @@ sub messageBox {
     # addition to Tk's standard all-lc in/out.
     $args{'-type'} = lc $args{'-type'} if defined $args{'-type'};
     $args{'-default'} = lc $args{'-default'} if defined $args{'-default'};
+    if ($self->tclVersion eq '8.4' and $self->windowingsystem eq 'x11') {
+	# Tcl/Tk bugs 987169 and 3154705 were never fixed for tk_messageBox in 8.4,
+	# so try patching at runtime (adapting some logic from ::tk::MessageBox).
+	my %cancel_map = (
+		abortretryignore => 'abort',
+		ok => 'ok',
+		okcancel => 'cancel',
+		retrycancel => 'cancel',
+		yesno => 'no',
+		yesnocancel => 'cancel',
+	)
+	my $cancel = $cancel_map{$args{'-type'}};
+	my $parent_exists = $self->interp->invoke('winfo', 'exists', $args{'-parent'});
+	if (defined $cancel and $parent_exists) {
+	    my $w = ($args{'-parent'} ne '.')
+		? $args{'-parent'}.'__tk__messagebox'
+		: '.__tk__messagebox';
+	    $self->interp->Eval(<<"EOS", Tcl::EVAL_GLOBAL);
+after 0 {
+    wm protocol $w WM_DELETE_WINDOW [list $w.$cancel invoke]
+
+    # Invoke the designated cancelling operation
+    bind $w <Escape> [list tk::ButtonInvoke $w.$cancel]
+
+    # At <Destroy> the buttons have vanished, so must do this directly.
+    bind $w.msg <Destroy> {
+	# Can't unconditionally set ::tk::Priv(button) (as done by Tcl/Tk 8.5)
+	if {![info exists ::tk::Priv(button)]} {
+	    set ::tk::Priv(button) $cancel
+	}
+    }
+}
+EOS
+	    $self->interp->UnsetVar('::tk::Priv(button)', Tcl::GLOBAL_ONLY);
+	}
+    }
     my $retVal = $self->call('tk_messageBox', %args);
     if( $retVal ){
             $retVal = ucfirst($retVal); # response is first char upper case
