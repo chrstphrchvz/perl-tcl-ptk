@@ -123,6 +123,7 @@ $translateList = {
 #       Construct Tcl::pTk::Widget 'SlideSwitch'
 #
 $packageAliases = {
+        'Tk::widgets' => 'Tcl::pTk::widgets',
         'Tk::Frame' => 'Tcl::pTk::Frame',
         'Tk::Toplevel' => 'Tcl::pTk::Toplevel',
         'Tk::MainWindow' => 'Tcl::pTk::MainWindow',

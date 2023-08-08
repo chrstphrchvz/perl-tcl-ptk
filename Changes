@@ -2,6 +2,11 @@ Summary of Changes to Tcl::pTk
 
 1.10_01  2023-08-dd
 
+ * https://github.com/chrstphrchvz/perl-tcl-ptk/issues/26
+   Fix TkHijack error during `use Tk::widgets qw(…)` in Perl 5.39.1:
+
+     Attempt to call undefined import method with arguments via package "Tk::widgets"
+     (Perhaps you forgot to load the package?)
 
 1.10  2022-10-07
 
