@@ -1,6 +1,6 @@
 package Tcl::pTk::Trace;
 
-our ($VERSION) = ('1.10');
+our ($VERSION) = ('1.10_01');
 
 use Carp;
 use Tcl::pTk::Tie::Watch;
