@@ -39,6 +39,7 @@ sub import
   {
    local $SIG{__DIE__} = \&Carp::croak;
    # carp "$_ already loaded" if (exists $INC{"Tk/$_.pm"});
+   next if ref $$Tcl::pTk::Widget::_ptk2tcltk{$_} eq 'ARRAY';
    require "Tcl/pTk/$_.pm";
   }
 }

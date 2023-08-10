@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 use Test;
-BEGIN { plan tests => 9, todo => [4..9] };
+BEGIN { plan tests => 9 };
 
 #use Tk;
 use Tcl::pTk;
