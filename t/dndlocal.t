@@ -104,9 +104,7 @@ my $destItem = $lb_dest->get(0);
 ok($destItem, 'Label2', "Unexpected value for dest label");
 
 
-$top->after(1000, sub{ $top->destroy }) unless (@ARGV); # Persist if any args supplied, for debugging
-
-MainLoop;
+(@ARGV) ? MainLoop : $top->destroy; # Persist if any args supplied, for debugging
 
 sub StartDrag {
     my($token) = @_;
