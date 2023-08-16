@@ -45,12 +45,12 @@ if ($test_for_tk) {
     eval {
         require Tcl;
         1;
-    };
-    if ($@) {
+    } or do {
+        my $error = $@ || 'Unknown error';
         _die <<"EOS"
-Error: couldn't load Tcl.pm for Tcl/Tk check (use --no-test-for-tk to skip), reason: $@
+Error: couldn't load Tcl.pm for Tcl/Tk check (use --no-test-for-tk to skip), reason: $error
 EOS
-    }
+    };
     $i = new Tcl;
     $i->Init;
     print STDERR "Tcl.pm $Tcl::VERSION\n";
@@ -60,12 +60,12 @@ EOS
     eval {
         $tk_patchLevel = $i->Eval('package require Tk');
         1;
-    };
-    if ($@) {
+    } or do {
+        my $error = $@ || 'Unknown error';
         _die <<"EOS";
-Error: couldn't load Tcl/Tk (use --no-test-for-tk to skip), reason: $@
+Error: couldn't load Tcl/Tk (use --no-test-for-tk to skip), reason: $error
 EOS
-    }
+    };
     unless ($i->Eval('package vsatisfies $tk_version 8.4')) {
         _die <<"EOS";
 Error: Tcl/Tk $tk_patchLevel detected; Tcl/Tk 8.4 or later is required (Tcl/Tk 8.5 or later is recommended for full functionality)
@@ -85,12 +85,9 @@ EOS
     eval {
         $tile_version = $i->Eval('package require tile');
         1;
-    };
-    if ($@) {
-        warn <<'EOS';
+    } or warn <<'EOS';
 Warning: Tile package not detected; Tcl/Tk 8.5.9 or Tile 0.8.4.0 for Tcl/Tk 8.4 is recommended
 EOS
-    }
     if ($i->Eval("package vcompare $tile_version 0.8.4.0") == -1) {
         warn <<"EOS";
 Warning: Tile $tile_version detected; Tcl/Tk 8.5.9 or Tile 0.8.4.0 for Tcl/Tk 8.4 is recommended
@@ -102,29 +99,21 @@ EOS
     my $tix_version = '';
     eval {
         $tix_version = $i->Eval('package require Tix');
+        print STDERR "Tix $tix_version\n";
         1;
-    };
-    if ($@) {
-        warn <<'EOS';
+    } or warn <<'EOS';
 Warning: Tix package not detected; Tix is needed for full compatibility with Perl/Tk (information at http://tix.sourceforge.net)
 EOS
-    } else {
-        print STDERR "Tix $tix_version\n";
-    }
 
     my $tooltip_version = '';
     eval {
         $tooltip_version = $i->Eval('package require tooltip');
-        1;
-    };
-    if ($@) {
-        warn <<EOS;
-Warning: tklib not detected; tklib is recommended for full functionality
-EOS
-    } else {
         print STDERR "tklib detected\n"
                    . "tooltip $tooltip_version\n";
-    }
+        1;
+    } or warn <<'EOS';
+Warning: tklib not detected; tklib is recommended for full functionality
+EOS
 
     # Check for optional Tcl/Tk packages
 
