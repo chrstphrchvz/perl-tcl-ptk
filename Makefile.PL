@@ -66,11 +66,6 @@ EOS
 Error: couldn't load Tcl/Tk (use --no-test-for-tk to skip), reason: $error
 EOS
     };
-    unless ($i->Eval('package vsatisfies $tk_version 8.4')) {
-        _die <<"EOS";
-Error: Tcl/Tk $tk_patchLevel detected; Tcl/Tk 8.4 or later is required (Tcl/Tk 8.5 or later is recommended for full functionality)
-EOS
-    }
     unless ($i->Eval('package vsatisfies $tk_version 8.5')) {
         warn <<"EOS";
 Warning: Tcl/Tk $tk_patchLevel detected; Tcl/Tk 8.5 or later is recommended for full functionality
