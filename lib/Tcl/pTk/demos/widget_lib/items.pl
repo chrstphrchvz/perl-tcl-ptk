@@ -187,21 +187,21 @@ sub items {
     $c->CanvasBind('<B1-Motion>' => [\&items_drag, Ev('x'), Ev('y'), \%iinfo]);
 
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<2>' : '<3>' => 
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>' =>
             [sub {shift->scan('mark', shift, shift)}, Ev('x'), Ev('y') ],
     ); 
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<B2-Motion>' : '<B3-Motion>' =>
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B2-Motion>' : '<B3-Motion>' =>
             [ sub {shift->scan('dragto', shift, shift )}, Ev('x'), Ev('y') ],
     ); 
     
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<3>' : '<2>' =>
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>' =>
             [\&items_mark,  Ev('x'), Ev('y'), \%iinfo],
     );
 
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<B3-Motion>' : '<B2-Motion>' =>
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B3-Motion>' : '<B2-Motion>' =>
             [\&items_stroke,  Ev('x'), Ev('y'), \%iinfo],
     );
 

@@ -45,12 +45,12 @@ sub cscroll {
     $c->bind('all', '<1>' => \&cscroll_button);
 
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<2>' : '<3>' => [
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>' => [
             scanMark => Ev('x'), Ev('y'),
         ],
     );
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' ? '<B2-Motion>' : '<B3-Motion>' => [
+        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1)? '<B2-Motion>' : '<B3-Motion>' => [
             scanDragto => Ev('x'), Ev('y'),
         ],
     );

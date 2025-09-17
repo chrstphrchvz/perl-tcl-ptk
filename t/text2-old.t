@@ -73,7 +73,7 @@ You can also bind commands to tags. Like press the right mouse button for menu "
 
 $t->tagBind(
     "underline",
-    $t->windowingsystem ne 'aqua' ? '<3>' : '<2>',
+    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
     [sub { shift; shift->Post(@_)},$m,Ev('x'),Ev('y')],
 );
 
@@ -89,7 +89,7 @@ ok(ref($m2), 'Tcl::pTk::Menu', "entrycget -menu returns widget ref");
 # Check return of 2-arg bind for items
 my $bindRet = $t->tagBind(
     'underline',
-    $t->windowingsystem ne 'aqua' ? '<3>' : '<2>',
+    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
 );
 #print "bindRet = $bindRet\n";
 ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
@@ -97,7 +97,7 @@ ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
 $bindRet = $t->tag(
     'bind',
     'underline',
-    $t->windowingsystem ne 'aqua' ? '<3>' : '<2>',
+    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
 );
 #print "bindRet = $bindRet\n";
 ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tag bind returns callback");
@@ -107,7 +107,7 @@ my @bindRet = $t->tagBind('underline');
 #print "bindRet = $bindRet\n";
 ok(
     join(", ",@bindRet),
-    $t->windowingsystem ne 'aqua' ? '<Button-3>' : '<Button-2>',
+    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<Button-3>' : '<Button-2>',
     "text 1-arg tagBind returns list of sequences",
 );
 
@@ -129,7 +129,7 @@ $t->Subwidget('text')->bind('<Destroy>', sub{
 $t->tag(
     "bind",
     "hideable",
-    $t->windowingsystem ne 'aqua' ? '<2>' : '<3>',
+    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>',
     sub {
         $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink');
     },
