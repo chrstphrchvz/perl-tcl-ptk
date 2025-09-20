@@ -2159,7 +2159,12 @@ if (
         # See <sys/filio.h> and <sys/ioccom.h>
         return (0x40000000 | ($Config{'intsize'} << 16) | (ord('f') << 8) | 127);
     };
-} elsif ( $^O ne 'MSWin32'){
+} elsif ( $^O eq 'MSWin32'){
+    if ( $] >= 5.034 ) {
+        # See https://github.com/chrstphrchvz/perl-tcl-ptk/issues/34
+        $Tcl::pTk::_FE_unavailable = 'fileevent does not work on Windows as of Perl 5.34'
+    }
+} else {
     # Include ioctl defaults for non-Windows
     eval { require 'sys/ioctl.ph'; 1; } or do {
         # Store any error for later (e.g. sys/ioctl.ph unavailable)
