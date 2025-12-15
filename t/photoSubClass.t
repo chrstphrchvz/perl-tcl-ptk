@@ -3,7 +3,7 @@
 BEGIN { $| = 1; }
 use warnings;
 use strict;
-use Test;
+use Test::More tests => 7;
 use Tcl::pTk;
 #use Tcl::pTk::Photo;
 #use Tk;
@@ -15,34 +15,33 @@ $mw->geometry('+100+100');
 my $imagePresent = defined($Tcl::pTk::VERSION) && $mw->interp->pkg_require('Img');
 
 
-plan tests => 7;
 
 
 # Check that the width/height methods work
 my $photo = $mw->Photo(-file => 't/Xcamel.gif');
-ok($photo->width,  60, "Photo->width method problem");
-ok($photo->height, 60, "Photo->height method problem");
+is($photo->width,  60, "Photo->width method problem");
+is($photo->height, 60, "Photo->height method problem");
 
 my $label = $mw->Label(-image => $photo)->pack();
 
 # Check to see if retrieved photo works
 my $image = $label->cget(-image);
-ok($image->width,  60, "Photo->width method problem");
-ok($photo->height, 60, "Photo->height method problem");
+is($image->width,  60, "Photo->width method problem");
+is($photo->height, 60, "Photo->height method problem");
 
 my $type = $image->type();
-ok($type, 'photo', 'Unexpected type');
+is($type, 'photo', 'Unexpected type');
 
 # Make sure image names returns a Photo object.
 my @names = $mw->imageNames();
 #print "Names = ".join(", ", @names)."\n";
-ok(scalar(grep {$_ == $photo} @names), 1, 'Check for image name being a image object');
+is(scalar(grep {$_ == $photo} @names), 1, 'Check for image name being a image object');
 
 my @types = $mw->imageTypes;
 #print "imageTypes = ".join(", ", @types)."\n";
 my @expectedTypes = (qw/ Bitmap Photo Pixmap/);
 pop @expectedTypes unless( $imagePresent ); # Pixmap won't be there if Img package not there
-ok(join(", ", sort @types), join(", ", sort @expectedTypes), "Unexpected imageTypes");
+is(join(", ", sort @types), join(", ", sort @expectedTypes), "Unexpected imageTypes");
 
 # Delete the image after a second
 $mw->after(1000, sub{ $image->delete });
