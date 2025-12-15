@@ -4,6 +4,7 @@ BEGIN { $| = 1; }
 use warnings;
 use strict;
 use Test::More tests => 7;
+use Test::Deep;
 use Tcl::pTk;
 #use Tcl::pTk::Photo;
 #use Tk;
@@ -42,7 +43,7 @@ my @types = $mw->imageTypes;
 #print "imageTypes = ".join(", ", @types)."\n";
 my @expectedTypes = (qw/ Bitmap Photo Pixmap/);
 pop @expectedTypes unless( $imagePresent ); # Pixmap won't be there if Img package not there
-is(join(", ", sort @types), join(", ", sort @expectedTypes), "Unexpected imageTypes");
+cmp_deeply(\@types, supersetof(@expectedTypes), "Missing expected imageTypes");
 
 # Delete the image after a second
 $mw->after(1000, sub{ $image->delete });

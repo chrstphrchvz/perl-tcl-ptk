@@ -1,5 +1,10 @@
 Summary of Changes to Tcl::pTk
 
+1.12  2025-12-dd
+
+ * bitmapSubClass.t, photoSubClass.t: Avoid failure due to presence
+   of new image types, e.g. `Nsimage` on Tk Aqua 8.7 (TIP 639)
+
 1.11  2023-08-10
 
  * font.t: Avoid `Wide character in print` warnings
