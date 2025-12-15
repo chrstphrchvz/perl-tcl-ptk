@@ -76,7 +76,7 @@ You can also bind commands to tags. Like press the right mouse button for menu "
 
 $t->tagBind(
     "underline",
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<3>' : '<2>',
     [sub { shift; shift->Post(@_)},$m,Ev('x'),Ev('y')],
 );
 
@@ -84,7 +84,7 @@ $t->tagBind(
 # Check return of 2-arg bind for items
 my $bindRet = $t->tagBind(
     'underline',
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<3>' : '<2>',
 );
 #print "bindRet = $bindRet\n";
 ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
@@ -92,7 +92,7 @@ ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tagBind returns callback");
 $bindRet = $t->tag(
     'bind',
     'underline',
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<3>' : '<2>',
 );
 #print "bindRet = $bindRet\n";
 ok(ref($bindRet), 'Tcl::pTk::Callback', "text 2-arg tag bind returns callback");
@@ -102,7 +102,7 @@ my @bindRet = $t->tagBind('underline');
 #print "bindRet = $bindRet\n";
 ok(
     join(", ",@bindRet),
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<Button-3>' : '<Button-2>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<Button-3>' : '<Button-2>',
     "text 1-arg tagBind returns list of sequences",
 );
 
@@ -118,7 +118,7 @@ $t->Subwidget('rotext')->OnDestroy(sub {
 $t->tag(
     "bind",
     "hideable",
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<2>' : '<3>',
     sub {
         $t->tagConfigure(hideable => -elide => 1, -foreground => 'pink');
     },
@@ -129,12 +129,12 @@ my $realWidget = $t->Subwidget('rotext');
 #print "class bindings for <3> = ".join(", ", $realWidget->bind(ref($realWidget),'<3>'))."\n";
 my $binding = $realWidget->bind(
     ref($realWidget),
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<3>' : '<2>',
 );
 ok(
     ref($binding),
     'Tcl::pTk::Callback',
-    $t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1)
+    ($t->windowingsystem ne 'aqua' or ($t->interp->Eval('package vcompare $tk_version 8.6') == 1))
       ?  "Inherited <3> binding from the text widget"
       :  "Inherited <2> binding from the text widget",
 );

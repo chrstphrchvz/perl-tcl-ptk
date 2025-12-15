@@ -31,7 +31,7 @@ sub ClassInit
  # right-click menu
  $mw->bind(
    $class,
-   $mw->windowingsystem eq 'aqua' and ($mw->interp->Eval('package vcompare $tk_version 8.6') != 1) ? '<2>' : '<3>',
+   ($mw->windowingsystem eq 'aqua' and ($mw->interp->Eval('package vcompare $tk_version 8.6') != 1)) ? '<2>' : '<3>',
    ['PostPopupMenu', Tcl::pTk::Ev('X'), Tcl::pTk::Ev('Y')],
   );
  

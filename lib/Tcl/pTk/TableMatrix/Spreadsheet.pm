@@ -213,7 +213,7 @@ sub ClassInit{
 	# middle mouse button release pastes from PRIMARY (control v pastes from clipboard)
 	 $mw->bind(
 		  $class,
-		  $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<ButtonRelease-2>' : '<ButtonRelease-3>',
+		  ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<ButtonRelease-2>' : '<ButtonRelease-3>',
 		  [sub
 		   {
 		    my $w = shift;
@@ -300,7 +300,7 @@ sub Populate {
  
     # Bind a sub for right mouse button press
     $cw->bind(
-	$cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<ButtonPress-3>' : '<ButtonPress-2>',
+	($cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<ButtonPress-3>' : '<ButtonPress-2>',
 
 	[ sub {
 	

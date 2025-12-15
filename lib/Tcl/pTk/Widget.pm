@@ -2476,7 +2476,7 @@ sub MouseWheelBind
  # MouseWheel events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
-    $mw->windowingsystem eq 'aqua' and ($mw->interp->Eval('package vcompare $tk_version 8.6') != 1)
+    ($mw->windowingsystem eq 'aqua' and ($mw->interp->Eval('package vcompare $tk_version 8.6') != 1))
 	    ?  [ sub { $_[0]->yview('scroll',-($_[1]),'units') }, Tcl::pTk::Ev("D")]
 	    :  [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
 

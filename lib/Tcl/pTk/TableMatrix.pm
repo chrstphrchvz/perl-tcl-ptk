@@ -437,7 +437,7 @@ sub ClassInit
 
 $mw->bind(
   $class,
-  $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<3>' : '<2>',
+  ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<3>' : '<2>',
   [sub
    {
     my $w = shift;
@@ -452,7 +452,7 @@ $mw->bind(
 
  $mw->bind(
    $class,
-   $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B3-Motion>' : '<B2-Motion>',
+   ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<B3-Motion>' : '<B2-Motion>',
    ['border','dragto',Ev('x'),Ev('y')]
  );
  $mw->bind($class,'<1>',
@@ -523,7 +523,7 @@ $mw->bind(
  );
  $mw->bind(
   $class,
-  $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>',
+  ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<2>' : '<3>',
   [sub
    {
     my $w = shift;
@@ -536,7 +536,7 @@ $mw->bind(
  );
  $mw->bind(
   $class,
-  $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B2-Motion>' : '<B3-Motion>',
+  ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<B2-Motion>' : '<B3-Motion>',
   [sub
    {
     my $w = shift;
@@ -548,7 +548,7 @@ $mw->bind(
  );
  $mw->bind(
   $class,
-  $mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<ButtonRelease-2>' : '<ButtonRelease-3>',
+  ($mw->windowingsystem ne 'aqua' or ($mw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<ButtonRelease-2>' : '<ButtonRelease-3>',
   [sub
    {
     my $w = shift;

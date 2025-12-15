@@ -66,7 +66,7 @@ sub ctext {
 	eval {local $SIG{__DIE__}; $c->dchars(qw/text sel.first sel.last/)};
 	$c->dchars('text', 'insert');
     });
-    $c->bind('text', $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>' => sub {
+    $c->bind('text', ($MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<2>' : '<3>' => sub {
 	my($c) = @_;
         my $e = $c->XEvent;
 	$c->insert('text', $e->xy, $MW->SelectionGet);

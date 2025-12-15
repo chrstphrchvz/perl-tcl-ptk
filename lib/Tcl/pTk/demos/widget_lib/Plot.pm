@@ -86,11 +86,11 @@ sub Populate {
     $c->bind('point', '<ButtonRelease-1>' => sub {shift->dtag('selected')});
     $c->CanvasBind('<B1-Motion>' => [sub {plot_move(@_)}, \%pinfo, Ev('x'), Ev('y')]);
     $c->CanvasBind(
-        $cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>' =>
+        ($cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<2>' : '<3>' =>
             [sub {area_down(@_)}, \%pinfo, Ev('x'), Ev('y')]
     );
     $c->CanvasBind(
-        $cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B2-Motion>' : '<B3-Motion>' =>
+        ($cw->windowingsystem ne 'aqua' or ($cw->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<B2-Motion>' : '<B3-Motion>' =>
             [sub {area_move(@_)}, \%pinfo, Ev('x'), Ev('y')]
     );
 

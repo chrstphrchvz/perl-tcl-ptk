@@ -78,13 +78,13 @@ sub floor {
     });
     $c->bind('room', '<Leave>' => sub {$floor::current_room = ''});
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<2>' : '<3>' => sub {
+        ($MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<2>' : '<3>' => sub {
 	my($c) = @_;
 	my $e = $c->XEvent;
 	$c->scanMark($e->x, $e->y);
     });
     $c->CanvasBind(
-        $MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1) ? '<B2-Motion>' : '<B3-Motion>' => sub {
+        ($MW->windowingsystem ne 'aqua' or ($MW->interp->Eval('package vcompare $tk_version 8.6') == 1)) ? '<B2-Motion>' : '<B3-Motion>' => sub {
 	my($c) = @_;
 	my $e = $c->XEvent;
 	$c->scanDragto($e->x, $e->y);
