@@ -2308,11 +2308,9 @@ sub Tcl::pTk::Widget::_procValidateCommand{
         $self->{_validatecommand} = $callback;
         
         # Create command substitutions for the parameters to be supplied to the callback
-        my @TclEv = ('%P', '%P','%S', '%s', '%i', '%d'); # First entry '%P' is getting eaten by Tcl.pm, not sure why
-                                                         #  So it is repeated here twice.
+        my @TclEv = ('%P', '%S', '%s', '%i', '%d');
         my $TclEvArg = Tcl::Ev(@TclEv);
         my $tclcmd = [sub{
-                my $entry = shift;
                 my $retVal = $self->{_validatecommand}->Call(@_);
                 # Make sure we return a 1 or a zero, needed by tcl for the validate command
                 return $retVal ? 1 : 0;
