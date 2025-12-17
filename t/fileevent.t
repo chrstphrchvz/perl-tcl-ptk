@@ -11,20 +11,21 @@ use Tcl::pTk;
 use IO::File;
 
 use Test;
-my %theplan = (tests => 2);
+
+my $mw = MainWindow->new(-title => "fileevent Test");
+
 if ($Tcl::pTk::_FE_unavailable) {
         print "1..0 # Skipped: fileevent is unavailable, reason: $Tcl::pTk::_FE_unavailable\n";
+        $mw->destroy;
         exit;
 }
-plan %theplan;
+plan tests => 2;
 
 my $closed = 0;  # Flag = 1 when fileevent pipe from the child process closes
                  #  We check to see if this happens on non-windows platforms. 
                  #   This doesn't work on win32 because of issues detecting an eof on the pipe on 
                  #   win32 (without messing up buffering). This is ok for Tcl::pTk compatibility with perl/tk
                  #   because fileevent on pipes didn't work on win32 for perl/tk anyway.
- 
-my $mw = MainWindow->new(-title => "fileevent Test");
 
 my $command = qq("$^X" t/fileeventSubProcesses);
 

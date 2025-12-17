@@ -12,14 +12,15 @@ use Tcl::pTk;
 use IO::File;
 
 use Test;
-my %theplan = (tests => 1);
-if ($Tcl::pTk::_FE_unavailable) {
-        print "1..0 # Skipped: fileevent is unavailable, reason: $Tcl::pTk::_FE_unavailable\n";
-        exit;
-}
-plan %theplan;
 
 my $mw = MainWindow->new(-title => "fileevent Test");
+
+if ($Tcl::pTk::_FE_unavailable) {
+        print "1..0 # Skipped: fileevent is unavailable, reason: $Tcl::pTk::_FE_unavailable\n";
+        $mw->destroy;
+        exit;
+}
+plan tests => 1;
 
 my $command = qq("$^X" t/fileeventSubProcesses);
 
