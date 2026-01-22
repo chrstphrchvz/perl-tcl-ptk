@@ -407,6 +407,5 @@ TableMatrixDemos/TableMatrixTestWithBalloons
 TableMatrixDemos/tagBorderWidth
 TableMatrixDemos/tagMerge
 TableMatrixDemos/tagMerge2
-test-for-tk.tcl
 TODO
 widgetTclpTk
