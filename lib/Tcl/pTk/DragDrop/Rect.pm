@@ -39,8 +39,13 @@ sub Over
  my $containing = $widget->containing($X,$Y);
  #print "Containing = '$containing', widget = '$widget'\n";
  unless( defined($containing) && $containing eq $widget){
-       #print "Over site, but not containing\n";
-       $val = 0;
+       # Some Win32/perl combinations report the drag token window from
+       # winfo containing while dragging, even when geometry is over site.
+       # Fall back to geometry-only match there.
+       if (!($^O eq 'MSWin32' && $] >= 5.042)) {
+               #print "Over site, but not containing\n";
+               $val = 0;
+       }
  }
 
  return 0 unless $val;
