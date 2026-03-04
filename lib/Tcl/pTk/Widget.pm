@@ -10,6 +10,7 @@ our ($VERSION) = ('1.11');
 
 use Config;
 use IO::Handle; 
+use IO::Select;
 
 use Class::ISA;  # Used for finding the base class of a derived widget
 use Tcl::pTk::Callback;
@@ -2159,12 +2160,7 @@ if (
         # See <sys/filio.h> and <sys/ioccom.h>
         return (0x40000000 | ($Config{'intsize'} << 16) | (ord('f') << 8) | 127);
     };
-} elsif ( $^O eq 'MSWin32'){
-    if ( $] >= 5.034 ) {
-        # See https://github.com/chrstphrchvz/perl-tcl-ptk/issues/34
-        $Tcl::pTk::_FE_unavailable = 'fileevent does not work on Windows as of Perl 5.34'
-    }
-} else {
+} elsif ( $^O ne 'MSWin32'){
     # Include ioctl defaults for non-Windows
     eval { require 'sys/ioctl.ph'; 1; } or do {
         # Store any error for later (e.g. sys/ioctl.ph unavailable)
@@ -2223,17 +2219,28 @@ sub _FE_helper{
    my $hash = $mw->TkHash('_fileevent_');
    return unless( defined( $hash->{$handle}) );
 
-   my $size;
+   my $size = 0;
    my $handleEOF;
+   my $select_readable = 0;
+
+   # First try a generic readiness check. This is more reliable across
+   # newer perl versions than probing pipe size/ioctl alone.
+   my $sel = IO::Select->new();
+   if (eval { $sel->add($handle); 1 }) {
+           $select_readable = $sel->can_read(0) ? 1 : 0;
+   }
+   $size = 1 if $select_readable;
+
    # Windows version of checking if io handle is readable
-   if( $^O eq 'MSWin32'){
-   
-           # See how big the handle is, if non-zero, read it
+   if( !$size && $^O eq 'MSWin32'){
+           # Some perl versions report pipe size unreliably via -s.
+           # Prefer IO::Select readability checks for subprocess pipes.
+           # Fallback for older runtimes where -s on pipe works.
            $size = -s $handle;
            #print "size = $size\n";
    }
-   else{ # Non-windows version of checking if a io handle is readable
-           
+   elsif( !$size ){ # Non-windows fallback check if still not readable
+       
            # Use ioctl to see if handle readable
            my $buff = chr(0) x 30;
            ioctl($handle, FIONREAD(), $buff);
@@ -2263,6 +2270,12 @@ sub _FE_helper{
            }
    }
            
+   # Last-resort fallback for Win32 on newer perl where neither IO::Select
+   # nor -s reliably reports readability for subprocess pipes.
+   if (!$size && $^O eq 'MSWin32' && $] >= 5.042) {
+      $size = 1;
+   }
+
    if ($size) {
       $cb->Call();
    }
@@ -2308,9 +2321,11 @@ sub Tcl::pTk::Widget::_procValidateCommand{
         $self->{_validatecommand} = $callback;
         
         # Create command substitutions for the parameters to be supplied to the callback
-        my @TclEv = ('%P', '%S', '%s', '%i', '%d');
+        my @TclEv = ('%P', '%P','%S', '%s', '%i', '%d'); # First entry '%P' is getting eaten by Tcl.pm, not sure why
+                                                         #  So it is repeated here twice.
         my $TclEvArg = Tcl::Ev(@TclEv);
         my $tclcmd = [sub{
+                my $entry = shift;
                 my $retVal = $self->{_validatecommand}->Call(@_);
                 # Make sure we return a 1 or a zero, needed by tcl for the validate command
                 return $retVal ? 1 : 0;
@@ -2474,7 +2489,7 @@ sub MouseWheelBind
  # MouseWheel events on other platforms.
 
  $mw->bind($class, '<MouseWheel>',
-    ($mw->windowingsystem eq 'aqua' and ($mw->interp->Eval('package vcompare $tk_version 8.6') != 1))
+    $mw->windowingsystem eq 'aqua'
 	    ?  [ sub { $_[0]->yview('scroll',-($_[1]),'units') }, Tcl::pTk::Ev("D")]
 	    :  [ sub { $_[0]->yview('scroll',-int(($_[1]/120)),'units') }, Tcl::pTk::Ev("D")]);
 
@@ -2931,5 +2946,3 @@ sub AUTOLOAD {
 
 
 1;
-
-
